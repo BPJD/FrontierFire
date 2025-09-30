@@ -1,0 +1,212 @@
+using UnityEngine;
+using UnityEngine.InputSystem;
+using System.Collections;
+
+public class PlayerInputController : MonoBehaviour
+{
+    GameObject module;
+    PlayerInteract interacter;
+    CameraMovingSystem camMoveSystem;
+    PlayerWeapon weaponCur;
+    PlayerMove playerMove;
+    PlayerWeaponController playerWeaponCon;
+    public TerrainDownPlatform downPlatform { get; set; }
+
+    bool aimingPressedPrev;
+    bool sniAimingPressedPrev;
+    bool sprintPressedPrev;
+    bool shootPressedPrev;
+    int selectedWeapon = 0;
+
+    public bool isSprintToggle = true;
+
+    private void Awake()
+    {
+        module = transform.parent.gameObject;
+        interacter = GetComponentInChildren<PlayerInteract>();
+        camMoveSystem = module.GetComponentInChildren<CameraMovingSystem>();
+        playerMove = GetComponent<PlayerMove>();
+        playerWeaponCon = GetComponent<PlayerWeaponController>();
+    }
+
+    public void OnInteract()
+    {
+        interacter.Interacted();
+    }
+
+    public void OnAiming(InputValue value)
+    {
+        bool pressed = value.Get<float>() > 0.5f;
+
+        // GetButtonDown: false -> true
+        if (pressed && !aimingPressedPrev)
+        {
+            camMoveSystem.CamSpeedSet(true);
+            playerMove.isAiming = true;
+        }
+
+        // GetButtonUp: true -> false   ← 여기만 수정
+        if (!pressed && aimingPressedPrev)
+        {
+            camMoveSystem.CamSpeedSet(false);
+            playerMove.isAiming = false;
+        }
+
+        // GetButton (홀드 중)
+        // if (pressed) { ... }
+
+        aimingPressedPrev = pressed; // ← 이 위치(함수 끝) 맞습니다.
+    }
+
+    public void OnSniperAiming(InputValue value)
+    {
+        bool pressed = value.Get<float>() > 0.5f;
+
+        //GetButtonDown
+        if (pressed && !sniAimingPressedPrev && camMoveSystem.isCamRangeUp)
+        {
+            camMoveSystem.isSniAiming = true;
+        }
+
+        //GetButtonUp
+        if (!pressed && sniAimingPressedPrev && camMoveSystem.isSniAiming)
+        {
+            camMoveSystem.isSniAiming = false;
+        }
+
+        sniAimingPressedPrev = pressed;
+    }
+
+    public void OnMove(InputValue value)
+    {
+        Vector2 v = value.Get<Vector2>();
+        playerMove.MoveRequested(v);
+
+        // 이동 입력이 0이면 스프린트 종료
+        if (isSprintToggle && v.sqrMagnitude <= 0.01f)
+            playerMove.SprintEndRequested();
+    }
+
+
+    public void OnJump()
+    {
+        playerMove.JumpRequested();
+    }
+
+    public void OnDownJump()
+    {
+        if(downPlatform != null)
+        {
+            downPlatform.DownJumpRequested();
+        }
+    }
+
+    public void OnSprint(InputValue value)
+    {
+        bool pressed = value.Get<float>() > 0.5f;
+
+        //GetButtonDown
+        if (pressed && !sprintPressedPrev)
+        {
+            playerMove.SprintStartRequested();
+        }
+
+        //GetButtonUp
+        if (!pressed && sprintPressedPrev)
+        {
+            if (!isSprintToggle)
+            {
+                playerMove.SprintEndRequested();
+            }
+        }
+        sprintPressedPrev = pressed;
+    }
+
+    public void OnAttack(InputValue value)
+    {
+        bool pressed = value.Get<float>() > 0.5f;
+
+        //GetButtonDown
+        if (pressed && !shootPressedPrev && weaponCur != null)
+        {
+            weaponCur.Input_Shoot(true);
+        }
+
+        //GetButtonUp
+        if (!pressed && shootPressedPrev && weaponCur != null)
+        {
+            weaponCur.Input_Shoot(false);
+        }
+
+        shootPressedPrev = pressed;
+    }
+
+
+
+    public void OnReload()
+    {
+        if (playerWeaponCon.playersWeapons[selectedWeapon] != null && interacter.SelectedObj == null)
+        {
+            StartCoroutine(ReloadInvoke());
+        }
+    }
+
+    void WeaponChanged(int weaponNum)
+    {
+        playerWeaponCon.WeaponChangeRequested(weaponNum);
+    }
+
+    public void OnWeaponA()
+    {
+        selectedWeapon = 0;
+        WeaponChanged(selectedWeapon);
+    }
+
+    public void OnWeaponB()
+    {
+        selectedWeapon = 1;
+        WeaponChanged(selectedWeapon);
+    }
+
+    public void OnWeaponC()
+    {
+        selectedWeapon = 2;
+        WeaponChanged(selectedWeapon);
+    }
+
+    public void OnNextWeapon()
+    {
+        selectedWeapon++;
+
+        if(selectedWeapon > 2)
+        {
+            selectedWeapon = 0;
+        }
+
+        Debug.Log(selectedWeapon);
+        WeaponChanged(selectedWeapon);
+    }
+
+    public void OnPrevWeapon()
+    {
+        selectedWeapon--;
+
+        if (selectedWeapon < 0)
+        {
+            selectedWeapon = 2;
+        }
+        Debug.Log(selectedWeapon);
+        WeaponChanged(selectedWeapon);
+    }
+
+    public void Requested_WeaponReady(PlayerWeapon pWeapon) //PlayerWeapon에서 호출됨
+    {
+        weaponCur = pWeapon;
+    }
+
+    IEnumerator ReloadInvoke()
+    {
+        yield return new WaitForSeconds(0.05f);
+        weaponCur.Input_Reload();
+    }
+}

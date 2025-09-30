@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef70e0ac75c56a44fb923b0309549238, type: 3}
+  m_Name: Weapon_60019
+  m_EditorClassIdentifier: 
+  w_name: "\uBB34\uAE3020"
+  w_desc: "\uB370\uBBF8\uC9C0 \uC99D\uAC00, RPM \uAC10\uC18C"
+  w_type: 7
+  w_atkType: 0
+  w_atk: 350
+  w_range: 40
+  w_rpm: 110
+  w_magSize: 5
+  w_accuracy: 90
+  w_reloadTime: 2.5
+  e_quality: 0
+  w_usingAmmo: 1
+  w_ammoMulti: 0.1
+  w_ammoDefault: 0
+  bulletID: 3
+  isCamRangeUp: 1

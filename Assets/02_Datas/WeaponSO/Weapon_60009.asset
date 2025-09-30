@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef70e0ac75c56a44fb923b0309549238, type: 3}
+  m_Name: Weapon_60009
+  m_EditorClassIdentifier: 
+  w_name: "\uBB34\uAE3010"
+  w_desc: "\uACE0\uC815\uBC00 \uC18C\uCD1D, \uAD00\uD1B5\uB825 \uB192\uC74C"
+  w_type: 11
+  w_atkType: 2
+  w_atk: 25
+  w_range: 25
+  w_rpm: 450
+  w_magSize: 25
+  w_accuracy: 70
+  w_reloadTime: 1.5
+  e_quality: 0
+  w_usingAmmo: 2
+  w_ammoMulti: 1.35
+  w_ammoDefault: 0
+  bulletID: 3
+  isCamRangeUp: 0

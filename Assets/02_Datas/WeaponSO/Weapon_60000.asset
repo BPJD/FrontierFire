@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef70e0ac75c56a44fb923b0309549238, type: 3}
+  m_Name: Weapon_60000
+  m_EditorClassIdentifier: 
+  w_name: "\uBB34\uAE301"
+  w_desc: "\uAE30\uBCF8\uC801\uC778 \uD53C\uC2A4\uD1A8, \uBB34\uB09C\uD55C \uC131\uB2A5"
+  w_type: 0
+  w_atkType: 0
+  w_atk: 20
+  w_range: 8
+  w_rpm: 150
+  w_magSize: 12
+  w_accuracy: 65
+  w_reloadTime: 1
+  e_quality: 0
+  w_usingAmmo: 0
+  w_ammoMulti: 0
+  w_ammoDefault: 0
+  bulletID: 0
+  isCamRangeUp: 0
