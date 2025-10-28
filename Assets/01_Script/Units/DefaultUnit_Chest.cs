@@ -9,7 +9,7 @@ public class DefaultUnit_Chest : MonoBehaviour, IInteractable
 
     bool isOpened = false;
 
-    public void Interact()
+    public bool TryInteract()
     {
         Vector3 dropPos = new Vector3(transform.position.x, transform.position.y + 0.25f, 0f);
         if (!isOpened)
@@ -26,6 +26,12 @@ public class DefaultUnit_Chest : MonoBehaviour, IInteractable
             isOpened = true;
 
             GetComponent<BoxCollider>().enabled = false;
+            GetComponent<AudioSource>().Play();
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 }

@@ -85,16 +85,18 @@ public class Item_Weapon : MonoBehaviour, IInteractable
     }
 
 
-    public void Interact()
+    public bool TryInteract()
     {
         PlayerWeaponController weaponController = player.GetComponent<PlayerWeaponController>();
         if(pWeaponData.GetWeaponStatSO(weaponID).w_type != WeaponParamsSO.WeaponTypes.Default && weaponController.weaponCur == 2 && weaponController.isSlotFull)
         {
             Debug.Log("보조무기만 착용 가능한 슬롯입니다.");
+            return false;
         }
         else if (pWeaponData.GetWeaponStatSO(weaponID).w_type == WeaponParamsSO.WeaponTypes.Default && weaponController.weaponCur != 2)
         {
             Debug.Log("보조무기 슬롯에만 착용 가능합니다.");
+            return false;
         }
         else
         {
@@ -112,6 +114,7 @@ public class Item_Weapon : MonoBehaviour, IInteractable
             {
                 Destroy(gameObject);
             }
+            return true;
         }
 
             

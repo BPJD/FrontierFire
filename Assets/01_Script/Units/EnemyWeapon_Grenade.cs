@@ -11,6 +11,8 @@ public class EnemyWeapon_Grenade : MonoBehaviour
 
     EnemyAttackSystem attackSystem;
 
+    WeaponSoundPlay soundPlayer;
+
     bool hasEventTriggered = false;
 
     [SerializeField] float grenadeTiming = 0.6f;
@@ -22,6 +24,7 @@ public class EnemyWeapon_Grenade : MonoBehaviour
         grenadeMesh = GetComponent<MeshRenderer>();
         attackSystem = GetComponentInParent<EnemyAttackSystem>();
         attackSystem.SetGrenadeComponent(this);
+        soundPlayer = GetComponent<WeaponSoundPlay>();
         source = transform;
     }
 
@@ -41,6 +44,7 @@ public class EnemyWeapon_Grenade : MonoBehaviour
                 hasEventTriggered = true;
                 Target = attackSystem.target;
                 ShootGrenade();
+                soundPlayer.PlaySoundFire();
             }
 
             // 다음 루프 대비 리셋 (Looping 애니메이션 고려 시)

@@ -1,6 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 public class PlayerWeaponController : MonoBehaviour
@@ -9,6 +9,8 @@ public class PlayerWeaponController : MonoBehaviour
     public GameObject[] playersWeapons;
     int[] playersWeaponIDs = {0, 0, 60000};
     PlayerWeaponData weaponData;
+    Data_UI dataUI;
+    UI_Weapon weaponUI;
     PlayerMove playerMove;
 
     [SerializeField] GameObject weaponProp;
@@ -22,33 +24,58 @@ public class PlayerWeaponController : MonoBehaviour
 
     public bool[] isAmmoTypeUsing { get; private set; } = { false, false };
     public bool[] isAmmoFullbyType = { false, false };
-    
 
-    private void Awake()
+    [SerializeField] AudioSource playerSound;
+    [SerializeField] AudioClip sound_weaponGet, sound_weaponChange;
+    [SerializeField] AudioClip sound_ammoGet;
+
+    void OnEnable()
     {
-        weaponData = GameObject.FindGameObjectWithTag("Data").GetComponent<PlayerWeaponData>();
-        playerMove = GetComponent<PlayerMove>();
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnDisable()
     {
-        /*
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        // æ¿¿Ã πŸ≤Ó∏È
+        weaponUI = GameObject.FindGameObjectWithTag("UI").GetComponent<UI_Weapon>();
+        playerMove = GetComponent<PlayerMove>();
+
+        weaponData = GameObject.FindGameObjectWithTag("Data").GetComponent<PlayerWeaponData>();
+        dataUI = weaponData.gameObject.GetComponent<Data_UI>();
+
+        CheckWeaponUI();
+        WeaponChangeRequested(2);
+
         for (int i = 0; i < playersWeapons.Length; i++)
         {
-            KeyCode key = KeyCode.Alpha1 + i;
-
-            if (Input.GetKeyDown(key) && playersWeapons[i] != null)
+            if(playersWeapons[i] != null)
             {
-                weaponCur = i;
-                WeaponReady(weaponCur);
-                break;
+                int weaponID = playersWeaponIDs[i];
+                WeaponStatus weaponStat = playersWeapons[i].GetComponent<WeaponStatus>();
+                int weaponType = (int)weaponData.GetWeaponStatSO(weaponID).w_type;
+                Sprite _weaponIcon = dataUI.GetImageByWeaponType(weaponType, weaponStat.weaponIcon);
+
+                weaponUI.SetImageIcon(i, _weaponIcon);
+            }
+            else
+            {
+                Debug.Log("Skip");
+                continue;
             }
         }
-        */
+        
     }
 
 
+    public AudioSource GetPlayerAudioSource()
+    {
+        return playerSound;
+    }
 
     public void WeaponChangeRequested(int weaponSlot)
     {
@@ -119,20 +146,38 @@ public class PlayerWeaponController : MonoBehaviour
 
         playersWeapons[weaponCur].GetComponent<WeaponStatUpgrade>().ApplyUpgradeByWeaponEquip(list);
 
+        Sprite _weaponIcon = dataUI.GetImageByWeaponType(weaponType, weaponStat.weaponIcon);
 
+        CheckWeaponUI();
+        weaponUI.SetImageIcon(weaponCur, _weaponIcon);
 
+        playerSound.PlayOneShot(sound_weaponGet);
         UsingWeaponCheck();
         WeaponReady(weaponCur);
         CheckAmmoFull();
     }
 
+    void CheckWeaponUI()
+    {
+        if (weaponUI == null)
+        {
+            weaponUI = GameObject.FindGameObjectWithTag("UI").GetComponent<UI_Weapon>();
+        }
+    }
 
     public void WeaponReady(int slot)
     {
+        CheckWeaponUI();
         for (int i = 0; i < playersWeapons.Length; i++)
         {
             if (playersWeapons[i] != null)
-                playersWeapons[i].SetActive(i == slot);
+            {
+                bool isOn = i == slot;
+                playersWeapons[i].SetActive(isOn);
+                weaponUI.SetWeaponSelectedUI(i, isOn);
+                playerSound.PlayOneShot(sound_weaponChange);
+            }
+                
         }
     }
 
@@ -194,6 +239,7 @@ public class PlayerWeaponController : MonoBehaviour
             weaponStat.ammoCur = Mathf.Clamp(weaponStat.ammoCur + Mathf.RoundToInt(weaponStat.ammoMax * getAmmoValue), 1, weaponStat.ammoMax);
 
         }
+        playerSound.PlayOneShot(sound_ammoGet);
         CheckAmmoFull();
     }
 
@@ -254,6 +300,17 @@ public class PlayerWeaponController : MonoBehaviour
             if (weaponStat.ammoCur < weaponStat.ammoMax)
             {
                 isAmmoFullbyType[ammoType] = false;
+            }
+        }
+    }
+
+    public void ApplyUnitUpgrade()
+    {
+        for (int i = 0; i < playersWeapons.Length; i++)
+        {
+            if (playersWeapons[i] != null)
+            {
+                playersWeapons[i].GetComponent<WeaponStatus>().ApplyStatusInSystem();
             }
         }
     }

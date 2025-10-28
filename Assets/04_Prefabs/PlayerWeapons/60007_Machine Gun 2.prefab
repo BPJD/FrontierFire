@@ -61,6 +61,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -82,6 +84,7 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -133,6 +136,7 @@ GameObject:
   - component: {fileID: 8477294235773912635}
   - component: {fileID: 6257463697456043766}
   - component: {fileID: 5414466713246159195}
+  - component: {fileID: 5248090861474979989}
   m_Layer: 0
   m_Name: 60007_Machine Gun 2
   m_TagString: Untagged
@@ -188,6 +192,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -211,6 +217,7 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -228,6 +235,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponDataSource: {fileID: 11400000, guid: 8425eca5223dbb746a04eedf52f94524, type: 2}
+  w_params:
+    w_name: 
+    w_desc: 
+    w_type: 0
+    w_usingAmmo: 0
+    w_atkType: 0
+    w_atk: 0
+    w_range: 0
+    w_rpm: 0
+    w_magSize: 0
+    w_accuracy: 0
+    w_reloadTime: 0
+    e_quality: 0
+    w_ammoMulti: 0
+    w_ammoDefault: 0
+    bulletID: 0
+    isCamRangeUp: 0
+  weaponIcon: {fileID: 0}
 --- !u!114 &8477294235773912635
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -248,6 +273,7 @@ MonoBehaviour:
   magMax: 0
   ammoCur: 0
   pickCount: 0
+  bulletCount: 1
   bullet_angleError: 0
   isDefaultWeapon: 0
 --- !u!114 &6257463697456043766
@@ -275,42 +301,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99d0d8f57cc2de84593294a563f3b576, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upParamsPlus:
-    w_name: 
-    w_desc: 
-    w_type: 0
-    w_usingAmmo: 0
-    w_atkType: 0
-    w_atk: 0
-    w_range: 0
-    w_rpm: 0
-    w_magSize: 0
-    w_accuracy: 0
-    w_reloadTime: 0
-    e_quality: 0
-    w_ammoMulti: 0
-    w_ammoDefault: 0
-    bulletID: 0
-    isCamRangeUp: 0
-  upParamsMulti:
-    w_name: 
-    w_desc: 
-    w_type: 0
-    w_usingAmmo: 0
-    w_atkType: 0
-    w_atk: 0
-    w_range: 0
-    w_rpm: 0
-    w_magSize: 0
-    w_accuracy: 0
-    w_reloadTime: 0
-    e_quality: 0
-    w_ammoMulti: 0
-    w_ammoDefault: 0
-    bulletID: 0
-    isCamRangeUp: 0
-  code: 0
-  value: 0
+  debug_Code: 0
+--- !u!114 &5248090861474979989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3569619645141373669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd06495d71f4b4a45b73d254b5bcc5d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponSoundPlay
+  soundFires:
+  - {fileID: 8300000, guid: 2b9dac32b13ec2f44bda17bdcd7ca6c2, type: 3}
+  - {fileID: 8300000, guid: b42cbb10272c6994188546e641006b0e, type: 3}
+  - {fileID: 8300000, guid: 1d82c9b8be92870448c3a0ef794807c7, type: 3}
+  soundReloadStart: {fileID: 8300000, guid: ca00005ab2bee7f48bcf6b2b01967b9a, type: 3}
+  soundReloadEnd: {fileID: 8300000, guid: b913e80fcc8ff954e9ea09035b087067, type: 3}
 --- !u!1 &5078648243398019431
 GameObject:
   m_ObjectHideFlags: 0
@@ -372,6 +381,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -393,6 +404,7 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0

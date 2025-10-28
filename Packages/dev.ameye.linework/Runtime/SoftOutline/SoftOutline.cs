@@ -513,7 +513,6 @@ namespace Linework.SoftOutline
                     maskCmd.Clear();
                     
                     var sortingCriteria = renderingData.cameraData.defaultOpaqueSortFlags;
-                    var renderQueueRange = RenderQueueRange.opaque;
                     
                     var maskIndex = 0;
                     foreach (var outline in settings.Outlines)
@@ -523,6 +522,14 @@ namespace Linework.SoftOutline
                             maskIndex++;
                             continue;
                         }
+                        
+                        var renderQueueRange = outline.renderQueue switch
+                        {
+                            OutlineRenderQueue.Opaque => RenderQueueRange.opaque,
+                            OutlineRenderQueue.Transparent => RenderQueueRange.transparent,
+                            OutlineRenderQueue.OpaqueAndTransparent => RenderQueueRange.all,
+                            _ => throw new ArgumentOutOfRangeException()
+                        };
 
                         var drawingSettings = RenderingUtils.CreateDrawingSettings(RenderUtils.DefaultShaderTagIds, ref renderingData, sortingCriteria);
                         drawingSettings.overrideMaterial = mask;
@@ -567,8 +574,6 @@ namespace Linework.SoftOutline
                     silhouetteCmd.Clear();
                     
                     var sortingCriteria = renderingData.cameraData.defaultOpaqueSortFlags;
-                    var renderQueueRange = RenderQueueRange.opaque;
-                    
                     var i = 0;
                     foreach (var outline in settings.Outlines)
                     {
@@ -577,6 +582,14 @@ namespace Linework.SoftOutline
                             i++;
                             continue;
                         }
+                        
+                        var renderQueueRange = outline.renderQueue switch
+                        {
+                            OutlineRenderQueue.Opaque => RenderQueueRange.opaque,
+                            OutlineRenderQueue.Transparent => RenderQueueRange.transparent,
+                            OutlineRenderQueue.OpaqueAndTransparent => RenderQueueRange.all,
+                            _ => throw new ArgumentOutOfRangeException()
+                        };
 
                         var drawingSettings = RenderingUtils.CreateDrawingSettings(RenderUtils.DefaultShaderTagIds, ref renderingData, sortingCriteria);
                         if (!outline.vertexAnimation)

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7440281941477485951}
   - component: {fileID: -8082951852470896111}
   - component: {fileID: 4838345314011187919}
+  - component: {fileID: 3851199991145592185}
   m_Layer: 12
   m_Name: Weapon_EnemyGrenade_00
   m_TagString: Projectile
@@ -64,6 +65,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -85,6 +88,7 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -146,6 +150,25 @@ MonoBehaviour:
     TriggerCollisionsAfterEnd: 0
   unitAnimator: {fileID: 0}
   grenadeTiming: 0.43
+--- !u!114 &3851199991145592185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1134465150209754902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd06495d71f4b4a45b73d254b5bcc5d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponSoundPlay
+  soundFires:
+  - {fileID: 8300000, guid: 0197f59c72099b145a4ac5d33084eee1, type: 3}
+  - {fileID: 8300000, guid: 6228bf4baee70ce46a0d63f564b25113, type: 3}
+  - {fileID: 8300000, guid: dc52ffc8ee20be4419524dad569e5e6a, type: 3}
+  - {fileID: 8300000, guid: 89ebc03b34518e5459476c3bbca0bfbe, type: 3}
+  soundReloadStart: {fileID: 0}
+  soundReloadEnd: {fileID: 0}
 --- !u!1 &1426099983934656054
 GameObject:
   m_ObjectHideFlags: 0

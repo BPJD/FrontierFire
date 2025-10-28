@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -31,7 +32,7 @@ public class PlayerWeapon : MonoBehaviour
 
     string[] weaponDrawAniStrs = {"PistolDraw", "ARDraw", "SRDraw", "RocketDraw"};
 
-    UI_Magazine uiMag;
+    UI_Weapon uiWeapon;
     public int magCur;
     public int magMax;
     public int ammoCur;
@@ -50,6 +51,8 @@ public class PlayerWeapon : MonoBehaviour
 
     ParticleSystem eft_Muzzle;
 
+    WeaponSoundPlay soundPlayer;
+
     private void Awake()
     {
         if (GetComponentInParent<PlayerMove>() == null)
@@ -65,12 +68,13 @@ public class PlayerWeapon : MonoBehaviour
         shootingStat = GetComponentInParent<PlayerShootingStat>();
         gunAnimator = GetComponentInParent<PlayerAnimatorLook>();
         parData = GetComponentInParent<Gun_Parent_Data>();
-        uiMag = GameObject.Find("UI").GetComponent<UI_Magazine>();
+        uiWeapon = GameObject.Find("UI").GetComponent<UI_Weapon>();
         eft_Muzzle = GetComponentInChildren<ParticleSystem>();
         tr = transform;
         reloadSpeedCur = weaponStat.reloadSpeed;
         weaponController = GetComponentInParent<PlayerWeaponController>();
         inputController = GetComponentInParent<PlayerInputController>();
+        soundPlayer = GetComponent<WeaponSoundPlay>();
         
     }
 
@@ -161,9 +165,7 @@ public class PlayerWeapon : MonoBehaviour
                     Shoot_Normal();
                 }
 
-
-
-
+                soundPlayer.PlaySoundFire();
                 eft_Muzzle.Play(true);
 
                 magCur--;
@@ -182,7 +184,7 @@ public class PlayerWeapon : MonoBehaviour
     void Shoot_Normal()
     {
         GameObject bullet = bulletPool.GetObject();
-        //bullet.GetComponent<Bullet>().SetBulletStatus(weaponStat.bulletAtk, weaponStat.bulletRange);
+        //bullet.GetComponent<Bullet>().SetBulletStatus(weaponStat.bulletAtk, weaponStat.bulletRange, 0f);
         Transform bulletTr = bullet.transform;
         bulletTr.position = new Vector3(fireTr.position.x, fireTr.position.y, 0f);
 
@@ -203,7 +205,7 @@ public class PlayerWeapon : MonoBehaviour
         for (int i = 0; i < bulletCount; i++)
         {
             GameObject bullet = bulletPool.GetObject();
-            //bullet.GetComponent<Bullet>().SetBulletStatus(weaponStat.bulletAtk, weaponStat.bulletRange);
+            //bullet.GetComponent<Bullet>().SetBulletStatus(weaponStat.bulletAtk, weaponStat.bulletRange, 0f);
             Transform bulletTr = bullet.transform;
             bulletTr.position = new Vector3(fireTr.position.x, fireTr.position.y, 0f);
 
@@ -237,46 +239,52 @@ public class PlayerWeapon : MonoBehaviour
 
             // 3. 총기 애니메이션 핸들링 (별도 처리)
             gunAnimator.GunReload(true);
-
+            soundPlayer.PlaySoundReload(true);
 
         }
     }
 
     void OnReloadComplete()
     {
+        soundPlayer.PlaySoundReload(false);
+
+        StartCoroutine(AmmoLoad());
+    }
+
+    IEnumerator AmmoLoad()
+    {
+        yield return new WaitForSeconds(0.3f);
+
         gunAnimator.GunReload(false);
         isReloading = false;
 
-        AmmoLoad();
-    }
-
-    void AmmoLoad()
-    {
         if (magCur >= magMax || weaponStat.ammoCur <= 0)
         {
             Debug.Log("재장전 불가능");
-            return;
+        }
+        else
+        {
+            int neededAmmo = magMax - magCur; // 채워야 할 탄약
+            int ammoToLoad = Mathf.Min(neededAmmo, weaponStat.ammoCur); // 실제로 로드할 탄약 수
+
+            magCur += ammoToLoad;
+            weaponStat.ammoCur -= ammoToLoad;
+            weaponController.CheckAmmoFull();
         }
 
-        int neededAmmo = magMax - magCur; // 채워야 할 탄약
-        int ammoToLoad = Mathf.Min(neededAmmo, weaponStat.ammoCur); // 실제로 로드할 탄약 수
-
-        magCur += ammoToLoad;
-        weaponStat.ammoCur -= ammoToLoad;
-        weaponController.CheckAmmoFull();
     }
 
     void MagUISet()
     {
-        if (uiMag != null)
+        if (uiWeapon != null)
         {
             if (isDefaultWeapon)
             {
-                uiMag.textMesh.text = "999+" + '/' + magCur.ToString();
+                uiWeapon.textMesh.text = "999+" + '/' + magCur.ToString();
             }
             else
             {
-                uiMag.textMesh.text = weaponStat.ammoCur.ToString() + '/' + magCur.ToString();
+                uiWeapon.textMesh.text = weaponStat.ammoCur.ToString() + '/' + magCur.ToString();
             }
             
         }

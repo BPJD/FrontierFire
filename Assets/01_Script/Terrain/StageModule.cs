@@ -20,17 +20,20 @@ public class StageModule : MonoBehaviour
     public bool isBossStage = false;
     bool nextIsBoss = false;
 
+    GameSoundPlayer soundPlayer;
 
-    private void Awake()
+    Data_AudioClips clipData;
+    [SerializeField] GameSoundPlayer.SoundType portalSoundType = GameSoundPlayer.SoundType.SFX;
+
+    void Start()
     {
         portalData = GameObject.FindGameObjectWithTag("Data").GetComponent<DataPortals>();
         enemyData = GameObject.FindGameObjectWithTag("Data").GetComponent<Data_Enemies>();
         playerUnit = GameObject.FindGameObjectWithTag("Player");
+        soundPlayer = GameObject.FindGameObjectWithTag("Sound").GetComponent<GameSoundPlayer>();
+        clipData = soundPlayer.gameObject.GetComponent<Data_AudioClips>();
         broadcastManager = GetComponent<EnemyAIBroadcastManager>();
-    }
 
-    void Start()
-    {
         PlayerMoveToStart();
 
 
@@ -157,19 +160,24 @@ public class StageModule : MonoBehaviour
 
     void PortalGenerate()
     {
+        AudioClip _clip = clipData.GetPortalSoundClipByPortalType(0);
 
         if (nextIsBoss)
         {
+            _clip = clipData.GetPortalSoundClipByPortalType(2);
             Instantiate(portalData.portalObjs[2], portalPoints[0].position, Quaternion.identity, transform);
+            soundPlayer.GameSoundPlayByType(_clip, portalSoundType);
         }
         else
         {
+            soundPlayer.GameSoundPlayByType(_clip, portalSoundType);
             if (isBossStage)
             {
-
+                Instantiate(portalData.stageClearPortalObj, portalPoints[0].position, Quaternion.identity, transform);
             }
             else
             {
+
                 for (int i = 0; i < portalPoints.Length; i++)
                 {
                     int _rand = Random.Range(0, 2);

@@ -45,11 +45,13 @@ namespace Linework.FastOutline
         public static readonly int OutlineOccludedColor = Shader.PropertyToID("_OutlineOccludedColor");
         public static readonly int OutlineWidth = Shader.PropertyToID("_OutlineWidth");
         public static readonly int MinOutlineWidth = Shader.PropertyToID("_MinimumOutlineWidth");
+        public static readonly int ReferenceResolution = Shader.PropertyToID("_ReferenceResolution");
     }
 
     static class ShaderFeature
     {
         public const string ScaleWithDistance = "SCALE_WITH_DISTANCE";
+        public const string ScaleWithResolution = "SCALE_WITH_RESOLUTION";
         public const string Occlusion = "OCCLUSION";
     }
 
@@ -83,5 +85,17 @@ namespace Linework.FastOutline
     {
         ConstantScreenSize,
         ScaleWithDistance
+    }
+    
+    public enum Resolution
+    {
+        [InspectorName("480px")]
+        _480,
+        [InspectorName("720px")]
+        _720,
+        [InspectorName("1080px")]
+        _1080,
+        [InspectorName("Custom")]
+        Custom
     }
 }

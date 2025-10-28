@@ -1,10 +1,13 @@
 using UnityEngine;
+using static StatUpgradesSO;
+
 
 public class Item_StatUpgrade : MonoBehaviour, IInteractable
 {
     GameObject player;
     UnitStatUpgrade playerStatUp;
     Data_StatUpgrades upgradeData;
+    Data_UpgradeModels upgradeProp;
 
     [SerializeField] bool isDebug = false;
 
@@ -14,6 +17,9 @@ public class Item_StatUpgrade : MonoBehaviour, IInteractable
     [SerializeField] float statValue;
 
     Item_ToolTip toolTip;
+    [SerializeField] Transform ItemTr;
+    [SerializeField] AudioClip[] sounds_itemGet;
+
 
     void Awake()
     {
@@ -38,22 +44,27 @@ public class Item_StatUpgrade : MonoBehaviour, IInteractable
         if (player && !playerStatUp)
             playerStatUp = player.GetComponent<UnitStatUpgrade>();
 
-        if (!upgradeData)
+        if (!upgradeData || !upgradeProp)
         {
             var dataObj = GameObject.FindGameObjectWithTag("Data");
-            if (dataObj) upgradeData = dataObj.GetComponent<Data_StatUpgrades>();
+            if (dataObj)
+            {
+                upgradeData = dataObj.GetComponent<Data_StatUpgrades>();
+                upgradeProp = dataObj.GetComponent<Data_UpgradeModels>();
+            }
         }
     }
 
     void SetStatUpgradeID()
     {
-        if (!upgradeData) SetComponent();
+        if (!upgradeData || !upgradeProp) SetComponent();
 
-        int upgradeCount = upgradeData.GetStatUpCount();
-        int id = upgradeData.GetWeaponIDbyList(Random.Range(0, upgradeCount));
+        int id = upgradeData.GetRandomIdByRolledRarity();
 
         upStatID = id;
         upgradeSO = upgradeData.GetStatUp(id);
+
+        upgradeProp.InstanceStatUpObj(ItemTr, upgradeSO.up_category, upgradeSO.up_tier);
 
         StatSystemIDSet();
     }
@@ -83,17 +94,44 @@ public class Item_StatUpgrade : MonoBehaviour, IInteractable
         }
     }
 
-    public void Interact()
+    public bool TryInteract()
     {
         if (!playerStatUp) SetComponent();
         if (playerStatUp)
             playerStatUp.UpgradeStatPackageById(upStatID); // ★ 패키지 적용
         InteractComplete();
+
+        return true;
+    }
+
+    AudioClip GetClip(int itemClass)
+    {
+        switch (itemClass)
+        {
+            case 0:
+            case 1:
+                return sounds_itemGet[0];
+            case 2:
+            case 3:
+                return sounds_itemGet[1];
+            case 4:
+            case 5:
+                return sounds_itemGet[2];
+            default:
+                return sounds_itemGet[0];
+        }
     }
 
     void InteractComplete()
     {
         Debug.Log("업그레이드 먹음.");
+
+        AudioClip _clip = GetClip(upgradeSO.up_tier);
+        player.GetComponentInChildren<AudioSource>().PlayOneShot(_clip);
+
+        Transform playerTr = player.transform;
+        GameObject _getEft = Instantiate(upgradeProp.GetClassGetEft(upgradeSO.up_tier), playerTr.position + Vector3.up, Quaternion.identity, playerTr);
+        Destroy(_getEft, 5f);
 
         // 1) 기존의 부모 ItemSelector 알림 (네 프로젝트 고유)
         // *클래스 이름 충돌을 피하려면, 내 선택 스캐너는 다른 이름 사용*

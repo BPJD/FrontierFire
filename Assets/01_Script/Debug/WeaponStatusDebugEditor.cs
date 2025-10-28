@@ -60,7 +60,7 @@ public class WeaponStatusDebugEditor : Editor
             return;
         }
 
-        // 필드 값 꺼내기 (WeaponParams의 public 필드 사용)
+        // WeaponParams 값 읽기
         int cur_atk = GetInt(cur, "w_atk");
         int def_atk = GetInt(def, "w_atk");
         int cur_rpm = GetInt(cur, "w_rpm");
@@ -78,7 +78,7 @@ public class WeaponStatusDebugEditor : Editor
         float cur_range = GetFloat(cur, "w_range");
         float def_range = GetFloat(def, "w_range");
         int cur_usingAmmo = GetInt(cur, "w_usingAmmo");
-        int cur_atkType = GetInt(cur, "w_atkType");
+        int cur_atkType = GetInt(cur, "w_atkType"); // enum의 int값
 
         // === 기본/현재 값 표 ===
         showBaseCur = EditorGUILayout.Foldout(showBaseCur, "기본값 vs 현재값 (WeaponParams)");
@@ -114,6 +114,68 @@ public class WeaponStatusDebugEditor : Editor
             EditorGUILayout.LabelField($"총알 공격력(bulletAtk): {bulletAtk}");
             EditorGUILayout.LabelField($"총알 사거리(bulletRange): {bulletRange:0.00}");
             EditorGUILayout.LabelField($"재장전 속도(reloadSpeed): {reloadSpeed:0.00}");
+
+            // ====== bulletAtk 계산식 (확정 식) 출력 ======
+            var unit = ws.GetComponentInParent<UnitStatus>();
+            if (unit != null)
+            {
+                var unitType = typeof(UnitStatus);
+                var propAtkCur = unitType.GetProperty("atkCur", BindingFlags.Public | BindingFlags.Instance);
+                var propDamageCur = unitType.GetProperty("damageCur", BindingFlags.Public | BindingFlags.Instance);
+                var propUnitParams = unitType.GetProperty("unitParams", BindingFlags.Public | BindingFlags.Instance);
+                var propCriRate = unitType.GetProperty("criRate", BindingFlags.Public | BindingFlags.Instance);
+                var propCriDamage = unitType.GetProperty("criDamage", BindingFlags.Public | BindingFlags.Instance);
+
+                int atkCur_val = propAtkCur != null ? (int)propAtkCur.GetValue(unit) : 0;   // 현재 구조: u_atk (피해량 미포함)
+                float damageCur_val = propDamageCur != null ? (float)propDamageCur.GetValue(unit) : 1f;  // 현재 구조: u_damage
+                object uparams = propUnitParams != null ? propUnitParams.GetValue(unit) : null;
+                int u_atk = uparams != null ? GetInt(uparams, "u_atk") : 0;
+                float u_dmg = uparams != null ? GetFloat(uparams, "u_damage") : 1f;
+
+                // "Fixed"인지 판별: bulletAtk == weaponAtk 라면 사실상 Fixed로 간주(간편 기준)
+                bool isFixedLike = (bulletAtk == cur_atk);
+
+                EditorGUILayout.Space(6);
+                EditorGUILayout.LabelField("— bulletAtk 계산식 —", EditorStyles.miniBoldLabel);
+
+                if (isFixedLike)
+                {
+                    EditorGUILayout.LabelField("✓ Fixed 타입: bulletAtk = weaponAtk");
+                    EditorGUILayout.LabelField($"  = {cur_atk}");
+                }
+                else
+                {
+                    int calc = Mathf.CeilToInt((cur_atk + atkCur_val) * damageCur_val);
+                    EditorGUILayout.LabelField("✓ Scaling 타입: bulletAtk = ceil((weaponAtk + atkCur) × damageCur)");
+                    EditorGUILayout.LabelField($"  = ceil(({cur_atk} + {atkCur_val}) × {damageCur_val:0.###}) = {calc}");
+                    if (calc != bulletAtk)
+                    {
+                        EditorGUILayout.HelpBox($"표시 계산값({calc})과 실제 bulletAtk({bulletAtk})이 다릅니다. 내부 로직/반올림 차이/타 보정(예: 탄약 계수)이 개입했는지 확인하세요.", MessageType.Info);
+                    }
+                }
+
+                // 참고용: 플레이어 스탯 분해표
+                EditorGUILayout.Space(6);
+                EditorGUILayout.LabelField("— Player Stat Snapshot —", EditorStyles.miniBoldLabel);
+                EditorGUILayout.LabelField($"u_atk = {u_atk}, u_damage = {u_dmg:0.###}  →  atkCur(현재 구조) = {atkCur_val}, damageCur = {damageCur_val:0.###}");
+
+                // (옵션) 크리티컬 한방 데미지 예시 (샷건 보정 미포함, 투사체 지점의 보정은 별도)
+                if (propCriRate != null && propCriDamage != null)
+                {
+                    float criRate = (float)propCriRate.GetValue(unit);    // 0~1로 관리된다면 적절히 변환 필요
+                    float criDmgP = (float)propCriDamage.GetValue(unit);  // % 단위라고 가정 (예: 50 => +50%)
+                    int critOne = Mathf.RoundToInt(bulletAtk * (1f + criDmgP * 0.01f));
+
+                    EditorGUILayout.Space(6);
+                    EditorGUILayout.LabelField("— Crit 예시 (샷건 보정 미포함) —", EditorStyles.miniBoldLabel);
+                    EditorGUILayout.LabelField($"critDamage% = {criDmgP:0.##}% → critDmg ≈ {critOne}");
+                    EditorGUILayout.LabelField($"* 실제 투사체에서는 damageRevisionShotGun 등 추가 보정이 곱해질 수 있습니다.");
+                }
+            }
+            else
+            {
+                EditorGUILayout.HelpBox("부모에서 UnitStatus를 찾지 못했습니다. bulletAtk 계산식을 표시할 수 없습니다.", MessageType.Info);
+            }
         }
 
         // === 업그레이드 누적 버킷 ===
@@ -128,9 +190,8 @@ public class WeaponStatusDebugEditor : Editor
             }
             else
             {
-                // private dict 읽기: add / mult / multPercent 지원
-                var addDict = GetDict(up, "add"); // Dictionary<int,float>
-                var multDict = GetDict(up, "mult"); // Dictionary<int,float> (0.30 = +30)
+                var addDict = GetDict(up, "add");        // Dictionary<int,float>
+                var multDict = GetDict(up, "mult");       // Dictionary<int,float> (0.30 = +30)
                 if (multDict == null)
                     multDict = GetDict(up, "multPercent"); // 대안 필드명
 

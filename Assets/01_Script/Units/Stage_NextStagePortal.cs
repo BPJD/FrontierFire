@@ -5,7 +5,10 @@ public class Stage_NextStagePortal : MonoBehaviour, IInteractable
     public enum PortalType { Normal, Elite, Boss}
     [SerializeField] PortalType nextMapType = PortalType.Normal;
 
-    public void Interact()
+    AudioSource soundPlayer;
+    [SerializeField] AudioClip sound_Interact;
+
+    public bool TryInteract()
     {
         if (nextMapType != PortalType.Boss)
         {
@@ -15,6 +18,10 @@ public class Stage_NextStagePortal : MonoBehaviour, IInteractable
         {
             GameObject.FindGameObjectWithTag("GameController").GetComponent<Control_Stage>().BossStagePlay();
         }
+
+        soundPlayer = GetComponent<AudioSource>();
+        soundPlayer.PlayOneShot(sound_Interact);
+        return true;
     }
 
 }

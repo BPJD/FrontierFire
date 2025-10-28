@@ -74,6 +74,26 @@ namespace Linework.FastOutline
                     material.SetColor(CommonShaderPropertyId.OutlineColor, outline.color);
                     material.SetColor(ShaderPropertyId.OutlineOccludedColor, outline.occlusion == Occlusion.WhenOccluded ? outline.color : outline.occludedColor);
                     material.SetFloat(ShaderPropertyId.OutlineWidth, outline.width);
+                    
+                    // Scale with resolution.
+                    if (outline.scaleWithResolution) material.EnableKeyword(ShaderFeature.ScaleWithResolution);
+                    else material.DisableKeyword(ShaderFeature.ScaleWithResolution);
+                    switch (outline.referenceResolution)
+                    {
+                        case Resolution._480:
+                            material.SetFloat(ShaderPropertyId.ReferenceResolution, 480.0f);
+                            break;
+                        case Resolution._720:
+                            material.SetFloat(ShaderPropertyId.ReferenceResolution, 720.0f);
+                            break;
+                        case Resolution._1080:
+                            material.SetFloat(ShaderPropertyId.ReferenceResolution, 1080.0f);
+                            break;
+                        case Resolution.Custom:
+                            material.SetFloat(ShaderPropertyId.ReferenceResolution, outline.customResolution);
+                            break;
+                    }
+                    
                     if (outline.extrusionMethod == ExtrusionMethod.ClipSpaceNormalVector)
                     {
                         material.SetFloat(ShaderPropertyId.OutlineWidth, outline.width);
@@ -229,9 +249,6 @@ namespace Linework.FastOutline
                     }
                     
                     var drawingSettings = RenderingUtils.CreateDrawingSettings(RenderUtils.DefaultShaderTagIds, renderingData, cameraData, lightData, sortingCriteria);
-                    drawingSettings.overrideMaterial = outline.gpuInstancing ? outline.materialInstanced : outline.material;
-                    drawingSettings.overrideMaterialPassIndex = (int) outline.extrusionMethod;
-                    drawingSettings.enableInstancing = outline.gpuInstancing;
                     switch (outline.materialType)
                     {
                         case MaterialType.Basic:

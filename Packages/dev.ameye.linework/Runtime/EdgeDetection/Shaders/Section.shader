@@ -127,7 +127,7 @@ Shader "Hidden/Outlines/Edge Detection/Section"
 
                 // Object id.
                 #if defined(OBJECT_ID)
-                id = hash(GetAbsolutePositionWS(UNITY_MATRIX_M._m03_m13_m23));
+                id = hash(GetAbsolutePositionWS(UNITY_MATRIX_M._m03_m13_m23)) + 0.01;
                 #if defined(PARTICLES)
                 float particle_id = frac(dot(IN.uv.zw, IN.uv.zw) * 0.3);
                 id = max(id, particle_id);

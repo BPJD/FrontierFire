@@ -1,5 +1,6 @@
-using UnityEngine;
+using Combat;
 using System.Collections;
+using UnityEngine;
 using static Michsky.UI.Heat.GradientFilter;
 using static UnityEngine.ParticleSystem;
 
@@ -16,6 +17,7 @@ public class EnemyAttackSystem : MonoBehaviour
     [SerializeField] Transform handTr;
     EnemyWeapon_Trasnforms weaponTrInfo;
     public GameObject bulletObj { get; private set; }
+    WeaponSoundPlay w_soundPlayer;
 
 
     [Header("WeaponStats")]
@@ -81,6 +83,7 @@ public class EnemyAttackSystem : MonoBehaviour
         GameObject _weapon = Instantiate(weaponProp);
         weaponProp = _weapon;
         weaponTrInfo = _weapon.GetComponent<EnemyWeapon_Trasnforms>();
+        w_soundPlayer = _weapon.GetComponent<WeaponSoundPlay>();
 
         switch (weaponTrInfo.weaponAniType)
         {
@@ -226,7 +229,7 @@ public class EnemyAttackSystem : MonoBehaviour
 
     IEnumerator AttackGun()
     {
-        while (isEngage)
+        while (isEngage && !isDead)
         {
             for(int i = 0; i < attackCount; i++)
             {
@@ -243,7 +246,7 @@ public class EnemyAttackSystem : MonoBehaviour
 
     IEnumerator AttackMelee()
     {
-        while (isEngage)
+        while (isEngage && !isDead)
         {
             aniCon.SetTrigger("Attack");
 
@@ -261,11 +264,12 @@ public class EnemyAttackSystem : MonoBehaviour
     IEnumerator AttackSniper()
     {
         Enemy_AimingLine line = lineObj.GetComponent<Enemy_AimingLine>();
-        while (isEngage && !gameObject.CompareTag("Dead"))
+        while (isEngage && !gameObject.CompareTag("Dead") && !isDead)
         {
             lineObj.SetActive(true);
             line.SetTransforms(target, fireTr);
             line.isLineDraw = true;
+            line.AimSound();
             for (int i = 0; i < 10;)
             {
                 Vector3 dir = (target.position + (Vector3.up * 1.25f) - fireTr.position).normalized;
@@ -299,7 +303,7 @@ public class EnemyAttackSystem : MonoBehaviour
 
     IEnumerator AttackGrenadier()
     {
-        while (isEngage)
+        while (isEngage && !isDead)
         {
             Vector3 dir = (target.position + (Vector3.up * 1.25f) - frontOfUnit.position).normalized;
             if (CheckPlayerHit(frontOfUnit.position, dir) != null)
@@ -316,7 +320,7 @@ public class EnemyAttackSystem : MonoBehaviour
 
     IEnumerator AttackBomber()
     {
-        while (isEngage)
+        while (isEngage && !isDead)
         {
             for (int i = 0; i < attackCount; i++)
             {
@@ -338,7 +342,7 @@ public class EnemyAttackSystem : MonoBehaviour
             aniCon.SetTrigger("Attack");
 
             GameObject bullet = bulletPool.GetObject();
-            bullet.GetComponent<Bullet>().SetBulletStatus(w_atk, w_range);
+            bullet.GetComponent<Bullet>().SetBulletStatus(w_atk, w_range, 0f, WeaponParamsSO.AtkTypes.Normal, false);
             Transform bulletTr = bullet.transform;
             if(fireTr != null)
             {
@@ -360,6 +364,7 @@ public class EnemyAttackSystem : MonoBehaviour
             eulerAngles.x += Random.Range(-_angleError, _angleError); // X축에 _accuracy 값 추가
             bulletTr.rotation = Quaternion.Euler(eulerAngles);
 
+            w_soundPlayer.PlaySoundFire();
         }
 
     }
@@ -371,7 +376,7 @@ public class EnemyAttackSystem : MonoBehaviour
             aniCon.SetTrigger("Attack");
 
             GameObject bullet = bulletPool.GetObject();
-            bullet.GetComponent<Bullet>().SetBulletStatus(w_atk, w_range);
+            bullet.GetComponent<Bullet>().SetBulletStatus(w_atk, w_range, 0f, WeaponParamsSO.AtkTypes.Normal, false);
             Transform bulletTr = bullet.transform;
             if (fireTr != null)
             {
@@ -393,6 +398,7 @@ public class EnemyAttackSystem : MonoBehaviour
             eulerAngles.x += Random.Range(-_angleError, _angleError); // X축에 _accuracy 값 추가
             bulletTr.rotation = Quaternion.Euler(eulerAngles);
 
+            w_soundPlayer.PlaySoundFire();
         }
 
     }
@@ -405,7 +411,7 @@ public class EnemyAttackSystem : MonoBehaviour
             float _posError = Random.Range(-bullet_angleError, bullet_angleError) * 1.25f;
 
             GameObject bomb = bulletPool.GetObject();
-            bomb.GetComponent<Bullet>().SetBulletStatus(w_atk, w_range);
+            bomb.GetComponent<Bullet>().SetBulletStatus(w_atk, w_range, 0f, WeaponParamsSO.AtkTypes.Normal, false);
             Transform bulletTr = bomb.transform;
             bulletTr.position = new Vector3(target.position.x + _posError, target.position.y + 30f, 0f);
             bulletTr.LookAt(bulletTr.position + Vector3.down);
@@ -430,7 +436,19 @@ public class EnemyAttackSystem : MonoBehaviour
         Debug.Log(hitUnitStat);
         if (hitUnitStat != null)
         {
-            hitUnitStat.UnitGetDamage(w_atk, 0, (int)attackArmor);
+
+            Vector3 _colPos = hitUnitStat.transform.position + Vector3.up;
+
+            var payload = DamagePayload.Create(
+                baseDamage: w_atk,
+                ammo: 0,
+                atkType: 0,
+                isCritical: false,
+                isWeakPoint: false,
+                hitPoint: _colPos
+            );
+
+            hitUnitStat.TakeDamage(payload);
         }
     }
 

@@ -1,11 +1,11 @@
 using UnityEngine;
-using UnityEngine.LightTransport;
 
 public class Control_Stage : MonoBehaviour
 {
     [SerializeField] private Data_Stages stageData; // Data_Stages 참조
     [SerializeField] private int stageCur = 0;
     [SerializeField] private int gameLevel = 1; // 현재 레벨 (난이도)
+    [SerializeField] int requireForBoss = 8;
     
 
     [SerializeField] private int world;       // 현재 지역
@@ -20,16 +20,15 @@ public class Control_Stage : MonoBehaviour
     {
         worldCur = world;
         difficulty = gameLevel;
+    }
+
+    void Start()
+    {
         if (stageData == null)
         {
             GameObject dataObj = GameObject.FindGameObjectWithTag("Data");
             stageData = dataObj.GetComponent<Data_Stages>();
         }
-    }
-
-    void Start()
-    {
-        // 필요 시 초기화 처리
     }
 
     /// <summary>
@@ -57,7 +56,7 @@ public class Control_Stage : MonoBehaviour
         stageCur++;
         GameObject stage = Instantiate(stageObj, stagePosition * stageCur, Quaternion.identity);
 
-        if(stageCur == 4)
+        if(stageCur == requireForBoss - 1)
         {
             stage.GetComponent<StageModule>().NextisBoss();
         }

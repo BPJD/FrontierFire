@@ -88,6 +88,7 @@ MonoBehaviour:
   startPoint: {fileID: 2202744119405541794}
   rewardObj: {fileID: 7966252011262253309, guid: d613011dadc9c7e47b88d43d74b96b2d, type: 3}
   isBossStage: 0
+  portalSoundType: 1
 --- !u!114 &1276091684299577885
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -669,12 +670,16 @@ PrefabInstance:
       value: 29.638674
       objectReference: {fileID: 0}
     - target: {fileID: 7489626760085656743, guid: c94df90819dca1e4c836c2865d9284c5, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 5.9416027
+      objectReference: {fileID: 0}
+    - target: {fileID: 7489626760085656743, guid: c94df90819dca1e4c836c2865d9284c5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 23.541996
+      value: 23.491688
       objectReference: {fileID: 0}
     - target: {fileID: 7489626760085656743, guid: c94df90819dca1e4c836c2865d9284c5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.15621686
+      value: -0.3118906
       objectReference: {fileID: 0}
     - target: {fileID: 7489626760085656743, guid: c94df90819dca1e4c836c2865d9284c5, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1922,15 +1927,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7489626760085656743, guid: c94df90819dca1e4c836c2865d9284c5, type: 3}
       propertyPath: m_LocalScale.y
-      value: 6.5588403
+      value: 7.9793916
       objectReference: {fileID: 0}
     - target: {fileID: 7489626760085656743, guid: c94df90819dca1e4c836c2865d9284c5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 10.712398
+      value: 10.491744
       objectReference: {fileID: 0}
     - target: {fileID: 7489626760085656743, guid: c94df90819dca1e4c836c2865d9284c5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.043083
+      value: 2.3679454
       objectReference: {fileID: 0}
     - target: {fileID: 7489626760085656743, guid: c94df90819dca1e4c836c2865d9284c5, type: 3}
       propertyPath: m_LocalPosition.z

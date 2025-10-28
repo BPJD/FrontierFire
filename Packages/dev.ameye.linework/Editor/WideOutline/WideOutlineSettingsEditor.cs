@@ -4,6 +4,8 @@ using Linework.Editor.Common.Utils;
 using Linework.WideOutline;
 using UnityEditor;
 using UnityEditor.Rendering;
+using UnityEngine;
+using Resolution = Linework.Common.Utils.Resolution;
 
 namespace Linework.Editor.WideOutline
 {
@@ -21,6 +23,10 @@ namespace Linework.Editor.WideOutline
         private SerializedProperty gap;
         private SerializedProperty customDepthBuffer;
         private SerializedProperty occludedColor;
+        private SerializedProperty clearStencil;
+        private SerializedProperty scaleWithResolution;
+        private SerializedProperty referenceResolution;
+        private SerializedProperty customReferenceResolution;
         
         private SerializedProperty outlines;
         private EditorList<Outline> outlineList;
@@ -38,6 +44,10 @@ namespace Linework.Editor.WideOutline
             gap = serializedObject.FindProperty(nameof(WideOutlineSettings.gap));
             customDepthBuffer = serializedObject.FindProperty(nameof(WideOutlineSettings.customDepthBuffer));
             occludedColor = serializedObject.FindProperty(nameof(WideOutlineSettings.occludedColor));
+            clearStencil = serializedObject.FindProperty(nameof(WideOutlineSettings.clearStencil));
+            scaleWithResolution = serializedObject.FindProperty(nameof(WideOutlineSettings.scaleWithResolution));
+            referenceResolution = serializedObject.FindProperty(nameof(WideOutlineSettings.referenceResolution));
+            customReferenceResolution = serializedObject.FindProperty(nameof(WideOutlineSettings.customResolution));
 
             outlines = serializedObject.FindProperty("outlines");
             outlineList = new EditorList<Outline>(this, outlines, ForceSave, "Add Outline", "No outlines added.");
@@ -60,6 +70,7 @@ namespace Linework.Editor.WideOutline
             EditorGUILayout.LabelField("Wide Outline", EditorStyles.boldLabel);
             EditorGUILayout.PropertyField(injectionPoint, EditorUtils.CommonStyles.InjectionPoint);
             EditorGUILayout.PropertyField(showInSceneView, EditorUtils.CommonStyles.ShowInSceneView);
+            EditorGUILayout.PropertyField(clearStencil, EditorUtils.CommonStyles.ClearStencil);
             EditorGUILayout.Space();
             CoreEditorUtils.DrawSplitter();
             serializedObject.ApplyModifiedProperties();
@@ -75,6 +86,18 @@ namespace Linework.Editor.WideOutline
                     if ((WidthControl) widthMethod.intValue == WidthControl.Shared)
                     {
                         EditorGUILayout.PropertyField(width, EditorUtils.CommonStyles.OutlineWidth);
+                        EditorGUILayout.BeginHorizontal();
+                        EditorGUILayout.PropertyField(scaleWithResolution, EditorUtils.CommonStyles.ScaleWithResolution);
+                        if (scaleWithResolution.boolValue)
+                        {
+                            EditorGUI.indentLevel++;
+                            EditorGUILayout.BeginHorizontal();
+                            EditorGUILayout.PropertyField(referenceResolution, GUIContent.none);
+                            if ((Resolution) referenceResolution.intValue == Resolution.Custom) EditorGUILayout.PropertyField(customReferenceResolution, GUIContent.none, GUILayout.Width(100));
+                            EditorGUILayout.EndHorizontal();
+                            EditorGUI.indentLevel--;
+                        }
+                        EditorGUILayout.EndHorizontal();
                     }
                     EditorGUI.indentLevel--;
                     if ((WidthControl) widthMethod.intValue == WidthControl.PerOutline)

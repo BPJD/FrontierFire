@@ -15,8 +15,8 @@ public class WeaponStatUpgrade : MonoBehaviour
 
     public List<int> upgradesCur { get; private set; } = new List<int>();
 
-    [SerializeField] int debug_Code;
     Data_WeaponStatUpgrades upgradeData;
+    Data_BulletPrafabs bulletData;
 
     private void Awake()
     {
@@ -25,18 +25,14 @@ public class WeaponStatUpgrade : MonoBehaviour
 
     void GetUpgradeData()
     {
-        if (upgradeData == null)
+        if (upgradeData == null || bulletData == null)
         {
             var go = GameObject.FindGameObjectWithTag("Data");
-            if (go) upgradeData = go.GetComponent<Data_WeaponStatUpgrades>();
-        }
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Y))
-        {
-            UpgradeStatPackage(debug_Code);
+            if (go)
+            {
+                upgradeData = go.GetComponent<Data_WeaponStatUpgrades>();
+                bulletData = go.GetComponent<Data_BulletPrafabs>();
+            }
         }
     }
 

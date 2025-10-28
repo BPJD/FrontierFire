@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4258934550249968688}
   - component: {fileID: 2584021286144180372}
   - component: {fileID: -8192077168938626372}
+  - component: {fileID: 499430177862452606}
   m_Layer: 0
   m_Name: SciFi_Sniper_Rifle_2
   m_TagString: Untagged
@@ -65,6 +66,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -86,6 +89,7 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -107,6 +111,24 @@ MonoBehaviour:
   leftHandPos: {fileID: 7040729684438462914}
   bulletObj: {fileID: 3992555264622744971, guid: fbd68ca2163ff364ba93f544e75db39a, type: 3}
   weaponAniType: 3
+--- !u!114 &499430177862452606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2214309853471624491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd06495d71f4b4a45b73d254b5bcc5d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponSoundPlay
+  soundFires:
+  - {fileID: 8300000, guid: 65abc7c1b5fcf0745af332694c05c436, type: 3}
+  - {fileID: 8300000, guid: b1a32fc0cb0ade54b94b2b3a68da8504, type: 3}
+  - {fileID: 8300000, guid: 7c1dc7f9ef40f0040af51f26c0e18964, type: 3}
+  soundReloadStart: {fileID: 0}
+  soundReloadEnd: {fileID: 0}
 --- !u!1 &2356671124002020830
 GameObject:
   m_ObjectHideFlags: 0

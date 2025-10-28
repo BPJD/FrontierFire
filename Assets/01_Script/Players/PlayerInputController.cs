@@ -1,6 +1,7 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class PlayerInputController : MonoBehaviour
 {
@@ -20,9 +21,31 @@ public class PlayerInputController : MonoBehaviour
 
     public bool isSprintToggle = true;
 
+
+
     private void Awake()
     {
-        module = transform.parent.gameObject;
+        ControllerReset();
+    }
+
+    void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        ControllerReset();
+    }
+
+    void ControllerReset()
+    {
+        module = GameObject.FindGameObjectWithTag("Module");
         interacter = GetComponentInChildren<PlayerInteract>();
         camMoveSystem = module.GetComponentInChildren<CameraMovingSystem>();
         playerMove = GetComponent<PlayerMove>();

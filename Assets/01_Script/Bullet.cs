@@ -1,3 +1,4 @@
+using Combat;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
@@ -25,15 +26,19 @@ public class Bullet : MonoBehaviour
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
+    bool isCritical = false;
     int bulletDamage = 5;
     float bulletRangeSqr = 10f;
+    WeaponParamsSO.AtkTypes atkType = WeaponParamsSO.AtkTypes.Normal;
 
     string unitTagCode = "Unit";
+    string unitWeakPointTagCode = "WeakPoint";
 
     bool isActivated = false;
 
     bool isCollided = false;
 
+    Vector3 numberPosRevision = new Vector3(0f, 0.5f, 2f);
 
 
 
@@ -74,25 +79,62 @@ public class Bullet : MonoBehaviour
         float flyDistance = (tr.position - startPos).sqrMagnitude;
         if (flyDistance > bulletRangeSqr)
         {
-            BulletExplode(isExplode);
+
+            Vector3 _colPos = tr.position;
+
+            var payload = DamagePayload.Create(
+                baseDamage: bulletDamage,
+                ammo: 0,
+                atkType: atkType,
+                isCritical: isCritical,
+                isWeakPoint: false,
+                hitPoint: _colPos
+            );
+
+            BulletExplode(isExplode, payload);
             BulletDisable();
         }
 
     }
 
+
     private void OnTriggerEnter(Collider other)
     {
         muzzleEft.Play(true);
-        if (other.CompareTag(unitTagCode) || other.CompareTag("Player") && !isExplode)
+
+        Vector3 _colPos = tr.position - (tr.forward * 0.3f);
+
+        var payload = DamagePayload.Create(
+            baseDamage: bulletDamage,
+            ammo: 0,
+            atkType: atkType,
+            isCritical: isCritical,
+            isWeakPoint: false,
+            hitPoint: _colPos
+        );
+
+
+
+        if (other.CompareTag(unitTagCode) || other.CompareTag("Player"))
         {
-            other.GetComponent<UnitStatus>().UnitGetDamage(bulletDamage, 0, 0);
+            if (!isExplode)
+            {
+                other.GetComponent<UnitStatus>().TakeDamage(payload);
+            }
+        }
+        else if (other.CompareTag(unitWeakPointTagCode))
+        {
+            if (!isExplode)
+            {
+                other.GetComponent<UnitWeakPoint>().WeatPointDamage(payload);
+            }
         }
 
         if (bulletMesh != null)
         {
             bulletMesh.SetActive(false);
         }
-        BulletExplode(isExplode);
+        BulletExplode(isExplode, payload);
 
         bulletCol.enabled = false;
         isCollided = true;
@@ -109,10 +151,17 @@ public class Bullet : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public void SetBulletStatus(int _damage, float _range)
+    public void SetBulletStatus(int _damage, float _range, float _speed, WeaponParamsSO.AtkTypes _type, bool isCri)
     {
+        isCritical = isCri;
         bulletDamage = _damage;
         bulletRangeSqr = _range * _range;
+        atkType = _type;
+
+        if(_speed >= 1f)
+        {
+            bulletSpeed = _speed;
+        }
 
         if (isRangeUnlimit)
         {
@@ -121,10 +170,11 @@ public class Bullet : MonoBehaviour
 
     }
 
-    void BulletExplode(bool _isExplode)
+    void BulletExplode(bool _isExplode, DamagePayload payload)
     {
         if (_isExplode)
         {
+
             // Æø¹ß ÀÌÆåÆ® »ý¼º
             if (hitEft != null)
             {
@@ -154,8 +204,22 @@ public class Bullet : MonoBehaviour
                     if (!Physics.Raycast(tr.position, direction, approxDistance, obstacleLayers))
                     {
                         UnitStatus unit = hit.GetComponent<UnitStatus>();
+                        UnitWeakPoint unitWeakHit = hit.GetComponent<UnitWeakPoint>();
+
                         if (unit != null)
-                            unit.UnitGetDamage(bulletDamage, 0, 0);
+                        {
+                            var newPayload = payload;
+                            newPayload.hitPoint = target.position + Vector3.up;
+
+                            unit.TakeDamage(newPayload);
+                        }
+                        else if (unitWeakHit != null)
+                        {
+                            var newPayload = payload;
+                            newPayload.hitPoint = target.position + Vector3.up;
+
+                            unitWeakHit.WeatPointDamage(newPayload);
+                        }
                     }
                     else
                     {

@@ -1,4 +1,6 @@
 using UnityEngine;
+using DamageNumbersPro;
+using Combat;
 
 public class UnitStatus : MonoBehaviour
 {
@@ -13,6 +15,10 @@ public class UnitStatus : MonoBehaviour
 
     public int hpCur = 0;
     public int atkCur { get; private set; } = 0;
+    public float damageCur { get; private set; } = 1f;
+
+    public float criRate { get; private set; } = 0f;
+    public float criDamage { get; private set; } = 0f;
     public float moveSpeed { get; private set; } = 5f;
     public float jumpPower { get; private set; } = 10f;
 
@@ -20,16 +26,27 @@ public class UnitStatus : MonoBehaviour
 
     [SerializeField] float[] armorRevisionByType = { 1f, 1f, 1f };
 
+    AudioSource soundPlayer;
+    [SerializeField] AudioClip[] sounds_GetDamageByType;
+    [SerializeField] AudioClip sound_GetCritical;
+    [SerializeField] AudioClip sound_DeathSoundByType;
+
+    Data_DamageNumbers data_DNum;
+    Transform tr;
+
     private void Awake()
     {
         unitParams = new UnitParams(unitDataSource);
         unitParamsDefault = new UnitParams(unitParams); // 백업용 복사
-        
+        soundPlayer = GetComponent<AudioSource>();
+        data_DNum = GameObject.FindGameObjectWithTag("Data").GetComponent<Data_DamageNumbers>();
+        tr = transform;
 
         moveSpeed = unitParams.u_moveSpeed;
         hpCur = unitParams.u_hp;
         SetRevision();
         SetCurrentAtk();
+        damageCur = 1f;
     }
 
     private void OnEnable()
@@ -42,15 +59,155 @@ public class UnitStatus : MonoBehaviour
     {
         hpCur = Mathf.Clamp(hpCur + _heal, 0, unitParams.u_hp);
         OnHpChanged?.Invoke(hpCur, unitParams.u_hp);
+
+        DamageNumber number = data_DNum.GetDamageNumberPrefab(Data_DamageNumbers.NumberType.Heal);
+        number.Spawn(tr.position + (Vector3.up * 1.75f), _heal);
     }
 
-    public void UnitGetDamage(int _damage, int _weaponType, int _attackType)
+
+    public DamageResult TakeDamage(in DamagePayload p)
     {
-        int finalDamage = Mathf.Clamp(Mathf.RoundToInt((_damage - unitParams.u_def) * unitParams.u_immunePer * immunePer * armorRevisionByType[_attackType]), 0, _damage);
-        DamageAndCheckDeath(finalDamage);
-        Debug.Log(finalDamage);
+        // 1) 티어 산정(방어 속성 계수 기반)
+        int tier = GetDamageTier(armorRevisionByType[(int)p.atkType]);
+
+        // 2) 최종 피해 계산
+        float immune = Mathf.Max(0f, unitParams.u_immunePer * immunePer);
+        float armorMul = armorRevisionByType[(int)p.atkType];
+
+        float raw = p.baseDamage;
+
+        if (p.atkType != WeaponParamsSO.AtkTypes.Fixed)
+        {
+            raw = p.baseDamage - unitParams.u_def;
+            if (raw < 0f) raw = 0f;
+            raw *= immune * armorMul;
+        }
+
+        // 외부 보정
+        raw = (raw + p.addFlat) * (p.mul <= 0f ? 1f : p.mul);
+
+        // 반올림/클램프는 마지막에
+        int final = Mathf.Clamp(Mathf.RoundToInt(raw), 0, p.baseDamage);
+
+
+        // 3) 비주얼/사운드
+        PrintDamageNumber(final, tier, p.isCritical, p.isWeakPoint, p.hitPoint);
+        if (soundPlayer != null)
+        {
+            if (p.isCritical) soundPlayer.PlayOneShot(sound_GetCritical);
+            if ((uint)tier < (uint)sounds_GetDamageByType.Length)
+                soundPlayer.PlayOneShot(sounds_GetDamageByType[tier]);
+        }
+
+        // 4) 적용 & 사망 체크
+        bool died = DamageAndCheckDeath_Internal(final);
+
+        return new DamageResult
+        {
+            finalDamage = final,
+            damageTier = tier,
+            isCritical = p.isCritical,
+            killed = died
+        };
     }
 
+    /*
+    public void UnitGetDamage(int damage, WeaponParamsSO.Ammos _ammoType, WeaponParamsSO.AtkTypes _attackType, bool isCri, bool isWeakPoint, Vector3 colPos)
+    {
+        int _finalDamage = damage;
+        int _damageTier = GetDamageTier(armorRevisionByType[(int)_attackType]);
+
+        if (_attackType != WeaponParamsSO.AtkTypes.Fixed)
+        {
+            _finalDamage = Mathf.Clamp(Mathf.RoundToInt((damage - unitParams.u_def) * unitParams.u_immunePer * immunePer * armorRevisionByType[(int)_attackType]), 0, damage);
+            _damageTier = 0;
+        }
+
+        PrintDamageNumber(_finalDamage, _damageTier, isCri);
+        if (soundPlayer != null)
+        {
+            if (isCri)
+            {
+                soundPlayer.PlayOneShot(sound_GetCritical);
+            }
+            soundPlayer.PlayOneShot(sounds_GetDamageByType[_damageTier]);
+        }
+        DamageAndCheckDeath(_finalDamage);
+        Debug.Log(_finalDamage);
+    }
+    */
+
+    int GetDamageTier(float revision)
+    {
+        if (revision >= 0.8f)
+        {
+            return 0;
+        }
+        else if (revision >= 0.4f)
+        {
+            return 1;
+        }
+        else
+        {
+            return 2;
+        }
+    }
+
+    void PrintDamageNumber(int finalDamage, int damageTier, bool isCri, bool isWeakPoint, Vector3 pos)
+    {
+        DamageNumber _number;
+        if (isCri)
+        {
+            _number = data_DNum.GetDamageNumberPrefab(Data_DamageNumbers.NumberType.Critical);
+        }
+        else if (isWeakPoint)
+        {
+            _number = data_DNum.GetDamageNumberPrefab(Data_DamageNumbers.NumberType.WeakPoint);
+        }
+        else
+        {
+            _number = data_DNum.GetDamageNumberPrefab((Data_DamageNumbers.NumberType)damageTier + 1);
+        }
+
+        _number.Spawn(pos, finalDamage);
+
+    }
+
+    bool DamageAndCheckDeath_Internal(int damage)
+    {
+        hpCur = Mathf.Clamp(hpCur - damage, 0, unitParams.u_hp);
+        OnHpChanged?.Invoke(hpCur, unitParams.u_hp);
+        isUnitHit = true;
+
+        if (hpCur > 0) return false;
+
+        // ----- 이하 기존 로직 유지 -----
+        Debug.Log("UnitDead");
+        gameObject.layer = 10;
+        gameObject.tag = "Dead";
+        if (soundPlayer != null) soundPlayer.PlayOneShot(sound_DeathSoundByType);
+
+        switch (unitParams.u_type)
+        {
+            case UnitParamsSO.UnitTypes.Player:
+                GetComponent<PlayerDeath>().enabled = true;
+                GetComponent<PlayerDeath>()?.DeathAnimationPlay(unitParams.u_hp, damage);
+                break;
+            case UnitParamsSO.UnitTypes.Enemy:
+                GetComponent<EnemyUnitDeath>()?.DeathAnimationPlay(unitParams.u_hp, damage);
+                GetComponent<EnemyAttackSystem>().isDead = true;
+                break;
+            case UnitParamsSO.UnitTypes.Boss:
+                GetComponent<BossControlSystem>().BossDead();
+                break;
+            default:
+                gameObject.SendMessage(NeutralUnits.deadMsg, SendMessageOptions.DontRequireReceiver);
+                break;
+        }
+        return true;
+    }
+
+    /*
     void DamageAndCheckDeath(int damage)
     {
         hpCur = Mathf.Clamp(hpCur - damage, 0, unitParams.u_hp);
@@ -62,6 +219,12 @@ public class UnitStatus : MonoBehaviour
             Debug.Log("UnitDead");
             gameObject.layer = 10;
             gameObject.tag = "Dead";
+
+            if (soundPlayer != null)
+            {
+                soundPlayer.PlayOneShot(sound_DeathSoundByType);
+            }
+
 
             switch (unitParams.u_type)
             {
@@ -82,6 +245,7 @@ public class UnitStatus : MonoBehaviour
             }
         }
     }
+    */
 
     void SetRevision()
     {
@@ -120,41 +284,46 @@ public class UnitStatus : MonoBehaviour
 
     void SetCurrentAtk()
     {
-        atkCur = Mathf.CeilToInt(unitParams.u_atk * unitParams.u_damage);
+        atkCur = Mathf.Max(0, unitParams.u_atk);
+        damageCur = Mathf.Max(0.01f, unitParams.u_damage);
+        criRate = Mathf.Max(1f, unitParams.u_criRate);
+        criDamage = Mathf.Max(0f, unitParams.u_criDamage);
     }
 
     public void SetStatusByUpgrade(int _stat, float valuePlus, float valueMulti)
     {
+        PlayerShootingStat _playerAmmo = GetComponent<PlayerShootingStat>();
+
         switch (_stat)
         {
             case 0: // HP
-                int _value = Mathf.RoundToInt((unitParamsDefault.u_hp + valuePlus) * (1f + valueMulti * 0.01f));
+                int _value = Mathf.RoundToInt((unitParamsDefault.u_hp + valuePlus) * (1f + (valueMulti * 0.01f)));
                 int _upValue = _value - unitParams.u_hp;
                 unitParams.u_hp = _value;
                 hpCur += _upValue;
                 OnHpChanged?.Invoke(hpCur, unitParams.u_hp);
                 break;
             case 1: // 공격력
-                unitParams.u_atk = Mathf.RoundToInt((unitParamsDefault.u_atk + valuePlus) * (1f + valueMulti * 0.01f));
+                unitParams.u_atk = Mathf.RoundToInt((unitParamsDefault.u_atk + valuePlus) * (1f + (valueMulti * 0.01f)));
                 SetCurrentAtk();
                 break;
             case 2: // 방어력
-                unitParams.u_def = Mathf.RoundToInt((unitParamsDefault.u_def + valuePlus) * (1f + valueMulti * 0.01f));
+                unitParams.u_def = Mathf.RoundToInt((unitParamsDefault.u_def + valuePlus) * (1f + (valueMulti * 0.01f)));
                 break;
             case 3: // 피해감소율 (float)
-                unitParams.u_immunePer = RoundTo2Decimal(unitParamsDefault.u_immunePer + valuePlus * 0.01f);
+                unitParams.u_immunePer = RoundTo2Decimal(unitParamsDefault.u_immunePer + (valueMulti * 0.01f));
                 break;
             case 4: // 방어 속성 (곱 연산 없음)
                 unitParams.u_armorLevel = Mathf.Clamp(unitParamsDefault.u_armorLevel + (int)valuePlus, 0, 2);
                 SetRevision(); // 방어 속성은 리비전 업데이트 필요
                 break;
             case 5: // 이동속도
-                unitParams.u_moveSpeed = RoundTo2Decimal((unitParamsDefault.u_moveSpeed + valuePlus) * (1f + valueMulti * 0.01f));
-                moveSpeed = unitParams.u_moveSpeed;
+                unitParams.u_moveSpeed = RoundTo2Decimal((unitParamsDefault.u_moveSpeed + valuePlus) * (1f + (valueMulti * 0.01f)));
+                moveSpeed = Mathf.Max(1f, unitParams.u_moveSpeed);
                 SetMoveSpeed();
                 break;
             case 6: // 점프력
-                unitParams.u_jumpPower = RoundTo2Decimal((unitParamsDefault.u_jumpPower + valuePlus) * (1f + valueMulti * 0.01f));
+                unitParams.u_jumpPower = RoundTo2Decimal((unitParamsDefault.u_jumpPower + valuePlus) * (1f + (valueMulti * 0.01f)));
                 jumpPower = unitParams.u_jumpPower;
                 SetMoveSpeed();
                 break;
@@ -163,17 +332,26 @@ public class UnitStatus : MonoBehaviour
                 SetMoveSpeed();
                 break;
             case 8: // 사격 정확도
-                unitParams.u_shotAccuracy = RoundTo2Decimal((unitParamsDefault.u_shotAccuracy + valuePlus) * (1f + valueMulti * 0.01f));
+                unitParams.u_shotAccuracy = RoundTo2Decimal(unitParamsDefault.u_shotAccuracy + valuePlus);
                 break;
             case 9: // 치명타 확률
-                unitParams.u_criRate = RoundTo2Decimal((unitParamsDefault.u_criRate + valuePlus) * (1f + valueMulti * 0.01f));
+                unitParams.u_criRate = RoundTo2Decimal(unitParamsDefault.u_criRate + valuePlus);
                 break;
             case 10: // 치명타 피해
-                unitParams.u_criDamage = RoundTo2Decimal((unitParamsDefault.u_criDamage + valuePlus) * (1f + valueMulti * 0.01f));
+                unitParams.u_criDamage = RoundTo2Decimal(unitParamsDefault.u_criDamage + valuePlus);
                 break;
             case 11: // 피해량
-                unitParams.u_damage = RoundTo2Decimal((unitParamsDefault.u_damage + valuePlus) * (1f + valueMulti * 0.01f));
+                unitParams.u_damage = RoundTo2Decimal(unitParamsDefault.u_damage + valuePlus);
                 SetCurrentAtk();
+                break;
+            case 12: // 탄약 획득량
+                _playerAmmo.playerAmmoGain = RoundTo2Decimal(_playerAmmo.playerAmmoGain + valuePlus);
+                break;
+            case 13: // 탄약 소지량
+                _playerAmmo.playerAmmoRevision = RoundTo2Decimal(_playerAmmo.playerAmmoRevision + valuePlus);
+                break;
+            case 14: // 아이템 드롭률
+                _playerAmmo.playerItemDropRate = RoundTo2Decimal(_playerAmmo.playerItemDropRate + valuePlus);
                 break;
             default:
                 Debug.LogWarning($"Unknown statID: {_stat}");
@@ -191,4 +369,5 @@ public class UnitStatus : MonoBehaviour
         hpCur = unitParams.u_hp;
         SetRevision();
     }
+
 }

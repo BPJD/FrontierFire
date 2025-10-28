@@ -47,6 +47,7 @@ GameObject:
   - component: {fileID: 7730766483505790022}
   - component: {fileID: 6089087916564709185}
   - component: {fileID: 5308215697968177835}
+  - component: {fileID: 5571589936227363748}
   m_Layer: 0
   m_Name: 60020_SciFi_Sniper_Rifle_3
   m_TagString: Untagged
@@ -100,6 +101,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -121,6 +124,7 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -138,6 +142,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponDataSource: {fileID: 11400000, guid: 175de8d817438904cbad59db16546728, type: 2}
+  w_params:
+    w_name: 
+    w_desc: 
+    w_type: 0
+    w_usingAmmo: 0
+    w_atkType: 0
+    w_atk: 0
+    w_range: 0
+    w_rpm: 0
+    w_magSize: 0
+    w_accuracy: 0
+    w_reloadTime: 0
+    e_quality: 0
+    w_ammoMulti: 0
+    w_ammoDefault: 0
+    bulletID: 0
+    isCamRangeUp: 0
+  weaponIcon: {fileID: 0}
 --- !u!114 &7730766483505790022
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -158,6 +180,7 @@ MonoBehaviour:
   magMax: 0
   ammoCur: 0
   pickCount: 0
+  bulletCount: 1
   bullet_angleError: 0
   isDefaultWeapon: 0
 --- !u!114 &6089087916564709185
@@ -185,42 +208,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99d0d8f57cc2de84593294a563f3b576, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upParamsPlus:
-    w_name: 
-    w_desc: 
-    w_type: 0
-    w_usingAmmo: 0
-    w_atkType: 0
-    w_atk: 0
-    w_range: 0
-    w_rpm: 0
-    w_magSize: 0
-    w_accuracy: 0
-    w_reloadTime: 0
-    e_quality: 0
-    w_ammoMulti: 0
-    w_ammoDefault: 0
-    bulletID: 0
-    isCamRangeUp: 0
-  upParamsMulti:
-    w_name: 
-    w_desc: 
-    w_type: 0
-    w_usingAmmo: 0
-    w_atkType: 0
-    w_atk: 0
-    w_range: 0
-    w_rpm: 0
-    w_magSize: 0
-    w_accuracy: 0
-    w_reloadTime: 0
-    e_quality: 0
-    w_ammoMulti: 0
-    w_ammoDefault: 0
-    bulletID: 0
-    isCamRangeUp: 0
-  code: 0
-  value: 0
+  debug_Code: 0
+--- !u!114 &5571589936227363748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7408058106686318067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd06495d71f4b4a45b73d254b5bcc5d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponSoundPlay
+  soundFires:
+  - {fileID: 8300000, guid: 9861e22ae72b5db45ae3b9fef61f2e7b, type: 3}
+  - {fileID: 8300000, guid: 9ad054011d784d343a653dc4cb390a2a, type: 3}
+  - {fileID: 8300000, guid: af52d861c94fcf8498e315fa00715948, type: 3}
+  soundReloadStart: {fileID: 8300000, guid: ca00005ab2bee7f48bcf6b2b01967b9a, type: 3}
+  soundReloadEnd: {fileID: 8300000, guid: 1b3ffa48d684c674a874443e624a6119, type: 3}
 --- !u!1 &8938283391140113591
 GameObject:
   m_ObjectHideFlags: 0

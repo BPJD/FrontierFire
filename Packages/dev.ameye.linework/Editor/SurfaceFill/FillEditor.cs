@@ -31,6 +31,7 @@ namespace Linework.Editor.SurfaceFill
         private SerializedProperty softness;
         private SerializedProperty width;
         private SerializedProperty power;
+        private SerializedProperty vertexAnimation;
 
         private void OnEnable()
         {
@@ -56,6 +57,7 @@ namespace Linework.Editor.SurfaceFill
             width = serializedObject.FindProperty(nameof(Fill.width));
             power = serializedObject.FindProperty(nameof(Fill.power));
             softness = serializedObject.FindProperty(nameof(Fill.softness));
+            vertexAnimation = serializedObject.FindProperty(nameof(Fill.vertexAnimation));
         }
 
         public override void OnInspectorGUI()
@@ -71,6 +73,8 @@ namespace Linework.Editor.SurfaceFill
             EditorGUILayout.LabelField("Render", EditorStyles.boldLabel);
             EditorGUILayout.PropertyField(occlusion, EditorUtils.CommonStyles.FillOcclusion);
             EditorGUILayout.PropertyField(blendMode, EditorUtils.CommonStyles.FillBlendMode);
+            EditorGUILayout.PropertyField(vertexAnimation, EditorUtils.CommonStyles.VertexAnimation);
+
             // TODO: enable in future update
             // EditorGUILayout.PropertyField(alphaCutout, EditorUtils.CommonStyles.AlphaCutout);
             // if (alphaCutout.boolValue)

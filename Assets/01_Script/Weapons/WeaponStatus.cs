@@ -14,6 +14,7 @@ public class WeaponStatus : MonoBehaviour
     public int animationType { get; set; }
     public int bulletID { get; private set; }
 
+    public Sprite weaponIcon;
     [HideInInspector] public int bulletAtk { get; private set; }
     [HideInInspector] public float bulletSpeed { get; private set; }
     [HideInInspector] public float bulletRange { get; private set; }
@@ -25,6 +26,9 @@ public class WeaponStatus : MonoBehaviour
     public bool _isCamRangeUp { get; private set; }
 
     bool isSetted = false;
+
+    public float criRate { get; private set; } //PlayerStat에서 그대로 가져오는거임
+    public float criDamage { get; private set; } //PlayerStat에서 그대로 가져오는거임
 
     void SetComponents()
     {
@@ -107,12 +111,23 @@ public class WeaponStatus : MonoBehaviour
         weaponSystem.pickCount = pickCount + 1;
     }
 
-    void ApplyStatusInSystem()
+    public void ApplyStatusInSystem()
     {
         weaponSystem.fireRate = 1 / ((float)w_params.w_rpm / 60);
 
-        bulletAtk = w_params.w_atk + playerStat.atkCur;
+        if(w_params.w_atkType == WeaponParamsSO.AtkTypes.Fixed)
+        {
+            bulletAtk = w_params.w_atk;
+        }
+        else
+        {
+            bulletAtk = Mathf.CeilToInt((w_params.w_atk + playerStat.atkCur) * playerStat.damageCur);
+        }
+
         bulletRange = Mathf.Clamp(w_params.w_range, 5f, 50f);
+
+        criRate = playerStat.criRate;
+        criDamage = playerStat.criDamage;
 
         weaponSystem.magMax = w_params.w_magSize;
 
@@ -267,5 +282,10 @@ public class WeaponStatus : MonoBehaviour
     public WeaponParamsSO.WeaponTypes GetWeaponType()
     {
         return w_params.w_type;
+    }
+
+    public WeaponParamsSO.AtkTypes GetAttackType()
+    {
+        return w_params.w_atkType;
     }
 }

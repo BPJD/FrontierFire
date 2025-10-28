@@ -52,16 +52,16 @@ void WideOutline_float(
     float2 CurrentPosition = positionCS;
 
     // Distance in pixels to the closest position.
-    half distance = length(NearestPosition - CurrentPosition);
+    half pixelDistance = length(NearestPosition - CurrentPosition);
 
     // Calculate outline.
     // + 1.0 is because encoded nearest position is half a pixel inset
     // not + 0.5 because we want the anti-aliased edge to be aligned between pixels
     // distance is already in pixels, so this is already perfectly anti-aliased!
-    Outline = _OutlineWidth - distance + 1.0;
+    Outline = _OutlineWidth - pixelDistance + 1.0;
 
     // Calculate relative distance.
-    RelativeDistance = distance / _OutlineWidth;
+    RelativeDistance = pixelDistance / _OutlineWidth;
 
     Color = half4(SAMPLE_TEXTURE2D(_SilhouetteBuffer, sampler_SilhouetteBuffer, NearestPosition / _ScreenParams.xy).rgb, Outline);
 }

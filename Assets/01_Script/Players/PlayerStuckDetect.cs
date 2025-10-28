@@ -3,7 +3,7 @@ using UnityEngine;
 public class PlayerStuckDetect : MonoBehaviour
 {
     Transform playerTr;
-    private void Start()
+    private void Awake()
     {
         playerTr = transform.parent;
     }

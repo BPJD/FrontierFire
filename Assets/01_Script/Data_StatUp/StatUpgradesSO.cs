@@ -17,6 +17,10 @@ public class StatUpgradesSO : ScriptableObject
     [Header("UI 설명")]
     public string up_uiDesc;     // 예: 체력 100 증가
 
+    [Header("모델링")]
+    public int up_tier;          // 아이템 등급, D = 0 ~ SS = 5
+    public int up_category;          // 스탯 유형, 0 없음, 1 방어, 2 공격, 3 조작, 4 자원, 5 기동
+
     public enum UpgradeType
     {
         Add = 0,
@@ -37,5 +41,15 @@ public class StatUpgradesSO : ScriptableObject
         CriticalRate = 9,
         CriticalDamage = 10,
         FinalDamage = 11
+    }
+
+    public enum ItemTier
+    {
+        D = 0,
+        C = 1,
+        B = 2,
+        A = 3,
+        S = 4,
+        SS = 5
     }
 }

@@ -122,16 +122,26 @@ Shader "Hidden/Outlines/Wide Outline/Outline"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
             #include "Packages/com.unity.render-pipelines.core/Runtime/Utilities/Blit.hlsl"
 
-            #if UNITY_VERSION < 202300
+            #pragma multi_compile_local _ SCALE_WITH_RESOLUTION
+            
             CBUFFER_START(UnityPerMaterial)
-            float4 _BlitTexture_TexelSize;
+                float _ReferenceResolution;
+                #if UNITY_VERSION < 202300
+                float4 _BlitTexture_TexelSize;
+                #endif
             CBUFFER_END
-            #endif
 
             int2 _AxisWidth;
 
             half2 frag(Varyings IN) : SV_TARGET
             {
+                float scale = 1;
+                #if defined(SCALE_WITH_RESOLUTION)
+                scale = 1 * _ScreenParams.y / _ReferenceResolution;
+                #endif
+
+                int2 scaledAxis = int2((float2)_AxisWidth * scale);
+                
                 // integer pixel position
                 int2 uvInt = int2(IN.positionCS.xy);
 
@@ -143,7 +153,7 @@ Shader "Hidden/Outlines/Wide Outline/Outline"
                 UNITY_UNROLL
                 for (int u = -1; u <= 1; u++) {
                     // calculate offset sample position
-                    int2 offset_uv = uvInt + _AxisWidth * u;
+                    int2 offset_uv = uvInt + scaledAxis * u;
 
                     // .Load() acts funny when sampling outside of bounds, so don't
                     offset_uv = clamp(offset_uv, int2(0, 0), (int2)_BlitTexture_TexelSize.zw - 1);
@@ -155,12 +165,12 @@ Shader "Hidden/Outlines/Wide Outline/Outline"
                     float2 disp = IN.positionCS.xy - offset_position;
 
                     // square distance
-                    float distance = dot(disp, disp);
+                    float pixelDistance = dot(disp, disp);
 
                     // if offset position isn't a null position or is closer than the best
                     // set as the new best and store the position
-                    if (offset_position.x != -1.0 && distance < best_distance) {
-                        best_distance = distance;
+                    if (offset_position.x != -1.0 && pixelDistance < best_distance) {
+                        best_distance = pixelDistance;
                         best_position = offset_position;
                     }
                 }
@@ -199,11 +209,14 @@ Shader "Hidden/Outlines/Wide Outline/Outline"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
             #include "Packages/com.unity.render-pipelines.core/Runtime/Utilities/Blit.hlsl"
 
-            #if UNITY_VERSION < 202300
+            #pragma multi_compile_local _ SCALE_WITH_RESOLUTION
+            
             CBUFFER_START(UnityPerMaterial)
-            float4 _BlitTexture_TexelSize;
+                float _ReferenceResolution;
+                #if UNITY_VERSION < 202300
+                float4 _BlitTexture_TexelSize;
+                #endif
             CBUFFER_END
-            #endif
 
             TEXTURE2D(_SilhouetteBuffer);
             SAMPLER(sampler_SilhouetteBuffer);
@@ -245,6 +258,13 @@ Shader "Hidden/Outlines/Wide Outline/Outline"
 
             half4 frag(Varyings IN) : SV_Target
             {
+                float scale = 1;
+                #if defined(SCALE_WITH_RESOLUTION)
+                scale = _ScreenParams.y / _ReferenceResolution;
+                #endif
+
+                half width = _OutlineWidth * scale;
+                
                 // integer pixel position
                 int2 uvInt = int2(IN.positionCS.xy);
 
@@ -273,8 +293,7 @@ Shader "Hidden/Outlines/Wide Outline/Outline"
                 // + 1.0 is because encoded nearest position is half a pixel inset
                 // not + 0.5 because we want the anti-aliased edge to be aligned between pixels
                 // distance is already in pixels, so this is already perfectly anti-aliased!
-
-                half width = _OutlineWidth;
+                
                 #if defined(INFORMATION_BUFFER)
                 width = SampleInformationBuffer(nearestPos / _ScreenParams.xy) * 100.0f;
                 #endif
@@ -290,18 +309,18 @@ Shader "Hidden/Outlines/Wide Outline/Outline"
                 half4 color = SampleSilhouetteBuffer(nearestPos / _ScreenParams.xy);
                 half4 col = g > 0 ? _OutlineOccludedColor : color;
                 
-                col.a *= outline;
+                col *= outline;
                 
                 return col;
                 
                 #else
-
+                
                 #if defined(VERTEX_ANIMATION)
                 half4 color = _OutlineColor;
                 #else
                 half4 color = SampleSilhouetteBuffer(nearestPos / _ScreenParams.xy);
                 #endif
-                color.a *= outline;
+                color *= outline;
                 return color;
                 
                  #endif

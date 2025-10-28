@@ -24,6 +24,7 @@ namespace Linework.SurfaceFill
         public bool alphaCutout;
         public Texture2D alphaCutoutTexture;
         [Range(0.0f, 1.0f)] public float alphaCutoutThreshold = 0.5f;
+        public bool vertexAnimation;
         
         public MaterialType materialType;
         public Material customMaterial;

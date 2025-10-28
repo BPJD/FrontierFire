@@ -7,6 +7,70 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <!-- Headers should be listed in this order: Added, Changed, Deprecated, Removed, Fixed, Security -->
 
+## [1.4.12] - 2025-07-29
+
+### Added
+
+- Wide Outline: Added option to clear stencil buffer before rendering outline to improve compatibility with other effects that render to the stencil buffer
+- Wide Outline: Added option to scale shared outline width with screen resolution
+
+### Fixed
+
+- Surface Fill: Set normals buffer input to be required when rendering glow
+- Wide Outline: Renamed distance variable to pixelDistance for improved shader compiler compatibility
+- Soft Outline: Renamed distance variable to pixelDistance for improved shader compiler compatibility
+- Edge Detection: Renamed distance variable to pixelDistance for improved shader compiler compatibility
+- Unity 2022/Compatibility Mode: Fixed transparent materials not being outlined
+- Wide Outline: Fixed blend mode rendering issues
+
+## [1.4.11] - 2025-07-16
+
+### Changed
+
+- Edge Detection: Fill must now be enabled through a toggle (false by default)
+
+### Fixed
+
+- Wide Outline: Fixed blend mode rendering issues
+
+## [1.4.10] - 2025-07-12
+
+### Added
+
+- Fast Outline: Added option to scale line width with screen resolution
+- Surface Fill: Added vertex animation support
+
+### Changed
+
+- Unity 2022: Transparent objects now also draw to the section buffer
+- Edge Detection: Keep unused variants from being included in the final build
+
+### Fixed
+
+- Fast Outline: Fixed vertex colors not being remapped to -1,1 range before being used for vertex extrusion
+- Unity 2022: Fixed information buffer not being generated for wide outline
+- Edge Detection: Fix discontinuity masking issue where enabling it would mask out section input
+- Edge Detection: Fix mask and fill values not working
+
+## [1.4.9] - 2025-03-20
+
+### Added
+
+- Edge Detection: Added option to exclude renderers from getting outlined
+
+### Fixed
+
+- Soft Outline: Fixed dilation shader bleeding over edges of screen
+- Edge Detection: Fixed edge detection shader bleeding over edges of screen
+- Unity 2022: Fixed edge detection vertex animation not working for Unity 2022
+
+## [1.4.8] - 2025-03-13
+
+### Fixed
+
+- Android: Fixed graphics format not being supported
+- Fixed some incorrect files being included in 1.4.7
+
 ## [1.4.7] - 2025-03-12
 
 ### Fixed

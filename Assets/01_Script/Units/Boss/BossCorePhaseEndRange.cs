@@ -13,11 +13,13 @@ public class BossCorePhaseEndRange : MonoBehaviour
     
     UnitStatus crystalStat;
     MeshRenderer crystalMesh;
+    BossCoreMobSpawner spawner;
 
     private void Start()
     {
         crystalStat = crystalCol.gameObject.GetComponent<UnitStatus>();
         crystalMesh = crystalCol.gameObject.GetComponent<MeshRenderer>();
+        spawner = GetComponentInParent<BossCoreMobSpawner>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -67,6 +69,7 @@ public class BossCorePhaseEndRange : MonoBehaviour
 
         yield return new WaitForSeconds(1.5f);
 
+        spawner.SpawnMobs();
         crystalStat.HP_Reset();
         crystalMesh.enabled = true;
         bossCol.enabled = true;

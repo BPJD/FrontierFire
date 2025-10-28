@@ -8,11 +8,13 @@ namespace Linework.EdgeDetection
     public sealed class ShaderResources
     {
         public Shader section;
+        public Shader sectionMask;
         public Shader outline;
 
         public ShaderResources Load()
         {
             section = Shader.Find(ShaderPath.Section);
+            sectionMask = Shader.Find(ShaderPath.SectionMask);
             outline = Shader.Find(ShaderPath.Outline);
             return this;
         }
@@ -22,6 +24,7 @@ namespace Linework.EdgeDetection
     {
         public const string Outline = "Hidden/Outlines/Edge Detection/Outline";
         public const string Section = "Hidden/Outlines/Edge Detection/Section";
+        public const string SectionMask = "Hidden/Outlines/Edge Detection/Section Mask";
     }
 
     static class Keyword
@@ -80,6 +83,16 @@ namespace Linework.EdgeDetection
         All = ~0,
     }
     
+    [Flags]
+    public enum MaskInfluence
+    {
+        Nothing = 0,
+        Depth = 1 << 0,
+        Normals = 1 << 1,
+        Luminance = 1 << 2,
+        All = ~0,
+    }
+    
     public enum DebugView
     {
         None,
@@ -127,10 +140,10 @@ namespace Linework.EdgeDetection
         public const string ScaleWithResolution = "SCALE_WITH_RESOLUTION";
         public const string FadeByDistance = "FADE_BY_DISTANCE";
         public const string FadeByHeight = "FADE_BY_HEIGHT";
-        public const string SectionsMask = "SECTIONS_MASK";
         public const string DepthMask = "DEPTH_MASK";
         public const string NormalsMask = "NORMALS_MASK";
         public const string LuminanceMask = "LUMINANCE_MASK";
+        public const string Fill = "FILL";
 
         public const string ObjectId = "OBJECT_ID";
         public const string Particles = "PARTICLES";

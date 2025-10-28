@@ -3,11 +3,12 @@ using Michsky.UI.Heat; // Heat UI namespace
 
 public class PlayerUI : MonoBehaviour
 {
-    [SerializeField] UnitStatus playerStatus;
+    UnitStatus playerStatus;
     [SerializeField] private ProgressBar myBar;
 
     void Start()
     {
+        playerStatus = GameObject.FindGameObjectWithTag("Player").GetComponent<UnitStatus>();
         playerStatus.OnHpChanged += UpdateHpBar;
         UpdateHpBar(playerStatus.hpCur, playerStatus.hpCur);
     }

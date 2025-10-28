@@ -14,7 +14,7 @@ public class Item_ToolTip : MonoBehaviour
 
     [Header("Trigger / Visibility")]
     [SerializeField] Transform player;               // 없으면 Start에서 자동 탐색
-    [SerializeField] float showDistance = 4f;        // 이 거리 이내면 표시
+    float showDistance = 5f;        // 이 거리 이내면 표시
     [SerializeField] bool requireLineOfSight = true; // 시야 가림 체크
     [SerializeField] LayerMask losMask;              // 가리는 레이어
     [SerializeField] Vector3 worldOffset = new Vector3(0, 1.5f, 0);
@@ -112,7 +112,7 @@ public class Item_ToolTip : MonoBehaviour
         bool isSelected = interacter && interacter.SelectedObj == gameObject;
 
         // 선택된 경우에만 가시성 조건을 계산
-        if (isSelected)
+        if (isSelected/* || tooltipType != UI_ToolTip_Object.ObjectType.Weapon*/)
         {
             Vector3 worldPos = transform.position + worldOffset;
 

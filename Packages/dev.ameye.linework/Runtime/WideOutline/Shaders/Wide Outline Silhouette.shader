@@ -90,6 +90,7 @@ Shader "Hidden/Outlines/Wide Outline/Silhouette"
                 // FIXME: this 1.01  fixes some artifacts... not sure I want it.. it also introduces a gap!! -> left at 1.0 for now again
                 float offset = 1.00;
                 OUT.positionHCS = TransformObjectToHClip(IN.positionOS.xyz * offset);
+                // OUT.positionHCS.z *= (1.0f + 0.02f); // comment this out to add a tiny (0.02f) depth offset
                 #if defined(ALPHA_CUTOUT)
                 OUT.uv = IN.texcoord * _AlphaCutoutUVTransform.xy + _AlphaCutoutUVTransform.zw;
                 #endif

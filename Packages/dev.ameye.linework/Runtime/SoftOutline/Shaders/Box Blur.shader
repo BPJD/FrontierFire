@@ -23,7 +23,6 @@ Shader "Hidden/Outlines/Soft Outline/Box Blur"
             int _KernelSize;
             int _Samples;
             float _ReferenceResolution;
-            SAMPLER(sampler_BlitTexture);
             #if UNITY_VERSION < 202300
             float4 _BlitTexture_TexelSize;
             #endif

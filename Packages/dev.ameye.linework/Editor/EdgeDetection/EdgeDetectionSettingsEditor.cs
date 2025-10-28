@@ -20,6 +20,8 @@ namespace Linework.Editor.EdgeDetection
         private SerializedProperty sectionMapPrecision;
         private SerializedProperty sectionMapClearValue;
         private SerializedProperty sectionRenderingLayer;
+        private SerializedProperty maskRenderingLayer;
+        private SerializedProperty maskInfluence;
         private SerializedProperty objectId;
         private SerializedProperty particles;
         private SerializedProperty sectionMapInput;
@@ -37,10 +39,6 @@ namespace Linework.Editor.EdgeDetection
         private SerializedProperty grazingAngleMaskHardness;
         private SerializedProperty normalSensitivity;
         private SerializedProperty luminanceSensitivity;
-        private SerializedProperty sectionsMask;
-        private SerializedProperty depthMask;
-        private SerializedProperty normalsMask;
-        private SerializedProperty luminanceMask;
 
         // Outline.
         private SerializedProperty kernel;
@@ -52,6 +50,7 @@ namespace Linework.Editor.EdgeDetection
         private SerializedProperty outlineColor;
         private SerializedProperty overrideColorInShadow;
         private SerializedProperty outlineColorShadow;
+        private SerializedProperty fill;
         private SerializedProperty fillColor;
         private SerializedProperty fadeByDistance;
         private SerializedProperty distanceFadeStart;
@@ -80,6 +79,8 @@ namespace Linework.Editor.EdgeDetection
             sectionMapPrecision = serializedObject.FindProperty(nameof(EdgeDetectionSettings.sectionMapPrecision));
             sectionMapClearValue = serializedObject.FindProperty(nameof(EdgeDetectionSettings.sectionMapClearValue));
             sectionRenderingLayer = serializedObject.FindProperty(nameof(EdgeDetectionSettings.SectionRenderingLayer));
+            maskRenderingLayer = serializedObject.FindProperty(nameof(EdgeDetectionSettings.SectionMaskRenderingLayer));
+            maskInfluence = serializedObject.FindProperty(nameof(EdgeDetectionSettings.maskInfluence));
             objectId = serializedObject.FindProperty(nameof(EdgeDetectionSettings.objectId));
             particles = serializedObject.FindProperty(nameof(EdgeDetectionSettings.particles));
             sectionMapInput = serializedObject.FindProperty(nameof(EdgeDetectionSettings.sectionMapInput));
@@ -109,10 +110,6 @@ namespace Linework.Editor.EdgeDetection
             grazingAngleMaskHardness = serializedObject.FindProperty(nameof(EdgeDetectionSettings.grazingAngleMaskHardness));
             normalSensitivity = serializedObject.FindProperty(nameof(EdgeDetectionSettings.normalSensitivity));
             luminanceSensitivity = serializedObject.FindProperty(nameof(EdgeDetectionSettings.luminanceSensitivity));
-            sectionsMask = serializedObject.FindProperty(nameof(EdgeDetectionSettings.sectionsMask));
-            depthMask = serializedObject.FindProperty(nameof(EdgeDetectionSettings.depthMask));
-            normalsMask = serializedObject.FindProperty(nameof(EdgeDetectionSettings.normalsMask));
-            luminanceMask = serializedObject.FindProperty(nameof(EdgeDetectionSettings.luminanceMask));
         
             // Outline.
             kernel = serializedObject.FindProperty(nameof(EdgeDetectionSettings.kernel));
@@ -124,6 +121,7 @@ namespace Linework.Editor.EdgeDetection
             outlineColor = serializedObject.FindProperty(nameof(EdgeDetectionSettings.outlineColor));
             overrideColorInShadow = serializedObject.FindProperty(nameof(EdgeDetectionSettings.overrideColorInShadow));
             outlineColorShadow = serializedObject.FindProperty(nameof(EdgeDetectionSettings.outlineColorShadow));
+            fill = serializedObject.FindProperty(nameof(EdgeDetectionSettings.fill));
             fillColor = serializedObject.FindProperty(nameof(EdgeDetectionSettings.fillColor));
             fadeByDistance = serializedObject.FindProperty(nameof(EdgeDetectionSettings.fadeByDistance));
             distanceFadeStart = serializedObject.FindProperty(nameof(EdgeDetectionSettings.distanceFadeStart));
@@ -175,7 +173,7 @@ namespace Linework.Editor.EdgeDetection
                     {
                         EditorGUI.indentLevel++;
                         EditorGUILayout.PropertyField(debugSectionsRaw, EditorUtils.CommonStyles.SectionsRawValues);
-                        EditorGUILayout.HelpBox("White = mask", MessageType.Info);
+                        EditorGUILayout.HelpBox("Blue = mask, Green = fill", MessageType.Info);
                         EditorGUI.indentLevel--;
                     }
                     break;
@@ -220,19 +218,34 @@ namespace Linework.Editor.EdgeDetection
                 additionalSectionPassesList.DoLayoutList();
             }, serializedObject);
             
-            EditorUtils.SectionGUI("Discontinuity", showDiscontinuitySection, () =>
+            EditorUtils.SectionGUI("Edge Detection", showDiscontinuitySection, () =>
             {
+                EditorGUI.BeginChangeCheck();
                 var discontinuityInputValue = (DiscontinuityInput) discontinuityInput.intValue;
                 discontinuityInputValue = (DiscontinuityInput) EditorGUILayout.EnumFlagsField(EditorUtils.CommonStyles.DiscontinuityInput, discontinuityInputValue);
                 discontinuityInput.intValue = (int) discontinuityInputValue;
-                EditorGUILayout.Space();
-                
-                using (new EditorGUI.DisabledScope(!discontinuityInputValue.HasFlag(DiscontinuityInput.Sections)))
+                if (EditorGUI.EndChangeCheck())
                 {
-                    EditorGUILayout.LabelField("Sections", EditorStyles.boldLabel);
-                    EditorGUILayout.PropertyField(sectionsMask, EditorUtils.CommonStyles.SectionMask);
+                    discontinuityInput.intValue = (int)discontinuityInputValue;
+                    discontinuityInput.serializedObject.ApplyModifiedProperties();
                 }
-                EditorGUILayout.Space();
+                
+                // Exclusions
+                var hasSections = ((DiscontinuityInput)discontinuityInput.intValue).HasFlag(DiscontinuityInput.Sections);
+                if (hasSections)
+                {
+                    EditorGUILayout.HelpBox("When sections are enabled as a discontinuity source, they can not be used to mask out other discontinuity sources.", MessageType.Info);
+                }
+                using (new EditorGUI.DisabledScope(hasSections))
+                {
+                    EditorGUILayout.PropertyField(maskRenderingLayer, EditorUtils.CommonStyles.MaskLayer);
+                    EditorGUI.indentLevel++;
+                    var maskInfluenceValue = (MaskInfluence) maskInfluence.intValue;
+                    maskInfluenceValue = (MaskInfluence) EditorGUILayout.EnumFlagsField(EditorUtils.CommonStyles.MaskInfluence, maskInfluenceValue);
+                    maskInfluence.intValue = (int) maskInfluenceValue;
+                    EditorGUI.indentLevel--;
+                    EditorGUILayout.Space();
+                }
                 
                 using (new EditorGUI.DisabledScope(!discontinuityInputValue.HasFlag(DiscontinuityInput.Depth)))
                 {
@@ -241,7 +254,6 @@ namespace Linework.Editor.EdgeDetection
                     EditorGUILayout.PropertyField(depthDistanceModulation, EditorUtils.CommonStyles.DepthDistanceModulation);
                     EditorGUILayout.PropertyField(grazingAngleMaskPower, EditorUtils.CommonStyles.GrazingAngleMaskPower);
                     EditorGUILayout.PropertyField(grazingAngleMaskHardness, EditorUtils.CommonStyles.GrazingAngleMaskHardness);
-                    EditorGUILayout.PropertyField(depthMask, EditorUtils.CommonStyles.SectionMask);
                 }
                 EditorGUILayout.Space();
 
@@ -249,7 +261,6 @@ namespace Linework.Editor.EdgeDetection
                 {
                     EditorGUILayout.LabelField("Normals", EditorStyles.boldLabel);
                     EditorGUILayout.PropertyField(normalSensitivity, EditorUtils.CommonStyles.Sensitivity);
-                    EditorGUILayout.PropertyField(normalsMask, EditorUtils.CommonStyles.SectionMask);
                 }
                 EditorGUILayout.Space();
 
@@ -257,7 +268,6 @@ namespace Linework.Editor.EdgeDetection
                 {
                     EditorGUILayout.LabelField("Luminance", EditorStyles.boldLabel);
                     EditorGUILayout.PropertyField(luminanceSensitivity, EditorUtils.CommonStyles.Sensitivity);
-                    EditorGUILayout.PropertyField(luminanceMask, EditorUtils.CommonStyles.SectionMask);
                 }
                 EditorGUILayout.Space();
             }, serializedObject);
@@ -289,7 +299,13 @@ namespace Linework.Editor.EdgeDetection
                 if (overrideColorInShadow.boolValue) EditorGUILayout.PropertyField(outlineColorShadow, GUIContent.none);
                 EditorGUILayout.EndHorizontal();
                 EditorGUILayout.PropertyField(backgroundColor, EditorUtils.CommonStyles.BackgroundColor);
-                EditorGUILayout.PropertyField(fillColor, EditorUtils.CommonStyles.OutlineFillColor);
+                EditorGUILayout.PropertyField(fill, EditorUtils.CommonStyles.Fill);
+                if (fill.boolValue)
+                {
+                    EditorGUI.indentLevel++;
+                    EditorGUILayout.PropertyField(fillColor, EditorUtils.CommonStyles.OutlineFillColor);
+                    EditorGUI.indentLevel--;
+                }
                 EditorGUILayout.PropertyField(fadeByDistance, EditorUtils.CommonStyles.FadeByDistance);
                 if (fadeByDistance.boolValue)
                 {

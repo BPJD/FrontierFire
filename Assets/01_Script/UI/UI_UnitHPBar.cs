@@ -1,5 +1,5 @@
 using UnityEngine;
-using Michsky.UI.Heat; // Heat UI namespace
+using Michsky.UI.Heat;
 
 public class UI_UnitHPBar : MonoBehaviour
 {
@@ -8,6 +8,8 @@ public class UI_UnitHPBar : MonoBehaviour
 
     Transform camTr;
     Transform tr;
+
+    bool isBoss = false;
 
 
     void Start()
@@ -20,6 +22,8 @@ public class UI_UnitHPBar : MonoBehaviour
 
         tr = transform;
         camTr = Camera.main.transform;
+        isBoss = unitStatus.unitParams.u_type == UnitParamsSO.UnitTypes.Boss;
+        
     }
 
     void UpdateHpBar(int currentHp, int maxHp)
@@ -44,7 +48,9 @@ public class UI_UnitHPBar : MonoBehaviour
 
     void LateUpdate()
     {
-        // 항상 카메라를 바라보게 회전
-        transform.forward = camTr.forward;
+        // 일반 유닛이면 카메라를 바라보게 회전
+        if (isBoss) return;
+
+        tr.forward = camTr.forward;
     }
 }

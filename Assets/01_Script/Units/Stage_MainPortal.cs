@@ -3,8 +3,13 @@ using UnityEngine.SceneManagement;
 
 public class Stage_MainPortal : MonoBehaviour, IInteractable
 {
-    public void Interact()
+
+    public bool TryInteract()
     {
-        SceneManager.LoadScene(1);
+        string firstStage = GameObject.FindGameObjectWithTag("Data").GetComponent<Data_Scenes>().stageScenes[1];
+
+        SceneManager.LoadScene(firstStage);
+
+        return true;
     }
 }

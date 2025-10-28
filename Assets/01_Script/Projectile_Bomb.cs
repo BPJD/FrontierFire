@@ -1,3 +1,4 @@
+using Combat;
 using System.Collections;
 using UnityEngine;
 
@@ -88,6 +89,9 @@ public class Projectile_Bomb : MonoBehaviour
 
         if (_isExplode)
         {
+
+            
+
             // Æø¹ß ÀÌÆåÆ® »ý¼º
             if (hitEft != null)
             {
@@ -117,8 +121,22 @@ public class Projectile_Bomb : MonoBehaviour
                     if (!Physics.Raycast(tr.position, direction, approxDistance, obstacleLayers))
                     {
                         UnitStatus unit = hit.GetComponent<UnitStatus>();
+
                         if (unit != null)
-                            unit.UnitGetDamage(bulletDamage, 0, 0);
+                        {
+                            Vector3 _colPos = target.position + Vector3.up;
+
+                            var payload = DamagePayload.Create(
+                                baseDamage: bulletDamage,
+                                ammo: 0,
+                                atkType: WeaponParamsSO.AtkTypes.Normal,
+                                isCritical: false,
+                                isWeakPoint: false,
+                                hitPoint: _colPos
+                            );
+
+                            unit.TakeDamage(payload);
+                        }
                     }
                     else
                     {

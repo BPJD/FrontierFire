@@ -57,8 +57,10 @@ public class EnemyUnitDeath : MonoBehaviour
     void ItemDrop()
     {
         Data_DropAmmo data = GameObject.FindGameObjectWithTag("Data").GetComponent<Data_DropAmmo>();
+        PlayerShootingStat playerAmmoStat = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerShootingStat>();
+
         float ammoValue = Random.Range(0f, 100f);
-        float ammoDropRateFinal = Mathf.Clamp(ammoDropRate * data.GameDropRate, 0f, 100f);
+        float ammoDropRateFinal = Mathf.Clamp((ammoDropRate * data.GameDropRate) + playerAmmoStat.playerItemDropRate, 0f, 100f);
 
         if(ammoValue <= ammoDropRateFinal)
         {
@@ -78,7 +80,7 @@ public class EnemyUnitDeath : MonoBehaviour
         if (dropTable.Length > 0)
         {
             float itemDropvalue = Random.Range(0f, 100f);
-            float itemdropRateFinal = Mathf.Clamp(itemDropRate * data.GameDropRate, 0f, 100f);
+            float itemdropRateFinal = Mathf.Clamp((itemDropRate * data.GameDropRate) + playerAmmoStat.playerItemDropRate, 0f, 100f);
 
             if (itemDropvalue <= itemdropRateFinal)
             {

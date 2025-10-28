@@ -1,10 +1,10 @@
 using System;
 using Linework.Common.Utils;
 using Linework.Editor.Common.Utils;
-using Linework.WideOutline;
 using UnityEditor;
 using UnityEngine;
 using Outline = Linework.FastOutline.Outline;
+using Resolution = Linework.Common.Utils.Resolution;
 using Scaling = Linework.FastOutline.Scaling;
 
 namespace Linework.Editor.FastOutline
@@ -26,6 +26,9 @@ namespace Linework.Editor.FastOutline
         private SerializedProperty scaling;
         private SerializedProperty width;
         private SerializedProperty minWidth;
+        private SerializedProperty scaleWithResolution;
+        private SerializedProperty referenceResolution;
+        private SerializedProperty customReferenceResolution;
         private SerializedProperty materialType;
         private SerializedProperty customMaterial;
 
@@ -45,6 +48,9 @@ namespace Linework.Editor.FastOutline
             scaling = serializedObject.FindProperty(nameof(Outline.scaling));
             width = serializedObject.FindProperty(nameof(Outline.width));
             minWidth = serializedObject.FindProperty(nameof(Outline.minWidth));
+            scaleWithResolution = serializedObject.FindProperty(nameof(Outline.scaleWithResolution));
+            referenceResolution = serializedObject.FindProperty(nameof(Outline.referenceResolution));
+            customReferenceResolution = serializedObject.FindProperty(nameof(Outline.customResolution));
             materialType = serializedObject.FindProperty(nameof(Outline.materialType));
             customMaterial = serializedObject.FindProperty(nameof(Outline.customMaterial));
         }
@@ -101,6 +107,18 @@ namespace Linework.Editor.FastOutline
                         default:
                             throw new ArgumentOutOfRangeException();
                     }
+                    EditorGUILayout.BeginHorizontal();
+                    EditorGUILayout.PropertyField(scaleWithResolution, EditorUtils.CommonStyles.ScaleWithResolution);
+                    if (scaleWithResolution.boolValue)
+                    {
+                        EditorGUI.indentLevel++;
+                        EditorGUILayout.BeginHorizontal();
+                        EditorGUILayout.PropertyField(referenceResolution, GUIContent.none);
+                        if ((Resolution) referenceResolution.intValue == Resolution.Custom) EditorGUILayout.PropertyField(customReferenceResolution, GUIContent.none, GUILayout.Width(100));
+                        EditorGUILayout.EndHorizontal();
+                        EditorGUI.indentLevel--;
+                    }
+                    EditorGUILayout.EndHorizontal();
                     break;
                 case MaterialType.Custom:
                     EditorGUILayout.PropertyField(customMaterial, EditorUtils.CommonStyles.CustomMaterial);

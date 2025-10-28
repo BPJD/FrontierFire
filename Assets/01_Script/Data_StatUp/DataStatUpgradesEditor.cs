@@ -5,14 +5,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.IO;
+using System.Text.RegularExpressions;
 
 [CustomEditor(typeof(Data_StatUpgrades))]
 public class DataStatUpgradesEditor : Editor
 {
-    //폴더/접두사 StatUp 규칙으로 수정
+    // 폴더/접두사 규칙 (StatUp_{id}_{seq})
     private const string DefaultFolder = "Assets/02_Datas/StatUpSO";
     private const string NamePrefix = "StatUp_";
     private const bool SyncSoIdWithFilename = true; // 파일명 ID와 SO.id가 다르면 동기화
+
+    // 파일명 파싱: StatUp_61000_003 → id=61000, seq=3
+    // 또한 StatUp_61000 (구형)도 지원
+    private static readonly Regex kNameRegex =
+        new Regex(@"^StatUp_(\d+)(?:_(\d{1,}))?$", RegexOptions.Compiled);
 
     public override void OnInspectorGUI()
     {
@@ -51,7 +57,6 @@ public class DataStatUpgradesEditor : Editor
         }
 
         var newList = new List<StatUpSOEntry>();
-        var seenIds = new HashSet<int>();
         int failLoad = 0;
 
         foreach (string guid in guids)
@@ -69,11 +74,13 @@ public class DataStatUpgradesEditor : Editor
                 continue;
             }
 
-            // 파일명에서 ID 추출 (StatUp_######)
+            // 파일명에서 (id, seq) 추출
             string fname = Path.GetFileNameWithoutExtension(path);
-            int idFromName = TryExtractIdFromName(fname, out var parsed) ? parsed : -1;
+            int idFromName = -1;
+            int seqFromName = -1;
+            TryExtractIdAndSeqFromName(fname, out idFromName, out seqFromName);
 
-            int chosenId = so.id > 0 ? so.id : idFromName;
+            int chosenId = (so.id > 0) ? so.id : idFromName;
             if (chosenId <= 0)
             {
                 Debug.LogWarning($"[AutoFill] ID 판단 실패: {fname} | SO.id={so.id} | {path}");
@@ -100,12 +107,7 @@ public class DataStatUpgradesEditor : Editor
                 chosenId = idFromName;
             }
 
-            if (!seenIds.Add(chosenId))
-            {
-                Debug.LogWarning($"[AutoFill] 중복된 ID 감지: {chosenId} ({fname})");
-                continue;
-            }
-
+            // 다행(같은 id 다수) 지원: 중복 검사는 제거하고 모두 추가
             newList.Add(new StatUpSOEntry
             {
                 statUpID = chosenId,
@@ -113,8 +115,12 @@ public class DataStatUpgradesEditor : Editor
             });
         }
 
-        // ID 정렬
-        newList = newList.OrderBy(e => e.statUpID).ToList();
+        // 정렬: id → seq → 파일명
+        newList = newList
+            .OrderBy(e => e.statUpID)
+            .ThenBy(e => GetSeqFromAsset(e.statUp))                // 파일명 seq 기준(없으면 0)
+            .ThenBy(e => e.statUp ? e.statUp.name : string.Empty)  // 안전한 tie-breaker
+            .ToList();
 
         // 반영
         Undo.RecordObject(data, "자동 Stat Upgrade SO 채우기");
@@ -134,13 +140,30 @@ public class DataStatUpgradesEditor : Editor
         }
     }
 
-    private static bool TryExtractIdFromName(string name, out int id)
+    private static bool TryExtractIdAndSeqFromName(string name, out int id, out int seq)
     {
         id = -1;
-        int idx = name.LastIndexOf('_');
-        if (idx < 0 || idx == name.Length - 1) return false;
-        string tail = name.Substring(idx + 1);
-        return int.TryParse(tail, out id);
+        seq = 0; // 없는 경우 0으로 간주(정렬 시 먼저 나오도록)
+        var m = kNameRegex.Match(name);
+        if (!m.Success) return false;
+
+        // 그룹1: id, 그룹2: seq(옵션)
+        int.TryParse(m.Groups[1].Value, out id);
+        if (m.Groups[2].Success)
+        {
+            int.TryParse(m.Groups[2].Value, out seq);
+        }
+        return id > 0;
+    }
+
+    private static int GetSeqFromAsset(StatUpgradesSO so)
+    {
+        if (!so) return 0;
+        string name = so.name; // 에셋 이름(확장자 제외)
+        int id, seq;
+        if (TryExtractIdAndSeqFromName(name, out id, out seq))
+            return Mathf.Max(seq, 0);
+        return 0;
     }
 }
 #endif

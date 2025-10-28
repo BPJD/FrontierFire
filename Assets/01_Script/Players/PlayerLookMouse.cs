@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem; // ← 추가
+using UnityEngine.SceneManagement;
 
 public class PlayerLookMouse : MonoBehaviour
 {
@@ -23,12 +24,66 @@ public class PlayerLookMouse : MonoBehaviour
     Vector2 rightStick; // 패드 조준 벡터
 
     [SerializeField] float forwardAimDistance = 8f; // 앞을 바라볼 때 고정 조준 거리
+    [SerializeField] float rayDistance = 50f;    // 기존 50f 그대로 쓰려면 이 값 참조
+
+    [SerializeField] Camera cam; // 인스펙터로 연결 가능(선택)
+
+    void Awake()
+    {
+        TryBindCamera();
+    }
 
     private void Start()
     {
         playerInput = GetComponent<PlayerInput>();
         playerMove = GetComponent<PlayerMove>();
     }
+
+    void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;     // 새 씬 로드되면 다시 바인딩
+        SceneManager.activeSceneChanged += OnActiveSceneChanged;
+    }
+
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+        SceneManager.activeSceneChanged -= OnActiveSceneChanged;
+    }
+
+    void OnSceneLoaded(Scene s, LoadSceneMode m) => TryBindCamera();
+    void OnActiveSceneChanged(Scene oldS, Scene newS) => TryBindCamera();
+
+    void TryBindCamera()
+    {
+        // 이미 유효하면 종료
+        if (cam && cam.isActiveAndEnabled) return;
+
+        // 1) 가장 먼저 MainCamera 태그 시도
+        var main = Camera.main;
+        if (main && main.isActiveAndEnabled) { cam = main; return; }
+
+        // 2) 활성 카메라 스캔 (신규 API 사용)
+        Camera candidate = null;
+
+        var cams = Object.FindObjectsByType<Camera>(
+            FindObjectsInactive.Include,         // 비활성까지 포함
+            FindObjectsSortMode.None             // 정렬 불필요 → 더 빠름
+        );
+        // 우선순위: (MainCamera && 활성) > (활성) > (첫 번째 아무 카메라)
+        foreach (var c in cams)
+        {
+            if (!c) continue;
+            if (c.CompareTag("MainCamera") && c.isActiveAndEnabled) { candidate = c; break; }
+            if (candidate == null && c.isActiveAndEnabled) candidate = c;
+        }
+        if (candidate == null && cams.Length > 0) candidate = cams[0];
+
+        cam = candidate;
+        if (cam == null)
+            Debug.LogWarning("[PlayerLookMouse] No Camera found yet. Will retry next frame.");
+    }
+
 
     // Input System - Look 액션(C# Events)
     public void OnLook(InputValue value)
@@ -49,10 +104,12 @@ public class PlayerLookMouse : MonoBehaviour
     {
         if (useMouse)
         {
+            if (!cam) { TryBindCamera(); if (!cam) return; } // ← 추가: 널 가드
+
             // ── 마우스: 기존 로직 그대로 ──
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Ray ray = cam.ScreenPointToRay(Input.mousePosition);  // ← Camera.main -> cam
             RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, 50f, raycastLayerMask))
+            if (Physics.Raycast(ray, out hit, rayDistance, raycastLayerMask))
             {
                 _isAimClose = hit.collider.CompareTag("RayBlock");
 

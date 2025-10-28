@@ -124,6 +124,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -145,6 +147,7 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -210,6 +213,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -231,6 +236,7 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -281,6 +287,7 @@ GameObject:
   - component: {fileID: 1713252205409788605}
   - component: {fileID: 85627324982545818}
   - component: {fileID: 2952797740690943477}
+  - component: {fileID: -9128621462673795334}
   m_Layer: 0
   m_Name: 60000_Pistol
   m_TagString: Untagged
@@ -337,6 +344,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -360,6 +369,7 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -384,6 +394,7 @@ MonoBehaviour:
   magMax: 0
   ammoCur: 0
   pickCount: 0
+  bulletCount: 1
   bullet_angleError: 0
   isDefaultWeapon: 0
 --- !u!114 &1713252205409788605
@@ -416,6 +427,7 @@ MonoBehaviour:
     w_ammoDefault: 0
     bulletID: 0
     isCamRangeUp: 0
+  weaponIcon: {fileID: 0}
 --- !u!114 &85627324982545818
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -441,41 +453,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99d0d8f57cc2de84593294a563f3b576, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upParamsPlus:
-    w_name: 
-    w_desc: 
-    w_type: 0
-    w_usingAmmo: 0
-    w_atkType: 0
-    w_atk: 0
-    w_range: 0
-    w_rpm: 0
-    w_magSize: 0
-    w_accuracy: 0
-    w_reloadTime: 0
-    e_quality: 0
-    w_ammoMulti: 0
-    w_ammoDefault: 0
-    bulletID: 0
-    isCamRangeUp: 0
-  upParamsMulti:
-    w_name: 
-    w_desc: 
-    w_type: 0
-    w_usingAmmo: 0
-    w_atkType: 0
-    w_atk: 0
-    w_range: 0
-    w_rpm: 0
-    w_magSize: 0
-    w_accuracy: 0
-    w_reloadTime: 0
-    e_quality: 0
-    w_ammoMulti: 0
-    w_ammoDefault: 0
-    bulletID: 0
-    isCamRangeUp: 0
   debug_Code: 62000
+--- !u!114 &-9128621462673795334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4884546401499851936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd06495d71f4b4a45b73d254b5bcc5d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponSoundPlay
+  soundFires:
+  - {fileID: 8300000, guid: 2b9dac32b13ec2f44bda17bdcd7ca6c2, type: 3}
+  - {fileID: 8300000, guid: b42cbb10272c6994188546e641006b0e, type: 3}
+  - {fileID: 8300000, guid: 1d82c9b8be92870448c3a0ef794807c7, type: 3}
+  soundReloadStart: {fileID: 8300000, guid: ca00005ab2bee7f48bcf6b2b01967b9a, type: 3}
+  soundReloadEnd: {fileID: 8300000, guid: e03bdf620cb731f4185fff166107d76d, type: 3}
 --- !u!1 &5539435505874587463
 GameObject:
   m_ObjectHideFlags: 0
@@ -537,6 +533,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -558,6 +556,7 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0

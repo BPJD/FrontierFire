@@ -31,6 +31,9 @@ namespace Linework.FastOutline
         public Scaling scaling;
         [Range(0.0f, 100.0f)] public float width = 20.0f;
         [Range(0.0f, 100.0f)] public float minWidth = 0.0f;
+        public bool scaleWithResolution;
+        public Resolution referenceResolution;
+        public float customResolution;
         public MaterialType materialType;
         public Material customMaterial;
         

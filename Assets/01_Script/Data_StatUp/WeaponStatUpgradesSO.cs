@@ -13,6 +13,8 @@ public class WeaponStatUpgradesSO : ScriptableObject
     public int up_type;          // 0 = 합연산, 1 = 곱연산
     public int up_stat;          // 0~11: UnitParams의 스탯 ID 기준
     public float up_value;       // 적용 수치 (정수든 소수든 float로 처리)
+    public int up_tier;          // 아이템의 등급
+    public int up_model;          // 아이템의 모델링
 
     [Header("UI 설명")]
     public string up_uiDesc;     // 예: 체력 100 증가
@@ -35,6 +37,7 @@ public class WeaponStatUpgradesSO : ScriptableObject
         AmmoRevision = 7,
         WeaponType = 8,
         Range = 9,
-        Damage = 10
+        Damage = 10,
+        ExplodeRadius = 11,
     }
 }

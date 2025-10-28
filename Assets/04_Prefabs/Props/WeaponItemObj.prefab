@@ -189,10 +189,10 @@ Rigidbody:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3166634264001106469}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Mass: 1
-  m_Drag: 1
-  m_AngularDrag: 0
+  m_LinearDamping: 1
+  m_AngularDamping: 0
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -252,7 +252,6 @@ MonoBehaviour:
   - 
   - 
   player: {fileID: 0}
-  showDistance: 4
   requireLineOfSight: 1
   losMask:
     serializedVersion: 2

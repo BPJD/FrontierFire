@@ -11,6 +11,7 @@ namespace Linework.WideOutline
         public Shader silhouette;
         public Shader silhouetteInstanced;
         public Shader outline;
+        public Shader clear;
 
         public ShaderResources Load()
         {
@@ -18,6 +19,7 @@ namespace Linework.WideOutline
             silhouette = Shader.Find(ShaderPath.Silhouette);
             silhouetteInstanced = Shader.Find(ShaderPath.SilhouetteInstanced);
             outline = Shader.Find(ShaderPath.Outline);
+            clear = Shader.Find(ShaderPath.Clear);
             return this;
         }
     }
@@ -28,6 +30,7 @@ namespace Linework.WideOutline
         public const string Silhouette = "Hidden/Outlines/Wide Outline/Silhouette";
         public const string SilhouetteInstanced = "Hidden/Outlines/Wide Outline/Silhouette Instanced";
         public const string Outline = "Hidden/Outlines/Wide Outline/Outline";
+        public const string Clear = "Hidden/Clear Stencil";
     }
     
     static class ShaderPass
@@ -67,6 +70,7 @@ namespace Linework.WideOutline
         public const string AlphaCutout = "ALPHA_CUTOUT";
         public const string CustomDepth = "CUSTOM_DEPTH";
         public const string InformationBuffer = "INFORMATION_BUFFER";
+        public const string ScaleWithResolution = "SCALE_WITH_RESOLUTION";
     }
     
     static class Keyword

@@ -88,6 +88,10 @@ public class Terrain_ObjectGenerator : MonoBehaviour
                         float randY;
                         if (type == TerrainType.Ground)
                         {
+                            if (tr.localScale.y < 6f)
+                            {
+                                continue;
+                            }
                             float yMin = tr.position.y - 3f;
                             randY = Mathf.Min(Random.Range(-tr.localScale.y * 0.5f, tr.localScale.y * 0.3f), yMin);
                         }

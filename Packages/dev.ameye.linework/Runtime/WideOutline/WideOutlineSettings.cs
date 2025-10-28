@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Linework.Common.Utils;
 using UnityEditor;
 using UnityEngine;
+using Resolution = Linework.Common.Utils.Resolution;
 
 namespace Linework.WideOutline
 {
@@ -25,6 +26,10 @@ namespace Linework.WideOutline
         public BlendingMode blendMode;
         public bool customDepthBuffer;
         [ColorUsage(true, true)] public Color occludedColor = Color.red;
+        public bool clearStencil = false;
+        public bool scaleWithResolution = true;
+        public Resolution referenceResolution = Resolution._1080;
+        public float customResolution;
         
         public InjectionPoint InjectionPoint => injectionPoint;
         public bool ShowInSceneView => showInSceneView;

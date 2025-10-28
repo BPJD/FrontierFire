@@ -138,6 +138,7 @@ public class PlayerMove : MonoBehaviour
         // 3) 가속/감속
         speedCur = Mathf.MoveTowards(speedCur, (moveDir * moveSpeed_status), 3f * Time.deltaTime);
 
+
         if (isJumping)
         {
             float targetAir = moveDir * playerStat.moveSpeed * moveSpeed_status;
@@ -165,9 +166,11 @@ public class PlayerMove : MonoBehaviour
         // 점프 직전 지상 수평속도를 공중 속도로 고정 (관성 보존)
         airVelX = speedCur * playerStat.moveSpeed;
 
+        float _jumpPower = Mathf.Clamp(playerStat.jumpPower, 8f, playerStat.jumpPower);
+
         playerRig.linearVelocity = new Vector3(
             playerRig.linearVelocity.x,
-            playerStat.jumpPower,
+            _jumpPower,
             playerRig.linearVelocity.z
         );
 

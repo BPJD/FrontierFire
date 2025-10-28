@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cbcf5f200d44ff4e969bb2bfb100489, type: 3}
   m_Name: UnitAI_20007
   m_EditorClassIdentifier: 
-  ai_atkCount: 0
-  ai_atkSpeed: 0
-  ai_atkDelay: 0
-  ai_atkRange: 0
-  ai_sightRange: 0
-  ai_dropRate: 0
+  ai_atkCount: 3
+  ai_atkSpeed: 2
+  ai_atkDelay: 0.5
+  ai_atkRange: 10
+  ai_sightRange: 20
+  ai_dropRate: 80

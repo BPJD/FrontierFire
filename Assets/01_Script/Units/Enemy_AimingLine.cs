@@ -19,6 +19,8 @@ public class Enemy_AimingLine : MonoBehaviour
 
     Vector3 targetPosRevision = new Vector3(0f, 1.5f, 0f);
 
+    [SerializeField] AudioSource soundPlayer_Aiming, soundPlayer_ShotReady;
+
     public void SetTransforms(Transform target, Transform fire)
     {
         targetTr = target;
@@ -69,6 +71,7 @@ public class Enemy_AimingLine : MonoBehaviour
             line.enabled = false;
             yield return blinkDelay;
             line.enabled = true;
+            soundPlayer_ShotReady.PlayOneShot(soundPlayer_ShotReady.clip);
             yield return blinkDelay;
         }
     }
@@ -79,10 +82,15 @@ public class Enemy_AimingLine : MonoBehaviour
         {
             StartCoroutine(LineBlink());
         }
-        else
+        else if(!isBlink && !isDead)
         {
             isLineBlink = false;
         }
+    }
+
+    public void AimSound()
+    {
+        soundPlayer_Aiming.PlayOneShot(soundPlayer_Aiming.clip);
     }
 
 

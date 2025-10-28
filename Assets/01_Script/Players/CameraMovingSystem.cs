@@ -27,6 +27,12 @@ public class CameraMovingSystem : MonoBehaviour
     void Start()
     {
         tr = GetComponent<Transform>();
+        if(lookMouse == null || playerMoveSystem == null)
+        {
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            lookMouse = player.GetComponent<PlayerLookMouse>();
+            playerMoveSystem = player.GetComponent<PlayerMove>();
+        }
     }
 
     // Update is called once per frame

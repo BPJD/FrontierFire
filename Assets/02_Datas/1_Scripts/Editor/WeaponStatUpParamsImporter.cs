@@ -87,6 +87,12 @@ public class WeaponStatUpParamsImporter : EditorWindow
 
                 string up_uiDesc = parts[6];
 
+                int up_tier = 0; //아이템 등급
+                int.TryParse(parts[7].Trim(), out up_tier);
+
+                int up_model = 0; //아이템 모델링
+                int.TryParse(parts[8].Trim(), out up_model);
+
                 // 같은 ID라도 모든 행을 SO로 생성 (덮어쓰기 방지: 순번 부여)
                 if (!idCounters.TryGetValue(id, out int counter)) counter = 0;
                 counter++;
@@ -103,6 +109,8 @@ public class WeaponStatUpParamsImporter : EditorWindow
                 so.up_stat = up_stat;
                 so.up_value = up_value;
                 so.up_uiDesc = up_uiDesc;
+                so.up_tier = up_tier;
+                so.up_model = up_model;
 
                 AssetDatabase.CreateAsset(so, assetPath);
             }

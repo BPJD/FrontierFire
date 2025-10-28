@@ -28,6 +28,10 @@ public class BossBomberSpecialWeapon : MonoBehaviour
 
     Transform target;
 
+    AudioSource soundPlayer;
+    [SerializeField] AudioClip[] sounds_WeaponShot;
+    [SerializeField] AudioClip sound_BonusShot;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -35,6 +39,7 @@ public class BossBomberSpecialWeapon : MonoBehaviour
         bossStatus = GetComponentInParent<BossControlSystem>();
         thisAI = GetComponentInParent<BossBomberLookPlayer>();
         stat = GetComponentInParent<UnitStatus>();
+        soundPlayer = GetComponentInParent<AudioSource>();
         target = GameObject.FindGameObjectWithTag("Player").transform;
         StartShootingSystem();
         SetWeaponStat();
@@ -144,9 +149,9 @@ public class BossBomberSpecialWeapon : MonoBehaviour
                 bulletTr.LookAt(gatling_BulletLook);
             }
 
+            ShootSoundPlay();
 
-
-            bullet.GetComponent<Bullet>().SetBulletStatus(w_atk, w_range);
+            bullet.GetComponent<Bullet>().SetBulletStatus(w_atk, w_range, 0f, WeaponParamsSO.AtkTypes.Normal, false);
             Destroy(bullet, 5f);
         }
     }
@@ -175,8 +180,24 @@ public class BossBomberSpecialWeapon : MonoBehaviour
             eulerAngles.x += Random.Range(-_angleError, _angleError); // X축에 _accuracy 값 추가
             bulletTr.rotation = Quaternion.Euler(eulerAngles);
 
-            bullet.GetComponent<Bullet>().SetBulletStatus(w_atk, w_range);
+            ShootSoundPlay();
+
+            bullet.GetComponent<Bullet>().SetBulletStatus(w_atk, w_range, 0f, WeaponParamsSO.AtkTypes.Normal, false);
             Destroy(bullet, 5f);
+        }
+    }
+
+    void ShootSoundPlay()
+    {
+        if (soundPlayer != null)
+        {
+            int _randValue = Random.Range(0, sounds_WeaponShot.Length);
+            AudioClip _clip = sounds_WeaponShot[_randValue];
+            soundPlayer.PlayOneShot(_clip);
+            if (sound_BonusShot != null)
+            {
+                soundPlayer.PlayOneShot(sound_BonusShot);
+            }
         }
     }
 }

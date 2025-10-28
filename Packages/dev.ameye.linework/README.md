@@ -24,7 +24,7 @@ Redistribution of Linework is **not** allowed. If you obtained a copy through ot
 
 After importing the asset into Unity, you will be greeted by the support window. In the *Configure* tab, click on the *Detect* button. This will verify that everything is set up correctly in your project. If the support window does not open, you can open it by clicking *Window > Linework > About and Support*.
 
-If the result is showing only green checkmarks, you are good to go! If not, see the [Troubleshooting and Known Limitations](https://linework.ameye.dev/support/troubleshooting-and-known-limitations) section.
+If the result is showing only green checkmarks, you are good to go! If not, see the [Troubleshooting and Known Limitations](https://linework.ameye.dev/known-limitations/) section.
 
 To get started, open the *Universal Renderer Data* asset, click on *Add Renderer Feature* and select the outline/fill effect that you would like to add. Each outline effect stores its settings in a separate object that you can create somewhere in your Assets folder, by right-clicking and selecting *Create > Linework > Outline Settings*. 
 

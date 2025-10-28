@@ -42,7 +42,7 @@ public class ObjectPool_Enemy : MonoBehaviour
             {
                 if (!obj.activeInHierarchy)
                 {
-                    obj.GetComponent<Bullet>().SetBulletStatus(_damage, _range);
+                    obj.GetComponent<Bullet>().SetBulletStatus(_damage, _range, 0f, WeaponParamsSO.AtkTypes.Normal, false);
                     obj.SetActive(true);
                     return obj;
                 }
@@ -53,7 +53,7 @@ public class ObjectPool_Enemy : MonoBehaviour
             newObj.SetActive(false);
             pool.Add(newObj);
             newObj.SetActive(true);
-            newObj.GetComponent<Bullet>().SetBulletStatus(_damage, _range);
+            newObj.GetComponent<Bullet>().SetBulletStatus(_damage, _range, 0f, WeaponParamsSO.AtkTypes.Normal, false);
             return newObj;
         }
 
@@ -67,7 +67,7 @@ public class ObjectPool_Enemy : MonoBehaviour
             newObj.SetActive(false);
             pool.Add(newObj);
             newObj.SetActive(true);
-            newObj.GetComponent<Bullet>().SetBulletStatus(_damage, _range);
+            newObj.GetComponent<Bullet>().SetBulletStatus(_damage, _range, 0f, WeaponParamsSO.AtkTypes.Normal, false);
             return newObj;
         }
     }

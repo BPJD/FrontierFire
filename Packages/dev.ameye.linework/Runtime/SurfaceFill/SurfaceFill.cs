@@ -200,7 +200,7 @@ namespace Linework.SurfaceFill
 #if UNITY_6000_0_OR_NEWER
             private class PassData
             {
-                internal readonly List<RendererListHandle> MaskRendererListHandles = new();
+                internal readonly List<(RendererListHandle handle, bool vertexAnimated)> MaskRendererListHandles = new();
             }
             
             public override void RecordRenderGraph(RenderGraph renderGraph, ContextContainer frameData)
@@ -217,7 +217,7 @@ namespace Linework.SurfaceFill
                     InitMaskRendererLists(renderGraph, frameData, ref passData);
                     foreach (var rendererListHandle in passData.MaskRendererListHandles)
                     {
-                        builder.UseRendererList(rendererListHandle);
+                        builder.UseRendererList(rendererListHandle.handle);
                     }
 
                     builder.AllowPassCulling(false);
@@ -226,7 +226,7 @@ namespace Linework.SurfaceFill
                     {
                         foreach (var handle in data.MaskRendererListHandles)
                         {
-                            context.cmd.DrawRendererList(handle);
+                            context.cmd.DrawRendererList(handle.handle);
                         }
                     });
                 }
@@ -300,7 +300,11 @@ namespace Linework.SurfaceFill
                     }
 
                     var drawingSettings = RenderingUtils.CreateDrawingSettings(RenderUtils.DefaultShaderTagIds, renderingData, cameraData, lightData, sortingCriteria);
-                    drawingSettings.overrideMaterial = mask;
+                    if (!fill.vertexAnimation)
+                    {
+                        drawingSettings.overrideMaterial = mask;
+                        drawingSettings.overrideMaterialPassIndex = ShaderPass.Mask;
+                    }
                     
                     var renderQueueRange = fill.renderQueue switch
                     {
@@ -340,7 +344,7 @@ namespace Linework.SurfaceFill
                     var handle = new RendererListHandle();
                     RenderUtils.CreateRendererListWithRenderStateBlock(renderGraph, ref renderingData.cullResults, drawingSettings, filteringSettings, renderStateBlock,
                         ref handle);
-                    passData.MaskRendererListHandles.Add(handle);
+                    passData.MaskRendererListHandles.Add((handle, fill.vertexAnimation));
 
                     // Mask out again to fix self-occlusion.
                     if (fill.occlusion is Occlusion.WhenOccluded)
@@ -353,7 +357,7 @@ namespace Linework.SurfaceFill
                         var handle2 = new RendererListHandle();
                         RenderUtils.CreateRendererListWithRenderStateBlock(renderGraph, ref renderingData.cullResults, drawingSettings, filteringSettings, renderStateBlock,
                             ref handle2);
-                        passData.MaskRendererListHandles.Add(handle2);
+                        passData.MaskRendererListHandles.Add((handle2, fill.vertexAnimation));
                     }
 
                     i++;
@@ -391,9 +395,12 @@ namespace Linework.SurfaceFill
                         }
 
                         var drawingSettings = RenderingUtils.CreateDrawingSettings(RenderUtils.DefaultShaderTagIds, ref renderingData, sortingCriteria);
-                        drawingSettings.overrideMaterial = mask;
-                        drawingSettings.overrideShaderPassIndex = ShaderPass.Mask;
-                        
+                        if (!fill.vertexAnimation)
+                        {
+                            drawingSettings.overrideMaterial = mask;
+                            drawingSettings.overrideShaderPassIndex = ShaderPass.Mask;
+                        }
+        
                         var renderQueueRange = fill.renderQueue switch
                         {
                             OutlineRenderQueue.Opaque => RenderQueueRange.opaque,
@@ -564,6 +571,13 @@ namespace Linework.SurfaceFill
                 Debug.LogWarning("Not all required materials could be created. Surface Fill will not render.");
                 return;
             }
+            
+            var input = ScriptableRenderPassInput.None;
+            if (settings.Fills.Any(fill => fill.pattern == Pattern.Glow))
+            {
+                input |= ScriptableRenderPassInput.Normal;
+            }
+            surfaceFillPass.ConfigureInput(input);
 
             var render = surfaceFillPass.Setup(ref settings, ref maskMaterial, ref fillMaterial);
             if (render) renderer.EnqueuePass(surfaceFillPass);

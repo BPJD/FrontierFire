@@ -27,12 +27,17 @@ public class BossBomberNormalWeapon : MonoBehaviour
 
     int bulletPoint = 0;
 
+    AudioSource soundPlayer;
+    [SerializeField] AudioClip[] sounds_WeaponShot;
+    [SerializeField] AudioClip sound_BonusShot;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         bossStatus = GetComponentInParent<BossControlSystem>();
         thisAI = GetComponentInParent<BossBomberLookPlayer>();
         stat = GetComponentInParent<UnitStatus>();
+        soundPlayer = GetComponentInParent<AudioSource>();
         target = GameObject.FindGameObjectWithTag("Player").transform;
         StartCoroutine(GunShoot());
         SetWeaponStat();
@@ -99,15 +104,31 @@ public class BossBomberNormalWeapon : MonoBehaviour
 
             if (bullet.GetComponent<Bullet>() == null)
             {
+                ShootSoundPlay(true);
                 bullet.GetComponent<Projectile_Bomb>().SetBulletStatus(w_atk, w_range);
                 bullet.GetComponent<Projectile_Bomb>().ForceShoot();
                 Destroy(bullet, 10f);
             }
             else
             {
-                bullet.GetComponent<Bullet>().SetBulletStatus(w_atk, w_range);
+                ShootSoundPlay(false);
+                bullet.GetComponent<Bullet>().SetBulletStatus(w_atk, w_range, 0f, WeaponParamsSO.AtkTypes.Normal, false);
                 Destroy(bullet, 5f);
             }
+        }
+    }
+
+    void ShootSoundPlay(bool isGrenade)
+    {
+        if (soundPlayer != null)
+        {
+            AudioClip _clip = sound_BonusShot;
+            if (!isGrenade)
+            {
+                int _randValue = Random.Range(0, sounds_WeaponShot.Length);
+                _clip = sounds_WeaponShot[_randValue];
+            }
+            soundPlayer.PlayOneShot(_clip);
         }
     }
 

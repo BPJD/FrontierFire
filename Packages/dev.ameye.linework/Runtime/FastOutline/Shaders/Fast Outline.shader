@@ -6,7 +6,9 @@ Shader "Hidden/Outlines/Fast Outline/Outline"
         _OutlineOccludedColor ("Outline Occluded Color", Color) = (1,0,0,1)
         _OutlineWidth ("Outline Width", Range (0, 1)) = 0.5
         _MinimumOutlineWidth ("Minimum Outline Width", Range (0, 1)) = 0.5
-
+        [Toggle(SCALE_WITH_RESOLUTION)] _ResolutionDependent ("Resolution Dependent", Float) = 0
+        _ReferenceResolution ("Reference Resolution", Float) = 1080
+        
         _SrcBlend ("_SrcBlend", Int) = 0
         _DstBlend ("_DstBlend", Int) = 0
         [Enum(UnityEngine.Rendering.CullMode)] _Cull ("Cull", Float) = 0.0
@@ -37,6 +39,7 @@ Shader "Hidden/Outlines/Fast Outline/Outline"
         #endif
 
         #pragma multi_compile _ SCALE_WITH_DISTANCE
+        #pragma multi_compile _ SCALE_WITH_RESOLUTION
         #pragma multi_compile _ OCCLUSION
 
         #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
@@ -50,6 +53,7 @@ Shader "Hidden/Outlines/Fast Outline/Outline"
             half4 _OutlineOccludedColor;
             half _OutlineWidth;
             half _MinimumOutlineWidth;
+            half _ReferenceResolution;
         CBUFFER_END
 
         struct Attributes
@@ -106,6 +110,10 @@ Shader "Hidden/Outlines/Fast Outline/Outline"
                 width = max(width / (distance * 100.0), _MinimumOutlineWidth);
                 #endif
 
+                #if defined(SCALE_WITH_RESOLUTION)
+                width *= _ScreenParams.y / _ReferenceResolution;
+                #endif
+
                 // Move vertex along vertex position in object space.
                 IN.positionOS.xyz += IN.positionOS.xyz * width;
 
@@ -135,6 +143,10 @@ Shader "Hidden/Outlines/Fast Outline/Outline"
                 #if defined(SCALE_WITH_DISTANCE)
                 half distance = TransformObjectToHClip(IN.positionOS.xyz).z;
                 width = max(width / (distance * 100.0), _MinimumOutlineWidth);
+                #endif
+
+                #if defined(SCALE_WITH_RESOLUTION)
+                width *= _ScreenParams.y / _ReferenceResolution;
                 #endif
 
                 // Move vertex along normalized vertex position in object space.
@@ -168,6 +180,10 @@ Shader "Hidden/Outlines/Fast Outline/Outline"
                 width = max(width / (distance * 100.0), _MinimumOutlineWidth);
                 #endif
 
+                #if defined(SCALE_WITH_RESOLUTION)
+                width *= _ScreenParams.y / _ReferenceResolution;
+                #endif
+
                 // Move vertex along normal vector in object space.
                 IN.positionOS.xyz += IN.normalOS * width;
 
@@ -199,8 +215,13 @@ Shader "Hidden/Outlines/Fast Outline/Outline"
                 width = max(width / (distance * 100.0), _MinimumOutlineWidth);
                 #endif
 
+                #if defined(SCALE_WITH_RESOLUTION)
+                width *= _ScreenParams.y / _ReferenceResolution;
+                #endif
+
                 // Move vertex along vertex color in object space.
-                IN.positionOS.xyz += IN.color.xyz * width;
+                float3 remappedColor = IN.color.xyz * 2.0 - 1.0;
+                IN.positionOS.xyz += remappedColor * width;
 
                 // Transform vertex from object space to clip space.
                 OUT.positionHCS = TransformObjectToHClip(IN.positionOS.xyz);
@@ -231,6 +252,10 @@ Shader "Hidden/Outlines/Fast Outline/Outline"
                 #if defined(SCALE_WITH_DISTANCE)
                 half distance = OUT.positionHCS.z;
                 width = max(width / (distance * 100.0), _MinimumOutlineWidth);
+                #endif
+
+                #if defined(SCALE_WITH_RESOLUTION)
+                width *= _ScreenParams.y / _ReferenceResolution;
                 #endif
 
                 // Transform normal vector from object space to clip space.
@@ -284,6 +309,10 @@ Shader "Hidden/Outlines/Fast Outline/Outline"
                 width = max(width / (distance * 100.0), _MinimumOutlineWidth);
                 #endif
 
+                #if defined(SCALE_WITH_RESOLUTION)
+                width *= _ScreenParams.y / _ReferenceResolution;
+                #endif
+
                 // Transform normal vector from object space to view space.
                 // When transforming normals you need to transform with the transpose of the inverse of the transformation for positions.
                 float3 normalVS = normalize(mul((float3x3)UNITY_MATRIX_IT_MV, IN.normalOS));
@@ -315,6 +344,10 @@ Shader "Hidden/Outlines/Fast Outline/Outline"
                 #if defined(SCALE_WITH_DISTANCE)
                 half distance = TransformObjectToHClip(IN.positionOS.xyz).z;
                 width = max(width / (distance * 100.0), _MinimumOutlineWidth);
+                #endif
+
+                #if defined(SCALE_WITH_RESOLUTION)
+                width *= _ScreenParams.y / _ReferenceResolution;
                 #endif
 
                 // Transform vertex from object space to world space.
@@ -367,6 +400,10 @@ Shader "Hidden/Outlines/Fast Outline/Outline"
                 #if defined(SCALE_WITH_DISTANCE)
                 half distance = TransformObjectToHClip(IN.positionOS.xyz).z;
                 width = max(width / (distance * 100.0), _MinimumOutlineWidth);
+                #endif
+
+                #if defined(SCALE_WITH_RESOLUTION)
+                width *= _ScreenParams.y / _ReferenceResolution;
                 #endif
 
                 // Extract baked direction.

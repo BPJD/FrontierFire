@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class BossCorePhaseEndProj : MonoBehaviour
 {
-
+    [SerializeField] ParticleSystem explodeParticle;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -10,8 +10,10 @@ public class BossCorePhaseEndProj : MonoBehaviour
         BossCorePhaseEndRange pattern = GameObject.FindGameObjectWithTag("BossGimmick").GetComponent<BossCorePhaseEndRange>();
         pattern.PlayerThrow();
 
+        explodeParticle.Play(true);
+
         Debug.Log(pattern.gameObject.name);
 
-        Destroy(gameObject);
+        Destroy(gameObject, 3f);
     }
 }

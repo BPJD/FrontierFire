@@ -4,8 +4,11 @@ using Linework.Common.Attributes;
 using System;
 using System.Collections.Generic;
 using Linework.Common.Utils;
-using UnityEditor;
 using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor;
+using ShaderKeywordFilter = UnityEditor.ShaderKeywordFilter;
+#endif
 
 namespace Linework.EdgeDetection
 {
@@ -14,12 +17,12 @@ namespace Linework.EdgeDetection
     public class EdgeDetectionSettings : ScriptableObject
     {
         internal Action OnSettingsChanged;
-        
+
         [SerializeField] private InjectionPoint injectionPoint = InjectionPoint.AfterRenderingPostProcessing;
         [SerializeField] private bool showInSceneView = true;
         [SerializeField] private DebugView debugView;
         public bool debugSectionsRaw;
-
+        
         public DiscontinuityInput discontinuityInput = DiscontinuityInput.Depth | DiscontinuityInput.Normals | DiscontinuityInput.Luminance | DiscontinuityInput.Sections;
         [Range(0.0f, 1.0f)] public float depthSensitivity = 1.0f;
         [Range(0.0f, 1.0f)] public float depthDistanceModulation = 0.4f;
@@ -29,34 +32,50 @@ namespace Linework.EdgeDetection
         [Range(0.0f, 1.0f)] public float luminanceSensitivity = 0.3f;
         public bool objectId = true;
         public bool particles = false;
-        public bool sectionsMask, depthMask, normalsMask, luminanceMask;
         public SectionMapInput sectionMapInput = SectionMapInput.None;
         public Texture2D sectionTexture;
         public UVSet sectionTextureUvSet;
         public Channel sectionTextureChannel;
         public Channel vertexColorChannel;
 
+        
         // Outline.
+#if UNITY_EDITOR
+        [ShaderKeywordFilter.RemoveIfNot(Kernel.Sobel, overridePriority: true, keywordNames: ShaderFeature.OperatorSobel)]
+#endif
         public Kernel kernel = Kernel.RobertsCross;
         [Range(0, 15)] public int outlineThickness = 3;
+#if UNITY_EDITOR
+        [ShaderKeywordFilter.SelectIf(true, overridePriority: true, keywordNames: ShaderFeature.ScaleWithResolution)]
+#endif
         public bool scaleWithResolution;
         public Resolution referenceResolution;
         public float customResolution;
         [ColorUsage(true, true)] public Color backgroundColor = Color.clear;
         [ColorUsage(true, true)] public Color outlineColor = Color.black;
+#if UNITY_EDITOR
+        [ShaderKeywordFilter.SelectIf(true, overridePriority: true, keywordNames: ShaderFeature.OverrideShadow)]
+#endif
         public bool overrideColorInShadow;
         [ColorUsage(true, true)] public Color outlineColorShadow = Color.white;
+        public bool fill;
         [ColorUsage(true, true)] public Color fillColor = Color.black;
+#if UNITY_EDITOR
+        [ShaderKeywordFilter.SelectIf(true, overridePriority: true, keywordNames: ShaderFeature.FadeByDistance)]
+#endif
         public bool fadeByDistance;
         [ColorUsage(true, true)] public Color distanceFadeColor = Color.clear;
         [Range(0.0f, 200.0f)] public float distanceFadeStart = 100.0f;
         [Range(0.1f, 20.0f)] public float distanceFadeDistance = 10.0f;
+#if UNITY_EDITOR
+        [ShaderKeywordFilter.SelectIf(true, overridePriority: true, keywordNames: ShaderFeature.FadeByHeight)]
+#endif
         public bool fadeByHeight;
         [ColorUsage(true, true)] public Color heightFadeColor = Color.clear;
         [Range(0.0f, 2.0f)] public float heightFadeStart = 1.0f;
         [Range(0.01f, 2.0f)] public float heightFadeDistance = 0.5f;
         public BlendingMode blendMode;
-        
+
         // Section map.
         public SectionMapPrecision sectionMapPrecision = SectionMapPrecision._16bit;
         [Range(0, 256)] public int sectionMapClearValue = 1;
@@ -67,7 +86,14 @@ namespace Linework.EdgeDetection
         [RenderingLayerMask]
         public uint SectionRenderingLayer = 1;
 #endif
-        
+#if UNITY_6000_0_OR_NEWER
+        public RenderingLayerMask SectionMaskRenderingLayer = 0;
+#else
+        [RenderingLayerMask]
+        public uint SectionMaskRenderingLayer = 0;
+#endif
+        public MaskInfluence maskInfluence = MaskInfluence.Depth | MaskInfluence.Normals | MaskInfluence.Luminance;
+
         public InjectionPoint InjectionPoint => injectionPoint;
         public bool ShowInSceneView => showInSceneView;
         public DebugView DebugView => debugView;
@@ -89,9 +115,9 @@ namespace Linework.EdgeDetection
         {
             OnSettingsChanged = null;
         }
-        
+
 #if UNITY_EDITOR
-        private class OnDestroyProcessor: AssetModificationProcessor
+        private class OnDestroyProcessor : AssetModificationProcessor
         {
             private static readonly Type Type = typeof(EdgeDetectionSettings);
             private const string FileEnding = ".asset";
