@@ -14,7 +14,6 @@ public class DefaultUnit_Chest : MonoBehaviour, IInteractable
         Vector3 dropPos = new Vector3(transform.position.x, transform.position.y + 0.25f, 0f);
         if (!isOpened)
         {
-            Debug.Log("상자가 열렸습니다!");
             GetComponentInChildren<Animator>().SetTrigger("Open");
 
             Instantiate(dropObj, dropPos, Quaternion.identity);

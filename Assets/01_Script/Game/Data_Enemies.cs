@@ -15,8 +15,6 @@ public class Data_Enemies : MonoBehaviour
         {
             if (!enemyPrefabDict.ContainsKey(entry.enemyId))
                 enemyPrefabDict.Add(entry.enemyId, entry.enemyPrefab);
-            else
-                Debug.LogWarning($"중복된 ID 존재: {entry.enemyId}");
         }
     }
 
@@ -25,7 +23,6 @@ public class Data_Enemies : MonoBehaviour
         if (enemyPrefabDict.TryGetValue(id, out GameObject prefab))
             return prefab;
 
-        Debug.LogWarning($"ID {id} 프리팹 없음");
         if (enemyPrefabDict.TryGetValue(20000, out GameObject errorPrefab))
             return errorPrefab;
 

@@ -768,6 +768,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: ad64f9ad07fd3b644bbeaff8451477cb, type: 3}
   sound_GetCritical: {fileID: 8300000, guid: 33134f0521c14e0459ad36eb47a00177, type: 3}
   sound_DeathSoundByType: {fileID: 8300000, guid: 38fa730ebc563864098b9c9eafe0d34b, type: 3}
+  isTurret: 0
 --- !u!114 &8145096351737512024
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1716,6 +1717,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UnitWeakPoint
   addDamage: 1.25
+  isNormalDamagePoint: 0
 --- !u!1 &2908527599049211272
 GameObject:
   m_ObjectHideFlags: 0

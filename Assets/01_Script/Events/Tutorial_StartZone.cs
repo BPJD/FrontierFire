@@ -13,8 +13,6 @@ public class Tutorial_StartZone : MonoBehaviour
         endZone.SetActive(true);
         targetSystem.SpawnTargets();
         isTutorialStarted = true;
-
-        Debug.Log(other.gameObject);
     }
 
     private void Update()

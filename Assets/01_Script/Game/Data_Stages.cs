@@ -32,8 +32,6 @@ public class Data_Stages : MonoBehaviour
         {
             if (!stagePrefabDict.ContainsKey(entry.stageId))
                 stagePrefabDict.Add(entry.stageId, entry.stagePrefab);
-            else
-                Debug.LogWarning($"중복된 ID 존재: {entry.stageId}");
         }
     }
 
@@ -45,7 +43,6 @@ public class Data_Stages : MonoBehaviour
         if (stagePrefabDict.TryGetValue(id, out GameObject prefab))
             return prefab;
 
-        Debug.LogWarning($"ID {id} 프리팹 없음");
         return null;
     }
 
@@ -114,7 +111,7 @@ public class Data_Stages : MonoBehaviour
 
         if (matchingIds.Count == 0)
         {
-            Debug.LogWarning($"[Data_Stages] 월드 {worldIndex}에 {type} 타입의 스테이지가 없습니다.");
+            //Debug.LogWarning($"[Data_Stages] 월드 {worldIndex}에 {type} 타입의 스테이지가 없습니다.");
             return -1;
         }
 

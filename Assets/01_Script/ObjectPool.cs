@@ -17,6 +17,7 @@ public class ObjectPool : MonoBehaviour
     // State
     int bulletIDCur = 0;
     float damageRevisionShotGun = 1f;
+    bool isShotGun = false;
     readonly List<GameObject> pool = new List<GameObject>();
 
     void OnEnable()
@@ -104,9 +105,14 @@ public class ObjectPool : MonoBehaviour
 
         // 샷건 데미지 계수 재설정
         if (weaponStat != null && weaponStat.GetWeaponType() == WeaponParamsSO.WeaponTypes.Shotgun)
+        {
             damageRevisionShotGun = 0.125f;
+            isShotGun = true;
+        }
         else
+        {
             damageRevisionShotGun = 1f;
+        }
     }
 
     // 리스트에서 null(파괴된) 인스턴스 제거
@@ -141,7 +147,7 @@ public class ObjectPool : MonoBehaviour
 
         if (prefab == null)
         {
-            Debug.LogError("[ObjectPool] Prefab 이 없습니다. bulletData/weaponStat 세팅 확인.");
+            //Debug.LogError("[ObjectPool] Prefab 이 없습니다. bulletData/weaponStat 세팅 확인.");
             return null;
         }
 
@@ -151,13 +157,21 @@ public class ObjectPool : MonoBehaviour
 
         int dmg = weaponStat ? (int)(weaponStat.bulletAtk * damageRevisionShotGun) : 1;
 
+
         if (weaponStat.criRate >= _CriRandValue)
         {
             dmg = Mathf.FloorToInt(dmg + (dmg * (weaponStat.criDamage * 0.01f)));
             _isCritical = true;
         }
 
-        float range = weaponStat ? weaponStat.bulletRange : 10f;
+        float _speed = 0f;
+        float _range = weaponStat ? weaponStat.bulletRange : 10f;
+        if (isShotGun)
+        {
+            _speed = Random.Range(24f, 36f);
+            _range = Random.Range(_range * 0.7f, _range * 1.3f);
+        }
+        
 
         // 비활성 인스턴스 재사용
         for (int i = 0; i < pool.Count; i++)
@@ -169,7 +183,7 @@ public class ObjectPool : MonoBehaviour
             {
                 obj.SetActive(true);
                 var b = obj.GetComponent<Bullet>();
-                if (b) b.SetBulletStatus(dmg, range, 0f, weaponStat.GetAttackType(), _isCritical);
+                if (b) b.SetBulletStatus(dmg, _range, _speed, weaponStat.GetAttackType(), _isCritical, weaponStat.add_ExplodeRadius);
                 return obj;
             }
         }
@@ -179,7 +193,7 @@ public class ObjectPool : MonoBehaviour
         created.SetActive(true);
         pool.Add(created);
         var bullet = created.GetComponent<Bullet>();
-        if (bullet) bullet.SetBulletStatus(dmg, range, 0f, weaponStat.GetAttackType(), _isCritical);
+        if (bullet) bullet.SetBulletStatus(dmg, _range, _speed, weaponStat.GetAttackType(), _isCritical, weaponStat.add_ExplodeRadius);
         return created;
     }
 

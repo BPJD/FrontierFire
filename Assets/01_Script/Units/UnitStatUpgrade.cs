@@ -68,9 +68,6 @@ public class UnitStatUpgrade : MonoBehaviour
 
         // 무기/파생치 반영 (있으면)
         weaponCon?.ApplyUnitUpgrade();
-        Debug.Log(statID);
-        Debug.Log(plusValue);
-        Debug.Log(multiValue);
     }
 
     // ─────────────────────────────────────────────────────────────────────────────

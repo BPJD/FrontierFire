@@ -39,7 +39,6 @@ public class Stage_TutorialTargetSpawn : MonoBehaviour
         remainTargets--;
         if (remainTargets <= 0)
         {
-            Debug.Log("Å¸°Ù ´Ù ºÎ¼û");
             remainTargets = 0;
             isTargetZero = true;
         }

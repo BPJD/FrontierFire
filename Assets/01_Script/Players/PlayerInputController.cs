@@ -78,6 +78,12 @@ public class PlayerInputController : MonoBehaviour
         // GetButton (홀드 중)
         // if (pressed) { ... }
 
+        if (weaponCur.laserScope != null)
+        {
+            weaponCur.ScopeControl(playerMove.isAiming);
+            //weaponCur.laserScope.GetComponent<LineRenderer>().SetPosition(1, Vector3.forward * weaponCur.GetBulletRange());
+        }
+
         aimingPressedPrev = pressed; // ← 이 위치(함수 끝) 맞습니다.
     }
 
@@ -206,7 +212,6 @@ public class PlayerInputController : MonoBehaviour
             selectedWeapon = 0;
         }
 
-        Debug.Log(selectedWeapon);
         WeaponChanged(selectedWeapon);
     }
 
@@ -218,7 +223,6 @@ public class PlayerInputController : MonoBehaviour
         {
             selectedWeapon = 2;
         }
-        Debug.Log(selectedWeapon);
         WeaponChanged(selectedWeapon);
     }
 

@@ -11,7 +11,7 @@ public class Stage_ClearPortal : MonoBehaviour, IInteractable
         Data_Scenes data = GameObject.FindGameObjectWithTag("Data").GetComponent<Data_Scenes>();
         Control_Stage stageCon = GameObject.FindGameObjectWithTag("GameController").GetComponent<Control_Stage>();
 
-        SceneManager.LoadScene(data.stageScenes[stageCon.worldCur/* + 1*/]);
+        SceneManager.LoadScene(data.stageScenes[stageCon.worldCur + 1]);
 
         return true;
     }

@@ -69,8 +69,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startPoint: {fileID: 2874904490098030445}
-  rewardObj: {fileID: 7966252011262253309, guid: d613011dadc9c7e47b88d43d74b96b2d, type: 3}
+  rewardObjs:
+  - {fileID: 7966252011262253309, guid: 74c9c718f5408ca46828846d54411afa, type: 3}
   isBossStage: 0
+  portalSoundType: 1
 --- !u!114 &7785869301033251453
 MonoBehaviour:
   m_ObjectHideFlags: 0

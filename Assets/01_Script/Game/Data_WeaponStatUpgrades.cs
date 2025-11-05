@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Data_WeaponStatUpgrades : MonoBehaviour
@@ -89,6 +90,7 @@ public class Data_WeaponStatUpgrades : MonoBehaviour
         return upgradeEntries?.Count ?? 0;
     }
 
+    /*
     /// <summary>
     /// 리스트 인덱스로 등록된 ID를 반환합니다. (UI/디버그용)
     /// </summary>
@@ -100,6 +102,36 @@ public class Data_WeaponStatUpgrades : MonoBehaviour
             return -1;
         }
         return upgradeEntries[index].statUpID;
+    }
+    */
+
+    /// <summary>
+    /// 중복 없는 ID 리스트 중에서 랜덤으로 하나 반환
+    /// </summary>
+    public int GetRandomUpgradeID()
+    {
+        if (upgradeEntries == null || upgradeEntries.Count == 0)
+        {
+            Debug.LogWarning("[Data_WeaponStatUpgrades] 등록된 항목이 없습니다.");
+            return -1;
+        }
+
+        // 중복 제거된 ID 목록 생성
+        var uniqueIDs = upgradeEntries
+            .Where(e => e != null && e.statUpID > 0)
+            .Select(e => e.statUpID)
+            .Distinct()
+            .ToList();
+
+        if (uniqueIDs.Count == 0)
+        {
+            Debug.LogWarning("[Data_WeaponStatUpgrades] 유효한 ID가 없습니다.");
+            return -1;
+        }
+
+        // 랜덤으로 하나 반환
+        int randomIndex = Random.Range(0, uniqueIDs.Count);
+        return uniqueIDs[randomIndex];
     }
 }
 

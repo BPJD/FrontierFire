@@ -140,7 +140,7 @@ public class Projectile_Bomb : MonoBehaviour
                     }
                     else
                     {
-                        Debug.Log($"{target.name}은(는) 벽에 가려져 있어 피해 없음");
+
                     }
                 }
             }

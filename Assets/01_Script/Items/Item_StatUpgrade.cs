@@ -124,8 +124,6 @@ public class Item_StatUpgrade : MonoBehaviour, IInteractable
 
     void InteractComplete()
     {
-        Debug.Log("업그레이드 먹음.");
-
         AudioClip _clip = GetClip(upgradeSO.up_tier);
         player.GetComponentInChildren<AudioSource>().PlayOneShot(_clip);
 

@@ -8,14 +8,18 @@ public class ObjectPool_Enemy : MonoBehaviour
     Transform parentTr;
     public int poolSize = 5; // 초기 풀 사이즈
     EnemyAttackSystem weaponStat;
+    TurretAttackSystem turretStat;
+
+    int _damage = 5;
+    float _range = 10f;
     
 
     private List<GameObject> pool = new List<GameObject>();
 
     private void Start()
     {
-        weaponStat = GetComponent<EnemyAttackSystem>();
-        prefab = GetComponent<EnemyAttackSystem>().bulletObj;
+        SetWeaponStat();
+
         poolParent = GameObject.FindGameObjectWithTag("Pool");
         parentTr = poolParent.transform;
         if(prefab != null)
@@ -29,11 +33,29 @@ public class ObjectPool_Enemy : MonoBehaviour
         }
     }
 
+    public void SetWeaponStat()
+    {
+        weaponStat = GetComponent<EnemyAttackSystem>();
+        if (weaponStat != null)
+        {
+            _damage = weaponStat.w_atk;
+            _range = weaponStat.w_range;
+            prefab = weaponStat.bulletObj;
+        }
+        else
+        {
+            turretStat = GetComponent<TurretAttackSystem>();
+            _damage = turretStat.w_atk;
+            _range = turretStat.w_range;
+            prefab = turretStat.bulletObj;
+        }
+
+
+
+    }
+
     public GameObject GetObject()
     {
-        int _damage = weaponStat.w_atk;
-        float _range = weaponStat.w_range;
-
 
         if(poolParent != null)
         {
@@ -42,7 +64,7 @@ public class ObjectPool_Enemy : MonoBehaviour
             {
                 if (!obj.activeInHierarchy)
                 {
-                    obj.GetComponent<Bullet>().SetBulletStatus(_damage, _range, 0f, WeaponParamsSO.AtkTypes.Normal, false);
+                    obj.GetComponent<Bullet>().SetBulletStatus(_damage, _range, 0f, WeaponParamsSO.AtkTypes.Normal, false, 0f);
                     obj.SetActive(true);
                     return obj;
                 }
@@ -53,21 +75,18 @@ public class ObjectPool_Enemy : MonoBehaviour
             newObj.SetActive(false);
             pool.Add(newObj);
             newObj.SetActive(true);
-            newObj.GetComponent<Bullet>().SetBulletStatus(_damage, _range, 0f, WeaponParamsSO.AtkTypes.Normal, false);
+            newObj.GetComponent<Bullet>().SetBulletStatus(_damage, _range, 0f, WeaponParamsSO.AtkTypes.Normal, false, 0f);
             return newObj;
         }
 
 
         else
         {
-            Debug.Log("오브젝트 풀이 안 보이는데요? 님 죠짐 ㅅㄱ");
-
-
             GameObject newObj = Instantiate(prefab);
             newObj.SetActive(false);
             pool.Add(newObj);
             newObj.SetActive(true);
-            newObj.GetComponent<Bullet>().SetBulletStatus(_damage, _range, 0f, WeaponParamsSO.AtkTypes.Normal, false);
+            newObj.GetComponent<Bullet>().SetBulletStatus(_damage, _range, 0f, WeaponParamsSO.AtkTypes.Normal, false, 0f);
             return newObj;
         }
     }

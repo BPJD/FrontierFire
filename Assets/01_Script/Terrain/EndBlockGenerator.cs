@@ -10,6 +10,9 @@ public class EndBlockGenerator : MonoBehaviour
     void Start()
     {
         tr = transform;
+        tr.localScale += Vector3.forward * 7f;
+        tr.position += Vector3.forward * 2f;
+
         Vector3 pos = new Vector3(tr.position.x, tr.position.y - (tr.localScale.y * 0.5f), 0f);
         GameObject obj = lEnd;
 

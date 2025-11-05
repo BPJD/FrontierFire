@@ -13,10 +13,13 @@ public class WeaponStatUpgrade : MonoBehaviour
     readonly Dictionary<int, float> multPercent = new Dictionary<int, float>();
 
 
-    public List<int> upgradesCur { get; private set; } = new List<int>();
+    public List<int> upgradesCur = new List<int>();
 
     Data_WeaponStatUpgrades upgradeData;
     Data_BulletPrafabs bulletData;
+    Data_WeaponUpgradeModels upgradeModelData;
+
+    GameObject upgradeEft;
 
     private void Awake()
     {
@@ -25,31 +28,18 @@ public class WeaponStatUpgrade : MonoBehaviour
 
     void GetUpgradeData()
     {
-        if (upgradeData == null || bulletData == null)
+        if (upgradeData == null || bulletData == null || upgradeModelData == null)
         {
             var go = GameObject.FindGameObjectWithTag("Data");
             if (go)
             {
                 upgradeData = go.GetComponent<Data_WeaponStatUpgrades>();
                 bulletData = go.GetComponent<Data_BulletPrafabs>();
+                upgradeModelData = go.GetComponent<Data_WeaponUpgradeModels>();
             }
         }
     }
 
-    /*
-    // 단일 효과 (하위호환)
-    public void UpgradeStat(int id)
-    {
-        GetUpgradeData();
-        var so = upgradeData != null ? upgradeData.GetUpgrade(id) : null;
-        if (so == null)
-        {
-            Debug.LogWarning($"UpgradeStat: ID {id} SO를 찾을 수 없습니다.");
-            return;
-        }
-        UpgradeStatApply(so.up_type, so.up_stat, so.up_value);
-    }
-    */
 
     // 패키지 단위
     public void UpgradeStatPackage(int id)
@@ -59,7 +49,9 @@ public class WeaponStatUpgrade : MonoBehaviour
         if (pack == null || pack.Count == 0) return;
 
         foreach (var so in pack)
+        {
             UpgradeStatApply(so.up_type, so.up_stat, so.up_value);
+        }
     }
 
     // type: 0=가산, 1=계수 | statID: CSV up_stat | value: 가산(절대값) or 계수(0.30=+30%)
@@ -122,6 +114,23 @@ public class WeaponStatUpgrade : MonoBehaviour
         {
             // upgradesCur.Add(...) 절대 금지 (자기 리스트를 늘리며 순회 X)
             UpgradeStatPackage(list[i]);
+        }
+
+        WeaponEffectApply();
+    }
+
+    public void WeaponEffectApply()
+    {
+        GameObject _eft = upgradeModelData.GetWeaponEft(upgradesCur.Count);
+
+        if (_eft != null)
+        {
+            if (upgradeEft != null)
+            {
+                Destroy(upgradeEft);
+            }
+
+            upgradeEft = Instantiate(_eft, transform);
         }
     }
 }

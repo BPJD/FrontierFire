@@ -12,8 +12,6 @@ public class BossCorePhaseEndProj : MonoBehaviour
 
         explodeParticle.Play(true);
 
-        Debug.Log(pattern.gameObject.name);
-
         Destroy(gameObject, 3f);
     }
 }

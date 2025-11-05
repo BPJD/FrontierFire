@@ -23,8 +23,10 @@ public class PlayerWeapon : MonoBehaviour
     [SerializeField] Transform RhandIK;
     Transform tr;
     Gun_Parent_Data parData;
+    Data_BulletPrafabs shootingDatas;
+    public GameObject laserScope { get; private set; }
 
-
+    
     string aniShootStr = "Shoot";
     string aniReloadStr = "Reload";
 
@@ -75,6 +77,7 @@ public class PlayerWeapon : MonoBehaviour
         weaponController = GetComponentInParent<PlayerWeaponController>();
         inputController = GetComponentInParent<PlayerInputController>();
         soundPlayer = GetComponent<WeaponSoundPlay>();
+        shootingDatas = GameObject.FindGameObjectWithTag("Data").GetComponent<Data_BulletPrafabs>();
         
     }
 
@@ -215,7 +218,7 @@ public class PlayerWeapon : MonoBehaviour
             Quaternion baseRotation = Quaternion.LookRotation(direction);
 
             // X축 회전 수정
-            float _angleError = Random.Range(-bullet_angleError, bullet_angleError) * 1.5f;
+            float _angleError = Random.Range(-bullet_angleError, bullet_angleError) * 3f;
             Vector3 eulerAngles = baseRotation.eulerAngles;
             eulerAngles.x += Random.Range(-_angleError, _angleError); // X축에 _accuracy 값 추가
             bulletTr.rotation = Quaternion.Euler(eulerAngles);
@@ -241,6 +244,8 @@ public class PlayerWeapon : MonoBehaviour
             gunAnimator.GunReload(true);
             soundPlayer.PlaySoundReload(true);
 
+
+            
         }
     }
 
@@ -260,7 +265,7 @@ public class PlayerWeapon : MonoBehaviour
 
         if (magCur >= magMax || weaponStat.ammoCur <= 0)
         {
-            Debug.Log("재장전 불가능");
+            //Debug.Log("재장전 불가능");
         }
         else
         {
@@ -271,7 +276,6 @@ public class PlayerWeapon : MonoBehaviour
             weaponStat.ammoCur -= ammoToLoad;
             weaponController.CheckAmmoFull();
         }
-
     }
 
     void MagUISet()
@@ -295,5 +299,25 @@ public class PlayerWeapon : MonoBehaviour
         return weaponStat.ammoCur;
     }
 
+    public void SetLaserScope(int code)
+    {
+
+        GameObject _newScope = shootingDatas.GetLaserScopePrefab(code);
+
+        if(laserScope != null)
+        {
+            Destroy(laserScope);
+        }
+
+        if(_newScope != null)
+        {
+            laserScope = Instantiate(_newScope, fireTr.transform);
+        }
+    }
+
+    public void ScopeControl(bool isAiming)
+    {
+        laserScope.SetActive(isAiming);
+    }
 
 }

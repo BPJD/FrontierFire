@@ -99,7 +99,7 @@ public class Item_ToolTip : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning($"[ProximityTooltip] Prefab/Canvas 미지정: {name}");
+            //Debug.LogWarning($"[ProximityTooltip] Prefab/Canvas 미지정: {name}");
         }
     }
 
@@ -109,7 +109,7 @@ public class Item_ToolTip : MonoBehaviour
     {
         if (!created || !player || !cam) return;
 
-        bool isSelected = interacter && interacter.SelectedObj == gameObject;
+        bool isSelected = interacter /*&& interacter.SelectedObj == gameObject*/;
 
         // 선택된 경우에만 가시성 조건을 계산
         if (isSelected/* || tooltipType != UI_ToolTip_Object.ObjectType.Weapon*/)

@@ -15,7 +15,7 @@ public class StageModule : MonoBehaviour
     [SerializeField] Transform startPoint;
     EnemyAIBroadcastManager broadcastManager;
 
-    [SerializeField] GameObject rewardObj;
+    [SerializeField] GameObject[] rewardObjs;
 
     public bool isBossStage = false;
     bool nextIsBoss = false;
@@ -127,7 +127,8 @@ public class StageModule : MonoBehaviour
             {
                 if (spawnPoints.Length > 0)
                 {
-                    Instantiate(rewardObj, playerUnit.transform.position, Quaternion.identity);
+
+                    DropRewards();
                 }
 
                 PortalGenerate();
@@ -155,7 +156,7 @@ public class StageModule : MonoBehaviour
     public void BossStageClear()
     {
         PortalGenerate();
-        Debug.Log("보스 클리어");
+        DropRewards();
     }
 
     void PortalGenerate()
@@ -186,5 +187,14 @@ public class StageModule : MonoBehaviour
             }
         }
 
+    }
+
+
+    void DropRewards()
+    {
+        for (int i = 0; i < rewardObjs.Length; i++)
+        {
+            Instantiate(rewardObjs[i], playerUnit.transform.position, Quaternion.identity);
+        }
     }
 }

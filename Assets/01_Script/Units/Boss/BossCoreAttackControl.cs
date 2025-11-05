@@ -48,7 +48,7 @@ public class BossCoreAttackControl : MonoBehaviour
             GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
 
             Bullet bulletStat = bullet.GetComponent<Bullet>();
-            bulletStat.SetBulletStatus(w_atk, w_range, 0f, WeaponParamsSO.AtkTypes.Normal, false);
+            bulletStat.SetBulletStatus(w_atk, w_range, 0f, WeaponParamsSO.AtkTypes.Normal, false, 0f);
             bulletStat.isMove = false;
             float randSpd = Random.Range(moveSpeed * 0.7f, moveSpeed * 1.3f);
             StartCoroutine(MoveBulletToPosition(bullet, bulletPos[i], bulletStat, randSpd));

@@ -47,11 +47,13 @@ public class EnemyUnitDeath : MonoBehaviour
         {
             unitAniCon.SetTrigger("Death_Low");
         }
-        controller.state = EnemyUnitAI_Controller.UnitState.Dead;
         sensor.enabled = false;
         move.enabled = false;
 
+        controller.state = EnemyUnitAI_Controller.UnitState.Dead;
         GetComponentInParent<StageModule>().EnemyCountDown();
+
+
     }
 
     void ItemDrop()

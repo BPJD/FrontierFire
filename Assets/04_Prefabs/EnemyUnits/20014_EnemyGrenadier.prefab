@@ -792,7 +792,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 2875772526f8cfe46bdba18002db2768, type: 3}
   - {fileID: 8300000, guid: ad64f9ad07fd3b644bbeaff8451477cb, type: 3}
   sound_GetCritical: {fileID: 8300000, guid: 33134f0521c14e0459ad36eb47a00177, type: 3}
-  sound_DeathSoundByType: {fileID: 8300000, guid: d1a866d81b1e9f9429d30ec4f3be1209, type: 3}
+  sound_DeathSoundByType: {fileID: 8300000, guid: e4e57556fadf05e438bd9f58bc1ba4b6, type: 3}
+  isTurret: 0
 --- !u!114 &6683090795078246029
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -806,7 +807,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sensor: {fileID: 5261923065292535226}
-  dropTable: []
+  dropTable:
+  - {fileID: 1107620375900894179, guid: bb25a75f60e9b31429cd6cdc55c075b4, type: 3}
   armorAmmoWeight: 0.3
   ammoDropRate: 30
   itemDropRate: 5

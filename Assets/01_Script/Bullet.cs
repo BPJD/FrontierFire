@@ -31,14 +31,9 @@ public class Bullet : MonoBehaviour
     float bulletRangeSqr = 10f;
     WeaponParamsSO.AtkTypes atkType = WeaponParamsSO.AtkTypes.Normal;
 
-    string unitTagCode = "Unit";
-    string unitWeakPointTagCode = "WeakPoint";
-
     bool isActivated = false;
 
     bool isCollided = false;
-
-    Vector3 numberPosRevision = new Vector3(0f, 0.5f, 2f);
 
 
 
@@ -115,14 +110,14 @@ public class Bullet : MonoBehaviour
 
 
 
-        if (other.CompareTag(unitTagCode) || other.CompareTag("Player"))
+        if (other.CompareTag(Data_Strings.UnitTag) || other.CompareTag(Data_Strings.playerTag))
         {
             if (!isExplode)
             {
                 other.GetComponent<UnitStatus>().TakeDamage(payload);
             }
         }
-        else if (other.CompareTag(unitWeakPointTagCode))
+        else if (other.CompareTag(Data_Strings.WeakPointTag))
         {
             if (!isExplode)
             {
@@ -151,12 +146,17 @@ public class Bullet : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public void SetBulletStatus(int _damage, float _range, float _speed, WeaponParamsSO.AtkTypes _type, bool isCri)
+    public void SetBulletStatus(int _damage, float _range, float _speed, WeaponParamsSO.AtkTypes _type, bool isCri, float explodeRad)
     {
         isCritical = isCri;
         bulletDamage = _damage;
         bulletRangeSqr = _range * _range;
         atkType = _type;
+
+        if(explodeRad != 0f)
+        {
+            explodeRadius = explodeRad;
+        }
 
         if(_speed >= 1f)
         {
@@ -223,7 +223,7 @@ public class Bullet : MonoBehaviour
                     }
                     else
                     {
-                        Debug.Log($"{target.name}은(는) 벽에 가려져 있어 피해 없음");
+                        
                     }
                 }
             }

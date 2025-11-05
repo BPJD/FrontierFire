@@ -21,16 +21,12 @@ public static class UnitSOAutoConnector
             var aiSO = AssetDatabase.LoadAssetAtPath<UnitAIParamsSO>(aiPath);
 
             if (unitSO == null)
-            {
                 Debug.LogWarning($"Unit SO 없음: {unitPath}");
-            }
 
             if (aiSO == null)
-            {
                 Debug.LogWarning($"AI SO 없음: {aiPath}");
-            }
 
-            // 컴포넌트 찾아서 할당
+            // UnitStatus 할당
             var unitStatus = obj.GetComponent<UnitStatus>();
             if (unitStatus != null && unitSO != null)
             {
@@ -39,12 +35,29 @@ public static class UnitSOAutoConnector
                 EditorUtility.SetDirty(unitStatus);
             }
 
+            // AI 할당 (EnemyAttackSystem → EnemyTurret 순서로 탐색)
             var attackSys = obj.GetComponent<EnemyAttackSystem>();
-            if (attackSys != null && aiSO != null)
+            if (attackSys == null)
+                attackSys = obj.GetComponentInChildren<EnemyAttackSystem>();
+
+            TurretAttackSystem turretSys = null;
+            if (attackSys == null)
+                turretSys = obj.GetComponent<TurretAttackSystem>();
+
+            if (aiSO != null)
             {
-                Undo.RecordObject(attackSys, "AI SO 연결");
-                attackSys.unitAIDataSource = aiSO;
-                EditorUtility.SetDirty(attackSys);
+                if (attackSys != null)
+                {
+                    Undo.RecordObject(attackSys, "AI SO 연결");
+                    attackSys.unitAIDataSource = aiSO;
+                    EditorUtility.SetDirty(attackSys);
+                }
+                else if (turretSys != null)
+                {
+                    Undo.RecordObject(turretSys, "AI SO 연결");
+                    turretSys.unitAIDataSource = aiSO;
+                    EditorUtility.SetDirty(turretSys);
+                }
             }
 
             Debug.Log($"{obj.name} - SO 연결 완료 (ID: {id})");

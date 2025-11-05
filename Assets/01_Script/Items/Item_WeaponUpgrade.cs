@@ -58,7 +58,7 @@ public class Item_WeaponUpgrade : MonoBehaviour, IInteractable
         if (!upgradeData || !upgradeModelData) SetComponent();
 
         int upgradeCount = upgradeData.GetUpgradeCount();
-        upStatID = upgradeData.GetUpgradeIDbyList(Random.Range(0, upgradeCount));
+        upStatID = upgradeData.GetRandomUpgradeID();
 
         // 단일 SO는 하위호환/디버그용으로 보관
         upgradeSO = upgradeData.GetUpgrade(upStatID);
@@ -122,6 +122,7 @@ public class Item_WeaponUpgrade : MonoBehaviour, IInteractable
             // ★ 패키지 단위 적용
             weaponStatUp.UpgradeStatPackage(upStatID);
             weaponStatUp.upgradesCur.Add(upStatID);
+            weaponStatUp.WeaponEffectApply();
         }
 
         InteractComplete();
@@ -148,9 +149,6 @@ public class Item_WeaponUpgrade : MonoBehaviour, IInteractable
 
     void InteractComplete()
     {
-        Debug.Log("업그레이드 먹음.");
-
-
         AudioClip _clip = GetClip(upgradeSO.up_tier);
         player.GetComponentInChildren<AudioSource>().PlayOneShot(_clip);
 

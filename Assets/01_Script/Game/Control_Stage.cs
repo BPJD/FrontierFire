@@ -41,7 +41,7 @@ public class Control_Stage : MonoBehaviour
 
         if (stageID == -1)
         {
-            Debug.LogWarning("[Control_Stage] 유효한 스테이지 ID를 찾지 못했습니다.");
+            //Debug.LogWarning("[Control_Stage] 유효한 스테이지 ID를 찾지 못했습니다.");
             return;
         }
 
@@ -49,7 +49,7 @@ public class Control_Stage : MonoBehaviour
 
         if (stageObj == null)
         {
-            Debug.LogWarning($"[Control_Stage] 스테이지 프리팹을 찾을 수 없습니다. ID: {stageID}");
+            //Debug.LogWarning($"[Control_Stage] 스테이지 프리팹을 찾을 수 없습니다. ID: {stageID}");
             return;
         }
 
@@ -60,13 +60,13 @@ public class Control_Stage : MonoBehaviour
         {
             stage.GetComponent<StageModule>().NextisBoss();
         }
-        Debug.Log($"[Control_Stage] Stage {stageID} 생성 완료");
+        //Debug.Log($"[Control_Stage] Stage {stageID} 생성 완료");
     }
 
     public void BossStagePlay()
     {
         stageCur++;
-        Instantiate(stageData.bossStages[gameLevel - 1], stagePosition * stageCur, Quaternion.identity);
+        Instantiate(stageData.bossStages[world - 1], stagePosition * stageCur, Quaternion.identity);
     }
 
     /// <summary>

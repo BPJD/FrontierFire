@@ -51,7 +51,7 @@ public class BossBomberLookPlayer : MonoBehaviour
 
     private void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        player = GameObject.FindGameObjectWithTag(Data_Strings.playerTag).transform;
         bossStatus = GetComponent<BossControlSystem>();
         normalWeapon = GetComponentInChildren<BossBomberNormalWeapon>();
         normalPoints = new Transform[] { lEnd, centerL, center2, centerR, rEnd };
@@ -319,7 +319,6 @@ public class BossBomberLookPlayer : MonoBehaviour
                 break;
         }
 
-        Debug.Log(attackPattern + " 패턴, 목적지 : " + destination);
     }
 
     IEnumerator MoveToTarget(Vector3 targetPos, float speed, bool useSmooth, float smoothTime)
@@ -402,8 +401,6 @@ public class BossBomberLookPlayer : MonoBehaviour
         aniCon.SetTrigger("Idle");
         patternStack++;
 
-
-        Debug.Log("패턴 종료, 복귀");
     }
 
     bool ChectAttackReady()

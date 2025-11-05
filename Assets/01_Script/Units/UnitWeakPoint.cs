@@ -7,13 +7,21 @@ public class UnitWeakPoint : MonoBehaviour
 
     [SerializeField] float addDamage = 1.25f;
 
+    [SerializeField] bool isNormalDamagePoint = false;
+
     private void Start()
     {
         unitStat = GetComponentInParent<UnitStatus>();
+
+        if (isNormalDamagePoint)
+        {
+            addDamage = 1f;
+        }
     }
 
     public void WeatPointDamage(in DamagePayload p)
     {
+
         int _DamageByWeakPoint = Mathf.FloorToInt(p.baseDamage * addDamage);
 
         var payload = DamagePayload.Create(
@@ -21,13 +29,15 @@ public class UnitWeakPoint : MonoBehaviour
             ammo: p.ammo,
             atkType: p.atkType,
             isCritical: p.isCritical,
-            isWeakPoint: true,
+            isWeakPoint: !isNormalDamagePoint,
             hitPoint: p.hitPoint
         );
 
-        unitStat.TakeDamage(payload);
 
-
+        if(unitStat.hpCur > 0)
+        {
+            unitStat.TakeDamage(payload);
+        }
 
     }
 }

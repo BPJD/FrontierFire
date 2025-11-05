@@ -8,6 +8,9 @@ public class Data_BulletPrafabs : MonoBehaviour
 
     private Dictionary<int, GameObject> bulletPrefabDict;
 
+
+    [SerializeField] GameObject[] playerLaserScopes;
+
     void Awake()
     {
         bulletPrefabDict = new Dictionary<int, GameObject>();
@@ -15,8 +18,6 @@ public class Data_BulletPrafabs : MonoBehaviour
         {
             if (!bulletPrefabDict.ContainsKey(entry.bulletId))
                 bulletPrefabDict.Add(entry.bulletId, entry.bulletPrefab);
-            else
-                Debug.LogWarning($"중복된 ID 존재: {entry.bulletId}");
         }
     }
 
@@ -25,8 +26,12 @@ public class Data_BulletPrafabs : MonoBehaviour
         if (bulletPrefabDict.TryGetValue(id, out GameObject prefab))
             return prefab;
 
-        Debug.LogWarning($"ID {id} 프리팹 없음");
         return null;
+    }
+
+    public GameObject GetLaserScopePrefab(int code)
+    {
+        return playerLaserScopes[code];
     }
 }
 

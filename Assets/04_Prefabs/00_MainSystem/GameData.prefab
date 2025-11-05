@@ -78,17 +78,25 @@ MonoBehaviour:
   - enemyId: 20009
     enemyPrefab: {fileID: 3374123505362633003, guid: 56028b8c97b26b641a2b5683ba5feb0f, type: 3}
   - enemyId: 20010
-    enemyPrefab: {fileID: 3374123505362633003, guid: 553385e1d602e4647972d7ca0ade07ee, type: 3}
+    enemyPrefab: {fileID: 7808221669004915337, guid: ce55c65c714754b44a93996296b54154, type: 3}
   - enemyId: 20011
     enemyPrefab: {fileID: 3374123505362633003, guid: 6553d9e57bfd36b49940b6f2db813dc7, type: 3}
   - enemyId: 20012
-    enemyPrefab: {fileID: 3374123505362633003, guid: acf02bfaa22a45f4ebdd94a895853dd0, type: 3}
+    enemyPrefab: {fileID: 4917849739316451370, guid: 589bc8299e3839f4fbcaf94600feae34, type: 3}
   - enemyId: 20013
     enemyPrefab: {fileID: 3374123505362633003, guid: 3202710e653ffc64ea774028ae40f258, type: 3}
   - enemyId: 20014
     enemyPrefab: {fileID: 3374123505362633003, guid: cc28c8547b4bfd740b997f55d5ee1265, type: 3}
   - enemyId: 20015
     enemyPrefab: {fileID: 3374123505362633003, guid: 89119e4266012884d9ff7119dec77b07, type: 3}
+  - enemyId: 20016
+    enemyPrefab: {fileID: 4306141360859058323, guid: 0ca324458a7ea2d48ba70b83151e6637, type: 3}
+  - enemyId: 20017
+    enemyPrefab: {fileID: 1809628882776732695, guid: 0693b1da34de6f94693530663a62824d, type: 3}
+  - enemyId: 20018
+    enemyPrefab: {fileID: 3446916485206727232, guid: 8f563e7337c0711458df8d483cdc12e5, type: 3}
+  - enemyId: 20019
+    enemyPrefab: {fileID: 8657745127573725682, guid: 674be1667e56bc047b0222f0e47b9249, type: 3}
 --- !u!114 &8023349656569401409
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -103,6 +111,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bossStages:
   - {fileID: 5083128977580333608, guid: ce6ba016e372ba94ebf463756a736453, type: 3}
+  - {fileID: 2503258100302233655, guid: a48521e370003384cafd8c89ce7a3a07, type: 3}
   stagePrefabEntries:
   - stageId: 41001
     stagePrefab: {fileID: 6090532218414092104, guid: b6a9b546a9855fd4fa555a0c9786aec5, type: 3}
@@ -124,6 +133,24 @@ MonoBehaviour:
     stagePrefab: {fileID: 1148345220089994538, guid: be8f777c6a794664ca868bce692cd65f, type: 3}
   - stageId: 41506
     stagePrefab: {fileID: 191175215607313326, guid: f50caa1af0c846e4bb5ab51b43c98143, type: 3}
+  - stageId: 42001
+    stagePrefab: {fileID: 889245901028252990, guid: c8a57d871243bdb4a943658994f6c645, type: 3}
+  - stageId: 42002
+    stagePrefab: {fileID: 7620406235564398737, guid: ff30c626b32ee8f4abb9a33d82c26ed4, type: 3}
+  - stageId: 42003
+    stagePrefab: {fileID: 4330050364015816305, guid: 097afebcc3988a2439f06b17e22bddef, type: 3}
+  - stageId: 42004
+    stagePrefab: {fileID: 1310952696364070168, guid: 3de42c998aad9f14b99ca440af89799d, type: 3}
+  - stageId: 42005
+    stagePrefab: {fileID: 2561165504047986632, guid: d2e7aefaa02296544bfb5692c02df2d7, type: 3}
+  - stageId: 42501
+    stagePrefab: {fileID: 6281724901573928343, guid: 5f1f2ccd8b6eed54088361092ad0de23, type: 3}
+  - stageId: 42503
+    stagePrefab: {fileID: 2405538020793261648, guid: fea67042d40c057479a90b7608ec8dbd, type: 3}
+  - stageId: 42504
+    stagePrefab: {fileID: 263458340621181292, guid: b9fb9ad7cc633b246ac422d81261fda4, type: 3}
+  - stageId: 42505
+    stagePrefab: {fileID: 4178302608609789465, guid: a4ea6902c6935c546b10e15614d728e8, type: 3}
 --- !u!114 &6441294472523495742
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -147,6 +174,9 @@ MonoBehaviour:
     bulletPrefab: {fileID: 3992555264622744971, guid: 307b99d40c0cdc4419463f155a7dde63, type: 3}
   - bulletId: 4
     bulletPrefab: {fileID: 3992555264622744971, guid: 3e69f46dfb4645d4dba136e329d218ed, type: 3}
+  playerLaserScopes:
+  - {fileID: 0}
+  - {fileID: 3537405510764517741, guid: d42a0359c46b4f947a046a6d7028cb1d, type: 3}
 --- !u!114 &3085418309556881113
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -453,7 +483,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5fec343346f2f914b8d06240cfb6bd74, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assembly-CSharp::Data_WeaponStatUpgrades
   upgradeEntries:
   - statUpID: 62000
     statUp: {fileID: 11400000, guid: d4396fbf82a94d64fb804b6b3acf0bd2, type: 2}
@@ -465,6 +495,8 @@ MonoBehaviour:
     statUp: {fileID: 11400000, guid: 37b57b2edc63ff041bab4a59aede4114, type: 2}
   - statUpID: 62004
     statUp: {fileID: 11400000, guid: 3fe1cc4247e2e0c45bf942c75fd8a128, type: 2}
+  - statUpID: 62004
+    statUp: {fileID: 11400000, guid: 1aae97124bb53eb4981a5cdc59de1ee6, type: 2}
   - statUpID: 62005
     statUp: {fileID: 11400000, guid: cabc032270521014aade297bf863c55c, type: 2}
   - statUpID: 62006
@@ -511,6 +543,28 @@ MonoBehaviour:
     statUp: {fileID: 11400000, guid: 876814d684615de43b200d93c791af14, type: 2}
   - statUpID: 62017
     statUp: {fileID: 11400000, guid: 1d2d7256d2de8c1418c43098b4cf8bb1, type: 2}
+  - statUpID: 62017
+    statUp: {fileID: 11400000, guid: cae40dc59c596a241bf3a31f3909ee8a, type: 2}
+  - statUpID: 62017
+    statUp: {fileID: 11400000, guid: 9b156e3cbb208b24fb0bf350b8723648, type: 2}
+  - statUpID: 62017
+    statUp: {fileID: 11400000, guid: a55cd3aa72060374fa19bbdf92ab793e, type: 2}
+  - statUpID: 62018
+    statUp: {fileID: 11400000, guid: c78d1a68e550e914c8c6068efef3db17, type: 2}
+  - statUpID: 62018
+    statUp: {fileID: 11400000, guid: d88b2ae5d6d4d61438ea02f44419804b, type: 2}
+  - statUpID: 62019
+    statUp: {fileID: 11400000, guid: 5022920219d64d348bbac942774787f6, type: 2}
+  - statUpID: 62019
+    statUp: {fileID: 11400000, guid: 2dba8c7febab40b4baefc663091ff61b, type: 2}
+  - statUpID: 62019
+    statUp: {fileID: 11400000, guid: fb24ee2b22e1c5c4fa364a902e0c6c17, type: 2}
+  - statUpID: 62020
+    statUp: {fileID: 11400000, guid: b42d36415aaed55418a5d8bbcc5944a0, type: 2}
+  - statUpID: 62020
+    statUp: {fileID: 11400000, guid: 7201ba30941b1e949b8704f0922f61da, type: 2}
+  - statUpID: 62020
+    statUp: {fileID: 11400000, guid: 2188f4f4aab2f56418a8b482feb628d9, type: 2}
 --- !u!114 &7515651255201679461
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -643,6 +697,10 @@ MonoBehaviour:
   - {fileID: 1720927086176044069, guid: 56ee7220654e9ad428e3af1b30cc7f64, type: 3}
   - {fileID: 1947029673904844401, guid: f03a91c169d71cb4b820674492429d54, type: 3}
   - {fileID: 7366518714763079684, guid: 91e472946fba866499eb646153141777, type: 3}
+  weaponEfts:
+  - {fileID: 8527242426296357088, guid: 9cab2f4d68bc7194b8759d1af29d6dfe, type: 3}
+  - {fileID: 7216366514821212876, guid: d58fc21ae0c41ff4199d365b3951f1d6, type: 3}
+  - {fileID: 2683239570078511286, guid: d5e78c0a00e2c9b45a8b3c72ed31cfd4, type: 3}
 --- !u!114 &8258476916958384234
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -62,7 +62,7 @@ public class ProximityTooltip : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning($"[ProximityTooltip] Prefab/Canvas 미지정: {name}");
+            //Debug.LogWarning($"[ProximityTooltip] Prefab/Canvas 미지정: {name}");
         }
     }
 

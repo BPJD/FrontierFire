@@ -135,8 +135,6 @@ public class Data_StatUpgrades : MonoBehaviour
             if (entry == null || entry.statUp == null) continue;
             if (!statUpDict.ContainsKey(entry.statUpID))
                 statUpDict.Add(entry.statUpID, entry.statUp);
-            else
-                Debug.LogWarning($"중복된 ID 존재: {entry.statUpID}");
         }
     }
 
@@ -145,7 +143,6 @@ public class Data_StatUpgrades : MonoBehaviour
         if (statUpDict.TryGetValue(id, out StatUpgradesSO prefab))
             return prefab;
 
-        Debug.LogWarning($"ID {id} 프리팹 없음");
         return null;
     }
 

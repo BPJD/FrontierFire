@@ -10,7 +10,7 @@ public class ItemSelector : MonoBehaviour
 
     Transform tr;
 
-    float explosionForce = 8f;
+    float explosionForce = 9f;
 
     private void Start()
     {
@@ -25,7 +25,7 @@ public class ItemSelector : MonoBehaviour
         if(itemCount == 1)
         {
             int dropItem = Random.Range(0, dropItemsList.Length);
-            dropItems[0] = Instantiate(dropItemsList[dropItem], tr.position, Quaternion.identity, tr);
+            dropItems[0] = Instantiate(dropItemsList[dropItem], tr.position + (Vector3.up * 0.75f), Quaternion.identity, tr);
 
             float angle = Random.Range(-45f, 45f);
             Vector3 direction = Quaternion.Euler(0, 0, angle) * Vector3.up; // X-Y 평면 기준
@@ -42,7 +42,7 @@ public class ItemSelector : MonoBehaviour
             {
                 int dropItem = Random.Range(0, dropItemsList.Length);
 
-                dropItems[i] = Instantiate(dropItemsList[dropItem], tr.position, Quaternion.identity, tr);
+                dropItems[i] = Instantiate(dropItemsList[dropItem], tr.position + (Vector3.up * 0.75f), Quaternion.identity, tr);
 
 
                 float angle = -45f + i * (90f / (itemCount - 1));

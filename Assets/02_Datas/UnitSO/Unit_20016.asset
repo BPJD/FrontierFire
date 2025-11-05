@@ -11,13 +11,13 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7fea028f199c92645afd247a74872281, type: 3}
   m_Name: Unit_20016
-  m_EditorClassIdentifier: 
-  u_name: "\uC57D\uD0C8\uC790 \uB300\uD615 \uB4DC\uB860"
+  m_EditorClassIdentifier: Assembly-CSharp::UnitParamsSO
+  u_name: "\uC57D\uD0C8\uC790 \uC720\uD0C4 \uB4DC\uB860"
   u_type: 2
-  u_hp: 0
-  u_atk: 0
+  u_hp: 120
+  u_atk: 15
   u_def: 0
-  u_immunePer: 0
+  u_immunePer: 1
   u_armorLevel: 0
   u_moveSpeed: 0
   u_jumpPower: 0
@@ -25,4 +25,4 @@ MonoBehaviour:
   u_shotAccuracy: 0
   u_criRate: 0
   u_criDamage: 0
-  u_damage: 0
+  u_damage: 1

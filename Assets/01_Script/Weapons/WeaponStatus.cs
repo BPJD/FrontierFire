@@ -29,6 +29,8 @@ public class WeaponStatus : MonoBehaviour
 
     public float criRate { get; private set; } //PlayerStat에서 그대로 가져오는거임
     public float criDamage { get; private set; } //PlayerStat에서 그대로 가져오는거임
+    public float add_ExplodeRadius { get; private set; } = 0f;
+    int usingScopeCode = 0;
 
     void SetComponents()
     {
@@ -75,7 +77,7 @@ public class WeaponStatus : MonoBehaviour
     void Awake()
     {
         SetComponents();
-        bulletID = w_params.bulletID;
+        //bulletID = w_params.bulletID;
         _isCamRangeUp = w_params.isCamRangeUp;
     }
 
@@ -124,6 +126,9 @@ public class WeaponStatus : MonoBehaviour
             bulletAtk = Mathf.CeilToInt((w_params.w_atk + playerStat.atkCur) * playerStat.damageCur);
         }
 
+        bulletID = w_params.bulletID;
+        GetComponent<ObjectPool>().RefreshPool(bulletID);
+
         bulletRange = Mathf.Clamp(w_params.w_range, 5f, 50f);
 
         criRate = playerStat.criRate;
@@ -160,51 +165,6 @@ public class WeaponStatus : MonoBehaviour
         }
     }
 
-    // 기존 int 버전 (하위호환)
-    public void SetStatusByUpgrade(int _stat, int valuePlus, int valueMulti)
-    {
-        switch (_stat)
-        {
-            case 0:
-                w_params.w_atk = Mathf.Max(1, Mathf.RoundToInt((w_paramsDefault.w_atk + valuePlus) * (1f + valueMulti * 0.01f)));
-                break;
-            case 1:
-                w_params.w_rpm = Mathf.RoundToInt((w_paramsDefault.w_rpm + valuePlus) * (1f + valueMulti * 0.01f));
-                break;
-            case 2:
-                w_params.w_magSize = Mathf.Max(1, Mathf.RoundToInt((w_paramsDefault.w_magSize + valuePlus) * (1f + valueMulti * 0.01f)));
-                break;
-            case 3:
-                w_params.w_reloadTime = RoundTo2Decimal((w_paramsDefault.w_reloadTime + valuePlus) * (1f + valueMulti * 0.01f));
-                break;
-            case 4:
-                w_params.e_quality = Mathf.Clamp(Mathf.RoundToInt((w_paramsDefault.e_quality + valuePlus) * (1f + valueMulti * 0.01f)), 0, 100);
-                break;
-            case 5:
-                w_params.w_accuracy = Mathf.Clamp(RoundTo2Decimal((w_paramsDefault.w_accuracy + valuePlus) * (1f + valueMulti * 0.01f)), 0, 100);
-                break;
-            case 6:
-                w_params.w_usingAmmo = (WeaponParamsSO.Ammos)valuePlus;
-                break;
-            case 7:
-                w_params.w_ammoMulti = RoundTo2Decimal((w_paramsDefault.w_ammoMulti + valuePlus) * (1f + valueMulti * 0.01f));
-                // 탄약 계수 변경 시 최대 탄약 즉시 갱신 (선택)
-                RecalcAmmoMax();
-                break;
-            case 8:
-                w_params.w_atkType = (WeaponParamsSO.AtkTypes)valuePlus;
-                break;
-            case 9:
-                w_params.w_range = Mathf.Clamp(RoundTo2Decimal((w_paramsDefault.w_range + valuePlus) * (1f + valueMulti * 0.01f)), 5f, 50f);
-                break;
-            default:
-                Debug.LogWarning($"Unknown statID: {_stat}");
-                break;
-        }
-
-        ApplyStatusInSystem();
-    }
-
     // 새 float 버전 (가산: float, 계수: 0~1)
     public void SetStatusByUpgradeF(int _stat, float plus, float percent01)
     {
@@ -225,11 +185,15 @@ public class WeaponStatus : MonoBehaviour
             case 4: // quality
                 w_params.e_quality = Mathf.Clamp(Mathf.RoundToInt((w_paramsDefault.e_quality + Mathf.RoundToInt(plus)) * k), 0, 100);
                 break;
-            case 6: // usingAmmo (set)
-                w_params.w_usingAmmo = (WeaponParamsSO.Ammos)Mathf.RoundToInt(plus);
+            case 6: // bulletID (set)
+                w_params.bulletID = Mathf.RoundToInt(plus);
                 break;
             case 8: // atkType (set)
                 w_params.w_atkType = (WeaponParamsSO.AtkTypes)Mathf.RoundToInt(plus);
+                break;
+            case 12: // 조준경 (set)
+                usingScopeCode = Mathf.RoundToInt(plus);
+                weaponSystem.SetLaserScope(usingScopeCode);
                 break;
 
             // 실수 스탯
@@ -246,9 +210,12 @@ public class WeaponStatus : MonoBehaviour
             case 9: // range
                 w_params.w_range = Mathf.Clamp(RoundTo2Decimal((w_paramsDefault.w_range + plus) * k), 5f, 50f);
                 break;
+            case 11:
+                add_ExplodeRadius = RoundTo2Decimal((add_ExplodeRadius + plus) * k);
+                break;
 
             default:
-                Debug.LogWarning($"Unknown statID: {_stat}");
+                //Debug.LogWarning($"Unknown statID: {_stat}");
                 break;
         }
 

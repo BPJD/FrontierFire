@@ -62,7 +62,7 @@ public class GameSession : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("[GameSession] 플레이어 프리팹이 설정되지 않았습니다.");
+            //Debug.LogWarning("[GameSession] 플레이어 프리팹이 설정되지 않았습니다.");
         }
     }
 

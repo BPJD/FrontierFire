@@ -64,7 +64,6 @@ public class PlayerWeaponController : MonoBehaviour
             }
             else
             {
-                Debug.Log("Skip");
                 continue;
             }
         }
@@ -91,7 +90,7 @@ public class PlayerWeaponController : MonoBehaviour
                 playersWeapons[weaponCur].SetActive(false);
             }
 
-            Debug.Log("소지한 무기가 없습니다.");
+            //Debug.Log("소지한 무기가 없습니다.");
             GetComponentInChildren<Animator>().SetTrigger("NoneDraw");
             GetComponentInChildren<PlayerAnimatorLook>().GunAnimationReady(false);
             weaponCur = weaponSlot;

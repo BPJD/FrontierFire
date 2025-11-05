@@ -34,6 +34,8 @@ public class UnitStatus : MonoBehaviour
     Data_DamageNumbers data_DNum;
     Transform tr;
 
+    [SerializeField] bool isTurret = false;
+
     private void Awake()
     {
         unitParams = new UnitParams(unitDataSource);
@@ -111,32 +113,6 @@ public class UnitStatus : MonoBehaviour
         };
     }
 
-    /*
-    public void UnitGetDamage(int damage, WeaponParamsSO.Ammos _ammoType, WeaponParamsSO.AtkTypes _attackType, bool isCri, bool isWeakPoint, Vector3 colPos)
-    {
-        int _finalDamage = damage;
-        int _damageTier = GetDamageTier(armorRevisionByType[(int)_attackType]);
-
-        if (_attackType != WeaponParamsSO.AtkTypes.Fixed)
-        {
-            _finalDamage = Mathf.Clamp(Mathf.RoundToInt((damage - unitParams.u_def) * unitParams.u_immunePer * immunePer * armorRevisionByType[(int)_attackType]), 0, damage);
-            _damageTier = 0;
-        }
-
-        PrintDamageNumber(_finalDamage, _damageTier, isCri);
-        if (soundPlayer != null)
-        {
-            if (isCri)
-            {
-                soundPlayer.PlayOneShot(sound_GetCritical);
-            }
-            soundPlayer.PlayOneShot(sounds_GetDamageByType[_damageTier]);
-        }
-        DamageAndCheckDeath(_finalDamage);
-        Debug.Log(_finalDamage);
-    }
-    */
-
     int GetDamageTier(float revision)
     {
         if (revision >= 0.8f)
@@ -182,7 +158,6 @@ public class UnitStatus : MonoBehaviour
         if (hpCur > 0) return false;
 
         // ----- 이하 기존 로직 유지 -----
-        Debug.Log("UnitDead");
         gameObject.layer = 10;
         gameObject.tag = "Dead";
         if (soundPlayer != null) soundPlayer.PlayOneShot(sound_DeathSoundByType);
@@ -194,8 +169,16 @@ public class UnitStatus : MonoBehaviour
                 GetComponent<PlayerDeath>()?.DeathAnimationPlay(unitParams.u_hp, damage);
                 break;
             case UnitParamsSO.UnitTypes.Enemy:
-                GetComponent<EnemyUnitDeath>()?.DeathAnimationPlay(unitParams.u_hp, damage);
-                GetComponent<EnemyAttackSystem>().isDead = true;
+                if (!isTurret)
+                {
+                    GetComponent<EnemyUnitDeath>().DeathAnimationPlay(unitParams.u_hp, damage);
+                    GetComponent<EnemyAttackSystem>().isDead = true;
+                }
+                else
+                {
+                    GetComponent<EnemyTurret>().TurretDown();
+                    GetComponent<TurretAttackSystem>().isDead = true;
+                }
                 break;
             case UnitParamsSO.UnitTypes.Boss:
                 GetComponent<BossControlSystem>().BossDead();
@@ -206,46 +189,6 @@ public class UnitStatus : MonoBehaviour
         }
         return true;
     }
-
-    /*
-    void DamageAndCheckDeath(int damage)
-    {
-        hpCur = Mathf.Clamp(hpCur - damage, 0, unitParams.u_hp);
-        OnHpChanged?.Invoke(hpCur, unitParams.u_hp);
-        isUnitHit = true;
-
-        if (hpCur <= 0)
-        {
-            Debug.Log("UnitDead");
-            gameObject.layer = 10;
-            gameObject.tag = "Dead";
-
-            if (soundPlayer != null)
-            {
-                soundPlayer.PlayOneShot(sound_DeathSoundByType);
-            }
-
-
-            switch (unitParams.u_type)
-            {
-                case UnitParamsSO.UnitTypes.Player:
-                    GetComponent<PlayerDeath>().enabled = true;
-                    GetComponent<PlayerDeath>()?.DeathAnimationPlay(unitParams.u_hp, damage);
-                    break;
-                case UnitParamsSO.UnitTypes.Enemy:
-                    GetComponent<EnemyUnitDeath>()?.DeathAnimationPlay(unitParams.u_hp, damage);
-                    GetComponent<EnemyAttackSystem>().isDead = true;
-                    break;
-                case UnitParamsSO.UnitTypes.Boss:
-                    GetComponent<BossControlSystem>().BossDead();
-                    break;
-                default:
-                    gameObject.SendMessage(NeutralUnits.deadMsg, SendMessageOptions.DontRequireReceiver);
-                    break;
-            }
-        }
-    }
-    */
 
     void SetRevision()
     {
@@ -354,7 +297,7 @@ public class UnitStatus : MonoBehaviour
                 _playerAmmo.playerItemDropRate = RoundTo2Decimal(_playerAmmo.playerItemDropRate + valuePlus);
                 break;
             default:
-                Debug.LogWarning($"Unknown statID: {_stat}");
+                //Debug.LogWarning($"Unknown statID: {_stat}");
                 break;
         }
     }

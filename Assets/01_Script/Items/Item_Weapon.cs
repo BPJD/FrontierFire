@@ -100,8 +100,6 @@ public class Item_Weapon : MonoBehaviour, IInteractable
         }
         else
         {
-            Debug.Log($"{gameObject} æ∆¿Ã≈€ »πµÊ");
-
             player.GetComponent<PlayerWeaponController>().GetWeapon(weaponID, propAmmoCur, propMagCur, weaponPickCount, upgradesCur);
 
             ItemSelector selector = GetComponentInParent<ItemSelector>();
