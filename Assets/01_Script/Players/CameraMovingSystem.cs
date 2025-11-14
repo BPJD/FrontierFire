@@ -44,7 +44,7 @@ public class CameraMovingSystem : MonoBehaviour
             float _camRangeRevision = 1f;
             if (isSniAiming && isCamRangeUp)
             {
-                _camRangeRevision = 4f;
+                _camRangeRevision = 3f;
             }
 
             Vector3 direction = (lookMouse.targetPos - playerPos).normalized;

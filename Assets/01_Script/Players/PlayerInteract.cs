@@ -11,6 +11,8 @@ public class PlayerInteract : MonoBehaviour
 
     bool isInteractable = false;
 
+    public float uiShowDistance { get; set; } = 5f;
+
     void Update()
     {
         UpdateSelection();
@@ -100,6 +102,7 @@ public class PlayerInteract : MonoBehaviour
                 LayerOutlineSet(SelectedObj, true);
 
             OnSelectedChanged?.Invoke(SelectedObj);
+
         }
 
         isInteractable = closest != null;

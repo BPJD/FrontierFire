@@ -24,7 +24,11 @@ public class Data_Enemies : MonoBehaviour
             return prefab;
 
         if (enemyPrefabDict.TryGetValue(20000, out GameObject errorPrefab))
+        {
+            Debug.Log("없는 유닛코드요");
             return errorPrefab;
+        }
+            
 
         return null;
     }

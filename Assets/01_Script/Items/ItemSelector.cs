@@ -4,7 +4,7 @@ public class ItemSelector : MonoBehaviour
 {
     [SerializeField] GameObject[] dropItemsList;
 
-    [SerializeField] GameObject[] dropItems;
+    public GameObject[] dropItems { get; private set; }
 
     [SerializeField] int itemCount;
 
@@ -55,11 +55,18 @@ public class ItemSelector : MonoBehaviour
                 }
             }
         }
+
+        
         
     }
 
     public void ItemSelected()
     {
         Destroy(gameObject);
+    }
+
+    public int GetItemCount()
+    {
+        return itemCount;
     }
 }

@@ -24,6 +24,8 @@ public class BackgroundGenerator : MonoBehaviour
     [SerializeField] float endObjPosRangeMax = 510f;
     [SerializeField] float endObjPosRangeMin = 300f;
 
+    [SerializeField] bool dontGenerate = false;
+
 
 
     WaitForSeconds delay = new WaitForSeconds(0.1f);
@@ -38,6 +40,7 @@ public class BackgroundGenerator : MonoBehaviour
     }
     void Start()
     {
+        if (dontGenerate) return;
         GenerateStartDisplay();
         StartCoroutine(GenerateTerrain());
     }

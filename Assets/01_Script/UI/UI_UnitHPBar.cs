@@ -5,6 +5,7 @@ public class UI_UnitHPBar : MonoBehaviour
 {
     [SerializeField] UnitStatus unitStatus;
     [SerializeField] private ProgressBar myBar;
+    [SerializeField] GameObject barObj;
 
     Transform camTr;
     Transform tr;
@@ -28,6 +29,11 @@ public class UI_UnitHPBar : MonoBehaviour
 
     void UpdateHpBar(int currentHp, int maxHp)
     {
+        if(currentHp != maxHp)
+        {
+            barObj.SetActive(true);
+        }
+
         myBar.minValue = 0;
         myBar.maxValue = maxHp;
 
@@ -36,6 +42,7 @@ public class UI_UnitHPBar : MonoBehaviour
 
         if(currentHp <= 0)
         {
+            barObj.SetActive(false);
             gameObject.SetActive(false);
         }
     }

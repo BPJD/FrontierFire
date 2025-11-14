@@ -629,7 +629,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UIManagerAsset: {fileID: 11400000, guid: 98972d851a944df4a9402eac62a896e7, type: 2}
   colorType: 2
-  useCustomColor: 0
+  useCustomColor: 1
   useCustomAlpha: 0
 --- !u!114 &1060043581619249880
 MonoBehaviour:
@@ -694,7 +694,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 150, y: -297.41998}
+  m_AnchoredPosition: {x: 150, y: -169.42}
   m_SizeDelta: {x: 250, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &6507666119820586340
@@ -1076,6 +1076,11 @@ MonoBehaviour:
   - {fileID: 3736154386044016204}
   - {fileID: 5663972342817981070}
   - {fileID: 9068999197295874337}
+  img_Frame: {fileID: 837951156081425081}
+  defaultColor: {r: 1, g: 1, b: 1, a: 1}
+  deselectedColor: {r: 0, g: 0.504, b: 0.504, a: 1}
+  selectedColor: {r: 0, g: 1, b: 1, a: 1}
+  selectedColor_single: {r: 1, g: 1, b: 0, a: 1}
 --- !u!1001 &2704067158837629843
 PrefabInstance:
   m_ObjectHideFlags: 0

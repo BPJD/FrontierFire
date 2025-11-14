@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -22,8 +23,15 @@ public class StageModule : MonoBehaviour
 
     GameSoundPlayer soundPlayer;
 
+    float generateDelay = 0.5f;
+    WaitForSeconds delay;
+    int generateCount = 2;
+
     Data_AudioClips clipData;
     [SerializeField] GameSoundPlayer.SoundType portalSoundType = GameSoundPlayer.SoundType.SFX;
+
+    [SerializeField] GameObject spawnPointPlayEft;
+    [SerializeField] GameObject spawnPointIdleEft;
 
     void Start()
     {
@@ -36,6 +44,7 @@ public class StageModule : MonoBehaviour
 
         PlayerMoveToStart();
 
+        delay = new WaitForSeconds(generateDelay);
 
 
         // 자식 중 Portal 태그를 가진 오브젝트만 필터링
@@ -51,57 +60,59 @@ public class StageModule : MonoBehaviour
 
         spawnPoints = GetComponentsInChildren<Stage_EnemySpawnPoint>();
 
-        for (int i = 0; i < spawnPoints.Length; i++)
-        {
-            Vector3 _position = spawnPoints[i].transform.position;
-            GameObject prefab = enemyData.GetEnemyPrefab(spawnPoints[i].mobCode);
-
-            Vector3 _rotation = new Vector3(0f, spawnPoints[i].isLookingRight ? 90f : -90f, 0f);
-
-            GameObject unit = Instantiate(prefab, _position, Quaternion.Euler(_rotation), transform);
-
-            var ai = unit.GetComponent<EnemyUnitAI_Controller>();
-            if (spawnPoints[i].isPatrol)
-            {
-                ai.state = EnemyUnitAI_Controller.UnitState.Patrol;
-            }
-            if (spawnPoints[i].isNotMoving)
-            {
-                ai.isNotMove = true;
-            }
-
-
-            broadcastManager?.Register(ai); // 연동 추가
-
-            remainEnemies++;
-        }
-
-        /**
-        for(int i = 0; i < spawnPoints.Length; i++)
-        {
-            Vector3 _position = spawnPoints[i].transform.position;
-            GameObject _unit = enemyData.GetEnemyPrefab(spawnPoints[i].mobCode);
-
-            Vector3 _rotation = new Vector3(0f, -90f, 0f);
-            if (spawnPoints[i].isLookingRight)
-            {
-                _rotation.y = 90f;
-            }
-
-            Instantiate(_unit, _position, Quaternion.Euler(_rotation), transform);
-            if (spawnPoints[i].isPatrol)
-            {
-                _unit.GetComponent<EnemyUnitAI_Controller>().state = EnemyUnitAI_Controller.UnitState.Patrol;
-            }
-            
-            remainEnemies++;
-        }
-        **/
-
-        CheckEnemyRemains();
+        StartCoroutine(GenerateEnemies());
 
 
     }
+
+
+    IEnumerator GenerateEnemies()
+    {
+        yield return new WaitForSeconds(1.5f);
+
+        for (int i = 0; i < spawnPoints.Length; i += generateCount)
+        {
+            for (int j = 0; j < generateCount; j++)
+            {
+                int spawnIndex = i + j;
+
+                if (spawnIndex < spawnPoints.Length)
+                    SpawnEnemy(spawnIndex);
+            }
+
+            yield return delay;
+        }
+
+        CheckEnemyRemains();
+    }
+
+
+    void SpawnEnemy(int spawnCount)
+    {
+        Vector3 _position = spawnPoints[spawnCount].transform.position;
+        GameObject prefab = enemyData.GetEnemyPrefab(spawnPoints[spawnCount].mobCode);
+
+        Vector3 _rotation = new Vector3(0f, spawnPoints[spawnCount].isLookingRight ? 90f : -90f, 0f);
+
+        spawnPoints[spawnCount].SpawnEftPlay(spawnPointPlayEft);
+        GameObject unit = Instantiate(prefab, _position, Quaternion.Euler(_rotation), transform);
+
+        var ai = unit.GetComponent<EnemyUnitAI_Controller>();
+        if (spawnPoints[spawnCount].isPatrol)
+        {
+            ai.state = EnemyUnitAI_Controller.UnitState.Patrol;
+        }
+        if (spawnPoints[spawnCount].isNotMoving)
+        {
+            ai.isNotMove = true;
+        }
+
+
+        broadcastManager?.Register(ai); // 연동 추가
+
+        remainEnemies++;
+    }
+
 
     public void NextisBoss()
     {
@@ -121,6 +132,8 @@ public class StageModule : MonoBehaviour
 
     void CheckEnemyRemains()
     {
+        PlayerUIRangeSet(false);
+
         if (!isBossStage)
         {
             if (remainEnemies <= 0)
@@ -187,6 +200,8 @@ public class StageModule : MonoBehaviour
             }
         }
 
+
+        PlayerUIRangeSet(true);
     }
 
 
@@ -196,5 +211,18 @@ public class StageModule : MonoBehaviour
         {
             Instantiate(rewardObjs[i], playerUnit.transform.position, Quaternion.identity);
         }
+    }
+
+
+    void PlayerUIRangeSet(bool isStageClear)
+    {
+        float _uiShowDistance = isStageClear ? 20f : 5f;
+
+        playerUnit.GetComponentInChildren<PlayerInteract>().uiShowDistance = _uiShowDistance;
+    }
+
+    public GameObject GetIdleParticleObj()
+    {
+        return spawnPointIdleEft;
     }
 }

@@ -14,7 +14,6 @@ public class Item_ToolTip : MonoBehaviour
 
     [Header("Trigger / Visibility")]
     [SerializeField] Transform player;               // 없으면 Start에서 자동 탐색
-    float showDistance = 5f;        // 이 거리 이내면 표시
     [SerializeField] bool requireLineOfSight = true; // 시야 가림 체크
     [SerializeField] LayerMask losMask;              // 가리는 레이어
     [SerializeField] Vector3 worldOffset = new Vector3(0, 1.5f, 0);
@@ -41,12 +40,16 @@ public class Item_ToolTip : MonoBehaviour
     int interactCount = 0;
     int interactCountMax = 1;
 
+    bool isSelectedColor = false;
+    float deselectedAlpha = 0.7f;
+
     void Start()
     {
-        if(!isComponentSelected)
+        if (!isComponentSelected)
         {
             ComponentSelect();
         }
+
 
     }
 
@@ -118,7 +121,7 @@ public class Item_ToolTip : MonoBehaviour
 
             // 1) 거리 체크 (sqrt 피하기)
             float sqrDist = (player.position - worldPos).sqrMagnitude;
-            bool closeEnough = sqrDist <= showDistance * showDistance;
+            bool closeEnough = sqrDist <= interacter.uiShowDistance * interacter.uiShowDistance;
 
             // 2) 카메라 전면 체크
             Vector3 camToTarget = worldPos - cam.transform.position;
@@ -149,6 +152,9 @@ public class Item_ToolTip : MonoBehaviour
                     Mathf.Clamp(screenPos.y, screenClamp.y, Screen.height - screenClamp.y)
                 );
                 ui.position = clamped;
+
+                CheckItemToolTipSelected();
+                
             }
         }
         else
@@ -157,14 +163,26 @@ public class Item_ToolTip : MonoBehaviour
             visibleTarget = false;
         }
 
+
         // 공통: 페이드 인/아웃
-        float targetAlpha = visibleTarget ? 1f : 0f;
+        float targetAlpha;
+
+        if (isSelectedColor)
+        {
+            targetAlpha = 1f;
+        }
+        else
+        {
+            targetAlpha = visibleTarget ? deselectedAlpha : 0f;
+        }
+
         cg.alpha = Mathf.MoveTowards(cg.alpha, targetAlpha, appearSpeed * Time.deltaTime);
 
         // alpha가 아주 작아졌을 때만 비활성화 (즉시 끄지 않음)
         bool shouldShow = cg.alpha > 0.01f;
         if (ui.gameObject.activeSelf != shouldShow)
             ui.gameObject.SetActive(shouldShow);
+
     }
 
     void OnDestroy()
@@ -197,6 +215,27 @@ public class Item_ToolTip : MonoBehaviour
         else if(!isComponentSelected)
         {
             ComponentSelect();
+        }
+    }
+
+    public void CheckItemToolTipSelected()
+    {
+        if (toolTip_Object != null)
+        {
+            if(interacter.SelectedObj == gameObject)
+            {
+                if (!isSelectedColor)
+                {
+                    toolTip_Object.ThisItemSelected(true);
+                    ui.SetAsLastSibling();
+                    isSelectedColor = true;
+                }
+            }
+            else
+            {
+                toolTip_Object.ThisItemSelected(false);
+                isSelectedColor = false;
+            }
         }
     }
 }

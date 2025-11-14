@@ -47,8 +47,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startPoint: {fileID: 4778553501187748881}
-  rewardObj: {fileID: 7966252011262253309, guid: d613011dadc9c7e47b88d43d74b96b2d, type: 3}
+  rewardObjs: []
   isBossStage: 0
+  portalSoundType: 1
 --- !u!114 &4160756968622836642
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -71,11 +72,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6343150869346155467, guid: 5cc7480e29158ef4b82cb672c3263a25, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -20.090603
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6343150869346155467, guid: 5cc7480e29158ef4b82cb672c3263a25, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 12.798937
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6343150869346155467, guid: 5cc7480e29158ef4b82cb672c3263a25, type: 3}
       propertyPath: m_LocalPosition.z

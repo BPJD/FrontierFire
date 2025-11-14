@@ -24818,6 +24818,8 @@ MonoBehaviour:
   - {fileID: 7966252011262253309, guid: 5dd52c19d206ab3428badca05d60ccfc, type: 3}
   isBossStage: 1
   portalSoundType: 1
+  spawnPointPlayEft: {fileID: 8484537217385332715, guid: 2b781313dfb59714cb28ab08b3803b6b, type: 3}
+  spawnPointIdleEft: {fileID: 2793732936253714916, guid: b68e9f0c9e7911c47b399785857b7e5b, type: 3}
 --- !u!114 &1034616153691489744
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59947,9 +59949,13 @@ PrefabInstance:
       value: Terrain_Ravine_Normal (16)
       objectReference: {fileID: 0}
     - target: {fileID: 8959306399266760297, guid: 73c112104843ed3458954a54d3acebfb, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8959306399266760297, guid: 73c112104843ed3458954a54d3acebfb, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 6143b7d0c26393b42993262048015157, type: 2}
+      objectReference: {fileID: 2100000, guid: 08cc88f197bb10b4ab9ddb9ba55563d3, type: 2}
     - target: {fileID: 8962860292930582102, guid: 73c112104843ed3458954a54d3acebfb, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.2366917
@@ -60091,9 +60097,13 @@ PrefabInstance:
       value: Terrain_Ravine_Normal (14)
       objectReference: {fileID: 0}
     - target: {fileID: 8959306399266760297, guid: 73c112104843ed3458954a54d3acebfb, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8959306399266760297, guid: 73c112104843ed3458954a54d3acebfb, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 6143b7d0c26393b42993262048015157, type: 2}
+      objectReference: {fileID: 2100000, guid: 08cc88f197bb10b4ab9ddb9ba55563d3, type: 2}
     - target: {fileID: 8962860292930582102, guid: 73c112104843ed3458954a54d3acebfb, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.2366917
@@ -60719,9 +60729,13 @@ PrefabInstance:
       value: Terrain_Ravine_Normal (3)
       objectReference: {fileID: 0}
     - target: {fileID: 8959306399266760297, guid: 73c112104843ed3458954a54d3acebfb, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8959306399266760297, guid: 73c112104843ed3458954a54d3acebfb, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 6143b7d0c26393b42993262048015157, type: 2}
+      objectReference: {fileID: 2100000, guid: 08cc88f197bb10b4ab9ddb9ba55563d3, type: 2}
     - target: {fileID: 8962860292930582102, guid: 73c112104843ed3458954a54d3acebfb, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.20039235
@@ -60941,9 +60955,13 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5004243142273687546, guid: cc04b62419002f046ba7a41603472824, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5004243142273687546, guid: cc04b62419002f046ba7a41603472824, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 6143b7d0c26393b42993262048015157, type: 2}
+      objectReference: {fileID: 2100000, guid: 08cc88f197bb10b4ab9ddb9ba55563d3, type: 2}
     - target: {fileID: 7489626760085656743, guid: cc04b62419002f046ba7a41603472824, type: 3}
       propertyPath: m_LocalScale.x
       value: 4.0013714
@@ -61023,9 +61041,13 @@ PrefabInstance:
       value: Terrain_Ravine_Normal (8)
       objectReference: {fileID: 0}
     - target: {fileID: 8959306399266760297, guid: 73c112104843ed3458954a54d3acebfb, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8959306399266760297, guid: 73c112104843ed3458954a54d3acebfb, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 6143b7d0c26393b42993262048015157, type: 2}
+      objectReference: {fileID: 2100000, guid: 08cc88f197bb10b4ab9ddb9ba55563d3, type: 2}
     - target: {fileID: 8962860292930582102, guid: 73c112104843ed3458954a54d3acebfb, type: 3}
       propertyPath: m_LocalScale.x
       value: 13.499602
@@ -61307,9 +61329,13 @@ PrefabInstance:
       value: Terrain_Ravine_Normal (6)
       objectReference: {fileID: 0}
     - target: {fileID: 8959306399266760297, guid: 73c112104843ed3458954a54d3acebfb, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8959306399266760297, guid: 73c112104843ed3458954a54d3acebfb, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 6143b7d0c26393b42993262048015157, type: 2}
+      objectReference: {fileID: 2100000, guid: 08cc88f197bb10b4ab9ddb9ba55563d3, type: 2}
     - target: {fileID: 8962860292930582102, guid: 73c112104843ed3458954a54d3acebfb, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
@@ -61554,6 +61580,18 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3733430091580891136, guid: 674be1667e56bc047b0222f0e47b9249, type: 3}
+      propertyPath: m_Color.b
+      value: 0.1764706
+      objectReference: {fileID: 0}
+    - target: {fileID: 3733430091580891136, guid: 674be1667e56bc047b0222f0e47b9249, type: 3}
+      propertyPath: m_Color.g
+      value: 0.13725491
+      objectReference: {fileID: 0}
+    - target: {fileID: 3733430091580891136, guid: 674be1667e56bc047b0222f0e47b9249, type: 3}
+      propertyPath: m_Color.r
+      value: 0.09803922
+      objectReference: {fileID: 0}
     - target: {fileID: 4249743821320948532, guid: 674be1667e56bc047b0222f0e47b9249, type: 3}
       propertyPath: crystalCol
       value: 
@@ -61683,9 +61721,13 @@ PrefabInstance:
       value: Terrain_Ravine_Normal (5)
       objectReference: {fileID: 0}
     - target: {fileID: 8959306399266760297, guid: 73c112104843ed3458954a54d3acebfb, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8959306399266760297, guid: 73c112104843ed3458954a54d3acebfb, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 6143b7d0c26393b42993262048015157, type: 2}
+      objectReference: {fileID: 2100000, guid: 08cc88f197bb10b4ab9ddb9ba55563d3, type: 2}
     - target: {fileID: 8962860292930582102, guid: 73c112104843ed3458954a54d3acebfb, type: 3}
       propertyPath: m_LocalScale.x
       value: 15.922265
@@ -61913,9 +61955,13 @@ PrefabInstance:
       value: Terrain_Ravine_Normal (2)
       objectReference: {fileID: 0}
     - target: {fileID: 8959306399266760297, guid: 73c112104843ed3458954a54d3acebfb, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8959306399266760297, guid: 73c112104843ed3458954a54d3acebfb, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 6143b7d0c26393b42993262048015157, type: 2}
+      objectReference: {fileID: 2100000, guid: 08cc88f197bb10b4ab9ddb9ba55563d3, type: 2}
     - target: {fileID: 8962860292930582102, guid: 73c112104843ed3458954a54d3acebfb, type: 3}
       propertyPath: m_LocalScale.x
       value: 2.9993703
@@ -61995,9 +62041,13 @@ PrefabInstance:
       value: Terrain_Ravine_Normal (15)
       objectReference: {fileID: 0}
     - target: {fileID: 8959306399266760297, guid: 73c112104843ed3458954a54d3acebfb, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8959306399266760297, guid: 73c112104843ed3458954a54d3acebfb, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 6143b7d0c26393b42993262048015157, type: 2}
+      objectReference: {fileID: 2100000, guid: 08cc88f197bb10b4ab9ddb9ba55563d3, type: 2}
     - target: {fileID: 8962860292930582102, guid: 73c112104843ed3458954a54d3acebfb, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.2366917
@@ -62139,9 +62189,13 @@ PrefabInstance:
       value: Terrain_Ravine_Normal (11)
       objectReference: {fileID: 0}
     - target: {fileID: 8959306399266760297, guid: 73c112104843ed3458954a54d3acebfb, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8959306399266760297, guid: 73c112104843ed3458954a54d3acebfb, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: da4826bfd01cd834dabace68f74df6cb, type: 2}
+      objectReference: {fileID: 2100000, guid: 08cc88f197bb10b4ab9ddb9ba55563d3, type: 2}
     - target: {fileID: 8962860292930582102, guid: 73c112104843ed3458954a54d3acebfb, type: 3}
       propertyPath: m_LocalScale.x
       value: 19.45037
@@ -62420,9 +62474,13 @@ PrefabInstance:
       value: Terrain_Ravine_Normal (13)
       objectReference: {fileID: 0}
     - target: {fileID: 8959306399266760297, guid: 73c112104843ed3458954a54d3acebfb, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8959306399266760297, guid: 73c112104843ed3458954a54d3acebfb, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 6143b7d0c26393b42993262048015157, type: 2}
+      objectReference: {fileID: 2100000, guid: 08cc88f197bb10b4ab9ddb9ba55563d3, type: 2}
     - target: {fileID: 8962860292930582102, guid: 73c112104843ed3458954a54d3acebfb, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.2366917
@@ -62704,9 +62762,13 @@ PrefabInstance:
       value: Terrain_Ravine_Normal (9)
       objectReference: {fileID: 0}
     - target: {fileID: 8959306399266760297, guid: 73c112104843ed3458954a54d3acebfb, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8959306399266760297, guid: 73c112104843ed3458954a54d3acebfb, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 6143b7d0c26393b42993262048015157, type: 2}
+      objectReference: {fileID: 2100000, guid: 08cc88f197bb10b4ab9ddb9ba55563d3, type: 2}
     - target: {fileID: 8962860292930582102, guid: 73c112104843ed3458954a54d3acebfb, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.2366917
@@ -62860,9 +62922,13 @@ PrefabInstance:
       value: Terrain_Ravine_Normal (10)
       objectReference: {fileID: 0}
     - target: {fileID: 8959306399266760297, guid: 73c112104843ed3458954a54d3acebfb, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8959306399266760297, guid: 73c112104843ed3458954a54d3acebfb, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 6143b7d0c26393b42993262048015157, type: 2}
+      objectReference: {fileID: 2100000, guid: 08cc88f197bb10b4ab9ddb9ba55563d3, type: 2}
     - target: {fileID: 8962860292930582102, guid: 73c112104843ed3458954a54d3acebfb, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.9650671
@@ -62942,9 +63008,13 @@ PrefabInstance:
       value: Terrain_Ravine_Normal (4)
       objectReference: {fileID: 0}
     - target: {fileID: 8959306399266760297, guid: 73c112104843ed3458954a54d3acebfb, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8959306399266760297, guid: 73c112104843ed3458954a54d3acebfb, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 6143b7d0c26393b42993262048015157, type: 2}
+      objectReference: {fileID: 2100000, guid: 08cc88f197bb10b4ab9ddb9ba55563d3, type: 2}
     - target: {fileID: 8962860292930582102, guid: 73c112104843ed3458954a54d3acebfb, type: 3}
       propertyPath: m_LocalScale.x
       value: 4
@@ -63024,9 +63094,13 @@ PrefabInstance:
       value: Terrain_Ravine_Normal (12)
       objectReference: {fileID: 0}
     - target: {fileID: 8959306399266760297, guid: 73c112104843ed3458954a54d3acebfb, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8959306399266760297, guid: 73c112104843ed3458954a54d3acebfb, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 6143b7d0c26393b42993262048015157, type: 2}
+      objectReference: {fileID: 2100000, guid: 08cc88f197bb10b4ab9ddb9ba55563d3, type: 2}
     - target: {fileID: 8962860292930582102, guid: 73c112104843ed3458954a54d3acebfb, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.2366917
@@ -63106,9 +63180,13 @@ PrefabInstance:
       value: Terrain_Ravine_Normal (1)
       objectReference: {fileID: 0}
     - target: {fileID: 8959306399266760297, guid: 73c112104843ed3458954a54d3acebfb, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8959306399266760297, guid: 73c112104843ed3458954a54d3acebfb, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 6143b7d0c26393b42993262048015157, type: 2}
+      objectReference: {fileID: 2100000, guid: 08cc88f197bb10b4ab9ddb9ba55563d3, type: 2}
     - target: {fileID: 8962860292930582102, guid: 73c112104843ed3458954a54d3acebfb, type: 3}
       propertyPath: m_LocalScale.x
       value: 4

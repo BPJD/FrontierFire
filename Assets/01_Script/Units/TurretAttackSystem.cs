@@ -231,7 +231,7 @@ public class TurretAttackSystem : MonoBehaviour
             Transform bulletTr = bullet.transform;
             if (fireTr != null)
             {
-                bulletTr.position = new Vector3(fireTr.position.x, fireTr.position.y, 0f);
+                bulletTr.position = fireTr.position; //new Vector3(fireTr.position.x, fireTr.position.y, 0f);
             }
             else
             {

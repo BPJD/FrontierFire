@@ -282,7 +282,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UIManagerAsset: {fileID: 11400000, guid: 98972d851a944df4a9402eac62a896e7, type: 2}
   colorType: 2
-  useCustomColor: 0
+  useCustomColor: 1
   useCustomAlpha: 0
 --- !u!114 &1295141253258770841
 MonoBehaviour:
@@ -368,6 +368,11 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  img_Frame: {fileID: 5601399952128802837}
+  defaultColor: {r: 1, g: 1, b: 1, a: 1}
+  deselectedColor: {r: 0, g: 0.504, b: 0.504, a: 1}
+  selectedColor: {r: 0, g: 1, b: 1, a: 1}
+  selectedColor_single: {r: 1, g: 1, b: 0, a: 1}
 --- !u!1 &6012535382555243134
 GameObject:
   m_ObjectHideFlags: 0
