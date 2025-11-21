@@ -12,7 +12,11 @@ public class BossControlSystem : MonoBehaviour
     void Start()
     {
         stageModule = GetComponentInParent<StageModule>();
-        stageModule.isBossStage = true;
+        if(stageModule != null)
+        {
+            stageModule.isBossStage = true;
+        }
+        
     }
 
     public void BossDead()
