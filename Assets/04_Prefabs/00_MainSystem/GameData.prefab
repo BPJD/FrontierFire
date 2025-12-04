@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 8485705846931592133}
   - component: {fileID: 8258476916958384234}
   - component: {fileID: 327075192566743020}
+  - component: {fileID: 8948196741534254695}
   m_Layer: 0
   m_Name: GameData
   m_TagString: Data
@@ -173,10 +174,24 @@ MonoBehaviour:
     stagePrefab: {fileID: 2982516365624912978, guid: db9dab7cf7c0f2e4a86167063bd56c2c, type: 3}
   - stageId: 43501
     stagePrefab: {fileID: 3435685113111424519, guid: 4fac1e2c21c299046af0792b65c82fd3, type: 3}
-  - stageId: 50000
-    stagePrefab: {fileID: 5083128977580333608, guid: ce6ba016e372ba94ebf463756a736453, type: 3}
-  - stageId: 50001
-    stagePrefab: {fileID: 2503258100302233655, guid: a48521e370003384cafd8c89ce7a3a07, type: 3}
+  - stageId: 43502
+    stagePrefab: {fileID: 2043929286253932294, guid: 13468af42bd66bb439bdac04edb34720, type: 3}
+  - stageId: 43503
+    stagePrefab: {fileID: 2166860359048830193, guid: 2130abb64e6b7e043b27f57c3742be57, type: 3}
+  - stageId: 43504
+    stagePrefab: {fileID: 4177649458727278989, guid: 4637fc82fc6e1694687e750547068d51, type: 3}
+  - stageId: 43505
+    stagePrefab: {fileID: 5688800382951072037, guid: 9669ce1ec21edba4a8f54cee180db506, type: 3}
+  - stageId: 43506
+    stagePrefab: {fileID: 8747228614717903246, guid: 738efea31d022a247a9de52878b017d0, type: 3}
+  - stageId: 43507
+    stagePrefab: {fileID: 8852217626057901917, guid: 33af1e1c267dbf641876a34392ee1508, type: 3}
+  - stageId: 43508
+    stagePrefab: {fileID: 6952825363761113959, guid: 84b1f0b317c519d4f8a1c64b54972e3d, type: 3}
+  - stageId: 43509
+    stagePrefab: {fileID: 912901925094774491, guid: e95cd71d4f765f94f9d2f2de408abe71, type: 3}
+  - stageId: 43510
+    stagePrefab: {fileID: 2982516365624912978, guid: 3bd00906e37bbe649820687ab4749c27, type: 3}
 --- !u!114 &6441294472523495742
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -764,3 +779,23 @@ MonoBehaviour:
   - {fileID: 959361645843101530, guid: 30fc6c24c444dc946b8c4bda55eaf7e4, type: 3}
   - {fileID: 959361645843101530, guid: 7ae6a0682284e8842aed9c36f00982f6, type: 3}
   - {fileID: 959361645843101530, guid: 19cc1bc212b533f449f15b3918009bac, type: 3}
+--- !u!114 &8948196741534254695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7852605363030451177}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ad9feac0a8ed324daa4d853584d453a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Data_RewardObjs
+  rewardSelects:
+  - {fileID: 7966252011262253309, guid: acade36524acd414db5ad9126e7e5442, type: 3}
+  - {fileID: 7966252011262253309, guid: 300af86d8990877488adbfe189ac4e05, type: 3}
+  - {fileID: 7966252011262253309, guid: 5dd52c19d206ab3428badca05d60ccfc, type: 3}
+  rewardOnes:
+  - {fileID: 7966252011262253309, guid: 970cbb2a90503f046ba6b9b06a8aa05b, type: 3}
+  - {fileID: 7966252011262253309, guid: 74c9c718f5408ca46828846d54411afa, type: 3}
+  - {fileID: 7966252011262253309, guid: 02ef73859fca6c241ab61f1bdfbf81a6, type: 3}

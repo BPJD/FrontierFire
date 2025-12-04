@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    BoxCollider bulletCol;
+    Collider bulletCol;
     Transform tr;
     Rigidbody rb;
     [SerializeField] float bulletSpeed = 20f;
@@ -28,7 +28,7 @@ public class Bullet : MonoBehaviour
 
     bool isCritical = false;
     int bulletDamage = 5;
-    float bulletRangeSqr = 10f;
+    float bulletRangeSqr = 500f;
     WeaponParamsSO.AtkTypes atkType = WeaponParamsSO.AtkTypes.Normal;
 
     bool isActivated = false;
@@ -42,6 +42,12 @@ public class Bullet : MonoBehaviour
     void Awake()
     {
         bulletCol = GetComponent<BoxCollider>();
+
+        if(bulletCol == null)
+        {
+            bulletCol = GetComponent<SphereCollider>();
+        }
+
         tr = transform;
         rb = GetComponent<Rigidbody>();
     }
@@ -140,10 +146,18 @@ public class Bullet : MonoBehaviour
 
     void BulletDisable()
     {
-        isActivated = false;
-        bulletEft.Clear(true);
-        bulletEft.Stop(true);
-        gameObject.SetActive(false);
+
+        if (transform.parent != null)
+        {
+            isActivated = false;
+            bulletEft.Clear(true);
+            bulletEft.Stop(true);
+            gameObject.SetActive(false);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     public void SetBulletStatus(int _damage, float _range, float _speed, WeaponParamsSO.AtkTypes _type, bool isCri, float explodeRad)

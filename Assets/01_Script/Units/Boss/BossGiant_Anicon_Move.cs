@@ -6,8 +6,6 @@ public class BossGiant_Anicon_Move : StateMachineBehaviour
 
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        Debug.Log("애니메이션 재생 시작됨: " + stateInfo.fullPathHash);
-
         // 외부 스크립트로 콜백 보내기
         if (OnStart != null)
             OnStart.Invoke();

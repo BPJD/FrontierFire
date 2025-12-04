@@ -21,6 +21,7 @@ public class TurretAttackSystem : MonoBehaviour
     public int w_atk { get; private set; }
     public float w_range { get; private set; }
     UnitStatus thisStat;
+    EnemyTurret turretSystem;
 
 
     int attackCount;
@@ -56,6 +57,7 @@ public class TurretAttackSystem : MonoBehaviour
     {
         AIStatusSet();
         bulletPool = GetComponent<ObjectPool_Enemy>();
+        turretSystem = GetComponent<EnemyTurret>();
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -113,6 +115,13 @@ public class TurretAttackSystem : MonoBehaviour
     {
         Vector3 dir = (targetPos - gunTr.position).normalized;
         Quaternion targetRot = Quaternion.LookRotation(dir);
+
+        // 중력 반전 시 Z축 회전값 반대로  
+        if (turretSystem.isGravityReverse)
+        {
+            // Z축 180도 회전 추가
+            targetRot *= Quaternion.Euler(0f, 0f, 180f);
+        }
 
         while (Quaternion.Angle(gunTr.rotation, targetRot) > 0.1f)
         {

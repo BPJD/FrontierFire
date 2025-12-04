@@ -7,6 +7,7 @@ public class StageModule : MonoBehaviour
     DataPortals portalData;
     Transform[] portalPoints;
     int remainEnemies = 0;
+    Data_RewardObjs rewardData;
 
     Data_Enemies enemyData;
     //    [SerializeField] int level = 1;
@@ -16,7 +17,7 @@ public class StageModule : MonoBehaviour
     [SerializeField] Transform startPoint;
     EnemyAIBroadcastManager broadcastManager;
 
-    [SerializeField] GameObject[] rewardObjs;
+    [SerializeField] List<GameObject> rewardObjs = new List<GameObject>();
 
     public bool isBossStage = false;
     bool nextIsBoss = false;
@@ -33,10 +34,14 @@ public class StageModule : MonoBehaviour
     [SerializeField] GameObject spawnPointPlayEft;
     [SerializeField] GameObject spawnPointIdleEft;
 
+    GameObject data;
+
     void Start()
     {
-        portalData = GameObject.FindGameObjectWithTag("Data").GetComponent<DataPortals>();
-        enemyData = GameObject.FindGameObjectWithTag("Data").GetComponent<Data_Enemies>();
+        data = GameObject.FindGameObjectWithTag("Data");
+        portalData = data.GetComponent<DataPortals>();
+        enemyData = data.GetComponent<Data_Enemies>();
+        rewardData = data.GetComponent<Data_RewardObjs>();
         playerUnit = GameObject.FindGameObjectWithTag("Player");
         soundPlayer = GameObject.FindGameObjectWithTag("Sound").GetComponent<GameSoundPlayer>();
         clipData = soundPlayer.gameObject.GetComponent<Data_AudioClips>();
@@ -207,7 +212,7 @@ public class StageModule : MonoBehaviour
 
     void DropRewards()
     {
-        for (int i = 0; i < rewardObjs.Length; i++)
+        for (int i = 0; i < rewardObjs.Count; i++)
         {
             Instantiate(rewardObjs[i], playerUnit.transform.position, Quaternion.identity);
         }
@@ -224,5 +229,16 @@ public class StageModule : MonoBehaviour
     public GameObject GetIdleParticleObj()
     {
         return spawnPointIdleEft;
+    }
+
+    public void RewardObjSet(Stage_NextStagePortal.RewardType rewardType, StageType stageType)
+    {
+        if(rewardData == null)
+        {
+            data = GameObject.FindGameObjectWithTag("Data");
+            rewardData = data.GetComponent<Data_RewardObjs>();
+        }
+
+        rewardObjs.Add(rewardData.GetRewardObj(rewardType, stageType));
     }
 }

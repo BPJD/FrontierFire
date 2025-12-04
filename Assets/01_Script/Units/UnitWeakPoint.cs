@@ -5,9 +5,9 @@ public class UnitWeakPoint : MonoBehaviour
 {
     UnitStatus unitStat;
 
-    [SerializeField] float addDamage = 1.25f;
+    public float addDamage = 1.25f;
 
-    [SerializeField] bool isNormalDamagePoint = false;
+    public bool isNormalDamagePoint = false;
 
     private void Start()
     {

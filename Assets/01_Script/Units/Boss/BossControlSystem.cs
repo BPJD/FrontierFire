@@ -24,6 +24,12 @@ public class BossControlSystem : MonoBehaviour
         stageModule.BossStageClear();
         isBossLive = false;
         deathEft.Play();
+        Animator _anicon = GetComponent<Animator>();
+        
+        if(_anicon != null)
+        {
+            _anicon.SetTrigger("Death");
+        }
     }
 
 

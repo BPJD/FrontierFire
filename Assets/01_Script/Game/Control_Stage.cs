@@ -34,7 +34,7 @@ public class Control_Stage : MonoBehaviour
     /// <summary>
     /// 스테이지를 플레이합니다. (0: 일반, 1: 정예, 2: 보스)
     /// </summary>
-    public void StagePlay(int typeCode)
+    public void StagePlay(int typeCode, Stage_NextStagePortal.RewardType rewardType)
     {
         StageType stageType = GetStageTypeFromInt(typeCode);
         int stageID = stageData.GetRandomStageIDInWorld(worldCur, stageType);
@@ -56,9 +56,17 @@ public class Control_Stage : MonoBehaviour
         stageCur++;
         GameObject stage = Instantiate(stageObj, stagePosition * stageCur, Quaternion.identity);
 
-        if(stageCur == requireForBoss - 1)
+        StageModule _module = stage.GetComponent<StageModule>();
+
+        
+
+        if (stageCur == requireForBoss - 1)
         {
-            stage.GetComponent<StageModule>().NextisBoss();
+            _module.NextisBoss();
+        }
+        else
+        {
+            _module.RewardObjSet(rewardType, stageType);
         }
         //Debug.Log($"[Control_Stage] Stage {stageID} 생성 완료");
     }

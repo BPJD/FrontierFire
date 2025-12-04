@@ -27,9 +27,20 @@ public class EnemyTurret : MonoBehaviour
     bool isDead = false;
     bool isEftPlayed = false;
 
+    public bool isGravityReverse = false;
+
     private void Start()
     {
         itemDropRate = GetComponent<TurretAttackSystem>().unitAIDataSource.ai_dropRate;
+
+    }
+
+    private void Update()
+    {
+        if (isGravityReverse)
+        {
+            GetComponent<Rigidbody>().linearVelocity = Vector3.up * 3f;
+        }
     }
 
     public void TurretDown()
@@ -47,6 +58,11 @@ public class EnemyTurret : MonoBehaviour
         float _randX = Random.Range(-120f, 120f);
         float _randY = Random.Range(150f, 250f);
         float _randZ = Random.Range(30f, 50f);
+
+        if(isGravityReverse)
+        {
+            _randY = Random.Range(-50f, -100f);
+        }
 
         Vector3 _randVector = new Vector3(_randX, _randY, _randZ) * deathAnimationPower;
 
@@ -144,7 +160,7 @@ public class EnemyTurret : MonoBehaviour
     {
         if (!isEftPlayed)
         {
-            Destroy(Instantiate(deathExplosion, transform.position, Quaternion.identity), 5f);
+            Destroy(Instantiate(deathExplosion, transform.position, turretTr.rotation), 5f);
             if (isDrone)
             {
                 GetComponent<MeshRenderer>().enabled = false;

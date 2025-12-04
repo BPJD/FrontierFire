@@ -45,6 +45,23 @@ public class DataStagesEditor : Editor
                 continue;
             }
 
+            // ===== 필터 조건 =====
+            // 1) 5로 시작하는 스테이지 ID 제외 (예: 50000, 50001, 50002...)
+            //    -> 5자리 기준으로 50000 ~ 59999 범위라고 가정
+            if (stageId >= 50000 && stageId < 60000)
+            {
+                //Debug.Log($"제외 (5로 시작): {stageId} / {name}");
+                continue;
+            }
+
+            // 2) 000으로 끝나는 스테이지 ID 제외 (예: 40000, 41000, 42000...)
+            if (stageId % 1000 == 0)
+            {
+                //Debug.Log($"제외 (000으로 끝남): {stageId} / {name}");
+                continue;
+            }
+            // ====================
+
             newList.Add(new StagePrefabEntry
             {
                 stageId = stageId,
@@ -52,16 +69,19 @@ public class DataStagesEditor : Editor
             });
         }
 
-        Undo.RecordObject(data, "자동 Stage 프리팹 채우기");
-        SerializedObject so = new SerializedObject(data);
-        SerializedProperty listProp = so.FindProperty("stagePrefabEntries");
+        // 필요하면 ID 기준 정렬도 가능 (원하면 주석 해제)
+        // newList.Sort((a, b) => a.stageId.CompareTo(b.stageId));
 
+        Undo.RecordObject(data, "자동 Stage 프리팹 채우기");
+
+        // private 필드 직접 세팅
         data.GetType()
-            .GetField("stagePrefabEntries", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+            .GetField("stagePrefabEntries",
+                System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
             ?.SetValue(data, newList);
 
         EditorUtility.SetDirty(data);
-        Debug.Log($"Stage 프리팹 자동 채우기 완료 ({newList.Count}개)");
+        Debug.Log($"Stage 프리팹 자동 채우기 완료 (추가된 개수: {newList.Count}개)");
     }
 }
 #endif

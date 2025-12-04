@@ -24,6 +24,8 @@ public class ItemSelector : MonoBehaviour
 
         if(itemCount == 1)
         {
+            float _power = Random.Range(1f, 2f);
+
             int dropItem = Random.Range(0, dropItemsList.Length);
             dropItems[0] = Instantiate(dropItemsList[dropItem], tr.position + (Vector3.up * 0.75f), Quaternion.identity, tr);
 
@@ -33,7 +35,7 @@ public class ItemSelector : MonoBehaviour
             Rigidbody rb = dropItems[0].GetComponent<Rigidbody>();
             if (rb != null)
             {
-                rb.AddForce(direction.normalized * explosionForce, ForceMode.Impulse);
+                rb.AddForce(direction.normalized * explosionForce * _power, ForceMode.Impulse);
             }
         }
         else
