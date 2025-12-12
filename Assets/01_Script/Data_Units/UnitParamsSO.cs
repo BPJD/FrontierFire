@@ -31,4 +31,7 @@ public class UnitParamsSO : ScriptableObject
     public float u_criRate;
     public float u_criDamage;
     public float u_damage = 1f;
+
+    public int u_hpRegen;
+    public float u_hpRegenSpeed = 1f;
 }

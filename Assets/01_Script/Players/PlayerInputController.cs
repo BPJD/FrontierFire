@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
+
 public class PlayerInputController : MonoBehaviour
 {
     GameObject module;
@@ -18,8 +19,11 @@ public class PlayerInputController : MonoBehaviour
     bool sprintPressedPrev;
     bool shootPressedPrev;
     int selectedWeapon = 0;
+    public bool isInfoHide { get; private set; } = false;
+    public static string infoHideData = "IsWeaponInfoHide";
 
     public bool isSprintToggle = true;
+    
 
 
 
@@ -50,6 +54,7 @@ public class PlayerInputController : MonoBehaviour
         camMoveSystem = module.GetComponentInChildren<CameraMovingSystem>();
         playerMove = GetComponent<PlayerMove>();
         playerWeaponCon = GetComponent<PlayerWeaponController>();
+        isInfoHide = ES3.Load<bool>(infoHideData);
     }
 
     public void OnInteract()
@@ -229,6 +234,14 @@ public class PlayerInputController : MonoBehaviour
     public void Requested_WeaponReady(PlayerWeapon pWeapon) //PlayerWeaponø°º≠ »£√‚µ 
     {
         weaponCur = pWeapon;
+    }
+
+    public void OnHideWeaponInfo()
+    {
+        isInfoHide = !isInfoHide;
+        Debug.Log("Weapon Info Hide Toggled: " + isInfoHide);
+
+        ES3.Save<bool>(infoHideData, isInfoHide);
     }
 
     IEnumerator ReloadInvoke()

@@ -16,6 +16,7 @@ public class WeaponParams
     public int w_magSize;
     public float w_accuracy;
     public float w_reloadTime;
+    public int w_dps;
 
     public int e_quality;
     public float w_ammoMulti;
@@ -47,6 +48,22 @@ public class WeaponParams
 
         bulletID = so.bulletID;
         isCamRangeUp = so.isCamRangeUp;
+
+        float _atk = w_atk;
+        int _mag = w_magSize;
+        float _rpm = w_rpm;
+        float _reload = w_reloadTime;
+
+        // 말이 안 되는 값 방어
+        if (_mag > 0 && _rpm > 0f && _reload >= 0f)
+        {
+            float numerator = _atk * _mag * _rpm;
+            float denominator = _reload * _rpm + 60f * _mag;
+
+            // 혹시 모를 0 방어 (매우 낮은 값 등)
+            if (denominator > 0f)
+                w_dps = (int)(numerator / denominator);
+        }
     }
 
     public WeaponParams(WeaponParams other) // 복사 생성자 (강화 이전 값 보관용)
@@ -70,5 +87,21 @@ public class WeaponParams
 
         bulletID = other.bulletID;
         isCamRangeUp = other.isCamRangeUp;
+
+        float _atk = w_atk;
+        int _mag = w_magSize;
+        float _rpm = w_rpm;
+        float _reload = w_reloadTime;
+
+        // 말이 안 되는 값 방어
+        if (_mag > 0 && _rpm > 0f && _reload >= 0f)
+        {
+            float numerator = _atk * _mag * _rpm;
+            float denominator = _reload * _rpm + 60f * _mag;
+
+            // 혹시 모를 0 방어 (매우 낮은 값 등)
+            if (denominator > 0f)
+                w_dps = (int)(numerator / denominator);
+        }
     }
 }

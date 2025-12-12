@@ -133,4 +133,56 @@ public class WeaponStatUpgrade : MonoBehaviour
             upgradeEft = Instantiate(_eft, transform);
         }
     }
+
+    // 업그레이드 시스템 스크립트 내부에 추가
+
+    // 1. 수치형 스탯 최종 값
+    public float GetFinalStatForUI(int statID, float baseValue)
+    {
+        float plus = add.TryGetValue(statID, out var p) ? p : 0f;
+        float perc = mult.TryGetValue(statID, out var m) ? m : 0f;
+
+        // base * (1 + perc) + plus
+        return baseValue * (1f + perc) + plus;
+    }
+
+    // 2. set형(열거형) 스탯 최종 값 (발사체, 무기 속성 등)
+    public int GetEnumStatForUI(int statID, int baseValue)
+    {
+        if (add.TryGetValue(statID, out var v))
+            return Mathf.RoundToInt(v);
+
+        return baseValue;
+    }
+
+    // 3. WeaponParams 기준으로 한 번에 최종값 만들기
+    public WeaponParams BuildUpgradedParamsForUI(WeaponParams baseParam)
+    {
+        // 깊은 복사
+        WeaponParams result = new WeaponParams(baseParam);
+
+        // CSV up_stat 매핑
+        // 0: 공격력        -> w_atk
+        // 1: 발사 속도     -> w_rpm
+        // 2: 탄창 크기     -> w_magSize
+        // 3: 재장전 시간   -> w_reloadTime
+        // 5: 정확도        -> w_accuracy
+        // 9: 사거리        -> w_range
+
+        result.w_atk = (int)GetFinalStatForUI(0, result.w_atk);
+        result.w_rpm = (int)GetFinalStatForUI(1, result.w_rpm);
+        result.w_magSize = Mathf.RoundToInt(GetFinalStatForUI(2, result.w_magSize));
+        result.w_reloadTime = GetFinalStatForUI(3, result.w_reloadTime);
+        result.w_accuracy = GetFinalStatForUI(5, result.w_accuracy);
+        result.w_range = GetFinalStatForUI(9, result.w_range);
+
+        // 필요하면 나중에 발사체(6), 무기 속성(8), 조준기(12)도 enum으로 적용 가능
+        // int projectile = GetEnumStatForUI(6, (int)result.w_projectileType);
+        // result.w_projectileType = (ProjectileType)projectile;
+
+        return result;
+    }
+
+    // 4. (툴팁에서 접근할 수 있게) 현재 업그레이드 리스트 읽기 전용 프로퍼티
+    public IReadOnlyList<int> CurrentUpgrades => upgradesCur;
 }

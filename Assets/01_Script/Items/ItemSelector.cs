@@ -24,7 +24,7 @@ public class ItemSelector : MonoBehaviour
 
         if(itemCount == 1)
         {
-            float _power = Random.Range(1f, 2f);
+            float _power = Random.Range(1f, 1.5f);
 
             int dropItem = Random.Range(0, dropItemsList.Length);
             dropItems[0] = Instantiate(dropItemsList[dropItem], tr.position + (Vector3.up * 0.75f), Quaternion.identity, tr);

@@ -255,7 +255,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.1, y: 1, z: 1}
+  m_Size: {x: 0.1, y: 1, z: 0.3}
   m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &7252096448246896269
 MonoBehaviour:
@@ -1209,6 +1209,8 @@ GameObject:
   - component: {fileID: 8013934778355332255}
   - component: {fileID: 906861025134074383}
   - component: {fileID: 2780040717573767507}
+  - component: {fileID: -8622037473351516625}
+  - component: {fileID: 5083723868367457007}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -1358,6 +1360,7 @@ MonoBehaviour:
   playerAmmoRevision: 1
   playerAmmoDefault: 300
   playerAmmoGain: 1
+  playerItemDropRate: 0
 --- !u!114 &1684701291636590929
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1410,6 +1413,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: ad64f9ad07fd3b644bbeaff8451477cb, type: 3}
   sound_GetCritical: {fileID: 8300000, guid: 33134f0521c14e0459ad36eb47a00177, type: 3}
   sound_DeathSoundByType: {fileID: 8300000, guid: d1a866d81b1e9f9429d30ec4f3be1209, type: 3}
+  isTurret: 0
 --- !u!114 &8061662186662442279
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1447,6 +1451,8 @@ MonoBehaviour:
     u_atk: 0
     u_def: 0
     u_immunePer: 1
+    u_hpRegen: 0
+    u_hpRegenSpeed: 1
     u_armorLevel: 0
     u_moveSpeed: 0
     u_jumpPower: 0
@@ -1462,6 +1468,8 @@ MonoBehaviour:
     u_atk: 0
     u_def: 0
     u_immunePer: 1
+    u_hpRegen: 0
+    u_hpRegenSpeed: 1
     u_armorLevel: 0
     u_moveSpeed: 0
     u_jumpPower: 0
@@ -1470,7 +1478,11 @@ MonoBehaviour:
     u_criRate: 0
     u_criDamage: 0
     u_damage: 0
+  res_AmmoGain: 0
+  res_AmmoMax: 0
+  res_DropRate: 0
   playerStat: {fileID: 0}
+  playerAmmoStat: {fileID: 0}
   weaponCon: {fileID: 0}
   data: {fileID: 0}
 --- !u!114 &2734134924369760046
@@ -1626,6 +1638,30 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-8622037473351516625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1825717185774971834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ef74fface69c184c95d925df3b6da91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Player_WeaponStatusCur
+--- !u!114 &5083723868367457007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1825717185774971834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29b100a710c33c64cbf026d7d4a2ba08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerHeal
 --- !u!1 &2021507610512779178
 GameObject:
   m_ObjectHideFlags: 0
@@ -5787,6 +5823,10 @@ PrefabInstance:
       propertyPath: weaponDataSource
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 1713252205409788605, guid: 62a41c15c72a8704695b3e7e05b8a1c2, type: 3}
+      propertyPath: w_params.e_quality
+      value: 60
+      objectReference: {fileID: 0}
     - target: {fileID: 4884546401499851936, guid: 62a41c15c72a8704695b3e7e05b8a1c2, type: 3}
       propertyPath: m_Name
       value: 60000_Pistol
@@ -5830,6 +5870,10 @@ PrefabInstance:
     - target: {fileID: 6048469733765987266, guid: 62a41c15c72a8704695b3e7e05b8a1c2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8173503830798192702, guid: 62a41c15c72a8704695b3e7e05b8a1c2, type: 3}
+      propertyPath: quality
+      value: 60
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

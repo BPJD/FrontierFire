@@ -16,7 +16,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 62
   m_IsActive: 1
 --- !u!4 &5225147105723232259
 Transform:
@@ -101,6 +101,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Terrain_Normal_Ground
       objectReference: {fileID: 0}
+    - target: {fileID: 1469692876135945205, guid: c94df90819dca1e4c836c2865d9284c5, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     - target: {fileID: 7489626760085656743, guid: c94df90819dca1e4c836c2865d9284c5, type: 3}
       propertyPath: m_LocalScale.x
       value: 69.99984
@@ -175,6 +179,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpawnPoint_Gunner (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 5582218900130300457, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     - target: {fileID: 7082048589961378765, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 19.936295
@@ -233,6 +241,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5225147105723232259}
     m_Modifications:
+    - target: {fileID: 165063460317134707, guid: 97153ed54ccc76e419e7d5e28a21e62c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     - target: {fileID: 1330688744727030603, guid: 97153ed54ccc76e419e7d5e28a21e62c, type: 3}
       propertyPath: m_LocalScale.x
       value: 3.2568557
@@ -280,6 +292,22 @@ PrefabInstance:
     - target: {fileID: 3280742551109811545, guid: 97153ed54ccc76e419e7d5e28a21e62c, type: 3}
       propertyPath: m_Name
       value: Terrain_PassingWood (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3280742551109811545, guid: 97153ed54ccc76e419e7d5e28a21e62c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
+    - target: {fileID: 4970278038394943714, guid: 97153ed54ccc76e419e7d5e28a21e62c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
+    - target: {fileID: 7186455954970337049, guid: 97153ed54ccc76e419e7d5e28a21e62c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
+    - target: {fileID: 7637184900120064213, guid: 97153ed54ccc76e419e7d5e28a21e62c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -347,6 +375,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Terrain_End
       objectReference: {fileID: 0}
+    - target: {fileID: 7664879964734404919, guid: 7df0f4482ffe39348b1558ee31594eb1, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -365,6 +397,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5225147105723232259}
     m_Modifications:
+    - target: {fileID: 3629003317614546728, guid: 549d268d2fcb1af4db09b8c0d378776a, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     - target: {fileID: 4967073570650874202, guid: 549d268d2fcb1af4db09b8c0d378776a, type: 3}
       propertyPath: m_LocalScale.x
       value: 2.8195677
@@ -409,9 +445,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6826777132767803596, guid: 549d268d2fcb1af4db09b8c0d378776a, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
+    - target: {fileID: 7131845431360014814, guid: 549d268d2fcb1af4db09b8c0d378776a, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     - target: {fileID: 7212360953188136990, guid: 549d268d2fcb1af4db09b8c0d378776a, type: 3}
       propertyPath: m_Name
       value: Terrain_Wood (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7212360953188136990, guid: 549d268d2fcb1af4db09b8c0d378776a, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
+    - target: {fileID: 8648440622357378011, guid: 549d268d2fcb1af4db09b8c0d378776a, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -434,6 +486,10 @@ PrefabInstance:
     - target: {fileID: 5582218900130300457, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
       propertyPath: m_Name
       value: SpawnPoint_Gunner (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5582218900130300457, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 7082048589961378765, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -493,6 +549,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5225147105723232259}
     m_Modifications:
+    - target: {fileID: 165063460317134707, guid: 97153ed54ccc76e419e7d5e28a21e62c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     - target: {fileID: 1330688744727030603, guid: 97153ed54ccc76e419e7d5e28a21e62c, type: 3}
       propertyPath: m_LocalScale.x
       value: 9.999711
@@ -541,6 +601,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Terrain_PassingWood (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 3280742551109811545, guid: 97153ed54ccc76e419e7d5e28a21e62c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
+    - target: {fileID: 4970278038394943714, guid: 97153ed54ccc76e419e7d5e28a21e62c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
+    - target: {fileID: 7186455954970337049, guid: 97153ed54ccc76e419e7d5e28a21e62c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
+    - target: {fileID: 7637184900120064213, guid: 97153ed54ccc76e419e7d5e28a21e62c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -562,6 +638,10 @@ PrefabInstance:
     - target: {fileID: 5582218900130300457, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
       propertyPath: m_Name
       value: SpawnPoint_Gunner
+      objectReference: {fileID: 0}
+    - target: {fileID: 5582218900130300457, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 7082048589961378765, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -625,6 +705,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpawnPoint_Melee
       objectReference: {fileID: 0}
+    - target: {fileID: 5582218900130300457, guid: b4fd7f2689e9f904aafcc83c28194f21, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     - target: {fileID: 7082048589961378765, guid: b4fd7f2689e9f904aafcc83c28194f21, type: 3}
       propertyPath: m_LocalPosition.x
       value: 18.250835
@@ -687,6 +771,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpawnPoint_Melee (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 5582218900130300457, guid: b4fd7f2689e9f904aafcc83c28194f21, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     - target: {fileID: 7082048589961378765, guid: b4fd7f2689e9f904aafcc83c28194f21, type: 3}
       propertyPath: m_LocalPosition.x
       value: 50.621582
@@ -748,6 +836,10 @@ PrefabInstance:
     - target: {fileID: 5582218900130300457, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
       propertyPath: m_Name
       value: SpawnPoint_Gunner (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5582218900130300457, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 7082048589961378765, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -855,6 +947,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Terrain_Normal_Front
       objectReference: {fileID: 0}
+    - target: {fileID: 6617836617466993938, guid: 3fe57e0d2b4451248829039ab587ad44, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -876,6 +972,10 @@ PrefabInstance:
     - target: {fileID: 5582218900130300457, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
       propertyPath: m_Name
       value: SpawnPoint_Gunner (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5582218900130300457, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 7082048589961378765, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -938,6 +1038,10 @@ PrefabInstance:
     - target: {fileID: 2438655525844413970, guid: 72857c9e5c7aba844b52425adf187d7f, type: 3}
       propertyPath: m_Name
       value: PortalPoint (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2438655525844413970, guid: 72857c9e5c7aba844b52425adf187d7f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 5875211640330974226, guid: 72857c9e5c7aba844b52425adf187d7f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1041,6 +1145,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StartPoint
       objectReference: {fileID: 0}
+    - target: {fileID: 6735499149954997416, guid: 5cc7480e29158ef4b82cb672c3263a25, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1062,6 +1170,10 @@ PrefabInstance:
     - target: {fileID: 5582218900130300457, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
       propertyPath: m_Name
       value: SpawnPoint_Gunner (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5582218900130300457, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 7082048589961378765, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1124,6 +1236,10 @@ PrefabInstance:
     - target: {fileID: 7942435333329857777, guid: 4968afa3242b26a43989d34ce937d32d, type: 3}
       propertyPath: m_Name
       value: Terrain_Normal (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7942435333329857777, guid: 4968afa3242b26a43989d34ce937d32d, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 8962860292930582102, guid: 4968afa3242b26a43989d34ce937d32d, type: 3}
       propertyPath: m_LocalScale.x
@@ -1190,6 +1306,10 @@ PrefabInstance:
     - target: {fileID: 5582218900130300457, guid: b4fd7f2689e9f904aafcc83c28194f21, type: 3}
       propertyPath: m_Name
       value: SpawnPoint_Melee (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5582218900130300457, guid: b4fd7f2689e9f904aafcc83c28194f21, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 7082048589961378765, guid: b4fd7f2689e9f904aafcc83c28194f21, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1301,6 +1421,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Terrain_Normal_Back2
       objectReference: {fileID: 0}
+    - target: {fileID: 9204050444690427030, guid: 1b31c2f7bae439548a43ee9acff59f46, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1322,6 +1446,10 @@ PrefabInstance:
     - target: {fileID: 8671262581978976306, guid: fc2c5ebf80d0b794b8d5a5304fac6f38, type: 3}
       propertyPath: m_Name
       value: Terrain_Normal_Back
+      objectReference: {fileID: 0}
+    - target: {fileID: 8671262581978976306, guid: fc2c5ebf80d0b794b8d5a5304fac6f38, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 9097709043439548057, guid: fc2c5ebf80d0b794b8d5a5304fac6f38, type: 3}
       propertyPath: m_LocalScale.x
@@ -1393,6 +1521,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PortalPoint
       objectReference: {fileID: 0}
+    - target: {fileID: 2438655525844413970, guid: 72857c9e5c7aba844b52425adf187d7f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     - target: {fileID: 5875211640330974226, guid: 72857c9e5c7aba844b52425adf187d7f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 62
@@ -1455,6 +1587,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpawnPoint_Gunner (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 5582218900130300457, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     - target: {fileID: 7082048589961378765, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 26.58
@@ -1513,6 +1649,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5225147105723232259}
     m_Modifications:
+    - target: {fileID: 165063460317134707, guid: 97153ed54ccc76e419e7d5e28a21e62c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     - target: {fileID: 1330688744727030603, guid: 97153ed54ccc76e419e7d5e28a21e62c, type: 3}
       propertyPath: m_LocalScale.x
       value: 16.006098
@@ -1561,6 +1701,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Terrain_PassingWood (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 3280742551109811545, guid: 97153ed54ccc76e419e7d5e28a21e62c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
+    - target: {fileID: 4970278038394943714, guid: 97153ed54ccc76e419e7d5e28a21e62c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
+    - target: {fileID: 7186455954970337049, guid: 97153ed54ccc76e419e7d5e28a21e62c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
+    - target: {fileID: 7637184900120064213, guid: 97153ed54ccc76e419e7d5e28a21e62c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1582,6 +1738,10 @@ PrefabInstance:
     - target: {fileID: 5582218900130300457, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
       propertyPath: m_Name
       value: SpawnPoint_Gunner (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5582218900130300457, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 7082048589961378765, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1693,6 +1853,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Terrain_End (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 7664879964734404919, guid: 7df0f4482ffe39348b1558ee31594eb1, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1714,6 +1878,10 @@ PrefabInstance:
     - target: {fileID: 5582218900130300457, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
       propertyPath: m_Name
       value: SpawnPoint_Gunner (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5582218900130300457, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 7082048589961378765, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
       propertyPath: m_LocalPosition.x

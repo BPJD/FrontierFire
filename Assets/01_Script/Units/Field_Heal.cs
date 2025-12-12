@@ -41,7 +41,7 @@ public class Field_Heal : MonoBehaviour
 
     void Heal()
     {
-        stat.UnitGetHeal(healValue);
+        stat.UnitGetHeal(healValue, true);
         healDelayCur = healDelay;
     }
 }

@@ -99,7 +99,7 @@ public class PlayerWeaponController : MonoBehaviour
     }
 
 
-    public void GetWeapon(int weaponID, int ammoCur, int magCur, int pickCount, List<int> list)
+    public void GetWeapon(int weaponID, int ammoCur, int magCur, int pickCount, List<int> list, int quality)
     {
         WeaponParamsSO weaponSO = weaponData.GetWeaponStatSO(weaponID);
         if (weaponSO.w_usingAmmo == WeaponParamsSO.Ammos.Default)
@@ -133,6 +133,7 @@ public class PlayerWeaponController : MonoBehaviour
         weaponSystem.magCur = magCur;
 
         WeaponStatus weaponStat = playersWeapons[weaponCur].GetComponent<WeaponStatus>();
+        weaponStat.quality = quality;
         weaponStat.weaponDataSource = weaponSO;
 
         int weaponType = (int)weaponData.GetWeaponStatSO(weaponID).w_type;
@@ -210,7 +211,7 @@ public class PlayerWeaponController : MonoBehaviour
         List<int> upgradeCopy = (weaponUpgradeStat != null && weaponUpgradeStat.upgradesCur != null)
             ? new List<int>(weaponUpgradeStat.upgradesCur)
             : new List<int>();
-        propData.UpgradeSet(upgradeCopy);
+        propData.UpgradeSet(upgradeCopy, weaponStat.quality);
 
         // 2) ID/탄약/픽카운트 등 나머지 정보 세팅
         propData.WeaponDropItem(playersWeaponIDs[slot]);

@@ -39,6 +39,7 @@ public class PlayerWeapon : MonoBehaviour
     public int magMax;
     public int ammoCur;
     public int pickCount;
+    public int quality;
 
     public int bulletCount = 1;
 
@@ -99,6 +100,7 @@ public class PlayerWeapon : MonoBehaviour
 
         bulletCount = weaponStat.GetWeaponType() == WeaponParamsSO.WeaponTypes.Shotgun ? 8 : 1;
         inputController.Requested_WeaponReady(this);
+        quality = weaponStat.quality;
     }
 
     // Update is called once per frame

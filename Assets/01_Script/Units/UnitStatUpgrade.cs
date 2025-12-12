@@ -127,6 +127,8 @@ public class UnitStatUpgrade : MonoBehaviour
             case 12: res_AmmoGain += value * 0.01f; break;
             case 13: res_AmmoMax += value * 0.01f; break;
             case 14: res_DropRate += value * 0.01f; break;
+            case 15: param.u_hpRegen += (int)value; break;
+            case 16: param.u_hpRegenSpeed += value; break;
             default:
                 Debug.LogWarning($"[UnitStatUpgrade] Unknown statID: {statID}");
                 break;
@@ -156,6 +158,8 @@ public class UnitStatUpgrade : MonoBehaviour
             12 => res_AmmoGain,
             13 => res_AmmoMax,
             14 => res_DropRate,
+            15 => (float)param.u_hpRegen,
+            16 => param.u_hpRegenSpeed,
             _ => 0f
         };
     }

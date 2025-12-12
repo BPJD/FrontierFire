@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using Michsky.UI.Heat;
+using System.Collections;
 
 public class UI_ToolTip_Object : MonoBehaviour
 {
@@ -14,7 +15,8 @@ public class UI_ToolTip_Object : MonoBehaviour
     [SerializeField] TextMeshProUGUI text_Desc;
     [SerializeField] TextMeshProUGUI text_Name;
 
-    [SerializeField] TextMeshProUGUI[] text_Stats = new TextMeshProUGUI[9];
+    [SerializeField] TextMeshProUGUI[] text_Stats = new TextMeshProUGUI[10];
+    [SerializeField] TextMeshProUGUI[] text_CompareStats = new TextMeshProUGUI[10];
 
     [SerializeField] Image img_Frame;
     RectTransform tr;
@@ -43,8 +45,18 @@ public class UI_ToolTip_Object : MonoBehaviour
 
     Coroutine tweenCo;
 
+    Item_ToolTip itemToolTip;
+    public WeaponParams thisItemWeaponParams { get; set; }
+    WeaponParams playerWeaponParams;
+    Player_WeaponStatusCur playerWeaponStatusCur;
+    Item_WeaponCompare weaponComparer;
+
+    Coroutine compareCo;
+
+
     public void SetText(Item_ToolTip toolTip)
     {
+        itemToolTip = toolTip;
         itemGroup = toolTip.gameObject.GetComponentInParent<ItemSelector>();
 
         switch (type)
@@ -52,24 +64,42 @@ public class UI_ToolTip_Object : MonoBehaviour
             case ObjectType.Normal:
                 text_Name.text = toolTip.title;
                 text_Desc.text = toolTip.description;
+                text_subName.text = toolTip.subTitle;
+
+                text_Name.color = toolTip.titleColor;
+                text_subName.color = toolTip.titleColor;
+                text_Name.faceColor = toolTip.titleColor;
                 break;
 
             case ObjectType.Weapon:
                 text_Name.text = toolTip.title;
                 text_subName.text = toolTip.subTitle;
                 text_Desc.text = toolTip.description;
+
+                text_Name.color = toolTip.titleColor;
+                text_subName.color = toolTip.titleColor;
+
                 for (int i = 0; i < text_Stats.Length && i < toolTip.weaponStat.Length; i++)
                 {
                     text_Stats[i].text = toolTip.weaponStat[i];
                 }
+
+                thisItemWeaponParams = toolTip.thisItemWeaponParams;
+
+                StartCompareRoutine();
                 break;
 
             case ObjectType.Stat:
                 text_Name.text = toolTip.title;
                 text_subName.text = toolTip.subTitle;
                 text_Desc.text = toolTip.description;
+
+                text_Name.color = toolTip.titleColor;
+                text_subName.color = toolTip.titleColor;
                 break;
         }
+
+
     }
 
     public void ThisItemSelected(bool isSelected)
@@ -153,5 +183,77 @@ public class UI_ToolTip_Object : MonoBehaviour
         if (tr != null) tr.localScale = s;
         if (img_Frame != null) img_Frame.color = c;
         if (fadeAlphaWithScale && cg != null) cg.alpha = a;
+    }
+
+    void StartCompareRoutine()
+    {
+        if (type != ObjectType.Weapon)
+            return;
+
+        if (itemToolTip == null)
+            return;
+
+        if (compareCo != null)
+            StopCoroutine(compareCo);
+
+        compareCo = StartCoroutine(GetPlayerWeaponEquippedStat());
+    }
+
+    IEnumerator GetPlayerWeaponEquippedStat()
+    {
+        while (true)
+        {
+
+            if (playerWeaponStatusCur != null && weaponComparer != null && thisItemWeaponParams != null)
+            {
+                playerWeaponParams = playerWeaponStatusCur.weaponParamsEqupped;
+                CompareParams(thisItemWeaponParams, playerWeaponParams);
+            }
+            else
+            {
+                playerWeaponStatusCur = GameObject.FindGameObjectWithTag(Data_Strings.playerTag).GetComponent<Player_WeaponStatusCur>();
+                weaponComparer = GetComponent<Item_WeaponCompare>();
+                thisItemWeaponParams = itemToolTip.thisItemWeaponParams;
+            }
+
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
+
+    void CompareParams(WeaponParams item, WeaponParams player)
+    {
+        for (int i = 2; i < text_CompareStats.Length; i++)
+        {
+            int compareValue = ReturnCompareValue(i);
+
+            text_CompareStats[i].text = Mathf.Abs(compareValue).ToString();
+
+            weaponComparer.IconSet(i, compareValue);
+        }
+    }
+
+    int ReturnCompareValue(int _stat)
+    {
+        switch (_stat)
+        {
+            case 2:
+                return thisItemWeaponParams.w_atk - playerWeaponParams.w_atk;
+            case 3:
+                return thisItemWeaponParams.w_rpm - playerWeaponParams.w_rpm;
+            case 4:
+                return Mathf.RoundToInt(thisItemWeaponParams.w_accuracy - playerWeaponParams.w_accuracy);
+            case 5:
+                return Mathf.RoundToInt(thisItemWeaponParams.w_range - playerWeaponParams.w_range);
+            case 6:
+                return Mathf.RoundToInt(thisItemWeaponParams.w_reloadTime - playerWeaponParams.w_reloadTime);
+            case 7:
+                return thisItemWeaponParams.w_magSize - playerWeaponParams.w_magSize;
+            case 8:
+                return thisItemWeaponParams.e_quality - playerWeaponParams.e_quality;
+            case 9:
+                return thisItemWeaponParams.w_dps - playerWeaponParams.w_dps;
+            default:
+                return 0;
+        }
     }
 }

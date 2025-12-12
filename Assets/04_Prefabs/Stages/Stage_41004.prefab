@@ -16,7 +16,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 62
   m_IsActive: 1
 --- !u!4 &3464700494700214236
 Transform:
@@ -124,6 +124,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpawnPoint (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 5582218900130300457, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     - target: {fileID: 7082048589961378765, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 18.768627
@@ -185,6 +189,10 @@ PrefabInstance:
     - target: {fileID: 2438655525844413970, guid: 72857c9e5c7aba844b52425adf187d7f, type: 3}
       propertyPath: m_Name
       value: PortalPoint (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2438655525844413970, guid: 72857c9e5c7aba844b52425adf187d7f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 5875211640330974226, guid: 72857c9e5c7aba844b52425adf187d7f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -251,6 +259,10 @@ PrefabInstance:
     - target: {fileID: 5582218900130300457, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
       propertyPath: m_Name
       value: SpawnPoint (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5582218900130300457, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 7082048589961378765, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -362,6 +374,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Terrain_Normal_Front (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 6617836617466993938, guid: 3fe57e0d2b4451248829039ab587ad44, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -383,6 +399,10 @@ PrefabInstance:
     - target: {fileID: 7942435333329857777, guid: 4968afa3242b26a43989d34ce937d32d, type: 3}
       propertyPath: m_Name
       value: Terrain_Normal (10)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7942435333329857777, guid: 4968afa3242b26a43989d34ce937d32d, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 8962860292930582102, guid: 4968afa3242b26a43989d34ce937d32d, type: 3}
       propertyPath: m_LocalScale.x
@@ -498,6 +518,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Terrain_Passing (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 6672932127179933505, guid: fd7ddd4fb1389d347be0a0a03a09ce3e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -567,6 +591,10 @@ PrefabInstance:
     - target: {fileID: 6617836617466993938, guid: 3fe57e0d2b4451248829039ab587ad44, type: 3}
       propertyPath: m_Name
       value: Terrain_Normal_Front (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6617836617466993938, guid: 3fe57e0d2b4451248829039ab587ad44, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -642,6 +670,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Terrain_Normal_Back2 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 9204050444690427030, guid: 1b31c2f7bae439548a43ee9acff59f46, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -716,6 +748,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Terrain_Normal_Back2 (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 9204050444690427030, guid: 1b31c2f7bae439548a43ee9acff59f46, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -737,6 +773,10 @@ PrefabInstance:
     - target: {fileID: 7942435333329857777, guid: 4968afa3242b26a43989d34ce937d32d, type: 3}
       propertyPath: m_Name
       value: Terrain_Normal (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7942435333329857777, guid: 4968afa3242b26a43989d34ce937d32d, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 8962860292930582102, guid: 4968afa3242b26a43989d34ce937d32d, type: 3}
       propertyPath: m_LocalScale.x
@@ -852,6 +892,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Terrain_Passing (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 6672932127179933505, guid: fd7ddd4fb1389d347be0a0a03a09ce3e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -873,6 +917,10 @@ PrefabInstance:
     - target: {fileID: 8671262581978976306, guid: fc2c5ebf80d0b794b8d5a5304fac6f38, type: 3}
       propertyPath: m_Name
       value: Terrain_Normal_Back (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8671262581978976306, guid: fc2c5ebf80d0b794b8d5a5304fac6f38, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 9097709043439548057, guid: fc2c5ebf80d0b794b8d5a5304fac6f38, type: 3}
       propertyPath: m_LocalScale.x
@@ -948,6 +996,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Terrain_Normal (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 7942435333329857777, guid: 4968afa3242b26a43989d34ce937d32d, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     - target: {fileID: 8962860292930582102, guid: 4968afa3242b26a43989d34ce937d32d, type: 3}
       propertyPath: m_LocalScale.x
       value: 12.3572235
@@ -1022,6 +1074,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpawnPoint (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 5582218900130300457, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     - target: {fileID: 7082048589961378765, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 36.57445
@@ -1083,6 +1139,10 @@ PrefabInstance:
     - target: {fileID: 8671262581978976306, guid: fc2c5ebf80d0b794b8d5a5304fac6f38, type: 3}
       propertyPath: m_Name
       value: Terrain_Normal_Back
+      objectReference: {fileID: 0}
+    - target: {fileID: 8671262581978976306, guid: fc2c5ebf80d0b794b8d5a5304fac6f38, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 9097709043439548057, guid: fc2c5ebf80d0b794b8d5a5304fac6f38, type: 3}
       propertyPath: m_LocalScale.x
@@ -1157,6 +1217,10 @@ PrefabInstance:
     - target: {fileID: 5582218900130300457, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
       propertyPath: m_Name
       value: SpawnPoint
+      objectReference: {fileID: 0}
+    - target: {fileID: 5582218900130300457, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 7082048589961378765, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1268,6 +1332,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Terrain_Normal_Front (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 6617836617466993938, guid: 3fe57e0d2b4451248829039ab587ad44, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1337,6 +1405,10 @@ PrefabInstance:
     - target: {fileID: 6617836617466993938, guid: 3fe57e0d2b4451248829039ab587ad44, type: 3}
       propertyPath: m_Name
       value: Terrain_Normal_Front
+      objectReference: {fileID: 0}
+    - target: {fileID: 6617836617466993938, guid: 3fe57e0d2b4451248829039ab587ad44, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1408,6 +1480,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Terrain_Normal_Front (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 6617836617466993938, guid: 3fe57e0d2b4451248829039ab587ad44, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1478,6 +1554,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Terrain_Normal_Front (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 6617836617466993938, guid: 3fe57e0d2b4451248829039ab587ad44, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1499,6 +1579,10 @@ PrefabInstance:
     - target: {fileID: 7942435333329857777, guid: 4968afa3242b26a43989d34ce937d32d, type: 3}
       propertyPath: m_Name
       value: Terrain_Normal (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7942435333329857777, guid: 4968afa3242b26a43989d34ce937d32d, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 8962860292930582102, guid: 4968afa3242b26a43989d34ce937d32d, type: 3}
       propertyPath: m_LocalScale.x
@@ -1569,6 +1653,10 @@ PrefabInstance:
     - target: {fileID: 1469692876135945205, guid: c94df90819dca1e4c836c2865d9284c5, type: 3}
       propertyPath: m_Name
       value: Terrain_Normal_Ground (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1469692876135945205, guid: c94df90819dca1e4c836c2865d9284c5, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 7489626760085656743, guid: c94df90819dca1e4c836c2865d9284c5, type: 3}
       propertyPath: m_LocalScale.x
@@ -1643,6 +1731,10 @@ PrefabInstance:
     - target: {fileID: 8671262581978976306, guid: fc2c5ebf80d0b794b8d5a5304fac6f38, type: 3}
       propertyPath: m_Name
       value: Terrain_Normal_Back (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8671262581978976306, guid: fc2c5ebf80d0b794b8d5a5304fac6f38, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 9097709043439548057, guid: fc2c5ebf80d0b794b8d5a5304fac6f38, type: 3}
       propertyPath: m_LocalScale.x
@@ -1721,6 +1813,10 @@ PrefabInstance:
     - target: {fileID: 5582218900130300457, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
       propertyPath: m_Name
       value: SpawnPoint (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5582218900130300457, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 7082048589961378765, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1824,6 +1920,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StartPoint
       objectReference: {fileID: 0}
+    - target: {fileID: 6735499149954997416, guid: 5cc7480e29158ef4b82cb672c3263a25, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1890,6 +1990,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Terrain_End (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 7664879964734404919, guid: 7df0f4482ffe39348b1558ee31594eb1, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1911,6 +2015,10 @@ PrefabInstance:
     - target: {fileID: 7942435333329857777, guid: 4968afa3242b26a43989d34ce937d32d, type: 3}
       propertyPath: m_Name
       value: Terrain_Normal (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7942435333329857777, guid: 4968afa3242b26a43989d34ce937d32d, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 8962860292930582102, guid: 4968afa3242b26a43989d34ce937d32d, type: 3}
       propertyPath: m_LocalScale.x
@@ -2034,6 +2142,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Terrain_Normal_Back2
       objectReference: {fileID: 0}
+    - target: {fileID: 9204050444690427030, guid: 1b31c2f7bae439548a43ee9acff59f46, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2059,6 +2171,10 @@ PrefabInstance:
     - target: {fileID: 5582218900130300457, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
       propertyPath: m_Name
       value: SpawnPoint (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5582218900130300457, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 7082048589961378765, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2125,6 +2241,10 @@ PrefabInstance:
     - target: {fileID: 5582218900130300457, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
       propertyPath: m_Name
       value: SpawnPoint (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5582218900130300457, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 7082048589961378765, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2232,6 +2352,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Terrain_End
       objectReference: {fileID: 0}
+    - target: {fileID: 7664879964734404919, guid: 7df0f4482ffe39348b1558ee31594eb1, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2253,6 +2377,10 @@ PrefabInstance:
     - target: {fileID: 2438655525844413970, guid: 72857c9e5c7aba844b52425adf187d7f, type: 3}
       propertyPath: m_Name
       value: PortalPoint
+      objectReference: {fileID: 0}
+    - target: {fileID: 2438655525844413970, guid: 72857c9e5c7aba844b52425adf187d7f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 5875211640330974226, guid: 72857c9e5c7aba844b52425adf187d7f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2315,6 +2443,10 @@ PrefabInstance:
     - target: {fileID: 7942435333329857777, guid: 4968afa3242b26a43989d34ce937d32d, type: 3}
       propertyPath: m_Name
       value: Terrain_Normal
+      objectReference: {fileID: 0}
+    - target: {fileID: 7942435333329857777, guid: 4968afa3242b26a43989d34ce937d32d, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 8962860292930582102, guid: 4968afa3242b26a43989d34ce937d32d, type: 3}
       propertyPath: m_LocalScale.x
@@ -2430,6 +2562,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Terrain_Passing (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 6672932127179933505, guid: fd7ddd4fb1389d347be0a0a03a09ce3e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2451,6 +2587,10 @@ PrefabInstance:
     - target: {fileID: 1469692876135945205, guid: c94df90819dca1e4c836c2865d9284c5, type: 3}
       propertyPath: m_Name
       value: Terrain_Normal_Ground (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1469692876135945205, guid: c94df90819dca1e4c836c2865d9284c5, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 7489626760085656743, guid: c94df90819dca1e4c836c2865d9284c5, type: 3}
       propertyPath: m_LocalScale.x
@@ -2578,6 +2718,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Terrain_Normal_Back2 (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 9204050444690427030, guid: 1b31c2f7bae439548a43ee9acff59f46, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2652,6 +2796,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Terrain_Normal_Back2 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 9204050444690427030, guid: 1b31c2f7bae439548a43ee9acff59f46, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2718,6 +2866,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Terrain_Passing (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 6672932127179933505, guid: fd7ddd4fb1389d347be0a0a03a09ce3e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2739,6 +2891,10 @@ PrefabInstance:
     - target: {fileID: 8671262581978976306, guid: fc2c5ebf80d0b794b8d5a5304fac6f38, type: 3}
       propertyPath: m_Name
       value: Terrain_Normal_Back (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8671262581978976306, guid: fc2c5ebf80d0b794b8d5a5304fac6f38, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 9097709043439548057, guid: fc2c5ebf80d0b794b8d5a5304fac6f38, type: 3}
       propertyPath: m_LocalScale.x
@@ -2813,6 +2969,10 @@ PrefabInstance:
     - target: {fileID: 1469692876135945205, guid: c94df90819dca1e4c836c2865d9284c5, type: 3}
       propertyPath: m_Name
       value: Terrain_Normal_Ground
+      objectReference: {fileID: 0}
+    - target: {fileID: 1469692876135945205, guid: c94df90819dca1e4c836c2865d9284c5, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 7489626760085656743, guid: c94df90819dca1e4c836c2865d9284c5, type: 3}
       propertyPath: m_LocalScale.x
@@ -2892,6 +3052,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpawnPoint (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 5582218900130300457, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     - target: {fileID: 7082048589961378765, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 29.233501
@@ -2953,6 +3117,10 @@ PrefabInstance:
     - target: {fileID: 1469692876135945205, guid: c94df90819dca1e4c836c2865d9284c5, type: 3}
       propertyPath: m_Name
       value: Terrain_Normal_Ground (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1469692876135945205, guid: c94df90819dca1e4c836c2865d9284c5, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 7489626760085656743, guid: c94df90819dca1e4c836c2865d9284c5, type: 3}
       propertyPath: m_LocalScale.x
@@ -3080,6 +3248,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Terrain_Normal_Back2 (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 9204050444690427030, guid: 1b31c2f7bae439548a43ee9acff59f46, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3101,6 +3273,10 @@ PrefabInstance:
     - target: {fileID: 8671262581978976306, guid: fc2c5ebf80d0b794b8d5a5304fac6f38, type: 3}
       propertyPath: m_Name
       value: Terrain_Normal_Back (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8671262581978976306, guid: fc2c5ebf80d0b794b8d5a5304fac6f38, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 9097709043439548057, guid: fc2c5ebf80d0b794b8d5a5304fac6f38, type: 3}
       propertyPath: m_LocalScale.x
@@ -3175,6 +3351,10 @@ PrefabInstance:
     - target: {fileID: 8671262581978976306, guid: fc2c5ebf80d0b794b8d5a5304fac6f38, type: 3}
       propertyPath: m_Name
       value: Terrain_Normal_Back (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8671262581978976306, guid: fc2c5ebf80d0b794b8d5a5304fac6f38, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 9097709043439548057, guid: fc2c5ebf80d0b794b8d5a5304fac6f38, type: 3}
       propertyPath: m_LocalScale.x

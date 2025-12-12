@@ -68,7 +68,7 @@ MeshRenderer:
   m_SmallMeshCulling: 1
   m_ForceMeshLod: -1
   m_MeshLodSelectionBias: 0
-  m_RenderingLayerMask: 1
+  m_RenderingLayerMask: 5
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 08cc88f197bb10b4ab9ddb9ba55563d3, type: 2}
@@ -154,7 +154,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b364171ba211a24e8d68cf569498667, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveDirection: {x: 0, y: 0, z: 0}
+  speed: 3
+  delay: 0
+  moveTo: {x: 0, y: 0, z: 0}
 --- !u!114 &5798080394483552470
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 8258476916958384234}
   - component: {fileID: 327075192566743020}
   - component: {fileID: 8948196741534254695}
+  - component: {fileID: 1135267590636450884}
   m_Layer: 0
   m_Name: GameData
   m_TagString: Data
@@ -98,6 +99,16 @@ MonoBehaviour:
     enemyPrefab: {fileID: 3446916485206727232, guid: 8f563e7337c0711458df8d483cdc12e5, type: 3}
   - enemyId: 20019
     enemyPrefab: {fileID: 8657745127573725682, guid: 674be1667e56bc047b0222f0e47b9249, type: 3}
+  - enemyId: 20020
+    enemyPrefab: {fileID: 7808221669004915337, guid: 98719173bd007f44a970b014cc5acc98, type: 3}
+  - enemyId: 20021
+    enemyPrefab: {fileID: 3374123505362633003, guid: 81bbd6ddb54b69944bf1baa87fb2cfe1, type: 3}
+  - enemyId: 20022
+    enemyPrefab: {fileID: 3374123505362633003, guid: 39c47f7eeaf805943824af957c1ed8b4, type: 3}
+  - enemyId: 20023
+    enemyPrefab: {fileID: 3446916485206727232, guid: 6d3db67750de64042bc9ba42526b0190, type: 3}
+  - enemyId: 20024
+    enemyPrefab: {fileID: 4552914281534898350, guid: 393fb6743271c8a4cbdb112edc543c41, type: 3}
 --- !u!114 &8023349656569401409
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -113,6 +124,7 @@ MonoBehaviour:
   bossStages:
   - {fileID: 5083128977580333608, guid: ce6ba016e372ba94ebf463756a736453, type: 3}
   - {fileID: 2503258100302233655, guid: a48521e370003384cafd8c89ce7a3a07, type: 3}
+  - {fileID: 7721845624437218419, guid: 550a683878e0613449a2db7d0c3100aa, type: 3}
   stagePrefabEntries:
   - stageId: 41001
     stagePrefab: {fileID: 6090532218414092104, guid: b6a9b546a9855fd4fa555a0c9786aec5, type: 3}
@@ -792,10 +804,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Data_RewardObjs
   rewardSelects:
-  - {fileID: 7966252011262253309, guid: acade36524acd414db5ad9126e7e5442, type: 3}
-  - {fileID: 7966252011262253309, guid: 300af86d8990877488adbfe189ac4e05, type: 3}
-  - {fileID: 7966252011262253309, guid: 5dd52c19d206ab3428badca05d60ccfc, type: 3}
-  rewardOnes:
-  - {fileID: 7966252011262253309, guid: 970cbb2a90503f046ba6b9b06a8aa05b, type: 3}
+  - {fileID: 7966252011262253309, guid: c6f4237c1bcf29143af133de149ec6be, type: 3}
   - {fileID: 7966252011262253309, guid: 74c9c718f5408ca46828846d54411afa, type: 3}
   - {fileID: 7966252011262253309, guid: 02ef73859fca6c241ab61f1bdfbf81a6, type: 3}
+  rewardOnes:
+  - {fileID: 7966252011262253309, guid: b21ae11ba0417d945b44fec791efa877, type: 3}
+  - {fileID: 7966252011262253309, guid: 300af86d8990877488adbfe189ac4e05, type: 3}
+  - {fileID: 7966252011262253309, guid: 5dd52c19d206ab3428badca05d60ccfc, type: 3}
+--- !u!114 &1135267590636450884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7852605363030451177}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4e8815a9d948f841a8e190285c69466, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Data_ItemTierColor
+  D: {r: 1, g: 1, b: 1, a: 1}
+  C: {r: 0, g: 1, b: 0, a: 1}
+  B: {r: 0, g: 1, b: 1, a: 1}
+  A: {r: 1, g: 0, b: 1, a: 1}
+  S: {r: 1, g: 1, b: 0, a: 1}
+  SS: {r: 1, g: 0.21176471, b: 0, a: 1}

@@ -16,7 +16,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 62
   m_IsActive: 1
 --- !u!4 &1704611123329195226
 Transform:
@@ -42,8 +42,6 @@ Transform:
   - {fileID: 945588638220346713}
   - {fileID: 8781530778062921151}
   - {fileID: 1241819530260262915}
-  - {fileID: 858871524313130634}
-  - {fileID: 4700746907653141196}
   - {fileID: 2952831152421214723}
   - {fileID: 6017482671588695993}
   - {fileID: 1540239331625480835}
@@ -57,6 +55,8 @@ Transform:
   - {fileID: 4317810720528062412}
   - {fileID: 2812956896607720113}
   - {fileID: 9201208726084011434}
+  - {fileID: 2625480587190589468}
+  - {fileID: 6135587661981701975}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2277653339003050362
@@ -145,6 +145,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Terrain_End
       objectReference: {fileID: 0}
+    - target: {fileID: 7664879964734404919, guid: 7df0f4482ffe39348b1558ee31594eb1, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -154,72 +158,6 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 6329086816603841648, guid: 7df0f4482ffe39348b1558ee31594eb1, type: 3}
   m_PrefabInstance: {fileID: 312730204711386057}
-  m_PrefabAsset: {fileID: 0}
---- !u!1001 &419678574724649878
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 1704611123329195226}
-    m_Modifications:
-    - target: {fileID: 4967073570650874202, guid: 09d95e4998493f143b73419ccfe04cb9, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 11.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4967073570650874202, guid: 09d95e4998493f143b73419ccfe04cb9, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 4967073570650874202, guid: 09d95e4998493f143b73419ccfe04cb9, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 7.125
-      objectReference: {fileID: 0}
-    - target: {fileID: 4967073570650874202, guid: 09d95e4998493f143b73419ccfe04cb9, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4967073570650874202, guid: 09d95e4998493f143b73419ccfe04cb9, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4967073570650874202, guid: 09d95e4998493f143b73419ccfe04cb9, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4967073570650874202, guid: 09d95e4998493f143b73419ccfe04cb9, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4967073570650874202, guid: 09d95e4998493f143b73419ccfe04cb9, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4967073570650874202, guid: 09d95e4998493f143b73419ccfe04cb9, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4967073570650874202, guid: 09d95e4998493f143b73419ccfe04cb9, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4967073570650874202, guid: 09d95e4998493f143b73419ccfe04cb9, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7212360953188136990, guid: 09d95e4998493f143b73419ccfe04cb9, type: 3}
-      propertyPath: m_Name
-      value: Terrain_Ravine_Wood_OnlyUp (1)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 09d95e4998493f143b73419ccfe04cb9, type: 3}
---- !u!4 &4700746907653141196 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4967073570650874202, guid: 09d95e4998493f143b73419ccfe04cb9, type: 3}
-  m_PrefabInstance: {fileID: 419678574724649878}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &747666687316494674
 PrefabInstance:
@@ -233,13 +171,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: PortalPoint
       objectReference: {fileID: 0}
+    - target: {fileID: 2438655525844413970, guid: 72857c9e5c7aba844b52425adf187d7f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     - target: {fileID: 5875211640330974226, guid: 72857c9e5c7aba844b52425adf187d7f, type: 3}
       propertyPath: m_LocalPosition.x
       value: -12.0747795
       objectReference: {fileID: 0}
     - target: {fileID: 5875211640330974226, guid: 72857c9e5c7aba844b52425adf187d7f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 8.5
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 5875211640330974226, guid: 72857c9e5c7aba844b52425adf187d7f, type: 3}
       propertyPath: m_LocalPosition.z
@@ -283,6 +225,72 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5875211640330974226, guid: 72857c9e5c7aba844b52425adf187d7f, type: 3}
   m_PrefabInstance: {fileID: 747666687316494674}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1282236579234985485
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1704611123329195226}
+    m_Modifications:
+    - target: {fileID: 4967073570650874202, guid: 09d95e4998493f143b73419ccfe04cb9, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 11.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4967073570650874202, guid: 09d95e4998493f143b73419ccfe04cb9, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 4967073570650874202, guid: 09d95e4998493f143b73419ccfe04cb9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 7.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4967073570650874202, guid: 09d95e4998493f143b73419ccfe04cb9, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4967073570650874202, guid: 09d95e4998493f143b73419ccfe04cb9, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4967073570650874202, guid: 09d95e4998493f143b73419ccfe04cb9, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4967073570650874202, guid: 09d95e4998493f143b73419ccfe04cb9, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4967073570650874202, guid: 09d95e4998493f143b73419ccfe04cb9, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4967073570650874202, guid: 09d95e4998493f143b73419ccfe04cb9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4967073570650874202, guid: 09d95e4998493f143b73419ccfe04cb9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4967073570650874202, guid: 09d95e4998493f143b73419ccfe04cb9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7212360953188136990, guid: 09d95e4998493f143b73419ccfe04cb9, type: 3}
+      propertyPath: m_Name
+      value: Terrain_Ravine_Wood_OnlyUp (3)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 09d95e4998493f143b73419ccfe04cb9, type: 3}
+--- !u!4 &6135587661981701975 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4967073570650874202, guid: 09d95e4998493f143b73419ccfe04cb9, type: 3}
+  m_PrefabInstance: {fileID: 1282236579234985485}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1425522743678067591
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -305,7 +313,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 212704001108857732, guid: 74d0f4b5ed6c61741a59e3b87115d533, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7.5
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 212704001108857732, guid: 74d0f4b5ed6c61741a59e3b87115d533, type: 3}
       propertyPath: m_LocalPosition.z
@@ -343,6 +351,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Terrain_Ravine_Passing
       objectReference: {fileID: 0}
+    - target: {fileID: 6672932127179933505, guid: 74d0f4b5ed6c61741a59e3b87115d533, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -364,6 +376,10 @@ PrefabInstance:
     - target: {fileID: 8671262581978976306, guid: ad6e1b16e0c8dcc42b83ad62e6455384, type: 3}
       propertyPath: m_Name
       value: Terrain_Ravine_Normal_Back
+      objectReference: {fileID: 0}
+    - target: {fileID: 8671262581978976306, guid: ad6e1b16e0c8dcc42b83ad62e6455384, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 9097709043439548057, guid: ad6e1b16e0c8dcc42b83ad62e6455384, type: 3}
       propertyPath: m_LocalScale.x
@@ -439,6 +455,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpawnPoint
       objectReference: {fileID: 0}
+    - target: {fileID: 5582218900130300457, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     - target: {fileID: 7082048589961378765, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.049185038
@@ -505,13 +525,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpawnPoint (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 5582218900130300457, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     - target: {fileID: 7082048589961378765, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
       propertyPath: m_LocalPosition.x
       value: -8.902384
       objectReference: {fileID: 0}
     - target: {fileID: 7082048589961378765, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7.9678774
+      value: 8.393172
       objectReference: {fileID: 0}
     - target: {fileID: 7082048589961378765, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -607,6 +631,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StartPoint
       objectReference: {fileID: 0}
+    - target: {fileID: 6735499149954997416, guid: 5cc7480e29158ef4b82cb672c3263a25, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -632,6 +660,10 @@ PrefabInstance:
     - target: {fileID: 5582218900130300457, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
       propertyPath: m_Name
       value: SpawnPoint (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5582218900130300457, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 7082048589961378765, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -691,6 +723,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1704611123329195226}
     m_Modifications:
+    - target: {fileID: 3629003317614546728, guid: 30e815cef9d84d848bf5b37dca058960, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     - target: {fileID: 4967073570650874202, guid: 30e815cef9d84d848bf5b37dca058960, type: 3}
       propertyPath: m_LocalScale.x
       value: 4
@@ -735,9 +771,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6826777132767803596, guid: 30e815cef9d84d848bf5b37dca058960, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
+    - target: {fileID: 7131845431360014814, guid: 30e815cef9d84d848bf5b37dca058960, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     - target: {fileID: 7212360953188136990, guid: 30e815cef9d84d848bf5b37dca058960, type: 3}
       propertyPath: m_Name
       value: Terrain_Ravine_Wood
+      objectReference: {fileID: 0}
+    - target: {fileID: 7212360953188136990, guid: 30e815cef9d84d848bf5b37dca058960, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
+    - target: {fileID: 8648440622357378011, guid: 30e815cef9d84d848bf5b37dca058960, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -760,6 +812,10 @@ PrefabInstance:
     - target: {fileID: 7942435333329857777, guid: 73c112104843ed3458954a54d3acebfb, type: 3}
       propertyPath: m_Name
       value: Terrain_Ravine_Normal
+      objectReference: {fileID: 0}
+    - target: {fileID: 7942435333329857777, guid: 73c112104843ed3458954a54d3acebfb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 8962860292930582102, guid: 73c112104843ed3458954a54d3acebfb, type: 3}
       propertyPath: m_LocalScale.x
@@ -823,6 +879,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1704611123329195226}
     m_Modifications:
+    - target: {fileID: 3629003317614546728, guid: 30e815cef9d84d848bf5b37dca058960, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     - target: {fileID: 4967073570650874202, guid: 30e815cef9d84d848bf5b37dca058960, type: 3}
       propertyPath: m_LocalScale.x
       value: 4
@@ -867,9 +927,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6826777132767803596, guid: 30e815cef9d84d848bf5b37dca058960, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
+    - target: {fileID: 7131845431360014814, guid: 30e815cef9d84d848bf5b37dca058960, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     - target: {fileID: 7212360953188136990, guid: 30e815cef9d84d848bf5b37dca058960, type: 3}
       propertyPath: m_Name
       value: Terrain_Ravine_Wood (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7212360953188136990, guid: 30e815cef9d84d848bf5b37dca058960, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
+    - target: {fileID: 8648440622357378011, guid: 30e815cef9d84d848bf5b37dca058960, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -941,6 +1017,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Terrain_Ravine_Normal_Back2
       objectReference: {fileID: 0}
+    - target: {fileID: 9204050444690427030, guid: 019d226da4f130f4f8a154575d69c0e3, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -959,6 +1039,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1704611123329195226}
     m_Modifications:
+    - target: {fileID: 3629003317614546728, guid: 30e815cef9d84d848bf5b37dca058960, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     - target: {fileID: 4967073570650874202, guid: 30e815cef9d84d848bf5b37dca058960, type: 3}
       propertyPath: m_LocalScale.x
       value: 4
@@ -1003,9 +1087,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6826777132767803596, guid: 30e815cef9d84d848bf5b37dca058960, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
+    - target: {fileID: 7131845431360014814, guid: 30e815cef9d84d848bf5b37dca058960, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     - target: {fileID: 7212360953188136990, guid: 30e815cef9d84d848bf5b37dca058960, type: 3}
       propertyPath: m_Name
       value: Terrain_Ravine_Wood (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7212360953188136990, guid: 30e815cef9d84d848bf5b37dca058960, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
+    - target: {fileID: 8648440622357378011, guid: 30e815cef9d84d848bf5b37dca058960, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1072,6 +1172,10 @@ PrefabInstance:
     - target: {fileID: 7664879964734404919, guid: 7df0f4482ffe39348b1558ee31594eb1, type: 3}
       propertyPath: m_Name
       value: Terrain_End (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7664879964734404919, guid: 7df0f4482ffe39348b1558ee31594eb1, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1143,6 +1247,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Terrain_Ravine_Normal_Front
       objectReference: {fileID: 0}
+    - target: {fileID: 6617836617466993938, guid: 3b077fca7e7029241b897702d1e0b583, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1169,13 +1277,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpawnPoint (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 5582218900130300457, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     - target: {fileID: 7082048589961378765, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.0491848
       objectReference: {fileID: 0}
     - target: {fileID: 7082048589961378765, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7.9924707
+      value: 8.577008
       objectReference: {fileID: 0}
     - target: {fileID: 7082048589961378765, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1227,6 +1339,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1704611123329195226}
     m_Modifications:
+    - target: {fileID: 3629003317614546728, guid: 30e815cef9d84d848bf5b37dca058960, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     - target: {fileID: 4967073570650874202, guid: 30e815cef9d84d848bf5b37dca058960, type: 3}
       propertyPath: m_LocalScale.x
       value: 4
@@ -1271,9 +1387,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6826777132767803596, guid: 30e815cef9d84d848bf5b37dca058960, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
+    - target: {fileID: 7131845431360014814, guid: 30e815cef9d84d848bf5b37dca058960, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     - target: {fileID: 7212360953188136990, guid: 30e815cef9d84d848bf5b37dca058960, type: 3}
       propertyPath: m_Name
       value: Terrain_Ravine_Wood (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7212360953188136990, guid: 30e815cef9d84d848bf5b37dca058960, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
+    - target: {fileID: 8648440622357378011, guid: 30e815cef9d84d848bf5b37dca058960, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1296,6 +1428,10 @@ PrefabInstance:
     - target: {fileID: 5582218900130300457, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
       propertyPath: m_Name
       value: SpawnPoint (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5582218900130300457, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 7082048589961378765, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1347,72 +1483,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7082048589961378765, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
   m_PrefabInstance: {fileID: 5567325554041601985}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &5694172813888423888
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 1704611123329195226}
-    m_Modifications:
-    - target: {fileID: 4967073570650874202, guid: 09d95e4998493f143b73419ccfe04cb9, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 11.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4967073570650874202, guid: 09d95e4998493f143b73419ccfe04cb9, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -12
-      objectReference: {fileID: 0}
-    - target: {fileID: 4967073570650874202, guid: 09d95e4998493f143b73419ccfe04cb9, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 7.125
-      objectReference: {fileID: 0}
-    - target: {fileID: 4967073570650874202, guid: 09d95e4998493f143b73419ccfe04cb9, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4967073570650874202, guid: 09d95e4998493f143b73419ccfe04cb9, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4967073570650874202, guid: 09d95e4998493f143b73419ccfe04cb9, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4967073570650874202, guid: 09d95e4998493f143b73419ccfe04cb9, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4967073570650874202, guid: 09d95e4998493f143b73419ccfe04cb9, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4967073570650874202, guid: 09d95e4998493f143b73419ccfe04cb9, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4967073570650874202, guid: 09d95e4998493f143b73419ccfe04cb9, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4967073570650874202, guid: 09d95e4998493f143b73419ccfe04cb9, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7212360953188136990, guid: 09d95e4998493f143b73419ccfe04cb9, type: 3}
-      propertyPath: m_Name
-      value: Terrain_Ravine_Wood_OnlyUp
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 09d95e4998493f143b73419ccfe04cb9, type: 3}
---- !u!4 &858871524313130634 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4967073570650874202, guid: 09d95e4998493f143b73419ccfe04cb9, type: 3}
-  m_PrefabInstance: {fileID: 5694172813888423888}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5695628091639746212
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1424,6 +1494,10 @@ PrefabInstance:
     - target: {fileID: 1469692876135945205, guid: cc04b62419002f046ba7a41603472824, type: 3}
       propertyPath: m_Name
       value: Terrain_Ravine_Normal_Ground
+      objectReference: {fileID: 0}
+    - target: {fileID: 1469692876135945205, guid: cc04b62419002f046ba7a41603472824, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 7489626760085656743, guid: cc04b62419002f046ba7a41603472824, type: 3}
       propertyPath: m_LocalScale.x
@@ -1495,13 +1569,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpawnPoint (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 5582218900130300457, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     - target: {fileID: 7082048589961378765, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 7.721957
       objectReference: {fileID: 0}
     - target: {fileID: 7082048589961378765, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 8.041655
+      value: 8.466949
       objectReference: {fileID: 0}
     - target: {fileID: 7082048589961378765, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1565,6 +1643,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpawnPoint (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 5582218900130300457, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     - target: {fileID: 7082048589961378765, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8.385947
@@ -1615,6 +1697,72 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7082048589961378765, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
   m_PrefabInstance: {fileID: 6514146386982350234}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &6953843386361952582
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1704611123329195226}
+    m_Modifications:
+    - target: {fileID: 4967073570650874202, guid: 09d95e4998493f143b73419ccfe04cb9, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 11.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4967073570650874202, guid: 09d95e4998493f143b73419ccfe04cb9, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -12
+      objectReference: {fileID: 0}
+    - target: {fileID: 4967073570650874202, guid: 09d95e4998493f143b73419ccfe04cb9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 7.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4967073570650874202, guid: 09d95e4998493f143b73419ccfe04cb9, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4967073570650874202, guid: 09d95e4998493f143b73419ccfe04cb9, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4967073570650874202, guid: 09d95e4998493f143b73419ccfe04cb9, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4967073570650874202, guid: 09d95e4998493f143b73419ccfe04cb9, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4967073570650874202, guid: 09d95e4998493f143b73419ccfe04cb9, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4967073570650874202, guid: 09d95e4998493f143b73419ccfe04cb9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4967073570650874202, guid: 09d95e4998493f143b73419ccfe04cb9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4967073570650874202, guid: 09d95e4998493f143b73419ccfe04cb9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7212360953188136990, guid: 09d95e4998493f143b73419ccfe04cb9, type: 3}
+      propertyPath: m_Name
+      value: Terrain_Ravine_Wood_OnlyUp (2)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 09d95e4998493f143b73419ccfe04cb9, type: 3}
+--- !u!4 &2625480587190589468 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4967073570650874202, guid: 09d95e4998493f143b73419ccfe04cb9, type: 3}
+  m_PrefabInstance: {fileID: 6953843386361952582}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7130156230784195315
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1627,13 +1775,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: PortalPoint (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2438655525844413970, guid: 72857c9e5c7aba844b52425adf187d7f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     - target: {fileID: 5875211640330974226, guid: 72857c9e5c7aba844b52425adf187d7f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 12.099373
       objectReference: {fileID: 0}
     - target: {fileID: 5875211640330974226, guid: 72857c9e5c7aba844b52425adf187d7f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 8.5
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 5875211640330974226, guid: 72857c9e5c7aba844b52425adf187d7f, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1685,6 +1837,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1704611123329195226}
     m_Modifications:
+    - target: {fileID: 3629003317614546728, guid: 30e815cef9d84d848bf5b37dca058960, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     - target: {fileID: 4967073570650874202, guid: 30e815cef9d84d848bf5b37dca058960, type: 3}
       propertyPath: m_LocalScale.x
       value: 4
@@ -1729,9 +1885,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6826777132767803596, guid: 30e815cef9d84d848bf5b37dca058960, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
+    - target: {fileID: 7131845431360014814, guid: 30e815cef9d84d848bf5b37dca058960, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     - target: {fileID: 7212360953188136990, guid: 30e815cef9d84d848bf5b37dca058960, type: 3}
       propertyPath: m_Name
       value: Terrain_Ravine_Wood (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7212360953188136990, guid: 30e815cef9d84d848bf5b37dca058960, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
+    - target: {fileID: 8648440622357378011, guid: 30e815cef9d84d848bf5b37dca058960, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1758,6 +1930,10 @@ PrefabInstance:
     - target: {fileID: 5582218900130300457, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
       propertyPath: m_Name
       value: SpawnPoint (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5582218900130300457, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 7082048589961378765, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
       propertyPath: m_LocalPosition.x

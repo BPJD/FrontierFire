@@ -8,9 +8,10 @@ public class Item_ToolTip : MonoBehaviour
     public string title = "Item Name";
     public string subTitle = "Item Name";
     [TextArea] public string description = "Item description...";
+    public Color titleColor = Color.white;
 
     [Header("Weapon ToolTip Content")]
-    public string[] weaponStat = new string[8];
+    public string[] weaponStat = new string[10];
 
     [Header("Trigger / Visibility")]
     [SerializeField] Transform player;               // 없으면 Start에서 자동 탐색
@@ -42,6 +43,8 @@ public class Item_ToolTip : MonoBehaviour
 
     bool isSelectedColor = false;
     float deselectedAlpha = 0.7f;
+
+    public WeaponParams thisItemWeaponParams { get; set; }
 
     void Start()
     {
@@ -156,6 +159,7 @@ public class Item_ToolTip : MonoBehaviour
                 CheckItemToolTipSelected();
                 
             }
+
         }
         else
         {

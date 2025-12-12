@@ -33,6 +33,11 @@ public class EnemyTurret : MonoBehaviour
     {
         itemDropRate = GetComponent<TurretAttackSystem>().unitAIDataSource.ai_dropRate;
 
+        if (isGravityReverse)
+        {
+            transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, 180f);
+        }
+
     }
 
     private void Update()

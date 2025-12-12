@@ -10,6 +10,7 @@ public class WeaponStatus : MonoBehaviour
     private PlayerWeapon weaponSystem;
     private UnitStatus playerStat;
     PlayerShootingStat playerAmmoStat;
+    Player_WeaponStatusCur weaponStatusCur;
 
     public int animationType { get; set; }
     public int bulletID { get; private set; }
@@ -22,6 +23,7 @@ public class WeaponStatus : MonoBehaviour
 
     public int ammoCur { get; set; }
     public int ammoMax { get; set; }
+    public int quality { get; set; } = 60;
 
     public bool _isCamRangeUp { get; private set; }
 
@@ -55,13 +57,14 @@ public class WeaponStatus : MonoBehaviour
                 }
             }
 
-            w_params = new WeaponParams(weaponDataSource);
+            w_params = new WeaponParams(WeaponStatRevisionByQuality.GetRevisedParams(weaponDataSource, quality));
             w_paramsDefault = new WeaponParams(w_params);
 
             animationType = SetWeaponAniType((int)w_params.w_type);
             weaponSystem = GetComponent<PlayerWeapon>();
             playerStat = GetComponentInParent<UnitStatus>();
             playerAmmoStat = GetComponentInParent<PlayerShootingStat>();
+            weaponStatusCur = GetComponentInParent<Player_WeaponStatusCur>();
 
             isSetted = true;
 
@@ -143,6 +146,13 @@ public class WeaponStatus : MonoBehaviour
         weaponSystem.bullet_angleError = Mathf.Clamp(_accError + _rangeError, 0f, 7.5f);
 
         reloadSpeed = w_params.w_reloadTime;
+
+        if(weaponStatusCur != null)
+        {
+            weaponStatusCur.SetParamStat(w_params);
+        }
+
+
     }
 
     public int SetWeaponAniType(int weaponType)

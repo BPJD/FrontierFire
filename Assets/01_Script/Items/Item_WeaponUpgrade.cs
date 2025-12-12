@@ -8,6 +8,7 @@ public class Item_WeaponUpgrade : MonoBehaviour, IInteractable
     WeaponStatUpgrade weaponStatUp;
     Data_WeaponStatUpgrades upgradeData;
     Data_WeaponUpgradeModels upgradeModelData;
+    Data_ItemTierColor itemTierColor;
 
     [SerializeField] bool isDebug = false;
 
@@ -49,6 +50,7 @@ public class Item_WeaponUpgrade : MonoBehaviour, IInteractable
             {
                 upgradeData = dataObj.GetComponent<Data_WeaponStatUpgrades>();
                 upgradeModelData = dataObj.GetComponent <Data_WeaponUpgradeModels>();
+                itemTierColor = dataObj.GetComponent<Data_ItemTierColor>();
             }
         }
     }
@@ -80,7 +82,13 @@ public class Item_WeaponUpgrade : MonoBehaviour, IInteractable
             if (upgradeSO != null)
             {
                 toolTip.title = upgradeSO.up_name;
-                toolTip.subTitle = upgradeSO.up_desc;
+
+                Debug.Log(itemTierColor.ReturnItemTier(upgradeSO.up_tier, false));
+                Debug.Log(itemTierColor.GetItemTierColor(upgradeSO.up_tier, false));
+
+                toolTip.subTitle = itemTierColor.ReturnItemTier(upgradeSO.up_tier, false);
+                toolTip.titleColor = itemTierColor.GetItemTierColor(upgradeSO.up_tier, false);
+
                 toolTip.description = upgradeSO.up_uiDesc;
                 toolTip.UpdateToolTipUI();
             }
@@ -88,8 +96,8 @@ public class Item_WeaponUpgrade : MonoBehaviour, IInteractable
         }
 
         toolTip.title = pack[0].up_name; // 같은 ID면 동일 이름/설명 가정
-        //toolTip.subTitle = pack[0].up_desc;
-        toolTip.subTitle = "";
+        toolTip.subTitle = itemTierColor.ReturnItemTier(upgradeSO.up_tier, false);
+        toolTip.titleColor = itemTierColor.GetItemTierColor(upgradeSO.up_tier, false);
 
         var sb = new StringBuilder();
         foreach (var so in pack)

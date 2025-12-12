@@ -149,6 +149,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "HideWeaponInfo",
+                    "type": "Button",
+                    "id": "24afb055-bc0e-4f67-9c97-490ab5f07e51",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -556,6 +565,28 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "SniperAiming",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "58b7f378-d657-4595-9a91-cf06841635c7",
+                    "path": "<Keyboard>/h",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "HideWeaponInfo",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "921e17cf-a7b3-4b18-9531-6be2499c5f91",
+                    "path": "<Gamepad>/dpad/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "HideWeaponInfo",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

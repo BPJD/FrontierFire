@@ -16,7 +16,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 62
   m_IsActive: 1
 --- !u!4 &3206871802496193744
 Transform:
@@ -103,7 +103,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 62
   m_IsActive: 1
 --- !u!4 &1386903083691455288
 Transform:
@@ -5213,7 +5213,7 @@ GameObject:
   m_TagString: Unit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 62
   m_IsActive: 1
 --- !u!4 &2622805800990251078
 Transform:
@@ -5320,7 +5320,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f02ea1948715794d81ae6ed06867a30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitDataSource: {fileID: 11400000, guid: 64d66a1dd4bf97e4faf3179abf545f3a, type: 2}
+  unitDataSource: {fileID: 11400000, guid: 5dbaba19b87c4c64792149eb875a299d, type: 2}
   isUnitHit: 0
   hpCur: 0
   armorRevisionByType:
@@ -5360,7 +5360,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 62
   m_IsActive: 1
 --- !u!4 &1192093375580087654
 Transform:
@@ -10210,7 +10210,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 62
   m_IsActive: 1
 --- !u!4 &525737928471275762
 Transform:
@@ -10295,7 +10295,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 62
   m_IsActive: 1
 --- !u!4 &8286918149334788339
 Transform:
@@ -15147,7 +15147,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 62
   m_IsActive: 1
 --- !u!4 &1726947790794359035
 Transform:
@@ -20089,7 +20089,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 62
   m_IsActive: 1
 --- !u!4 &5229038557805636166
 Transform:
@@ -24946,6 +24946,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Terrain_Building_Normal (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 899059183278609581, guid: 8e7f9f0d464beaa489aa4f28bb659376, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     - target: {fileID: 3001843176622186223, guid: 8e7f9f0d464beaa489aa4f28bb659376, type: 3}
       propertyPath: m_LocalScale.x
       value: 5.0002165
@@ -25016,6 +25020,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 525737928471275762}
     m_Modifications:
+    - target: {fileID: 165063460317134707, guid: 6287b6af2f95cfb45a787de051b1c30f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     - target: {fileID: 1330688744727030603, guid: 6287b6af2f95cfb45a787de051b1c30f, type: 3}
       propertyPath: m_LocalScale.x
       value: 2
@@ -25068,6 +25076,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Terrain_Cave_PassingWood (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 3280742551109811545, guid: 6287b6af2f95cfb45a787de051b1c30f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
+    - target: {fileID: 4970278038394943714, guid: 6287b6af2f95cfb45a787de051b1c30f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
+    - target: {fileID: 7186455954970337049, guid: 6287b6af2f95cfb45a787de051b1c30f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
+    - target: {fileID: 7637184900120064213, guid: 6287b6af2f95cfb45a787de051b1c30f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -25089,6 +25113,10 @@ PrefabInstance:
     - target: {fileID: 899059183278609581, guid: f12566dc7bf10174e94f728e952571d7, type: 3}
       propertyPath: m_Name
       value: Terrain_Building_Floor
+      objectReference: {fileID: 0}
+    - target: {fileID: 899059183278609581, guid: f12566dc7bf10174e94f728e952571d7, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 3001843176622186223, guid: f12566dc7bf10174e94f728e952571d7, type: 3}
       propertyPath: m_LocalScale.x
@@ -25164,6 +25192,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpawnPoint (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 5582218900130300457, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     - target: {fileID: 7082048589961378765, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 18.043163
@@ -25225,6 +25257,10 @@ PrefabInstance:
     - target: {fileID: 1469692876135945205, guid: 6a3a98dc73ad1214dbe4e8fa1883b56f, type: 3}
       propertyPath: m_Name
       value: Terrain_Cave_Normal_Ground (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1469692876135945205, guid: 6a3a98dc73ad1214dbe4e8fa1883b56f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 7489626760085656743, guid: 6a3a98dc73ad1214dbe4e8fa1883b56f, type: 3}
       propertyPath: m_LocalScale.x
@@ -25340,6 +25376,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Terrain_Cave_Normal_Front
       objectReference: {fileID: 0}
+    - target: {fileID: 6617836617466993938, guid: 4c01a6c20ad81a249ad8cf9226291fa4, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -25361,6 +25401,10 @@ PrefabInstance:
     - target: {fileID: 899059183278609581, guid: 8e7f9f0d464beaa489aa4f28bb659376, type: 3}
       propertyPath: m_Name
       value: Terrain_Building_Normal (16)
+      objectReference: {fileID: 0}
+    - target: {fileID: 899059183278609581, guid: 8e7f9f0d464beaa489aa4f28bb659376, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 3001843176622186223, guid: 8e7f9f0d464beaa489aa4f28bb659376, type: 3}
       propertyPath: m_LocalScale.x
@@ -25436,6 +25480,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Terrain_Building_Normal (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 899059183278609581, guid: 8e7f9f0d464beaa489aa4f28bb659376, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     - target: {fileID: 3001843176622186223, guid: 8e7f9f0d464beaa489aa4f28bb659376, type: 3}
       propertyPath: m_LocalScale.x
       value: 7.000162
@@ -25506,6 +25554,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 525737928471275762}
     m_Modifications:
+    - target: {fileID: 165063460317134707, guid: 6287b6af2f95cfb45a787de051b1c30f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     - target: {fileID: 1330688744727030603, guid: 6287b6af2f95cfb45a787de051b1c30f, type: 3}
       propertyPath: m_LocalScale.x
       value: 3
@@ -25520,7 +25572,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1330688744727030603, guid: 6287b6af2f95cfb45a787de051b1c30f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 8.5
+      value: 0.35
       objectReference: {fileID: 0}
     - target: {fileID: 1330688744727030603, guid: 6287b6af2f95cfb45a787de051b1c30f, type: 3}
       propertyPath: m_LocalPosition.z
@@ -25558,13 +25610,37 @@ PrefabInstance:
       propertyPath: m_Name
       value: Terrain_Cave_PassingWood
       objectReference: {fileID: 0}
+    - target: {fileID: 3280742551109811545, guid: 6287b6af2f95cfb45a787de051b1c30f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
+    - target: {fileID: 4970278038394943714, guid: 6287b6af2f95cfb45a787de051b1c30f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
+    - target: {fileID: 7186455954970337049, guid: 6287b6af2f95cfb45a787de051b1c30f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
+    - target: {fileID: 7637184900120064213, guid: 6287b6af2f95cfb45a787de051b1c30f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
+    - target: {fileID: 8033436879915943586, guid: 6287b6af2f95cfb45a787de051b1c30f, type: 3}
+      propertyPath: delay
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8033436879915943586, guid: 6287b6af2f95cfb45a787de051b1c30f, type: 3}
+      propertyPath: moveTo.y
+      value: 8.5
+      objectReference: {fileID: 0}
     - target: {fileID: 8033436879915943586, guid: 6287b6af2f95cfb45a787de051b1c30f, type: 3}
       propertyPath: moveDirection.y
       value: 8.1
       objectReference: {fileID: 0}
     - target: {fileID: 8628711520575900435, guid: 6287b6af2f95cfb45a787de051b1c30f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -8.1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -25587,6 +25663,10 @@ PrefabInstance:
     - target: {fileID: 899059183278609581, guid: 8e7f9f0d464beaa489aa4f28bb659376, type: 3}
       propertyPath: m_Name
       value: Terrain_Building_Normal (11)
+      objectReference: {fileID: 0}
+    - target: {fileID: 899059183278609581, guid: 8e7f9f0d464beaa489aa4f28bb659376, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 3001843176622186223, guid: 8e7f9f0d464beaa489aa4f28bb659376, type: 3}
       propertyPath: m_LocalScale.x
@@ -25662,6 +25742,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Terrain_Building_Normal
       objectReference: {fileID: 0}
+    - target: {fileID: 899059183278609581, guid: 8e7f9f0d464beaa489aa4f28bb659376, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     - target: {fileID: 3001843176622186223, guid: 8e7f9f0d464beaa489aa4f28bb659376, type: 3}
       propertyPath: m_LocalScale.y
       value: 4.000274
@@ -25731,6 +25815,10 @@ PrefabInstance:
     - target: {fileID: 899059183278609581, guid: 8e7f9f0d464beaa489aa4f28bb659376, type: 3}
       propertyPath: m_Name
       value: Terrain_Building_Normal (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 899059183278609581, guid: 8e7f9f0d464beaa489aa4f28bb659376, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 3001843176622186223, guid: 8e7f9f0d464beaa489aa4f28bb659376, type: 3}
       propertyPath: m_LocalScale.x
@@ -25805,6 +25893,10 @@ PrefabInstance:
     - target: {fileID: 899059183278609581, guid: 8e7f9f0d464beaa489aa4f28bb659376, type: 3}
       propertyPath: m_Name
       value: Terrain_Building_Normal (17)
+      objectReference: {fileID: 0}
+    - target: {fileID: 899059183278609581, guid: 8e7f9f0d464beaa489aa4f28bb659376, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 3001843176622186223, guid: 8e7f9f0d464beaa489aa4f28bb659376, type: 3}
       propertyPath: m_LocalScale.x
@@ -25888,6 +25980,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpawnPoint (19)
       objectReference: {fileID: 0}
+    - target: {fileID: 5582218900130300457, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     - target: {fileID: 7082048589961378765, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.18539
@@ -25962,6 +26058,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpawnPoint (16)
       objectReference: {fileID: 0}
+    - target: {fileID: 5582218900130300457, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     - target: {fileID: 7082048589961378765, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
       propertyPath: m_LocalPosition.x
       value: -11.621855
@@ -26023,6 +26123,10 @@ PrefabInstance:
     - target: {fileID: 899059183278609581, guid: 8e7f9f0d464beaa489aa4f28bb659376, type: 3}
       propertyPath: m_Name
       value: Terrain_Building_Normal (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 899059183278609581, guid: 8e7f9f0d464beaa489aa4f28bb659376, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 3001843176622186223, guid: 8e7f9f0d464beaa489aa4f28bb659376, type: 3}
       propertyPath: m_LocalScale.x
@@ -26142,6 +26246,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Terrain_Cave_Normal_Back2
       objectReference: {fileID: 0}
+    - target: {fileID: 9204050444690427030, guid: 0cb28534ce16f754588bfe3ee9cc0ad6, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -26212,6 +26320,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Terrain_Cave_Wood (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 7212360953188136990, guid: 61bacbf2304b2924f8f10993163c6c8f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 7131845431360014814, guid: 61bacbf2304b2924f8f10993163c6c8f, type: 3}
@@ -26234,6 +26346,10 @@ PrefabInstance:
     - target: {fileID: 5582218900130300457, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
       propertyPath: m_Name
       value: SpawnPoint (13)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5582218900130300457, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 7082048589961378765, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -26293,6 +26409,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 525737928471275762}
     m_Modifications:
+    - target: {fileID: 165063460317134707, guid: 6287b6af2f95cfb45a787de051b1c30f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     - target: {fileID: 1330688744727030603, guid: 6287b6af2f95cfb45a787de051b1c30f, type: 3}
       propertyPath: m_LocalScale.x
       value: 3
@@ -26345,6 +26465,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Terrain_Cave_PassingWood
       objectReference: {fileID: 0}
+    - target: {fileID: 3280742551109811545, guid: 6287b6af2f95cfb45a787de051b1c30f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
+    - target: {fileID: 4970278038394943714, guid: 6287b6af2f95cfb45a787de051b1c30f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
+    - target: {fileID: 7186455954970337049, guid: 6287b6af2f95cfb45a787de051b1c30f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
+    - target: {fileID: 7637184900120064213, guid: 6287b6af2f95cfb45a787de051b1c30f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -26366,6 +26502,10 @@ PrefabInstance:
     - target: {fileID: 899059183278609581, guid: 8e7f9f0d464beaa489aa4f28bb659376, type: 3}
       propertyPath: m_Name
       value: Terrain_Building_Normal (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 899059183278609581, guid: 8e7f9f0d464beaa489aa4f28bb659376, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 3001843176622186223, guid: 8e7f9f0d464beaa489aa4f28bb659376, type: 3}
       propertyPath: m_LocalScale.x
@@ -26445,6 +26585,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpawnPoint (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 5582218900130300457, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     - target: {fileID: 7082048589961378765, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5.498521
@@ -26506,6 +26650,10 @@ PrefabInstance:
     - target: {fileID: 899059183278609581, guid: 8e7f9f0d464beaa489aa4f28bb659376, type: 3}
       propertyPath: m_Name
       value: Terrain_Building_Normal (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 899059183278609581, guid: 8e7f9f0d464beaa489aa4f28bb659376, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 3001843176622186223, guid: 8e7f9f0d464beaa489aa4f28bb659376, type: 3}
       propertyPath: m_LocalScale.x
@@ -26581,6 +26729,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Terrain_Building_Normal (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 899059183278609581, guid: 8e7f9f0d464beaa489aa4f28bb659376, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     - target: {fileID: 3001843176622186223, guid: 8e7f9f0d464beaa489aa4f28bb659376, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.5006894
@@ -26654,6 +26806,10 @@ PrefabInstance:
     - target: {fileID: 8671262581978976306, guid: 103359f4a43b1544da04bad6675264bd, type: 3}
       propertyPath: m_Name
       value: Terrain_Cave_Normal_Back
+      objectReference: {fileID: 0}
+    - target: {fileID: 8671262581978976306, guid: 103359f4a43b1544da04bad6675264bd, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 9097709043439548057, guid: 103359f4a43b1544da04bad6675264bd, type: 3}
       propertyPath: m_LocalScale.x
@@ -26769,6 +26925,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Terrain_End (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 7664879964734404919, guid: 7df0f4482ffe39348b1558ee31594eb1, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -26790,6 +26950,10 @@ PrefabInstance:
     - target: {fileID: 899059183278609581, guid: 8e7f9f0d464beaa489aa4f28bb659376, type: 3}
       propertyPath: m_Name
       value: Terrain_Building_Normal
+      objectReference: {fileID: 0}
+    - target: {fileID: 899059183278609581, guid: 8e7f9f0d464beaa489aa4f28bb659376, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 3001843176622186223, guid: 8e7f9f0d464beaa489aa4f28bb659376, type: 3}
       propertyPath: m_LocalScale.x
@@ -26865,6 +27029,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Terrain_Building_Normal (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 899059183278609581, guid: 8e7f9f0d464beaa489aa4f28bb659376, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     - target: {fileID: 3001843176622186223, guid: 8e7f9f0d464beaa489aa4f28bb659376, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.5
@@ -26939,6 +27107,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Terrain_Cave_Normal_Back
       objectReference: {fileID: 0}
+    - target: {fileID: 8671262581978976306, guid: 103359f4a43b1544da04bad6675264bd, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     - target: {fileID: 9097709043439548057, guid: 103359f4a43b1544da04bad6675264bd, type: 3}
       propertyPath: m_LocalScale.x
       value: 8.49994
@@ -27004,6 +27176,10 @@ PrefabInstance:
     - target: {fileID: 899059183278609581, guid: 8e7f9f0d464beaa489aa4f28bb659376, type: 3}
       propertyPath: m_Name
       value: Terrain_Building_Normal (18)
+      objectReference: {fileID: 0}
+    - target: {fileID: 899059183278609581, guid: 8e7f9f0d464beaa489aa4f28bb659376, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 3001843176622186223, guid: 8e7f9f0d464beaa489aa4f28bb659376, type: 3}
       propertyPath: m_LocalScale.x
@@ -27079,6 +27255,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Terrain_Building_Normal (21)
       objectReference: {fileID: 0}
+    - target: {fileID: 899059183278609581, guid: 8e7f9f0d464beaa489aa4f28bb659376, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     - target: {fileID: 3001843176622186223, guid: 8e7f9f0d464beaa489aa4f28bb659376, type: 3}
       propertyPath: m_LocalScale.x
       value: 3.00013
@@ -27149,6 +27329,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 525737928471275762}
     m_Modifications:
+    - target: {fileID: 165063460317134707, guid: 6287b6af2f95cfb45a787de051b1c30f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     - target: {fileID: 1330688744727030603, guid: 6287b6af2f95cfb45a787de051b1c30f, type: 3}
       propertyPath: m_LocalScale.x
       value: 2
@@ -27201,6 +27385,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Terrain_Cave_PassingWood (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 3280742551109811545, guid: 6287b6af2f95cfb45a787de051b1c30f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
+    - target: {fileID: 4970278038394943714, guid: 6287b6af2f95cfb45a787de051b1c30f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
+    - target: {fileID: 7186455954970337049, guid: 6287b6af2f95cfb45a787de051b1c30f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
+    - target: {fileID: 7637184900120064213, guid: 6287b6af2f95cfb45a787de051b1c30f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -27230,6 +27430,10 @@ PrefabInstance:
     - target: {fileID: 5582218900130300457, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
       propertyPath: m_Name
       value: SpawnPoint (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5582218900130300457, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 7082048589961378765, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -27293,6 +27497,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PortalPoint (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2438655525844413970, guid: 72857c9e5c7aba844b52425adf187d7f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     - target: {fileID: 5875211640330974226, guid: 72857c9e5c7aba844b52425adf187d7f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 17.5
@@ -27354,6 +27562,10 @@ PrefabInstance:
     - target: {fileID: 1469692876135945205, guid: 6a3a98dc73ad1214dbe4e8fa1883b56f, type: 3}
       propertyPath: m_Name
       value: Terrain_Cave_Normal_Ground
+      objectReference: {fileID: 0}
+    - target: {fileID: 1469692876135945205, guid: 6a3a98dc73ad1214dbe4e8fa1883b56f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 7489626760085656743, guid: 6a3a98dc73ad1214dbe4e8fa1883b56f, type: 3}
       propertyPath: m_LocalScale.x
@@ -27477,6 +27689,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Terrain_Cave_Passing
       objectReference: {fileID: 0}
+    - target: {fileID: 6672932127179933505, guid: 2bd604f8bd46fe644aae061a366fb434, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -27498,6 +27714,10 @@ PrefabInstance:
     - target: {fileID: 899059183278609581, guid: 8e7f9f0d464beaa489aa4f28bb659376, type: 3}
       propertyPath: m_Name
       value: Terrain_Building_Normal (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 899059183278609581, guid: 8e7f9f0d464beaa489aa4f28bb659376, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 3001843176622186223, guid: 8e7f9f0d464beaa489aa4f28bb659376, type: 3}
       propertyPath: m_LocalScale.x
@@ -27573,6 +27793,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PortalPoint
       objectReference: {fileID: 0}
+    - target: {fileID: 2438655525844413970, guid: 72857c9e5c7aba844b52425adf187d7f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     - target: {fileID: 5875211640330974226, guid: 72857c9e5c7aba844b52425adf187d7f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 22
@@ -27642,6 +27866,10 @@ PrefabInstance:
     - target: {fileID: 5582218900130300457, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
       propertyPath: m_Name
       value: SpawnPoint (12)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5582218900130300457, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 7082048589961378765, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -27753,6 +27981,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Terrain_Cave_Normal_Back2
       objectReference: {fileID: 0}
+    - target: {fileID: 9204050444690427030, guid: 0cb28534ce16f754588bfe3ee9cc0ad6, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -27774,6 +28006,10 @@ PrefabInstance:
     - target: {fileID: 1469692876135945205, guid: 6a3a98dc73ad1214dbe4e8fa1883b56f, type: 3}
       propertyPath: m_Name
       value: Terrain_Cave_Normal_Ground (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1469692876135945205, guid: 6a3a98dc73ad1214dbe4e8fa1883b56f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 3916082292440670894, guid: 6a3a98dc73ad1214dbe4e8fa1883b56f, type: 3}
       propertyPath: isGeneratable
@@ -27849,6 +28085,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Terrain_Cave_Normal
       objectReference: {fileID: 0}
+    - target: {fileID: 7942435333329857777, guid: c454e9d55f2f6614c9c30d85e42fdd68, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     - target: {fileID: 8962860292930582102, guid: c454e9d55f2f6614c9c30d85e42fdd68, type: 3}
       propertyPath: m_LocalScale.x
       value: 20
@@ -27914,6 +28154,10 @@ PrefabInstance:
     - target: {fileID: 1469692876135945205, guid: 6a3a98dc73ad1214dbe4e8fa1883b56f, type: 3}
       propertyPath: m_Name
       value: Terrain_Cave_Normal_Ground (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1469692876135945205, guid: 6a3a98dc73ad1214dbe4e8fa1883b56f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 3916082292440670894, guid: 6a3a98dc73ad1214dbe4e8fa1883b56f, type: 3}
       propertyPath: isGeneratable
@@ -28037,6 +28281,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Terrain_Cave_Normal_Front
       objectReference: {fileID: 0}
+    - target: {fileID: 6617836617466993938, guid: 4c01a6c20ad81a249ad8cf9226291fa4, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -28062,6 +28310,10 @@ PrefabInstance:
     - target: {fileID: 5582218900130300457, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
       propertyPath: m_Name
       value: SpawnPoint (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5582218900130300457, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 7082048589961378765, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -28177,6 +28429,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Terrain_Cave_Passing (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6672932127179933505, guid: 2bd604f8bd46fe644aae061a366fb434, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -28198,6 +28454,10 @@ PrefabInstance:
     - target: {fileID: 7942435333329857777, guid: c454e9d55f2f6614c9c30d85e42fdd68, type: 3}
       propertyPath: m_Name
       value: Terrain_Cave_Normal
+      objectReference: {fileID: 0}
+    - target: {fileID: 7942435333329857777, guid: c454e9d55f2f6614c9c30d85e42fdd68, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 8962860292930582102, guid: c454e9d55f2f6614c9c30d85e42fdd68, type: 3}
       propertyPath: m_LocalScale.x
@@ -28274,6 +28534,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 525737928471275762}
     m_Modifications:
+    - target: {fileID: 165063460317134707, guid: 6287b6af2f95cfb45a787de051b1c30f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     - target: {fileID: 1330688744727030603, guid: 6287b6af2f95cfb45a787de051b1c30f, type: 3}
       propertyPath: m_LocalScale.x
       value: 3
@@ -28326,6 +28590,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Terrain_Cave_PassingWood (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 3280742551109811545, guid: 6287b6af2f95cfb45a787de051b1c30f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
+    - target: {fileID: 4970278038394943714, guid: 6287b6af2f95cfb45a787de051b1c30f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
+    - target: {fileID: 7186455954970337049, guid: 6287b6af2f95cfb45a787de051b1c30f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
+    - target: {fileID: 7637184900120064213, guid: 6287b6af2f95cfb45a787de051b1c30f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     - target: {fileID: 8033436879915943586, guid: 6287b6af2f95cfb45a787de051b1c30f, type: 3}
       propertyPath: moveDirection.y
       value: 0
@@ -28355,6 +28635,10 @@ PrefabInstance:
     - target: {fileID: 899059183278609581, guid: 8e7f9f0d464beaa489aa4f28bb659376, type: 3}
       propertyPath: m_Name
       value: Terrain_Building_Normal (19)
+      objectReference: {fileID: 0}
+    - target: {fileID: 899059183278609581, guid: 8e7f9f0d464beaa489aa4f28bb659376, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 3001843176622186223, guid: 8e7f9f0d464beaa489aa4f28bb659376, type: 3}
       propertyPath: m_LocalScale.x
@@ -28430,6 +28714,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Terrain_Cave_Normal_Ground
       objectReference: {fileID: 0}
+    - target: {fileID: 1469692876135945205, guid: 6a3a98dc73ad1214dbe4e8fa1883b56f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     - target: {fileID: 7489626760085656743, guid: 6a3a98dc73ad1214dbe4e8fa1883b56f, type: 3}
       propertyPath: m_LocalScale.x
       value: 11.50004
@@ -28499,6 +28787,10 @@ PrefabInstance:
     - target: {fileID: 899059183278609581, guid: 8e7f9f0d464beaa489aa4f28bb659376, type: 3}
       propertyPath: m_Name
       value: Terrain_Building_Normal (13)
+      objectReference: {fileID: 0}
+    - target: {fileID: 899059183278609581, guid: 8e7f9f0d464beaa489aa4f28bb659376, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 3001843176622186223, guid: 8e7f9f0d464beaa489aa4f28bb659376, type: 3}
       propertyPath: m_LocalScale.x
@@ -28618,6 +28910,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Terrain_End
       objectReference: {fileID: 0}
+    - target: {fileID: 7664879964734404919, guid: 7df0f4482ffe39348b1558ee31594eb1, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -28636,6 +28932,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 525737928471275762}
     m_Modifications:
+    - target: {fileID: 165063460317134707, guid: 6287b6af2f95cfb45a787de051b1c30f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     - target: {fileID: 1330688744727030603, guid: 6287b6af2f95cfb45a787de051b1c30f, type: 3}
       propertyPath: m_LocalScale.x
       value: 3
@@ -28688,6 +28988,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Terrain_Cave_PassingWood (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 3280742551109811545, guid: 6287b6af2f95cfb45a787de051b1c30f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
+    - target: {fileID: 4970278038394943714, guid: 6287b6af2f95cfb45a787de051b1c30f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
+    - target: {fileID: 7186455954970337049, guid: 6287b6af2f95cfb45a787de051b1c30f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
+    - target: {fileID: 7637184900120064213, guid: 6287b6af2f95cfb45a787de051b1c30f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     - target: {fileID: 8033436879915943586, guid: 6287b6af2f95cfb45a787de051b1c30f, type: 3}
       propertyPath: moveDirection.y
       value: 0
@@ -28717,6 +29033,10 @@ PrefabInstance:
     - target: {fileID: 899059183278609581, guid: 8e7f9f0d464beaa489aa4f28bb659376, type: 3}
       propertyPath: m_Name
       value: Terrain_Building_Normal (14)
+      objectReference: {fileID: 0}
+    - target: {fileID: 899059183278609581, guid: 8e7f9f0d464beaa489aa4f28bb659376, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 3001843176622186223, guid: 8e7f9f0d464beaa489aa4f28bb659376, type: 3}
       propertyPath: m_LocalScale.x
@@ -28788,6 +29108,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 525737928471275762}
     m_Modifications:
+    - target: {fileID: 3629003317614546728, guid: 61bacbf2304b2924f8f10993163c6c8f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     - target: {fileID: 4967073570650874202, guid: 61bacbf2304b2924f8f10993163c6c8f, type: 3}
       propertyPath: m_LocalScale.x
       value: 3
@@ -28836,9 +29160,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6826777132767803596, guid: 61bacbf2304b2924f8f10993163c6c8f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
+    - target: {fileID: 7131845431360014814, guid: 61bacbf2304b2924f8f10993163c6c8f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     - target: {fileID: 7212360953188136990, guid: 61bacbf2304b2924f8f10993163c6c8f, type: 3}
       propertyPath: m_Name
       value: Terrain_Cave_Wood
+      objectReference: {fileID: 0}
+    - target: {fileID: 7212360953188136990, guid: 61bacbf2304b2924f8f10993163c6c8f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
+    - target: {fileID: 8648440622357378011, guid: 61bacbf2304b2924f8f10993163c6c8f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -28861,6 +29201,10 @@ PrefabInstance:
     - target: {fileID: 899059183278609581, guid: 8e7f9f0d464beaa489aa4f28bb659376, type: 3}
       propertyPath: m_Name
       value: Terrain_Building_Normal (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 899059183278609581, guid: 8e7f9f0d464beaa489aa4f28bb659376, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 3001843176622186223, guid: 8e7f9f0d464beaa489aa4f28bb659376, type: 3}
       propertyPath: m_LocalScale.x
@@ -28939,6 +29283,10 @@ PrefabInstance:
     - target: {fileID: 5582218900130300457, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
       propertyPath: m_Name
       value: SpawnPoint (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5582218900130300457, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 7082048589961378765, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -29042,6 +29390,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StartPoint
       objectReference: {fileID: 0}
+    - target: {fileID: 6735499149954997416, guid: 5cc7480e29158ef4b82cb672c3263a25, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -29067,6 +29419,10 @@ PrefabInstance:
     - target: {fileID: 5582218900130300457, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
       propertyPath: m_Name
       value: SpawnPoint (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5582218900130300457, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 7082048589961378765, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -29129,6 +29485,10 @@ PrefabInstance:
     - target: {fileID: 899059183278609581, guid: 8e7f9f0d464beaa489aa4f28bb659376, type: 3}
       propertyPath: m_Name
       value: Terrain_Building_Normal (15)
+      objectReference: {fileID: 0}
+    - target: {fileID: 899059183278609581, guid: 8e7f9f0d464beaa489aa4f28bb659376, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 3001843176622186223, guid: 8e7f9f0d464beaa489aa4f28bb659376, type: 3}
       propertyPath: m_LocalScale.x
@@ -29204,6 +29564,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Terrain_Building_Normal (12)
       objectReference: {fileID: 0}
+    - target: {fileID: 899059183278609581, guid: 8e7f9f0d464beaa489aa4f28bb659376, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     - target: {fileID: 3001843176622186223, guid: 8e7f9f0d464beaa489aa4f28bb659376, type: 3}
       propertyPath: m_LocalScale.x
       value: 33.8731
@@ -29278,6 +29642,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Terrain_Cave_Normal_Back
       objectReference: {fileID: 0}
+    - target: {fileID: 8671262581978976306, guid: 103359f4a43b1544da04bad6675264bd, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     - target: {fileID: 9097709043439548057, guid: 103359f4a43b1544da04bad6675264bd, type: 3}
       propertyPath: m_LocalScale.x
       value: 20
@@ -29347,6 +29715,10 @@ PrefabInstance:
     - target: {fileID: 5582218900130300457, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
       propertyPath: m_Name
       value: SpawnPoint (17)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5582218900130300457, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 7082048589961378765, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -29454,6 +29826,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Terrain_Cave_Normal_Front
       objectReference: {fileID: 0}
+    - target: {fileID: 6617836617466993938, guid: 4c01a6c20ad81a249ad8cf9226291fa4, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -29520,6 +29896,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Terrain_Cave_Normal_Back2
       objectReference: {fileID: 0}
+    - target: {fileID: 9204050444690427030, guid: 0cb28534ce16f754588bfe3ee9cc0ad6, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -29541,6 +29921,10 @@ PrefabInstance:
     - target: {fileID: 7942435333329857777, guid: c454e9d55f2f6614c9c30d85e42fdd68, type: 3}
       propertyPath: m_Name
       value: Terrain_Cave_Normal
+      objectReference: {fileID: 0}
+    - target: {fileID: 7942435333329857777, guid: c454e9d55f2f6614c9c30d85e42fdd68, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 8962860292930582102, guid: c454e9d55f2f6614c9c30d85e42fdd68, type: 3}
       propertyPath: m_LocalScale.x
@@ -29624,6 +30008,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpawnPoint (15)
       objectReference: {fileID: 0}
+    - target: {fileID: 5582218900130300457, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     - target: {fileID: 7082048589961378765, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
       propertyPath: m_LocalPosition.x
       value: -7.1519146
@@ -29685,6 +30073,10 @@ PrefabInstance:
     - target: {fileID: 899059183278609581, guid: 8e7f9f0d464beaa489aa4f28bb659376, type: 3}
       propertyPath: m_Name
       value: Terrain_Building_Normal (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 899059183278609581, guid: 8e7f9f0d464beaa489aa4f28bb659376, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 3001843176622186223, guid: 8e7f9f0d464beaa489aa4f28bb659376, type: 3}
       propertyPath: m_LocalScale.x
@@ -29760,6 +30152,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Terrain_Cave_Normal
       objectReference: {fileID: 0}
+    - target: {fileID: 7942435333329857777, guid: c454e9d55f2f6614c9c30d85e42fdd68, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     - target: {fileID: 8962860292930582102, guid: c454e9d55f2f6614c9c30d85e42fdd68, type: 3}
       propertyPath: m_LocalScale.x
       value: 8.49994
@@ -29829,6 +30225,10 @@ PrefabInstance:
     - target: {fileID: 5582218900130300457, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
       propertyPath: m_Name
       value: SpawnPoint (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5582218900130300457, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 7082048589961378765, guid: 128ee772cef570a4cae171d2f1f7a77c, type: 3}
       propertyPath: m_LocalPosition.x

@@ -14,6 +14,7 @@ public class Stage_NextStagePortal : MonoBehaviour, IInteractable
     [SerializeField] ParticleSystem rewardEft;
     RewardType stageReward = RewardType.Stat;
 
+    [SerializeField] int[] rewardTypeWeights = { 1, 1, 1 }; // 무기, 스탯, 업그레이드 순서
 
     public bool TryInteract()
     {
@@ -45,37 +46,27 @@ public class Stage_NextStagePortal : MonoBehaviour, IInteractable
 
     RewardType SetRewardType()
     {
-        float _randValue = Random.Range(0f, 1f);
-
-        switch (nextMapType)
+        if(nextMapType == PortalType.Boss)
         {
-            case PortalType.Normal:
-                if(_randValue < 0.4f)
-                {
-                    return RewardType.Stat;
-                }
-                else
-                {
-                    return RewardType.Weapon;
-                }
-
-            case PortalType.Elite:
-                if (_randValue < 0.4f)
-                {
-                    return RewardType.Upgrade;
-                }
-                else
-                {
-                    return RewardType.Stat;
-                }
-
-            case PortalType.Boss:
-                return RewardType.Boss;
-
-            default:
-                return RewardType.Stat;
-
+            return RewardType.Boss;
         }
+
+        int _randMax = rewardTypeWeights[0] + rewardTypeWeights[1] + rewardTypeWeights[2];
+        int _randValue = Random.Range(0, _randMax);
+
+        if (_randValue < rewardTypeWeights[0])
+        {
+            return RewardType.Weapon;
+        }
+        else if (_randValue < rewardTypeWeights[0] + rewardTypeWeights[1])
+        {
+            return RewardType.Stat;
+        }
+        else
+        {
+            return RewardType.Upgrade;
+        }
+
     }
 
     void ActivateIcon(RewardType type)

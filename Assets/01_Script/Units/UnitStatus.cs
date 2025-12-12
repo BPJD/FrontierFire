@@ -14,6 +14,8 @@ public class UnitStatus : MonoBehaviour
     public bool isUnitHit = false;
 
     public int hpCur = 0;
+    public int hpRegen { get; private set; } = 0;
+    public float hpRegenSpeed { get; private set; } = 1f;
     public int atkCur { get; private set; } = 0;
     public float damageCur { get; private set; } = 1f;
 
@@ -46,6 +48,9 @@ public class UnitStatus : MonoBehaviour
 
         moveSpeed = unitParams.u_moveSpeed;
         hpCur = unitParams.u_hp;
+        hpRegen = unitParams.u_hpRegen;
+        hpRegenSpeed = unitParams.u_hpRegenSpeed;
+
         SetRevision();
         SetCurrentAtk();
         damageCur = 1f;
@@ -57,13 +62,16 @@ public class UnitStatus : MonoBehaviour
     }
 
 
-    public void UnitGetHeal(int _heal)
+    public void UnitGetHeal(int _heal, bool isUIPrint)
     {
         hpCur = Mathf.Clamp(hpCur + _heal, 0, unitParams.u_hp);
         OnHpChanged?.Invoke(hpCur, unitParams.u_hp);
 
-        DamageNumber number = data_DNum.GetDamageNumberPrefab(Data_DamageNumbers.NumberType.Heal);
-        number.Spawn(tr.position + (Vector3.up * 1.75f), _heal);
+        if(isUIPrint == true)
+        {
+            DamageNumber number = data_DNum.GetDamageNumberPrefab(Data_DamageNumbers.NumberType.Heal);
+            number.Spawn(tr.position + (Vector3.up * 1.75f), _heal);
+        }
     }
 
 
@@ -295,6 +303,12 @@ public class UnitStatus : MonoBehaviour
                 break;
             case 14: // 아이템 드롭률
                 _playerAmmo.playerItemDropRate = RoundTo2Decimal(_playerAmmo.playerItemDropRate + valuePlus);
+                break;
+            case 15: // HP 회복량
+                unitParams.u_hpRegen = Mathf.RoundToInt((unitParamsDefault.u_hpRegen + valuePlus) * (1f + (valueMulti * 0.01f)));
+                break;
+            case 16: // HP 회복속도
+                unitParams.u_hpRegenSpeed = Mathf.RoundToInt((unitParamsDefault.u_hpRegenSpeed + valuePlus) * (1f + (valueMulti * 0.01f)));
                 break;
             default:
                 //Debug.LogWarning($"Unknown statID: {_stat}");

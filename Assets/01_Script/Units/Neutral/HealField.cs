@@ -26,7 +26,7 @@ public class HealField : MonoBehaviour
         {
             if(healUnit != null)
             {
-                healUnit.UnitGetHeal(healValue);
+                healUnit.UnitGetHeal(healValue, true);
 
                 GameObject _particle = Instantiate(particle, unitTr.position + Vector3.up, particle.transform.rotation);
                 Destroy(_particle, 3f);

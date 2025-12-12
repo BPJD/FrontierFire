@@ -226,6 +226,9 @@ MonoBehaviour:
   propMagCur: 0
   propAmmoCur: 1
   weaponPickCount: 0
+  quality: 60
+  qualityMax: 100
+  qualityMin: 0
   isWeaponDropped: 0
 --- !u!114 &5696789864940267929
 MonoBehaviour:
@@ -242,7 +245,10 @@ MonoBehaviour:
   title: Item Name
   subTitle: Item Name
   description: Item description...
+  titleColor: {r: 0, g: 0, b: 0, a: 1}
   weaponStat:
+  - 
+  - 
   - 
   - 
   - 

@@ -8,6 +8,8 @@ public class UnitParams
     public int u_atk;
     public int u_def;
     public float u_immunePer = 1f;
+    public int u_hpRegen;
+    public float u_hpRegenSpeed = 1f;
 
     public int u_armorLevel;
 
@@ -40,6 +42,8 @@ public class UnitParams
         u_criRate = src.u_criRate;
         u_criDamage = src.u_criDamage;
         u_damage = src.u_damage;
+        u_hpRegen = src.u_hpRegen;
+        u_hpRegenSpeed = src.u_hpRegenSpeed;
     }
 
     // 깊은 복사 생성자 (기본값 백업용)
@@ -59,5 +63,7 @@ public class UnitParams
         u_criRate = other.u_criRate;
         u_criDamage = other.u_criDamage;
         u_damage = other.u_damage;
+        u_hpRegen = other.u_hpRegen;
+        u_hpRegenSpeed = other.u_hpRegenSpeed;
     }
 }

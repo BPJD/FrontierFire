@@ -8,6 +8,7 @@ public class Item_StatUpgrade : MonoBehaviour, IInteractable
     UnitStatUpgrade playerStatUp;
     Data_StatUpgrades upgradeData;
     Data_UpgradeModels upgradeProp;
+    Data_ItemTierColor itemTierColor;
 
     [SerializeField] bool isDebug = false;
 
@@ -51,6 +52,7 @@ public class Item_StatUpgrade : MonoBehaviour, IInteractable
             {
                 upgradeData = dataObj.GetComponent<Data_StatUpgrades>();
                 upgradeProp = dataObj.GetComponent<Data_UpgradeModels>();
+                itemTierColor = dataObj.GetComponent<Data_ItemTierColor>();
             }
         }
     }
@@ -76,15 +78,24 @@ public class Item_StatUpgrade : MonoBehaviour, IInteractable
         toolTip = GetComponent<Item_ToolTip>();
         if (toolTip == null) return;
 
+
         if (pack != null && pack.Count > 0)
         {
             toolTip.title = pack[0].up_name;   // 같은 ID면 이름/설명 동일 가정
-            toolTip.subTitle = "";
+
+            toolTip.subTitle = itemTierColor.ReturnItemTier(upgradeSO.up_tier, false);
+            toolTip.titleColor = itemTierColor.GetItemTierColor(upgradeSO.up_tier, false);
 
             var sb = new System.Text.StringBuilder();
             foreach (var so in pack)
-                if (!string.IsNullOrEmpty(so.up_uiDesc)) sb.AppendLine(so.up_uiDesc);
+                if (!string.IsNullOrEmpty(so.up_uiDesc))
+                {
+                    sb.AppendLine(so.up_uiDesc);
+                }
             toolTip.description = sb.ToString().TrimEnd();
+            
+
+
             toolTip.UpdateToolTipUI();
         }
         else
