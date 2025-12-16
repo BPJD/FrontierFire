@@ -8,6 +8,8 @@ public class Data_Enemies : MonoBehaviour
 
     private Dictionary<int, GameObject> enemyPrefabDict;
 
+    [SerializeField] GameObject eliteEffect;
+
     void Awake()
     {
         enemyPrefabDict = new Dictionary<int, GameObject>();
@@ -31,6 +33,11 @@ public class Data_Enemies : MonoBehaviour
             
 
         return null;
+    }
+
+    public GameObject GetEliteEffect(Transform unitTr)
+    {
+        return Instantiate(eliteEffect, Vector3.up, Quaternion.identity, unitTr);
     }
 }
 

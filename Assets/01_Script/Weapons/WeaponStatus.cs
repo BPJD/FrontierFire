@@ -20,6 +20,7 @@ public class WeaponStatus : MonoBehaviour
     [HideInInspector] public float bulletSpeed { get; private set; }
     [HideInInspector] public float bulletRange { get; private set; }
     [HideInInspector] public float reloadSpeed { get; private set; }
+    public float hpAbsorption;// { get; private set; }
 
     public int ammoCur { get; set; }
     public int ammoMax { get; set; }
@@ -136,6 +137,7 @@ public class WeaponStatus : MonoBehaviour
 
         criRate = playerStat.criRate;
         criDamage = playerStat.criDamage;
+        hpAbsorption = w_params.w_hpAbsorption;
 
         weaponSystem.magMax = w_params.w_magSize;
 
@@ -222,6 +224,9 @@ public class WeaponStatus : MonoBehaviour
                 break;
             case 11:
                 add_ExplodeRadius = RoundTo2Decimal((add_ExplodeRadius + plus) * k);
+                break;
+            case 13:
+                w_params.w_hpAbsorption = RoundTo2Decimal(w_paramsDefault.w_hpAbsorption + (plus * 0.01f));
                 break;
 
             default:

@@ -12,6 +12,8 @@ namespace Combat
         public bool isWeakPoint;
         public bool isBlocked;
         public Vector3 hitPoint;
+        public float absorpRate;    // 흡혈 비율
+        public UnitStatus attackerStat; //공격자 스탯 참조용
 
         // 선택: 외부 보정 (버프/디버프)
         public int addFlat;        // +고정
@@ -26,7 +28,10 @@ namespace Combat
             bool isBlocked = false,
             Vector3? hitPoint = null,
             int addFlat = 0,
-            float mul = 1f)
+            float mul = 1f,
+            float absorption = 0f,
+            UnitStatus attackerStat = null
+            )
         {
             return new DamagePayload
             {
@@ -37,7 +42,9 @@ namespace Combat
                 isWeakPoint = isWeakPoint,
                 hitPoint = hitPoint ?? Vector3.zero,
                 addFlat = addFlat,
-                mul = mul
+                mul = mul,
+                absorpRate = absorption,
+                attackerStat = attackerStat
             };
         }
     }
@@ -48,5 +55,6 @@ namespace Combat
         public int damageTier;      // 사운드/이펙트 선택용
         public bool isCritical;
         public bool killed;
+        public int absDamage; //흡혈할 체력
     }
 }

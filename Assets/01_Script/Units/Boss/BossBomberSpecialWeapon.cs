@@ -151,7 +151,7 @@ public class BossBomberSpecialWeapon : MonoBehaviour
 
             ShootSoundPlay();
 
-            bullet.GetComponent<Bullet>().SetBulletStatus(w_atk, w_range, 0f, WeaponParamsSO.AtkTypes.Normal, false, 2f);
+            bullet.GetComponent<Bullet>().SetBulletStatus(w_atk, w_range, 0f, WeaponParamsSO.AtkTypes.Normal, false, 2f, 0f, stat);
             Destroy(bullet, 5f);
         }
     }
@@ -182,7 +182,7 @@ public class BossBomberSpecialWeapon : MonoBehaviour
 
             ShootSoundPlay();
 
-            bullet.GetComponent<Bullet>().SetBulletStatus(w_atk, w_range, 0f, WeaponParamsSO.AtkTypes.Normal, false, 0f);
+            bullet.GetComponent<Bullet>().SetBulletStatus(w_atk, w_range, 0f, WeaponParamsSO.AtkTypes.Normal, false, 0f, 0f, stat);
             Destroy(bullet, 5f);
         }
     }

@@ -10,7 +10,8 @@ public class UnitParamsSO : ScriptableObject
         Default,
         Player,
         Enemy,
-        Boss
+        Boss,
+        Elite
     }
 
     public UnitTypes u_type;

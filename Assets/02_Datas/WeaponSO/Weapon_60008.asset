@@ -12,19 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef70e0ac75c56a44fb923b0309549238, type: 3}
   m_Name: Weapon_60008
   m_EditorClassIdentifier: Assembly-CSharp::WeaponParamsSO
-  w_name: "\uBB34\uAE309"
-  w_desc: "\uB113\uC740 \uBC94\uC704 \uACF5\uACA9, \uB0AE\uC740 \uC0AC\uAC70\uB9AC"
-  w_type: 6
-  w_atkType: 0
-  w_atk: 350
-  w_range: 5
-  w_rpm: 90
-  w_magSize: 6
-  w_accuracy: 15
-  w_reloadTime: 2
+  w_name: SP-SteelArrow
+  w_desc: "\uC6B0\uC8FC \uAC1C\uCC99 \uC2DC\uB300\uC5D0 \uB9CC\uB4E4\uC5B4\uC9C4
+    \uCD5C\uACE0\uC758 \uD734\uB300 \uBB34\uAE30\uC785\uB2C8\uB2E4."
+  w_type: 11
+  w_atkType: 2
+  w_atk: 70
+  w_range: 25
+  w_rpm: 450
+  w_magSize: 25
+  w_accuracy: 70
+  w_reloadTime: 1.75
   e_quality: 0
-  w_usingAmmo: 1
-  w_ammoMulti: 0.1
+  w_usingAmmo: 2
+  w_ammoMulti: 0.9
   w_ammoDefault: 0
-  bulletID: 0
+  bulletID: 3
   isCamRangeUp: 0
+  w_hpAbsorption: 0

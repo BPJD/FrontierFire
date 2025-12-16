@@ -12,19 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef70e0ac75c56a44fb923b0309549238, type: 3}
   m_Name: Weapon_60007
   m_EditorClassIdentifier: Assembly-CSharp::WeaponParamsSO
-  w_name: "\uBB34\uAE308"
-  w_desc: "\uBE60\uB978 \uC5F0\uC0AC\uC640 \uC9E7\uC740 \uC7AC\uC7A5\uC804, \uADFC\uC811\uC804\uC6A9"
-  w_type: 4
+  w_name: SG-Hammer
+  w_desc: "\uC544\uBB34\uB3C4 \uB9C9\uC744 \uC218 \uC5C6\uC2B5\uB2C8\uB2E4."
+  w_type: 6
   w_atkType: 0
-  w_atk: 15
-  w_range: 12
-  w_rpm: 600
-  w_magSize: 35
-  w_accuracy: 55
-  w_reloadTime: 1
+  w_atk: 420
+  w_range: 5
+  w_rpm: 90
+  w_magSize: 6
+  w_accuracy: 15
+  w_reloadTime: 1.75
   e_quality: 0
   w_usingAmmo: 1
-  w_ammoMulti: 2.75
+  w_ammoMulti: 0.1
   w_ammoDefault: 0
-  bulletID: 3
+  bulletID: 0
   isCamRangeUp: 0
+  w_hpAbsorption: 0

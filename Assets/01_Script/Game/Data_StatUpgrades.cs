@@ -5,7 +5,7 @@ using static StatUpgradesSO;
 [System.Serializable]
 public struct RarityWeight
 {
-    public StatUpgradesSO.ItemTier itemTier;
+    public StatUpgradesSO.StatItemTier itemTier;
     [Min(0f)] public float weight; // 0 이면 안 나옴
 }
 
@@ -20,16 +20,16 @@ public class Data_StatUpgrades : MonoBehaviour
     [SerializeField]
     RarityWeight[] defaultRarityWeights = new RarityWeight[]
     {
-        new RarityWeight{ itemTier = ItemTier.D,  weight = 55f },
-        new RarityWeight{ itemTier = ItemTier.C,  weight = 25f },
-        new RarityWeight{ itemTier = ItemTier.B,  weight = 12f },
-        new RarityWeight{ itemTier = ItemTier.A,  weight = 12f },
-        new RarityWeight{ itemTier = ItemTier.S,  weight = 6f  },
-        new RarityWeight{ itemTier = ItemTier.SS, weight = 2f  }
+        new RarityWeight{ itemTier = StatItemTier.D,  weight = 55f },
+        new RarityWeight{ itemTier = StatItemTier.C,  weight = 25f },
+        new RarityWeight{ itemTier = StatItemTier.B,  weight = 12f },
+        new RarityWeight{ itemTier = StatItemTier.A,  weight = 12f },
+        new RarityWeight{ itemTier = StatItemTier.S,  weight = 6f  },
+        new RarityWeight{ itemTier = StatItemTier.SS, weight = 2f  }
     };
 
     // 등급별 버킷 (id 리스트)
-    private Dictionary<ItemTier, HashSet<int>> rarityBuckets;
+    private Dictionary<StatItemTier, HashSet<int>> rarityBuckets;
     private bool bucketsBuilt = false;
 
 
@@ -37,8 +37,8 @@ public class Data_StatUpgrades : MonoBehaviour
     void EnsureRarityBuckets()
     {
         if (bucketsBuilt) return;
-        rarityBuckets = new Dictionary<ItemTier, HashSet<int>>();
-        foreach (ItemTier r in System.Enum.GetValues(typeof(ItemTier)))
+        rarityBuckets = new Dictionary<StatItemTier, HashSet<int>>();
+        foreach (StatItemTier r in System.Enum.GetValues(typeof(StatItemTier)))
             rarityBuckets[r] = new HashSet<int>();
 
         for (int i = 0; i < statUpEntries.Count; i++)
@@ -48,20 +48,20 @@ public class Data_StatUpgrades : MonoBehaviour
             var so = e.statUp;
 
             // 같은 statUpID가 여러 SO에 있어도 HashSet이 1번만 보관
-            rarityBuckets[(ItemTier)so.up_tier].Add(e.statUpID);
+            rarityBuckets[(StatItemTier)so.up_tier].Add(e.statUpID);
         }
         bucketsBuilt = true;
     }
 
     // --- 새로 추가: 등급 굴림 / 등급 내 랜덤 선택 ---
 
-    public ItemTier RollRarity(RarityWeight[] weights = null)
+    public StatItemTier RollRarity(RarityWeight[] weights = null)
     {
         var ws = (weights == null || weights.Length == 0) ? defaultRarityWeights : weights;
 
         float total = 0f;
         foreach (var w in ws) total += Mathf.Max(0f, w.weight);
-        if (total <= 0f) return ItemTier.D;
+        if (total <= 0f) return StatItemTier.D;
 
         float roll = Random.value * total;
         foreach (var w in ws)
@@ -73,7 +73,7 @@ public class Data_StatUpgrades : MonoBehaviour
         return ws[ws.Length - 1].itemTier; // 부동소수 안전장치
     }
 
-    public int GetRandomIdByRarity(ItemTier rarity, bool allowFallbackToNearest = true)
+    public int GetRandomIdByRarity(StatItemTier rarity, bool allowFallbackToNearest = true)
     {
         EnsureRarityBuckets();
 
@@ -88,9 +88,9 @@ public class Data_StatUpgrades : MonoBehaviour
         }
 
         // 2) 인접 등급으로 폴백
-        ItemTier[] ordered =
+        StatItemTier[] ordered =
         {
-        ItemTier.D, ItemTier.C, ItemTier.B, ItemTier.A, ItemTier.S, ItemTier.SS
+        StatItemTier.D, StatItemTier.C, StatItemTier.B, StatItemTier.A, StatItemTier.S, StatItemTier.SS
     };
 
         int idx = System.Array.IndexOf(ordered, rarity);

@@ -38,12 +38,14 @@ public class UnitStatus : MonoBehaviour
 
     [SerializeField] bool isTurret = false;
 
+    ParticleSystem unitEffect;
+
     private void Awake()
     {
         unitParams = new UnitParams(unitDataSource);
         unitParamsDefault = new UnitParams(unitParams); // 백업용 복사
         soundPlayer = GetComponent<AudioSource>();
-        data_DNum = GameObject.FindGameObjectWithTag("Data").GetComponent<Data_DamageNumbers>();
+        data_DNum = GameObject.FindGameObjectWithTag(Data_Strings.DataObjTag).GetComponent<Data_DamageNumbers>();
         tr = transform;
 
         moveSpeed = unitParams.u_moveSpeed;
@@ -54,11 +56,22 @@ public class UnitStatus : MonoBehaviour
         SetRevision();
         SetCurrentAtk();
         damageCur = 1f;
+
+        SetEffect();
     }
 
     private void OnEnable()
     {
         HP_Reset();
+    }
+
+    void SetEffect()
+    {
+        if(unitParams.u_type == UnitParamsSO.UnitTypes.Elite)
+        {
+            GameObject effectPrefab = data_DNum.gameObject.GetComponent<Data_Enemies>().GetEliteEffect(tr);
+            unitEffect = effectPrefab.GetComponent<ParticleSystem>();
+        }
     }
 
 
@@ -97,8 +110,13 @@ public class UnitStatus : MonoBehaviour
         raw = (raw + p.addFlat) * (p.mul <= 0f ? 1f : p.mul);
 
         // 반올림/클램프는 마지막에
-        int final = Mathf.Clamp(Mathf.RoundToInt(raw), 0, p.baseDamage);
+        int final = Mathf.Clamp(Mathf.RoundToInt(raw), 1, p.baseDamage);
 
+        if (p.absorpRate > 0f)
+        {
+            int absDamage = Mathf.Max(1, Mathf.RoundToInt(final * p.absorpRate));
+            p.attackerStat?.UnitGetHeal(absDamage, false);
+        }
 
         // 3) 비주얼/사운드
         PrintDamageNumber(final, tier, p.isCritical, p.isWeakPoint, p.hitPoint);
@@ -177,19 +195,13 @@ public class UnitStatus : MonoBehaviour
                 GetComponent<PlayerDeath>()?.DeathAnimationPlay(unitParams.u_hp, damage);
                 break;
             case UnitParamsSO.UnitTypes.Enemy:
-                if (!isTurret)
-                {
-                    GetComponent<EnemyUnitDeath>().DeathAnimationPlay(unitParams.u_hp, damage);
-                    GetComponent<EnemyAttackSystem>().isDead = true;
-                }
-                else
-                {
-                    GetComponent<EnemyTurret>().TurretDown();
-                    GetComponent<TurretAttackSystem>().isDead = true;
-                }
+                EnemyDead(damage);
                 break;
             case UnitParamsSO.UnitTypes.Boss:
                 GetComponent<BossControlSystem>().BossDead();
+                break;
+            case UnitParamsSO.UnitTypes.Elite:
+                EnemyDead(damage);
                 break;
             default:
                 gameObject.SendMessage(NeutralUnits.deadMsg, SendMessageOptions.DontRequireReceiver);
@@ -198,13 +210,32 @@ public class UnitStatus : MonoBehaviour
         return true;
     }
 
+    void EnemyDead(int damage)
+    {
+        if (!isTurret)
+        {
+            GetComponent<EnemyUnitDeath>().DeathAnimationPlay(unitParams.u_hp, damage);
+            GetComponent<EnemyAttackSystem>().isDead = true;
+        }
+        else
+        {
+            GetComponent<EnemyTurret>().TurretDown();
+            GetComponent<TurretAttackSystem>().isDead = true;
+        }
+
+        if(unitEffect != null)
+        {
+            unitEffect.Stop(true);
+        }
+    }
+
     void SetRevision()
     {
         switch (unitParams.u_armorLevel)
         {
             case 0: armorRevisionByType = new float[] { 1f, 0.75f, 0.5f }; break;
-            case 1: armorRevisionByType = new float[] { 0.7f, 1f, 1f }; break;
-            case 2: armorRevisionByType = new float[] { 0.3f, 0.6f, 0.9f }; break;
+            case 1: armorRevisionByType = new float[] { 0.7f, 1f, 0.75f }; break;
+            case 2: armorRevisionByType = new float[] { 0.5f, 0.8f, 0.9f }; break;
         }
 
         Control_Stage gameControl = GameObject.FindGameObjectWithTag("GameController").GetComponent<Control_Stage>();
@@ -306,9 +337,11 @@ public class UnitStatus : MonoBehaviour
                 break;
             case 15: // HP 회복량
                 unitParams.u_hpRegen = Mathf.RoundToInt((unitParamsDefault.u_hpRegen + valuePlus) * (1f + (valueMulti * 0.01f)));
+                hpRegen = unitParams.u_hpRegen;
                 break;
             case 16: // HP 회복속도
-                unitParams.u_hpRegenSpeed = Mathf.RoundToInt((unitParamsDefault.u_hpRegenSpeed + valuePlus) * (1f + (valueMulti * 0.01f)));
+                unitParams.u_hpRegenSpeed = Mathf.RoundToInt((unitParamsDefault.u_hpRegenSpeed - valuePlus) * (1f - (valueMulti * 0.01f)));
+                hpRegenSpeed = unitParams.u_hpRegenSpeed;
                 break;
             default:
                 //Debug.LogWarning($"Unknown statID: {_stat}");

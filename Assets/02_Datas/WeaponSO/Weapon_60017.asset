@@ -12,19 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef70e0ac75c56a44fb923b0309549238, type: 3}
   m_Name: Weapon_60017
   m_EditorClassIdentifier: Assembly-CSharp::WeaponParamsSO
-  w_name: "\uBB34\uAE3018"
-  w_desc: "\uB9E4\uC6B0 \uB192\uC740 \uB370\uBBF8\uC9C0, \uC800\uC18D \uC5F0\uC0AC"
-  w_type: 10
-  w_atkType: 2
-  w_atk: 750
-  w_range: 40
-  w_rpm: 45
-  w_magSize: 5
-  w_accuracy: 90
-  w_reloadTime: 3
+  w_name: LS-RapidEyes
+  w_desc: "\uB0A0\uB835\uD55C \uC800\uACA9\uC218\uB97C \uC704\uD5E4 \uC124\uACC4\uB418\uC5C8\uC2B5\uB2C8\uB2E4."
+  w_type: 7
+  w_atkType: 0
+  w_atk: 175
+  w_range: 28
+  w_rpm: 250
+  w_magSize: 12
+  w_accuracy: 70
+  w_reloadTime: 2
   e_quality: 0
-  w_usingAmmo: 2
-  w_ammoMulti: 0.05
+  w_usingAmmo: 1
+  w_ammoMulti: 0.275
   w_ammoDefault: 0
   bulletID: 3
   isCamRangeUp: 1
+  w_hpAbsorption: 0

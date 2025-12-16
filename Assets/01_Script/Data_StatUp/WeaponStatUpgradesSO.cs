@@ -39,5 +39,16 @@ public class WeaponStatUpgradesSO : ScriptableObject
         Range = 9,
         Damage = 10,
         ExplodeRadius = 11,
+        hpAbsorption = 13
+    }
+
+    public enum WeaponItemTier
+    {
+        D = 0,
+        C = 1,
+        B = 2,
+        A = 3,
+        S = 4,
+        SS = 5
     }
 }

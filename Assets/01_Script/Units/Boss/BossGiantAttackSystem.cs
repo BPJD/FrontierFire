@@ -124,8 +124,9 @@ public class BossGiantAttackSystem : MonoBehaviour
                 0f,
                 WeaponParamsSO.AtkTypes.Normal,
                 false,
-                0f
-                );
+                0f,
+                0f,
+                unitStat);
 
             yield return new WaitForSeconds(stoneFireDelay);
         }
@@ -147,7 +148,9 @@ public class BossGiantAttackSystem : MonoBehaviour
                 0f,
                 WeaponParamsSO.AtkTypes.Normal,
                 false,
-                0f
+                0f,
+                0f,
+                unitStat
                 );
 
             yield return new WaitForSeconds(dripStoneFireDelay);

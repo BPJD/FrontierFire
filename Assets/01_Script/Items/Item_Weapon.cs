@@ -34,7 +34,15 @@ public class Item_Weapon : MonoBehaviour, IInteractable
     {
         if (!isWeaponDropped)
         {
-            WeaponDropItem(qualityMin, qualityMax);
+            if(weaponID == 0)
+            {
+                WeaponDropItem(qualityMin, qualityMax);
+            }
+            else
+            {
+                WeaponDropItem(weaponID);
+            }
+
         }
 
 

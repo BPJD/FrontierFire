@@ -12,19 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef70e0ac75c56a44fb923b0309549238, type: 3}
   m_Name: Weapon_60011
   m_EditorClassIdentifier: Assembly-CSharp::WeaponParamsSO
-  w_name: "\uBB34\uAE3012"
-  w_desc: "RPM\uACFC \uD0C4\uCC3D \uAC15\uD654\uD615 SMG"
-  w_type: 4
-  w_atkType: 0
-  w_atk: 12
-  w_range: 8
-  w_rpm: 700
-  w_magSize: 47
-  w_accuracy: 35
-  w_reloadTime: 1.25
+  w_name: HM-Comminutor
+  w_desc: "\uC801\uC774 \uC5B4\uB5A4 \uBC29\uC5B4\uB97C \uD588\uB4E0 \uC774 \uBB34\uAE30\uBA74
+    \uCDA9\uBD84\uD569\uB2C8\uB2E4."
+  w_type: 8
+  w_atkType: 1
+  w_atk: 135
+  w_range: 30
+  w_rpm: 360
+  w_magSize: 50
+  w_accuracy: 60
+  w_reloadTime: 3
   e_quality: 0
-  w_usingAmmo: 1
-  w_ammoMulti: 3.35
+  w_usingAmmo: 2
+  w_ammoMulti: 0.7
   w_ammoDefault: 0
-  bulletID: 3
+  bulletID: 4
   isCamRangeUp: 0
+  w_hpAbsorption: 0

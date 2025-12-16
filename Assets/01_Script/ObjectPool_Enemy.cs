@@ -9,6 +9,7 @@ public class ObjectPool_Enemy : MonoBehaviour
     public int poolSize = 5; // 초기 풀 사이즈
     EnemyAttackSystem weaponStat;
     TurretAttackSystem turretStat;
+    UnitStatus unitStat;
 
     int _damage = 5;
     float _range = 10f;
@@ -18,6 +19,7 @@ public class ObjectPool_Enemy : MonoBehaviour
 
     private void Start()
     {
+        unitStat = GetComponent<UnitStatus>();
         SetWeaponStat();
 
         poolParent = GameObject.FindGameObjectWithTag("Pool");
@@ -64,7 +66,7 @@ public class ObjectPool_Enemy : MonoBehaviour
             {
                 if (!obj.activeInHierarchy)
                 {
-                    obj.GetComponent<Bullet>().SetBulletStatus(_damage, _range, 0f, WeaponParamsSO.AtkTypes.Normal, false, 0f);
+                    obj.GetComponent<Bullet>().SetBulletStatus(_damage, _range, 0f, WeaponParamsSO.AtkTypes.Normal, false, 0f, 0f, unitStat);
                     obj.SetActive(true);
                     return obj;
                 }
@@ -75,7 +77,7 @@ public class ObjectPool_Enemy : MonoBehaviour
             newObj.SetActive(false);
             pool.Add(newObj);
             newObj.SetActive(true);
-            newObj.GetComponent<Bullet>().SetBulletStatus(_damage, _range, 0f, WeaponParamsSO.AtkTypes.Normal, false, 0f);
+            newObj.GetComponent<Bullet>().SetBulletStatus(_damage, _range, 0f, WeaponParamsSO.AtkTypes.Normal, false, 0f, 0f, unitStat);
             return newObj;
         }
 
@@ -86,7 +88,7 @@ public class ObjectPool_Enemy : MonoBehaviour
             newObj.SetActive(false);
             pool.Add(newObj);
             newObj.SetActive(true);
-            newObj.GetComponent<Bullet>().SetBulletStatus(_damage, _range, 0f, WeaponParamsSO.AtkTypes.Normal, false, 0f);
+            newObj.GetComponent<Bullet>().SetBulletStatus(_damage, _range, 0f, WeaponParamsSO.AtkTypes.Normal, false, 0f, 0f, unitStat);
             return newObj;
         }
     }

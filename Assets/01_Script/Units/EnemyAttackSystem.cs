@@ -342,7 +342,7 @@ public class EnemyAttackSystem : MonoBehaviour
             aniCon.SetTrigger("Attack");
 
             GameObject bullet = bulletPool.GetObject();
-            bullet.GetComponent<Bullet>().SetBulletStatus(w_atk, w_range, 0f, WeaponParamsSO.AtkTypes.Normal, false, 0f);
+            bullet.GetComponent<Bullet>().SetBulletStatus(w_atk, w_range, 0f, WeaponParamsSO.AtkTypes.Normal, false, 0f, 0f, thisStat);
             Transform bulletTr = bullet.transform;
             if(fireTr != null)
             {
@@ -376,7 +376,7 @@ public class EnemyAttackSystem : MonoBehaviour
             aniCon.SetTrigger("Attack");
 
             GameObject bullet = bulletPool.GetObject();
-            bullet.GetComponent<Bullet>().SetBulletStatus(w_atk, w_range, 0f, WeaponParamsSO.AtkTypes.Normal, false, 0f);
+            bullet.GetComponent<Bullet>().SetBulletStatus(w_atk, w_range, 0f, WeaponParamsSO.AtkTypes.Normal, false, 0f, 0f, thisStat);
             Transform bulletTr = bullet.transform;
             if (fireTr != null)
             {
@@ -411,7 +411,7 @@ public class EnemyAttackSystem : MonoBehaviour
             float _posError = Random.Range(-bullet_angleError, bullet_angleError) * 1.25f;
 
             GameObject bomb = bulletPool.GetObject();
-            bomb.GetComponent<Bullet>().SetBulletStatus(w_atk, w_range, 0f, WeaponParamsSO.AtkTypes.Normal, false, 0f);
+            bomb.GetComponent<Bullet>().SetBulletStatus(w_atk, w_range, 0f, WeaponParamsSO.AtkTypes.Normal, false, 0f, 0f, thisStat);
             Transform bulletTr = bomb.transform;
             bulletTr.position = new Vector3(target.position.x + _posError, target.position.y + 30f, 0f);
             bulletTr.LookAt(bulletTr.position + Vector3.down);

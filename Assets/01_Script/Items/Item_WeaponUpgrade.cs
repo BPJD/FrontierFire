@@ -1,5 +1,6 @@
-using UnityEngine;
 using System.Text;
+using UnityEngine;
+using static WeaponStatUpgradesSO;
 
 public class Item_WeaponUpgrade : MonoBehaviour, IInteractable
 {
@@ -21,6 +22,17 @@ public class Item_WeaponUpgrade : MonoBehaviour, IInteractable
     [SerializeField] Transform itemTr;
     [SerializeField] AudioClip[] sounds_itemGet;
 
+    [SerializeField]
+    private WeaponRarityWeight[] rarityWeights = new WeaponRarityWeight[]
+    {
+        new WeaponRarityWeight{ itemTier = WeaponItemTier.D,  weight = 0f },
+        new WeaponRarityWeight{ itemTier = WeaponItemTier.C,  weight = 3f },
+        new WeaponRarityWeight{ itemTier = WeaponItemTier.B,  weight = 12f },
+        new WeaponRarityWeight{ itemTier = WeaponItemTier.A,  weight = 18f },
+        new WeaponRarityWeight{ itemTier = WeaponItemTier.S,  weight = 12f  },
+        new WeaponRarityWeight{ itemTier = WeaponItemTier.SS, weight = 5f  }
+    };
+
 
     void Awake()
     {
@@ -32,7 +44,10 @@ public class Item_WeaponUpgrade : MonoBehaviour, IInteractable
     {
         if (!isDebug)
         {
-            SetStatUpgradeID();
+            if(upStatID == 0)
+            {
+                SetStatUpgradeID();
+            }
         }
     }
 
@@ -59,12 +74,21 @@ public class Item_WeaponUpgrade : MonoBehaviour, IInteractable
     {
         if (!upgradeData || !upgradeModelData) SetComponent();
 
-        int upgradeCount = upgradeData.GetUpgradeCount();
-        upStatID = upgradeData.GetRandomUpgradeID();
+        upStatID = upgradeData.GetRandomIdByRolledRarity(rarityWeights);
 
-        // 단일 SO는 하위호환/디버그용으로 보관
-        upgradeSO = upgradeData.GetUpgrade(upStatID);
+        // 패키지 우선
+        var pack = upgradeData.GetAllUpgrades(upStatID);
 
+        // 대표 SO 결정: pack[0] 우선, 없으면 단일
+        upgradeSO = (pack != null && pack.Count > 0) ? pack[0] : upgradeData.GetUpgrade(upStatID);
+
+        if (upgradeSO == null)
+        {
+            Debug.LogWarning($"[Item_WeaponUpgrade] upStatID {upStatID} 에 해당하는 SO가 없습니다.");
+            return;
+        }
+
+        // 대표 SO 기준으로 모델/티어 처리
         upgradeModelData.InstanceStatUpObj(itemTr, upgradeSO.up_model, upgradeSO.up_tier);
 
         StatSystemIDSet();
@@ -73,31 +97,21 @@ public class Item_WeaponUpgrade : MonoBehaviour, IInteractable
     void StatSystemIDSet()
     {
         toolTip = GetComponent<Item_ToolTip>();
-        if (toolTip == null) return;
+        if (toolTip == null || upgradeData == null || upgradeSO == null) return;
 
         var pack = upgradeData.GetAllUpgrades(upStatID);
-        if (pack == null || pack.Count == 0)
-        {
-            // fallback(단일)
-            if (upgradeSO != null)
-            {
-                toolTip.title = upgradeSO.up_name;
 
-                Debug.Log(itemTierColor.ReturnItemTier(upgradeSO.up_tier, false));
-                Debug.Log(itemTierColor.GetItemTierColor(upgradeSO.up_tier, false));
-
-                toolTip.subTitle = itemTierColor.ReturnItemTier(upgradeSO.up_tier, false);
-                toolTip.titleColor = itemTierColor.GetItemTierColor(upgradeSO.up_tier, false);
-
-                toolTip.description = upgradeSO.up_uiDesc;
-                toolTip.UpdateToolTipUI();
-            }
-            return;
-        }
-
-        toolTip.title = pack[0].up_name; // 같은 ID면 동일 이름/설명 가정
+        // 대표 기준(이미 upgradeSO가 대표)
+        toolTip.title = upgradeSO.up_name;
         toolTip.subTitle = itemTierColor.ReturnItemTier(upgradeSO.up_tier, false);
         toolTip.titleColor = itemTierColor.GetItemTierColor(upgradeSO.up_tier, false);
+
+        if (pack == null || pack.Count == 0)
+        {
+            toolTip.description = upgradeSO.up_uiDesc;
+            toolTip.UpdateToolTipUI();
+            return;
+        }
 
         var sb = new StringBuilder();
         foreach (var so in pack)
@@ -106,7 +120,6 @@ public class Item_WeaponUpgrade : MonoBehaviour, IInteractable
                 sb.AppendLine(so.up_uiDesc);
         }
         toolTip.description = sb.ToString().TrimEnd();
-
         toolTip.UpdateToolTipUI();
     }
 
@@ -127,7 +140,7 @@ public class Item_WeaponUpgrade : MonoBehaviour, IInteractable
 
         if (weaponStatUp)
         {
-            // ★ 패키지 단위 적용
+            // 패키지 단위 적용
             weaponStatUp.UpgradeStatPackage(upStatID);
             weaponStatUp.upgradesCur.Add(upStatID);
             weaponStatUp.WeaponEffectApply();

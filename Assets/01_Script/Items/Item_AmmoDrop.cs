@@ -12,7 +12,7 @@ public class Item_AmmoDrop : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag(Data_Strings.playerTag))
         {
             PlayerWeaponController pWeaponCon = other.gameObject.GetComponent<PlayerWeaponController>();
             

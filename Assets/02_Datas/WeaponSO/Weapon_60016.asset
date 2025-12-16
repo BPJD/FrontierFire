@@ -12,19 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef70e0ac75c56a44fb923b0309549238, type: 3}
   m_Name: Weapon_60016
   m_EditorClassIdentifier: Assembly-CSharp::WeaponParamsSO
-  w_name: "\uBB34\uAE3017"
-  w_desc: "\uC800\uACA9\uC6A9 \uAE30\uBCF8\uD615, \uB0AE\uC740 RPM"
-  w_type: 7
-  w_atkType: 0
-  w_atk: 230
-  w_range: 36
-  w_rpm: 135
-  w_magSize: 8
-  w_accuracy: 80
-  w_reloadTime: 2
+  w_name: HS-Eagle
+  w_desc: "\uC5B4\uB5A4 \uC801\uC774\uB4E0 \uD30C\uAD34\uD558\uAE30\uC5D0 \uCDA9\uBD84\uD569\uB2C8\uB2E4."
+  w_type: 10
+  w_atkType: 2
+  w_atk: 1200
+  w_range: 40
+  w_rpm: 50
+  w_magSize: 5
+  w_accuracy: 90
+  w_reloadTime: 2.25
   e_quality: 0
-  w_usingAmmo: 1
-  w_ammoMulti: 0.15
+  w_usingAmmo: 2
+  w_ammoMulti: 0.06
   w_ammoDefault: 0
   bulletID: 3
   isCamRangeUp: 1
+  w_hpAbsorption: 0

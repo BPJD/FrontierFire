@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Unit_20021
   m_EditorClassIdentifier: Assembly-CSharp::UnitParamsSO
   u_name: "\uC57D\uD0C8\uC790 \uC911\uAC11\uBCD1"
-  u_type: 2
-  u_hp: 400
-  u_atk: 25
-  u_def: 3
-  u_immunePer: 1
+  u_type: 4
+  u_hp: 1200
+  u_atk: 40
+  u_def: 10
+  u_immunePer: 0.9
   u_armorLevel: 2
   u_moveSpeed: 1.5
   u_jumpPower: 0
@@ -26,3 +26,5 @@ MonoBehaviour:
   u_criRate: 0
   u_criDamage: 0
   u_damage: 1
+  u_hpRegen: 0
+  u_hpRegenSpeed: 1

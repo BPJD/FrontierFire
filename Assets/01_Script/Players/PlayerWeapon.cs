@@ -106,6 +106,7 @@ public class PlayerWeapon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (isShooting && fireRateCur < 0f && !isReloading)
         {
             Shoot();
@@ -203,6 +204,13 @@ public class PlayerWeapon : MonoBehaviour
         Vector3 eulerAngles = baseRotation.eulerAngles;
         eulerAngles.x += Random.Range(-_angleError, _angleError); // X축에 _accuracy 값 추가
         bulletTr.rotation = Quaternion.Euler(eulerAngles);
+
+        Trailor_CamFollow(bulletTr);
+    }
+
+    void Trailor_CamFollow(Transform _tr)
+    {
+        GameObject.Find("Camera_Trailor").GetComponent<TrailorCamera>().target = _tr;
     }
 
     void Shoot_ShotGun()
@@ -322,4 +330,8 @@ public class PlayerWeapon : MonoBehaviour
         laserScope.SetActive(isAiming);
     }
 
+    private void OnDisable()
+    {
+        isShooting = false;
+    }
 }

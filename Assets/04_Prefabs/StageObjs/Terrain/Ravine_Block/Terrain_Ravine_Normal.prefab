@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 7117121280499010443}
   - component: {fileID: 7418139664888222914}
   - component: {fileID: 2966206938580507587}
+  - component: {fileID: -8463211593872478581}
   m_Layer: 6
   m_Name: Terrain_Ravine_Normal
   m_TagString: Terrain
@@ -208,6 +209,31 @@ MonoBehaviour:
   instancePerBlock: 2
   spawnPerFrame: 25
   spawnRate: 100
+  instanceMax: 0
+  raycastHeight: 40
+  surfaceOffset: 0.02
+  type: 0
+--- !u!114 &-8463211593872478581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7942435333329857777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba4fe393a6e703148bbc41917fd5e24f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isGeneratable: 1
+  objParent: {fileID: 0}
+  prefabs:
+  - {fileID: 3350083468803643038, guid: 770db86f96ee6324c950d9829559238f, type: 3}
+  isRotate: 1
+  instancePerBlock: 1
+  spawnPerFrame: 26
+  spawnRate: 5
+  instanceMax: 5
   raycastHeight: 40
   surfaceOffset: 0.02
   type: 0

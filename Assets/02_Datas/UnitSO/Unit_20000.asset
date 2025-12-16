@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UnitParamsSO
   u_name: "\uC57D\uD0C8\uC790 \uAC80\uC0AC"
   u_type: 2
-  u_hp: 80
-  u_atk: 10
-  u_def: 0
+  u_hp: 340
+  u_atk: 15
+  u_def: 5
   u_immunePer: 1
   u_armorLevel: 0
   u_moveSpeed: 3
@@ -26,3 +26,5 @@ MonoBehaviour:
   u_criRate: 0
   u_criDamage: 0
   u_damage: 1
+  u_hpRegen: 0
+  u_hpRegenSpeed: 1

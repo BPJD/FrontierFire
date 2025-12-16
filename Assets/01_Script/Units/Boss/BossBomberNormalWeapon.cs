@@ -112,7 +112,7 @@ public class BossBomberNormalWeapon : MonoBehaviour
             else
             {
                 ShootSoundPlay(false);
-                bullet.GetComponent<Bullet>().SetBulletStatus(w_atk, w_range, 0f, WeaponParamsSO.AtkTypes.Normal, false, 0f);
+                bullet.GetComponent<Bullet>().SetBulletStatus(w_atk, w_range, 0f, WeaponParamsSO.AtkTypes.Normal, false, 0f, 0f, stat);
                 Destroy(bullet, 5f);
             }
         }

@@ -12,19 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef70e0ac75c56a44fb923b0309549238, type: 3}
   m_Name: Weapon_60013
   m_EditorClassIdentifier: Assembly-CSharp::WeaponParamsSO
-  w_name: "\uBB34\uAE3014"
-  w_desc: "\uC804\uCCB4 \uC131\uB2A5 \uAC15\uD654\uD615"
-  w_type: 1
+  w_name: LM-GameChanger
+  w_desc: "\uC7A5\uC804\uC774 \uB05D\uB09C \uC21C\uAC04 \uC2B9\uD328\uAC00 \uACB0\uC815\uB429\uB2C8\uB2E4."
+  w_type: 3
   w_atkType: 0
-  w_atk: 17
-  w_range: 15
-  w_rpm: 600
-  w_magSize: 42
-  w_accuracy: 45
-  w_reloadTime: 1.5
+  w_atk: 30
+  w_range: 12
+  w_rpm: 700
+  w_magSize: 80
+  w_accuracy: 15
+  w_reloadTime: 3.25
   e_quality: 0
   w_usingAmmo: 1
   w_ammoMulti: 2.4
   w_ammoDefault: 0
-  bulletID: 3
+  bulletID: 0
   isCamRangeUp: 0
+  w_hpAbsorption: 0

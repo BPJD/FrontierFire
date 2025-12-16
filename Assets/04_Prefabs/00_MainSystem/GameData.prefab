@@ -109,6 +109,7 @@ MonoBehaviour:
     enemyPrefab: {fileID: 3446916485206727232, guid: 6d3db67750de64042bc9ba42526b0190, type: 3}
   - enemyId: 20024
     enemyPrefab: {fileID: 4552914281534898350, guid: 393fb6743271c8a4cbdb112edc543c41, type: 3}
+  eliteEffect: {fileID: 1161526018737128, guid: a52a0e133ca335d4c9248b9c51c36867, type: 3}
 --- !u!114 &8023349656569401409
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -253,68 +254,65 @@ MonoBehaviour:
     pWeaponPrefab: {fileID: 4758632848266840850, guid: 9c82479fd588250479df03644e41ec97, type: 3}
     weaponStatSO: {fileID: 11400000, guid: 5dbe90108c2615344a7939bf8b27db13, type: 2}
   - pWeaponId: 60003
-    pWeaponPrefab: {fileID: 4593534042808053548, guid: 4bfdf11220000bf46a253557ea149906, type: 3}
+    pWeaponPrefab: {fileID: 99398017329068962, guid: 1af5b72de30ee13479b60d7190d7bcc6, type: 3}
     weaponStatSO: {fileID: 11400000, guid: d8d425596102ccc4eac9b0a51b7cc3c7, type: 2}
   - pWeaponId: 60004
-    pWeaponPrefab: {fileID: 99398017329068962, guid: 1af5b72de30ee13479b60d7190d7bcc6, type: 3}
+    pWeaponPrefab: {fileID: 7635812337696972548, guid: 60a9b441a4aa8e94e8ae33070161e5a3, type: 3}
     weaponStatSO: {fileID: 11400000, guid: b78a241c15c33534595937d205655e09, type: 2}
   - pWeaponId: 60005
-    pWeaponPrefab: {fileID: 7635812337696972548, guid: 60a9b441a4aa8e94e8ae33070161e5a3, type: 3}
+    pWeaponPrefab: {fileID: 4225547514380344798, guid: ae44c0b94073bc4488caed73be711ff4, type: 3}
     weaponStatSO: {fileID: 11400000, guid: 3edc7fcbdf5ffcb4ea873ce5f7f4c8ff, type: 2}
   - pWeaponId: 60006
-    pWeaponPrefab: {fileID: 4225547514380344798, guid: ae44c0b94073bc4488caed73be711ff4, type: 3}
+    pWeaponPrefab: {fileID: 3569619645141373669, guid: 190db8a285570924ba326051cb79bfa2, type: 3}
     weaponStatSO: {fileID: 11400000, guid: 2ba6597b8d9e53e40bbe83b0d90a4cbc, type: 2}
   - pWeaponId: 60007
-    pWeaponPrefab: {fileID: 3569619645141373669, guid: 190db8a285570924ba326051cb79bfa2, type: 3}
+    pWeaponPrefab: {fileID: 8845653591510340304, guid: 7af2b98771a2f0f458b31c40da5a0edc, type: 3}
     weaponStatSO: {fileID: 11400000, guid: 8425eca5223dbb746a04eedf52f94524, type: 2}
   - pWeaponId: 60008
-    pWeaponPrefab: {fileID: 8845653591510340304, guid: 7af2b98771a2f0f458b31c40da5a0edc, type: 3}
+    pWeaponPrefab: {fileID: 9154163756153427819, guid: 9955246936708f54386bda3da908d2b2, type: 3}
     weaponStatSO: {fileID: 11400000, guid: 51d9fdf1b2eec06409c1e1189f84d753, type: 2}
   - pWeaponId: 60009
-    pWeaponPrefab: {fileID: 9154163756153427819, guid: 9955246936708f54386bda3da908d2b2, type: 3}
+    pWeaponPrefab: {fileID: 1697507143214346351, guid: 65e6edbff0069794f91475abd73e449d, type: 3}
     weaponStatSO: {fileID: 11400000, guid: 7ed6faeece024364e8856acf330b2650, type: 2}
   - pWeaponId: 60010
-    pWeaponPrefab: {fileID: 1697507143214346351, guid: 65e6edbff0069794f91475abd73e449d, type: 3}
+    pWeaponPrefab: {fileID: 518361752139509190, guid: 33df0cebf4c38ad40bf9dfd4f08d1142, type: 3}
     weaponStatSO: {fileID: 11400000, guid: 43fb140503491ef4498a7dd43c069a63, type: 2}
   - pWeaponId: 60011
-    pWeaponPrefab: {fileID: 518361752139509190, guid: 33df0cebf4c38ad40bf9dfd4f08d1142, type: 3}
+    pWeaponPrefab: {fileID: 4700997833131254573, guid: 9d6f4bec4db64454ab3d9cc5e9363d17, type: 3}
     weaponStatSO: {fileID: 11400000, guid: 4375f8d404f6bc44b8a29ee61aa04f1e, type: 2}
   - pWeaponId: 60012
-    pWeaponPrefab: {fileID: 4700997833131254573, guid: 9d6f4bec4db64454ab3d9cc5e9363d17, type: 3}
+    pWeaponPrefab: {fileID: 2656622777108079829, guid: a187ff363f8909649b715519d43b3b5a, type: 3}
     weaponStatSO: {fileID: 11400000, guid: 9fca940f90a611b4e82d57e6d6249aeb, type: 2}
   - pWeaponId: 60013
-    pWeaponPrefab: {fileID: 2656622777108079829, guid: a187ff363f8909649b715519d43b3b5a, type: 3}
+    pWeaponPrefab: {fileID: 274266542106576651, guid: ce23fc0bc4e08e344b75cf59ab304b42, type: 3}
     weaponStatSO: {fileID: 11400000, guid: 8e434a42cab4ab942815036076f7d53f, type: 2}
   - pWeaponId: 60014
-    pWeaponPrefab: {fileID: 274266542106576651, guid: ce23fc0bc4e08e344b75cf59ab304b42, type: 3}
+    pWeaponPrefab: {fileID: 4616029347278605872, guid: 34f847504e850d342b2333ea69a7fc57, type: 3}
     weaponStatSO: {fileID: 11400000, guid: e17a4c0482ab5174ea1ba0852e551450, type: 2}
   - pWeaponId: 60015
-    pWeaponPrefab: {fileID: 4616029347278605872, guid: 34f847504e850d342b2333ea69a7fc57, type: 3}
+    pWeaponPrefab: {fileID: 2684544581308118140, guid: 06143ffbf81ab20479ab57f6373fec44, type: 3}
     weaponStatSO: {fileID: 11400000, guid: e849f003f7f6f4a4db174ebee884c16f, type: 2}
   - pWeaponId: 60016
-    pWeaponPrefab: {fileID: 2684544581308118140, guid: 06143ffbf81ab20479ab57f6373fec44, type: 3}
+    pWeaponPrefab: {fileID: 4887726401387935031, guid: 2d4a6efdc55061a489c9aec52136b55e, type: 3}
     weaponStatSO: {fileID: 11400000, guid: a437ab27a4eb6e04ea91a47a15a282f6, type: 2}
   - pWeaponId: 60017
-    pWeaponPrefab: {fileID: 4887726401387935031, guid: 2d4a6efdc55061a489c9aec52136b55e, type: 3}
+    pWeaponPrefab: {fileID: 7953159330388399902, guid: 455407c4f61b51f42b9f933da490c4d1, type: 3}
     weaponStatSO: {fileID: 11400000, guid: 417f965d6a87fbb439291722e394bd26, type: 2}
   - pWeaponId: 60018
-    pWeaponPrefab: {fileID: 7953159330388399902, guid: 455407c4f61b51f42b9f933da490c4d1, type: 3}
+    pWeaponPrefab: {fileID: 2214309853471624491, guid: 96386672871f1f6438199e4e6ad28c21, type: 3}
     weaponStatSO: {fileID: 11400000, guid: c1486c268fa20bf4da3332e8ceee7ba6, type: 2}
   - pWeaponId: 60019
-    pWeaponPrefab: {fileID: 2214309853471624491, guid: 96386672871f1f6438199e4e6ad28c21, type: 3}
+    pWeaponPrefab: {fileID: 7408058106686318067, guid: 499a33d4c34ac7c44821d12f3a239e59, type: 3}
     weaponStatSO: {fileID: 11400000, guid: aa9964ff76384a6439519c5a9562a2d1, type: 2}
   - pWeaponId: 60020
-    pWeaponPrefab: {fileID: 7408058106686318067, guid: 499a33d4c34ac7c44821d12f3a239e59, type: 3}
+    pWeaponPrefab: {fileID: 6817015649988638083, guid: 8ea423fd970031441af73beac350ba97, type: 3}
     weaponStatSO: {fileID: 11400000, guid: 175de8d817438904cbad59db16546728, type: 2}
   - pWeaponId: 60021
-    pWeaponPrefab: {fileID: 6817015649988638083, guid: 8ea423fd970031441af73beac350ba97, type: 3}
+    pWeaponPrefab: {fileID: 5932705150297880243, guid: d91ab925da54ef945928fb78256d88a7, type: 3}
     weaponStatSO: {fileID: 11400000, guid: 22f515577f29d3f43ac03869bfd3b898, type: 2}
   - pWeaponId: 60022
-    pWeaponPrefab: {fileID: 5932705150297880243, guid: d91ab925da54ef945928fb78256d88a7, type: 3}
-    weaponStatSO: {fileID: 11400000, guid: 2e83cefaadbac82468d6ba96bc9fb6f1, type: 2}
-  - pWeaponId: 60023
     pWeaponPrefab: {fileID: 4385004933006113861, guid: 34330026e7b86bd4e99f25a7c16ceede, type: 3}
-    weaponStatSO: {fileID: 11400000, guid: 46bdcd9d8aaa92d45814f2f204004250, type: 2}
+    weaponStatSO: {fileID: 11400000, guid: 2e83cefaadbac82468d6ba96bc9fb6f1, type: 2}
 --- !u!114 &980560943345358015
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -512,19 +510,49 @@ MonoBehaviour:
     statUp: {fileID: 11400000, guid: dcd359607abee1c4d8257cfb4e21916a, type: 2}
   - statUpID: 61058
     statUp: {fileID: 11400000, guid: feb061f37128d9a40bea40c0be9f578f, type: 2}
+  - statUpID: 61059
+    statUp: {fileID: 11400000, guid: 387135b3ce7a3534495ef04f8f5a97d1, type: 2}
+  - statUpID: 61059
+    statUp: {fileID: 11400000, guid: 3f7ddaee7747477498f0d5d0d88b44df, type: 2}
+  - statUpID: 61060
+    statUp: {fileID: 11400000, guid: eebbeeab706ab1c43a0a657f11f68b67, type: 2}
+  - statUpID: 61060
+    statUp: {fileID: 11400000, guid: bd5dccd3f8771e4479cfaf1b4db33ef9, type: 2}
+  - statUpID: 61060
+    statUp: {fileID: 11400000, guid: 5f0fa40f04ea6454092a8e731928d651, type: 2}
+  - statUpID: 61061
+    statUp: {fileID: 11400000, guid: 31362655560ab0547ba6d96f8e425829, type: 2}
+  - statUpID: 61062
+    statUp: {fileID: 11400000, guid: f10b73b375d89254daf8ffef5cea99ea, type: 2}
+  - statUpID: 61063
+    statUp: {fileID: 11400000, guid: 5e48df7f941fc454a93b46f8057ea8d0, type: 2}
+  - statUpID: 61064
+    statUp: {fileID: 11400000, guid: 75159ae0f7baca749ace36ffc23b70b1, type: 2}
+  - statUpID: 61065
+    statUp: {fileID: 11400000, guid: a3166210516a02f41a69eca955cd0d2f, type: 2}
+  - statUpID: 61066
+    statUp: {fileID: 11400000, guid: f6ea85dcf47b6374da87451f075e8199, type: 2}
+  - statUpID: 61067
+    statUp: {fileID: 11400000, guid: fae38fcf6d4483746b95a68ccb27206c, type: 2}
+  - statUpID: 61067
+    statUp: {fileID: 11400000, guid: ddb04c7b7cb47d046b6186ed16f6ccad, type: 2}
+  - statUpID: 61068
+    statUp: {fileID: 11400000, guid: 31bb9f1c5e4b66449bee824e2bd02081, type: 2}
+  - statUpID: 61068
+    statUp: {fileID: 11400000, guid: 8976807f2cc6dff46b4160fd39cf7757, type: 2}
   defaultRarityWeights:
   - itemTier: 0
-    weight: 16
+    weight: 18
   - itemTier: 1
-    weight: 40
+    weight: 33
   - itemTier: 2
-    weight: 24
+    weight: 25
   - itemTier: 3
     weight: 12
   - itemTier: 4
-    weight: 5
+    weight: 8
   - itemTier: 5
-    weight: 3
+    weight: 4
 --- !u!114 &3644398333498241404
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -548,8 +576,6 @@ MonoBehaviour:
     statUp: {fileID: 11400000, guid: 37b57b2edc63ff041bab4a59aede4114, type: 2}
   - statUpID: 62004
     statUp: {fileID: 11400000, guid: 3fe1cc4247e2e0c45bf942c75fd8a128, type: 2}
-  - statUpID: 62004
-    statUp: {fileID: 11400000, guid: 1aae97124bb53eb4981a5cdc59de1ee6, type: 2}
   - statUpID: 62005
     statUp: {fileID: 11400000, guid: cabc032270521014aade297bf863c55c, type: 2}
   - statUpID: 62006
@@ -562,62 +588,157 @@ MonoBehaviour:
     statUp: {fileID: 11400000, guid: bb8a28fa5da75dd429c2b234d2ee281c, type: 2}
   - statUpID: 62010
     statUp: {fileID: 11400000, guid: 9e3a1a85577e13442940c2129a04dd97, type: 2}
-  - statUpID: 62010
-    statUp: {fileID: 11400000, guid: 928376fd9856ee74f9c8d743b3578bdf, type: 2}
-  - statUpID: 62010
-    statUp: {fileID: 11400000, guid: 2abf5c94e72d63e4bbf505873cec2898, type: 2}
   - statUpID: 62011
     statUp: {fileID: 11400000, guid: c31415e80434afc47b144039036be548, type: 2}
-  - statUpID: 62011
-    statUp: {fileID: 11400000, guid: 36db858f3d9d71b46bccfa8f615e9429, type: 2}
-  - statUpID: 62011
-    statUp: {fileID: 11400000, guid: 0b13bb3d7dc6bc945a3e1f5bf262db1d, type: 2}
   - statUpID: 62012
     statUp: {fileID: 11400000, guid: 048e95da220256e408a78b0cf3fc4655, type: 2}
   - statUpID: 62012
     statUp: {fileID: 11400000, guid: 38fff0fd7d76c814b852c9509a9dcf07, type: 2}
-  - statUpID: 62012
-    statUp: {fileID: 11400000, guid: 21ed037f2eaeabc4ca3f5f6d354d2400, type: 2}
   - statUpID: 62013
     statUp: {fileID: 11400000, guid: 6c99bdf49f47a1e478bad082225cd37b, type: 2}
-  - statUpID: 62013
-    statUp: {fileID: 11400000, guid: 02050030c16b74f4c9729e02bfe6dd2a, type: 2}
   - statUpID: 62014
     statUp: {fileID: 11400000, guid: 6e321f864a7384443bb0c8ffe3ffebb6, type: 2}
-  - statUpID: 62014
-    statUp: {fileID: 11400000, guid: b03b085cc7e826c4d935aadfd5f5ca94, type: 2}
   - statUpID: 62015
     statUp: {fileID: 11400000, guid: b2f4662eeb34c274687159cd89307dd0, type: 2}
-  - statUpID: 62015
-    statUp: {fileID: 11400000, guid: 6a0ec086ede588545aaa6d4b887d6d76, type: 2}
   - statUpID: 62016
     statUp: {fileID: 11400000, guid: 18bb7bb4f7e80cc468b07a3c8d9688df, type: 2}
-  - statUpID: 62016
-    statUp: {fileID: 11400000, guid: 876814d684615de43b200d93c791af14, type: 2}
   - statUpID: 62017
     statUp: {fileID: 11400000, guid: 1d2d7256d2de8c1418c43098b4cf8bb1, type: 2}
-  - statUpID: 62017
-    statUp: {fileID: 11400000, guid: cae40dc59c596a241bf3a31f3909ee8a, type: 2}
-  - statUpID: 62017
-    statUp: {fileID: 11400000, guid: 9b156e3cbb208b24fb0bf350b8723648, type: 2}
-  - statUpID: 62017
-    statUp: {fileID: 11400000, guid: a55cd3aa72060374fa19bbdf92ab793e, type: 2}
   - statUpID: 62018
     statUp: {fileID: 11400000, guid: c78d1a68e550e914c8c6068efef3db17, type: 2}
-  - statUpID: 62018
-    statUp: {fileID: 11400000, guid: d88b2ae5d6d4d61438ea02f44419804b, type: 2}
   - statUpID: 62019
     statUp: {fileID: 11400000, guid: 5022920219d64d348bbac942774787f6, type: 2}
-  - statUpID: 62019
-    statUp: {fileID: 11400000, guid: 2dba8c7febab40b4baefc663091ff61b, type: 2}
-  - statUpID: 62019
-    statUp: {fileID: 11400000, guid: fb24ee2b22e1c5c4fa364a902e0c6c17, type: 2}
   - statUpID: 62020
     statUp: {fileID: 11400000, guid: b42d36415aaed55418a5d8bbcc5944a0, type: 2}
-  - statUpID: 62020
-    statUp: {fileID: 11400000, guid: 7201ba30941b1e949b8704f0922f61da, type: 2}
-  - statUpID: 62020
-    statUp: {fileID: 11400000, guid: 2188f4f4aab2f56418a8b482feb628d9, type: 2}
+  - statUpID: 62021
+    statUp: {fileID: 11400000, guid: f1af97f0a83e10d4ebbbd0e9e9d54551, type: 2}
+  - statUpID: 62022
+    statUp: {fileID: 11400000, guid: 347b2b1bab992404893187852e603569, type: 2}
+  - statUpID: 62023
+    statUp: {fileID: 11400000, guid: 2aa4a9f960a1b8342a3c8c653847647e, type: 2}
+  - statUpID: 62024
+    statUp: {fileID: 11400000, guid: 1c833fe050acce44f8cf7fbf9acc98f1, type: 2}
+  - statUpID: 62025
+    statUp: {fileID: 11400000, guid: eeed4249f5887ba44abd3b1183bdb0e2, type: 2}
+  - statUpID: 62026
+    statUp: {fileID: 11400000, guid: 944f131f14a74894f97101de906180e7, type: 2}
+  - statUpID: 62027
+    statUp: {fileID: 11400000, guid: f0c8183e418cb074680d7922dc17413f, type: 2}
+  - statUpID: 62028
+    statUp: {fileID: 11400000, guid: c90c23c6f63a63647a0ca68bed36ccf4, type: 2}
+  - statUpID: 62029
+    statUp: {fileID: 11400000, guid: 636ae923d3e57f14a9835a40b430c7dd, type: 2}
+  - statUpID: 62029
+    statUp: {fileID: 11400000, guid: ec5aaafb908bca042b8f1887aef2d98a, type: 2}
+  - statUpID: 62029
+    statUp: {fileID: 11400000, guid: 947ef69b9aedae24ea9649a785252cd6, type: 2}
+  - statUpID: 62030
+    statUp: {fileID: 11400000, guid: 2ad0e447d22d828499d35135963fce17, type: 2}
+  - statUpID: 62030
+    statUp: {fileID: 11400000, guid: 13c8e89a1324bf34392b4e8b68464e33, type: 2}
+  - statUpID: 62030
+    statUp: {fileID: 11400000, guid: f62be59a9e69a8948856506cf82b3732, type: 2}
+  - statUpID: 62031
+    statUp: {fileID: 11400000, guid: 900b928028477c9429f68fe343278655, type: 2}
+  - statUpID: 62031
+    statUp: {fileID: 11400000, guid: 0afd42527d49fd34bbd90acdc0011ce7, type: 2}
+  - statUpID: 62031
+    statUp: {fileID: 11400000, guid: 29c85db86bb7e3c4d8a2d788c2372bb4, type: 2}
+  - statUpID: 62032
+    statUp: {fileID: 11400000, guid: 51524fb2e7dd5b44e9cb6bf696c3ff73, type: 2}
+  - statUpID: 62032
+    statUp: {fileID: 11400000, guid: 5a128cbb5236a3a4e9147768624e04aa, type: 2}
+  - statUpID: 62032
+    statUp: {fileID: 11400000, guid: 00efe867904bb2a439d5f9c804a28d2b, type: 2}
+  - statUpID: 62033
+    statUp: {fileID: 11400000, guid: e052a5a5696220c45a7500a5c6452abf, type: 2}
+  - statUpID: 62033
+    statUp: {fileID: 11400000, guid: e45adb17022c07048bc0d3551338561f, type: 2}
+  - statUpID: 62034
+    statUp: {fileID: 11400000, guid: cebdddb8e40cf554d9a33294191368c7, type: 2}
+  - statUpID: 62034
+    statUp: {fileID: 11400000, guid: abe5a80c38cd1b94fb673df77cbf2ce3, type: 2}
+  - statUpID: 62035
+    statUp: {fileID: 11400000, guid: b5aef8708780df24ba17d27c3434670a, type: 2}
+  - statUpID: 62035
+    statUp: {fileID: 11400000, guid: 7de2fca5bcc169c4ea34ee06e01909ee, type: 2}
+  - statUpID: 62036
+    statUp: {fileID: 11400000, guid: 4e833f7a0dacbed4da71e921b4192369, type: 2}
+  - statUpID: 62036
+    statUp: {fileID: 11400000, guid: 848f2e4cec389c94198f028bee72dfe0, type: 2}
+  - statUpID: 62037
+    statUp: {fileID: 11400000, guid: e4a5dcbf450414d43b96612f304bf908, type: 2}
+  - statUpID: 62037
+    statUp: {fileID: 11400000, guid: e137a35d5519727418ca5fde15dc6155, type: 2}
+  - statUpID: 62038
+    statUp: {fileID: 11400000, guid: 5c7d62aae83c0c24b9f0017ab45c3e90, type: 2}
+  - statUpID: 62038
+    statUp: {fileID: 11400000, guid: 457377e5998e1e5419fc62667f3c6d41, type: 2}
+  - statUpID: 62039
+    statUp: {fileID: 11400000, guid: 5a24d8127a0f0234bba303d6e89a59b2, type: 2}
+  - statUpID: 62039
+    statUp: {fileID: 11400000, guid: bf67b22b897f16c448dee79f0ab517cf, type: 2}
+  - statUpID: 62040
+    statUp: {fileID: 11400000, guid: e5e5a9a9eb2393f4f8e43bd637fbcea7, type: 2}
+  - statUpID: 62040
+    statUp: {fileID: 11400000, guid: 41ebec72fff0c3042876e7aecc8ffe92, type: 2}
+  - statUpID: 62041
+    statUp: {fileID: 11400000, guid: d49a5aea9d1bf96489016f9b299e2f9f, type: 2}
+  - statUpID: 62041
+    statUp: {fileID: 11400000, guid: a6756bfc43471a44cbc59ffb678ba19f, type: 2}
+  - statUpID: 62041
+    statUp: {fileID: 11400000, guid: f365e4ef4be7e7d428c52669362a5c72, type: 2}
+  - statUpID: 62041
+    statUp: {fileID: 11400000, guid: 6942d7bb9e9173f498c89edb4706cd4a, type: 2}
+  - statUpID: 62042
+    statUp: {fileID: 11400000, guid: b5887ebb5570eb6499b7c1f81c607d55, type: 2}
+  - statUpID: 62042
+    statUp: {fileID: 11400000, guid: 69d2f6b68a3aa044c95de5b3d93a3fe4, type: 2}
+  - statUpID: 62043
+    statUp: {fileID: 11400000, guid: 3c6ef762b969cc0469fe8fb413ab6634, type: 2}
+  - statUpID: 62043
+    statUp: {fileID: 11400000, guid: 7ed9648a9cbad5f42b792bc2733bb5fd, type: 2}
+  - statUpID: 62044
+    statUp: {fileID: 11400000, guid: eb0c6bafcc8cbe244b1de05dcc8c0d84, type: 2}
+  - statUpID: 62044
+    statUp: {fileID: 11400000, guid: 787dbc2e560332f438b2a4f48122e574, type: 2}
+  - statUpID: 62044
+    statUp: {fileID: 11400000, guid: 5fb37115f459d8d43afff53e821c5ad9, type: 2}
+  - statUpID: 62045
+    statUp: {fileID: 11400000, guid: c5cb1c17dfabcb54eb78b676208508e0, type: 2}
+  - statUpID: 62045
+    statUp: {fileID: 11400000, guid: 238d870f3bf967541a8b156ce1cb3dc5, type: 2}
+  - statUpID: 62045
+    statUp: {fileID: 11400000, guid: 55ad54d1aa8e82e4ea8cfab2e4384aaa, type: 2}
+  - statUpID: 62046
+    statUp: {fileID: 11400000, guid: 8f3aa1ed60b7d2c438328f18a0d4a6df, type: 2}
+  - statUpID: 62046
+    statUp: {fileID: 11400000, guid: 5a343a963406622428e185a44dbd0f3f, type: 2}
+  - statUpID: 62046
+    statUp: {fileID: 11400000, guid: 968205c33c39a0149a8a3901fdd53f97, type: 2}
+  - statUpID: 62047
+    statUp: {fileID: 11400000, guid: c46ee6055e656f942b4dd9cc66b931d0, type: 2}
+  - statUpID: 62047
+    statUp: {fileID: 11400000, guid: aadd4fd1e6f4a354897a63972e670e0f, type: 2}
+  - statUpID: 62047
+    statUp: {fileID: 11400000, guid: 93cc31b2644d55b498eab7acbe5a6df9, type: 2}
+  - statUpID: 62048
+    statUp: {fileID: 11400000, guid: 057406dbafc3dc44fa1df9c239ed2517, type: 2}
+  - statUpID: 62049
+    statUp: {fileID: 11400000, guid: a0a52ebffee04f04ca89ea30dc27a444, type: 2}
+  defaultRarityWeights:
+  - itemTier: 0
+    weight: 0
+  - itemTier: 1
+    weight: 25
+  - itemTier: 2
+    weight: 12
+  - itemTier: 3
+    weight: 12
+  - itemTier: 4
+    weight: 6
+  - itemTier: 5
+    weight: 2
 --- !u!114 &7515651255201679461
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -770,6 +891,7 @@ MonoBehaviour:
   - SampleScene 1
   - Scene_Stage00_Plain
   - Scene_Stage01_Ravine
+  - Scene_Stage02_Cave
 --- !u!114 &327075192566743020
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -806,11 +928,11 @@ MonoBehaviour:
   rewardSelects:
   - {fileID: 7966252011262253309, guid: c6f4237c1bcf29143af133de149ec6be, type: 3}
   - {fileID: 7966252011262253309, guid: 74c9c718f5408ca46828846d54411afa, type: 3}
-  - {fileID: 7966252011262253309, guid: 02ef73859fca6c241ab61f1bdfbf81a6, type: 3}
+  - {fileID: 7966252011262253309, guid: 6a8bdae4487b88743989f1d3f6f2d93a, type: 3}
   rewardOnes:
   - {fileID: 7966252011262253309, guid: b21ae11ba0417d945b44fec791efa877, type: 3}
   - {fileID: 7966252011262253309, guid: 300af86d8990877488adbfe189ac4e05, type: 3}
-  - {fileID: 7966252011262253309, guid: 5dd52c19d206ab3428badca05d60ccfc, type: 3}
+  - {fileID: 7966252011262253309, guid: 92b9d35c4cc0260409b316bed87c77d3, type: 3}
 --- !u!114 &1135267590636450884
 MonoBehaviour:
   m_ObjectHideFlags: 0

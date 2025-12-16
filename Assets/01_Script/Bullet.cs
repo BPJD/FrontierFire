@@ -30,10 +30,13 @@ public class Bullet : MonoBehaviour
     int bulletDamage = 5;
     float bulletRangeSqr = 500f;
     WeaponParamsSO.AtkTypes atkType = WeaponParamsSO.AtkTypes.Normal;
+    float absorptionRate = 0f;
 
     bool isActivated = false;
 
     bool isCollided = false;
+
+    UnitStatus shooterUnitStat;
 
 
 
@@ -89,7 +92,9 @@ public class Bullet : MonoBehaviour
                 atkType: atkType,
                 isCritical: isCritical,
                 isWeakPoint: false,
-                hitPoint: _colPos
+                hitPoint: _colPos,
+                absorption: absorptionRate,
+                attackerStat: shooterUnitStat
             );
 
             BulletExplode(isExplode, payload);
@@ -111,7 +116,9 @@ public class Bullet : MonoBehaviour
             atkType: atkType,
             isCritical: isCritical,
             isWeakPoint: false,
-            hitPoint: _colPos
+            hitPoint: _colPos,
+            absorption: absorptionRate,
+            attackerStat: shooterUnitStat
         );
 
 
@@ -160,14 +167,16 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    public void SetBulletStatus(int _damage, float _range, float _speed, WeaponParamsSO.AtkTypes _type, bool isCri, float explodeRad)
+    public void SetBulletStatus(int _damage, float _range, float _speed, WeaponParamsSO.AtkTypes _type, bool isCri, float explodeRad, float absorption, UnitStatus shooterStat)
     {
         isCritical = isCri;
         bulletDamage = _damage;
         bulletRangeSqr = _range * _range;
         atkType = _type;
+        absorptionRate = absorption;
+        shooterUnitStat = shooterStat;
 
-        if(explodeRad != 0f)
+        if (explodeRad != 0f)
         {
             explodeRadius = explodeRad;
         }

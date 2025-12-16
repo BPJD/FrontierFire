@@ -14,6 +14,8 @@ public class Terrain_ObjectGenerator : MonoBehaviour
     [SerializeField] int instancePerBlock = 1;   // 스트라이프당 생성 개수
     [SerializeField] int spawnPerFrame = 50;     // 프레임당 생성 개수(스파이크 완화)
     [SerializeField] float spawnRate = 100f;
+    [SerializeField] int instanceMax = 0;   // 최대 생성 개수 (0이면 무제한)
+    int instanceCount = 0;  // 현재 생성된 개수
 
     [Header("Raycast")]
     [SerializeField] float raycastHeight = 40f;  // 위에서 쏠 높이
@@ -74,6 +76,16 @@ public class Terrain_ObjectGenerator : MonoBehaviour
                 // 회전만 반영(스케일 영향 X)
                 Vector3 baseWorld = tr.position + tr.right * rx + tr.forward * rz;
 
+
+                // 최대 생성 개수 도달 시 종료
+                if (instanceMax > 0)
+                {
+                    if (instanceCount >= instanceMax || tr.position.z != 0f)
+                    {
+                        yield break;
+                    }
+                }
+
                 // 자기 자신 콜라이더에만 맞는 레이캐스트
                 if (RaycastDownSelf(selfCollider, baseWorld + Vector3.up * raycastHeight, raycastHeight * 2f, out var hit))
                 {
@@ -110,6 +122,7 @@ public class Terrain_ObjectGenerator : MonoBehaviour
 
                     Instantiate(prefab, pos, rot, objParent);
                 }
+
 
                 // 프레임 분할
                 if (++spawnedThisFrame >= spawnPerFrame)

@@ -12,19 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef70e0ac75c56a44fb923b0309549238, type: 3}
   m_Name: Weapon_60009
   m_EditorClassIdentifier: Assembly-CSharp::WeaponParamsSO
-  w_name: "\uBB34\uAE3010"
-  w_desc: "\uACE0\uC815\uBC00 \uC18C\uCD1D, \uAD00\uD1B5\uB825 \uB192\uC74C"
-  w_type: 11
-  w_atkType: 2
-  w_atk: 25
+  w_name: AR-Spear
+  w_desc: "\uC815\uAD50\uD558\uBA74\uC11C\uB3C4 \uBE60\uB978 \uC18D\uB3C4\uC5D0 \uB9CC\uC871\uD558\uC2E4
+    \uAC81\uB2C8\uB2E4."
+  w_type: 1
+  w_atkType: 0
+  w_atk: 62
   w_range: 25
-  w_rpm: 450
-  w_magSize: 25
-  w_accuracy: 70
-  w_reloadTime: 1.5
+  w_rpm: 400
+  w_magSize: 15
+  w_accuracy: 75
+  w_reloadTime: 1
   e_quality: 0
-  w_usingAmmo: 2
-  w_ammoMulti: 1.35
+  w_usingAmmo: 1
+  w_ammoMulti: 0.75
   w_ammoDefault: 0
-  bulletID: 3
+  bulletID: 4
   isCamRangeUp: 0
+  w_hpAbsorption: 0

@@ -13,6 +13,7 @@ public class ObjectPool : MonoBehaviour
     Transform parentTr;
     WeaponStatus weaponStat;
     Data_BulletPrafabs bulletData;
+    UnitStatus unitStat;
 
     // State
     int bulletIDCur = 0;
@@ -46,6 +47,7 @@ public class ObjectPool : MonoBehaviour
             enabled = false;
             return;
         }
+        unitStat = GetComponentInParent<UnitStatus>();
     }
 
     void Start()
@@ -156,7 +158,7 @@ public class ObjectPool : MonoBehaviour
         bool _isCritical = false;
 
         int dmg = weaponStat ? (int)(weaponStat.bulletAtk * damageRevisionShotGun) : 1;
-
+        float _absorption = weaponStat ? weaponStat.hpAbsorption : 0f;
 
         if (weaponStat.criRate >= _CriRandValue)
         {
@@ -183,7 +185,7 @@ public class ObjectPool : MonoBehaviour
             {
                 obj.SetActive(true);
                 var b = obj.GetComponent<Bullet>();
-                if (b) b.SetBulletStatus(dmg, _range, _speed, weaponStat.GetAttackType(), _isCritical, weaponStat.add_ExplodeRadius);
+                if (b) b.SetBulletStatus(dmg, _range, _speed, weaponStat.GetAttackType(), _isCritical, weaponStat.add_ExplodeRadius, _absorption, unitStat);
                 return obj;
             }
         }
@@ -193,7 +195,7 @@ public class ObjectPool : MonoBehaviour
         created.SetActive(true);
         pool.Add(created);
         var bullet = created.GetComponent<Bullet>();
-        if (bullet) bullet.SetBulletStatus(dmg, _range, _speed, weaponStat.GetAttackType(), _isCritical, weaponStat.add_ExplodeRadius);
+        if (bullet) bullet.SetBulletStatus(dmg, _range, _speed, weaponStat.GetAttackType(), _isCritical, weaponStat.add_ExplodeRadius, _absorption, unitStat);
         return created;
     }
 

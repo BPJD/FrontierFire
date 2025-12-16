@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef70e0ac75c56a44fb923b0309549238, type: 3}
   m_Name: Weapon_60000
   m_EditorClassIdentifier: Assembly-CSharp::WeaponParamsSO
-  w_name: "\uBB34\uAE301"
-  w_desc: "\uAE30\uBCF8\uC801\uC778 \uD53C\uC2A4\uD1A8, \uBB34\uB09C\uD55C \uC131\uB2A5"
+  w_name: P101-Machethe
+  w_desc: "\uAC1C\uCC99\uC790\uC5D0\uAC8C \uBCF4\uAE09\uB418\uB294 \uAE30\uBCF8 \uBB34\uAE30"
   w_type: 0
   w_atkType: 0
-  w_atk: 20
+  w_atk: 80
   w_range: 8
   w_rpm: 150
   w_magSize: 12
@@ -28,3 +28,4 @@ MonoBehaviour:
   w_ammoDefault: 0
   bulletID: 0
   isCamRangeUp: 0
+  w_hpAbsorption: 0

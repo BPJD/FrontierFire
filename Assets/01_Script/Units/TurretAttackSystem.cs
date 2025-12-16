@@ -236,7 +236,7 @@ public class TurretAttackSystem : MonoBehaviour
         {
 
             GameObject bullet = bulletPool.GetObject();
-            bullet.GetComponent<Bullet>().SetBulletStatus(w_atk, w_range, 0f, WeaponParamsSO.AtkTypes.Normal, false, 0f);
+            bullet.GetComponent<Bullet>().SetBulletStatus(w_atk, w_range, 0f, WeaponParamsSO.AtkTypes.Normal, false, 0f, 0f, thisStat);
             Transform bulletTr = bullet.transform;
             if (fireTr != null)
             {

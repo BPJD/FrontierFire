@@ -12,19 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef70e0ac75c56a44fb923b0309549238, type: 3}
   m_Name: Weapon_60022
   m_EditorClassIdentifier: Assembly-CSharp::WeaponParamsSO
-  w_name: "\uBB34\uAE3023"
-  w_desc: "\uC7AC\uC7A5\uC804 \uC99D\uAC00, \uD0C4 \uC218 \uC99D\uAC00"
+  w_name: RL-Finisher
+  w_desc: "\uD55C \uBC29\uC5D0 \uBAA8\uB4E0 \uAC8C \uB05D\uB0A9\uB2C8\uB2E4."
   w_type: 9
   w_atkType: 0
-  w_atk: 800
-  w_range: 20
-  w_rpm: 120
-  w_magSize: 4
-  w_accuracy: 45
-  w_reloadTime: 5
+  w_atk: 4500
+  w_range: 30
+  w_rpm: 60
+  w_magSize: 1
+  w_accuracy: 75
+  w_reloadTime: 3.25
   e_quality: 0
   w_usingAmmo: 2
-  w_ammoMulti: 0.05
+  w_ammoMulti: 0.01
   w_ammoDefault: 0
   bulletID: 1
   isCamRangeUp: 0
+  w_hpAbsorption: 0

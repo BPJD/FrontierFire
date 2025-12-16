@@ -12,19 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef70e0ac75c56a44fb923b0309549238, type: 3}
   m_Name: Weapon_60003
   m_EditorClassIdentifier: Assembly-CSharp::WeaponParamsSO
-  w_name: "\uBB34\uAE304"
-  w_desc: "\uADF9\uD55C \uC5F0\uC0AC \uC18D\uB3C4, \uB0AE\uC740 \uB370\uBBF8\uC9C0"
+  w_name: P103-BattleAxe
+  w_desc: "\uB6AB\uC9C0 \uBABB\uD558\uB294 \uBC29\uC5B4\uAD6C\uB294 \uC5C6\uC2B5\uB2C8\uB2E4."
   w_type: 0
-  w_atkType: 3
-  w_atk: 9
-  w_range: 15
-  w_rpm: 900
-  w_magSize: 70
-  w_accuracy: 100
-  w_reloadTime: 1.5
+  w_atkType: 1
+  w_atk: 185
+  w_range: 10
+  w_rpm: 90
+  w_magSize: 6
+  w_accuracy: 70
+  w_reloadTime: 1
   e_quality: 0
   w_usingAmmo: 0
   w_ammoMulti: 0
   w_ammoDefault: 0
-  bulletID: 0
+  bulletID: 4
   isCamRangeUp: 0
+  w_hpAbsorption: 0

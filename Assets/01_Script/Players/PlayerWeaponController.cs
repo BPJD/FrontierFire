@@ -29,6 +29,8 @@ public class PlayerWeaponController : MonoBehaviour
     [SerializeField] AudioClip sound_weaponGet, sound_weaponChange;
     [SerializeField] AudioClip sound_ammoGet;
 
+    PlayerInteract playerInteract;
+
     void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -163,11 +165,17 @@ public class PlayerWeaponController : MonoBehaviour
         {
             weaponUI = GameObject.FindGameObjectWithTag("UI").GetComponent<UI_Weapon>();
         }
+        if(playerInteract == null)
+        {
+            playerInteract = GetComponentInChildren<PlayerInteract>();
+        }
     }
 
     public void WeaponReady(int slot)
     {
         CheckWeaponUI();
+
+
         for (int i = 0; i < playersWeapons.Length; i++)
         {
             if (playersWeapons[i] != null)
@@ -176,6 +184,7 @@ public class PlayerWeaponController : MonoBehaviour
                 playersWeapons[i].SetActive(isOn);
                 weaponUI.SetWeaponSelectedUI(i, isOn);
                 playerSound.PlayOneShot(sound_weaponChange);
+                playerInteract.RestoreOriginal(playersWeapons[i]);
             }
                 
         }
@@ -314,5 +323,6 @@ public class PlayerWeaponController : MonoBehaviour
             }
         }
     }
+
 
 }

@@ -43,7 +43,7 @@ public class StatUpgradesSO : ScriptableObject
         FinalDamage = 11
     }
 
-    public enum ItemTier
+    public enum StatItemTier
     {
         D = 0,
         C = 1,

@@ -27,4 +27,6 @@ public class WeaponParamsSO : ScriptableObject
 
     public int bulletID;
     public bool isCamRangeUp = false;
+
+    public float w_hpAbsorption;
 }

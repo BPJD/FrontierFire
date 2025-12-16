@@ -377,7 +377,7 @@ MonoBehaviour:
   rewardObjs:
   - {fileID: 7966252011262253309, guid: 300af86d8990877488adbfe189ac4e05, type: 3}
   - {fileID: 7966252011262253309, guid: 300af86d8990877488adbfe189ac4e05, type: 3}
-  - {fileID: 7966252011262253309, guid: 5dd52c19d206ab3428badca05d60ccfc, type: 3}
+  - {fileID: 7966252011262253309, guid: c055b2885c817474da5929b496d8e69f, type: 3}
   isBossStage: 1
   portalSoundType: 1
   spawnPointPlayEft: {fileID: 8484537217385332715, guid: 2b781313dfb59714cb28ab08b3803b6b, type: 3}
@@ -1579,6 +1579,10 @@ PrefabInstance:
     - target: {fileID: 2677760568512169036, guid: e0b8c790d35d12d44a04f521d4377c60, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 62
+      objectReference: {fileID: 0}
+    - target: {fileID: 2699883326323707723, guid: e0b8c790d35d12d44a04f521d4377c60, type: 3}
+      propertyPath: isUnitHit
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2783519608124496923, guid: e0b8c790d35d12d44a04f521d4377c60, type: 3}
       propertyPath: m_StaticEditorFlags

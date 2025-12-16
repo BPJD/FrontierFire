@@ -25,6 +25,8 @@ public class WeaponParams
     public int bulletID;
     public bool isCamRangeUp;
 
+    public float w_hpAbsorption;
+
     public WeaponParams() { } // CS1729 ¹æÁö¿ë
 
     public WeaponParams(WeaponParamsSO so)
@@ -48,6 +50,9 @@ public class WeaponParams
 
         bulletID = so.bulletID;
         isCamRangeUp = so.isCamRangeUp;
+
+        w_hpAbsorption = so.w_hpAbsorption;
+
 
         float _atk = w_atk;
         int _mag = w_magSize;
@@ -87,6 +92,8 @@ public class WeaponParams
 
         bulletID = other.bulletID;
         isCamRangeUp = other.isCamRangeUp;
+
+        w_hpAbsorption = other.w_hpAbsorption;
 
         float _atk = w_atk;
         int _mag = w_magSize;

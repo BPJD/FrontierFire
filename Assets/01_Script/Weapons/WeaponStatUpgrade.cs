@@ -168,6 +168,7 @@ public class WeaponStatUpgrade : MonoBehaviour
         // 3: 재장전 시간   -> w_reloadTime
         // 5: 정확도        -> w_accuracy
         // 9: 사거리        -> w_range
+        // 13: 사거리        -> w_hpAbsorption
 
         result.w_atk = (int)GetFinalStatForUI(0, result.w_atk);
         result.w_rpm = (int)GetFinalStatForUI(1, result.w_rpm);
@@ -175,6 +176,7 @@ public class WeaponStatUpgrade : MonoBehaviour
         result.w_reloadTime = GetFinalStatForUI(3, result.w_reloadTime);
         result.w_accuracy = GetFinalStatForUI(5, result.w_accuracy);
         result.w_range = GetFinalStatForUI(9, result.w_range);
+        result.w_hpAbsorption = GetFinalStatForUI(13, result.w_hpAbsorption);
 
         // 필요하면 나중에 발사체(6), 무기 속성(8), 조준기(12)도 enum으로 적용 가능
         // int projectile = GetEnumStatForUI(6, (int)result.w_projectileType);

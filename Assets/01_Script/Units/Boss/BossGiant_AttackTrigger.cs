@@ -137,7 +137,9 @@ public class BossGiant_AttackTrigger : MonoBehaviour
                 0f,
                 WeaponParamsSO.AtkTypes.Normal,
                 false,
-                0f
+                0f,
+                0f,
+                unitStat
                 );
 
             yield return new WaitForSeconds(projectileFireDelay);
