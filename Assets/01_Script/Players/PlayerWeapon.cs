@@ -56,6 +56,8 @@ public class PlayerWeapon : MonoBehaviour
 
     WeaponSoundPlay soundPlayer;
 
+    AbilityController abilityController;
+
     private void Awake()
     {
         if (GetComponentInParent<PlayerMove>() == null)
@@ -101,6 +103,12 @@ public class PlayerWeapon : MonoBehaviour
         bulletCount = weaponStat.GetWeaponType() == WeaponParamsSO.WeaponTypes.Shotgun ? 8 : 1;
         inputController.Requested_WeaponReady(this);
         quality = weaponStat.quality;
+        abilityController = weaponController.gameObject.GetComponentInChildren<AbilityController>();
+
+        if (abilityController != null)
+        {
+            abilityController.PlayerWeaponChanged();
+        }
     }
 
     // Update is called once per frame
@@ -173,8 +181,12 @@ public class PlayerWeapon : MonoBehaviour
 
                 soundPlayer.PlaySoundFire();
                 eft_Muzzle.Play(true);
+                abilityController.PlayerWeaponShooted();
 
                 magCur--;
+
+
+                MagUISet();
             }
         }
         else
@@ -182,6 +194,8 @@ public class PlayerWeapon : MonoBehaviour
             if(weaponStat.ammoCur > 0)
             {
                 Reload();
+
+                MagUISet();
             }
             
         }
@@ -205,12 +219,17 @@ public class PlayerWeapon : MonoBehaviour
         eulerAngles.x += Random.Range(-_angleError, _angleError); // X축에 _accuracy 값 추가
         bulletTr.rotation = Quaternion.Euler(eulerAngles);
 
-        Trailor_CamFollow(bulletTr);
+        //Trailor_CamFollow(bulletTr);
     }
 
     void Trailor_CamFollow(Transform _tr)
     {
+        
+        GameObject.Find("Camera_Trailor").transform.position = _tr.position + new Vector3(-3f, -0.5f, -5f);
+        GameObject.Find("Camera_Trailor").transform.LookAt(_tr);
         GameObject.Find("Camera_Trailor").GetComponent<TrailorCamera>().target = _tr;
+
+        GameObject.Find("Camera_Trailor").GetComponent<TrailorCamera>().offset = new Vector3(-3f, -0.5f, -5f);
     }
 
     void Shoot_ShotGun()

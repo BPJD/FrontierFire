@@ -22,6 +22,8 @@ public class StageModule : MonoBehaviour
     public bool isBossStage = false;
     bool nextIsBoss = false;
 
+    bool isAllGenerated = false;
+
     GameSoundPlayer soundPlayer;
 
     float generateDelay = 0.5f;
@@ -87,7 +89,7 @@ public class StageModule : MonoBehaviour
 
             yield return delay;
         }
-
+        isAllGenerated = true;
         CheckEnemyRemains();
     }
 
@@ -103,15 +105,18 @@ public class StageModule : MonoBehaviour
         GameObject unit = Instantiate(prefab, _position, Quaternion.Euler(_rotation), transform);
 
         var ai = unit.GetComponent<EnemyUnitAI_Controller>();
-        if (spawnPoints[spawnCount].isPatrol)
-        {
-            ai.state = EnemyUnitAI_Controller.UnitState.Patrol;
-        }
-        if (spawnPoints[spawnCount].isNotMoving)
-        {
-            ai.isNotMove = true;
-        }
 
+        if(ai != null)
+        {
+            if (spawnPoints[spawnCount].isPatrol)
+            {
+                ai.state = EnemyUnitAI_Controller.UnitState.Patrol;
+            }
+            if (spawnPoints[spawnCount].isNotMoving)
+            {
+                ai.isNotMove = true;
+            }
+        }
 
         broadcastManager?.Register(ai); // 연동 추가
 

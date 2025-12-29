@@ -6,6 +6,7 @@ public class Data_UpgradeModels : MonoBehaviour
     [SerializeField] GameObject[] classEfts;
     [SerializeField] GameObject[] classAppearEfts;
     [SerializeField] GameObject[] classGetEfts;
+    [SerializeField] GameObject[] AbilityModels;
 
     public GameObject GetStatUpObj(int category)
     {
@@ -41,5 +42,17 @@ public class Data_UpgradeModels : MonoBehaviour
     {
         return classGetEfts[statClass];
     }
+
+    public GameObject GetAbilityModel(int abilityID)
+    {
+        return AbilityModels[abilityID];
+    }
+
+    public int GetAbilityModelCount()
+    {
+        return AbilityModels.Length;
+    }
+
+
 
 }

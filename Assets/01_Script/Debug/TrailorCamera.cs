@@ -5,6 +5,7 @@ public class TrailorCamera : MonoBehaviour
     Transform tr;
     public Transform target;
     public bool isFollowing = false;
+    public Vector3 offset = Vector3.zero;
 
     private void Start()
     {
@@ -16,7 +17,7 @@ public class TrailorCamera : MonoBehaviour
         if(target != null)
         {
             isFollowing = true;
-            tr.position = target.position;
+            tr.position = target.position + offset;
         }
         else
         {

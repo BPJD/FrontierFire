@@ -12,6 +12,11 @@ public class PlayerInputController : MonoBehaviour
     PlayerWeapon weaponCur;
     PlayerMove playerMove;
     PlayerWeaponController playerWeaponCon;
+    ShieldManager abilityShield;
+    PlayerDashManager dashManager;
+
+    [SerializeField] Transform[] trailorCamTr;
+
     public TerrainDownPlatform downPlatform { get; set; }
 
     bool aimingPressedPrev;
@@ -55,6 +60,8 @@ public class PlayerInputController : MonoBehaviour
         playerMove = GetComponent<PlayerMove>();
         playerWeaponCon = GetComponent<PlayerWeaponController>();
         isInfoHide = ES3.Load<bool>(infoHideData);
+        abilityShield = GetComponentInChildren<ShieldManager>();
+        dashManager = GetComponentInChildren<PlayerDashManager>();
     }
 
     public void OnInteract()
@@ -71,6 +78,7 @@ public class PlayerInputController : MonoBehaviour
         {
             camMoveSystem.CamSpeedSet(true);
             playerMove.isAiming = true;
+            abilityShield.ShieldActivate(true);
         }
 
         // GetButtonUp: true -> false   ← 여기만 수정
@@ -78,6 +86,7 @@ public class PlayerInputController : MonoBehaviour
         {
             camMoveSystem.CamSpeedSet(false);
             playerMove.isAiming = false;
+            abilityShield.ShieldActivate(false);
         }
 
         // GetButton (홀드 중)
@@ -183,6 +192,11 @@ public class PlayerInputController : MonoBehaviour
         {
             StartCoroutine(ReloadInvoke());
         }
+
+        int _rand = Random.Range(0, trailorCamTr.Length);
+        GameObject.Find("Camera_Trailor").transform.position = trailorCamTr[_rand].position;
+        GameObject.Find("Camera_Trailor").transform.rotation = trailorCamTr[_rand].rotation;
+        GameObject.Find("Camera_Trailor").transform.parent = trailorCamTr[_rand];
     }
 
     void WeaponChanged(int weaponNum)
@@ -248,5 +262,10 @@ public class PlayerInputController : MonoBehaviour
     {
         yield return new WaitForSeconds(0.05f);
         weaponCur.Input_Reload();
+    }
+
+    public void OnDash()
+    {
+        dashManager.DashActive();
     }
 }

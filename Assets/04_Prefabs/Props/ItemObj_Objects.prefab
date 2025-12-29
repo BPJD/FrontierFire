@@ -57,7 +57,7 @@ GameObject:
   - component: {fileID: 536441875181827287}
   - component: {fileID: 7171341902911508303}
   - component: {fileID: 1480116864980405752}
-  - component: {fileID: 1529123708804099190}
+  - component: {fileID: 70576035164233951}
   - component: {fileID: 9186114891695463755}
   m_Layer: 25
   m_Name: ItemObj_Objects
@@ -133,7 +133,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 120
   m_CollisionDetection: 0
---- !u!114 &1529123708804099190
+--- !u!114 &70576035164233951
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -142,17 +142,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1107620375900894179}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e279b8e877877a14ebe0195c6b0ad168, type: 3}
+  m_Script: {fileID: 11500000, guid: feb2bac3284b9aa449bbd76de39c37f7, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assembly-CSharp::Item_AbilityUpgrade
   isDebug: 0
-  upStatID: 0
-  statValue: 0
+  abilityID: 0
   ItemTr: {fileID: 5753488352930202917}
   sounds_itemGet:
   - {fileID: 8300000, guid: 06d4a831f93256d4892c8ad7b29d6739, type: 3}
-  - {fileID: 8300000, guid: 1d84ef3dd18b5164ea85e0329248fda6, type: 3}
-  - {fileID: 8300000, guid: eab13a79d79e98e4393d77b9acca647f, type: 3}
 --- !u!114 &9186114891695463755
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,6 +165,7 @@ MonoBehaviour:
   title: Item Name
   subTitle: Item Name
   description: Item description...
+  titleColor: {r: 1, g: 1, b: 1, a: 1}
   weaponStat:
   - 
   - 

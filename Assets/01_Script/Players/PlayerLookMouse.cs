@@ -26,6 +26,9 @@ public class PlayerLookMouse : MonoBehaviour
     [SerializeField] float forwardAimDistance = 8f; // 앞을 바라볼 때 고정 조준 거리
     [SerializeField] float rayDistance = 50f;    // 기존 50f 그대로 쓰려면 이 값 참조
 
+    AbilityController abilityController;
+    bool lastLookingRight;
+
     [SerializeField] Camera cam; // 인스펙터로 연결 가능(선택)
 
     void Awake()
@@ -37,6 +40,7 @@ public class PlayerLookMouse : MonoBehaviour
     {
         playerInput = GetComponent<PlayerInput>();
         playerMove = GetComponent<PlayerMove>();
+        abilityController = GetComponentInChildren<AbilityController>();
     }
 
     void OnEnable()
@@ -128,7 +132,17 @@ public class PlayerLookMouse : MonoBehaviour
     // 캐릭터 좌/우 방향 회전 처리 (원본 유지)
     void HandleCharacterRotation(Vector3 _targetPos)
     {
-        if (meshTr.position.x <= _targetPos.x)
+        bool lookingRightNow = meshTr.position.x <= _targetPos.x;
+
+        if (lookingRightNow != lastLookingRight)
+        {
+            lastLookingRight = lookingRightNow;
+
+            // 드론: isLeft를 받고 있으니 반대로 넣기
+            abilityController.PlayerTurned(!lookingRightNow);
+        }
+
+        if (lookingRightNow)
         {
             meshTr.LookAt(meshTr.position + Vector3.right);
             playerMove.isLookingRight = true;

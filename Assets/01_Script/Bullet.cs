@@ -137,6 +137,13 @@ public class Bullet : MonoBehaviour
                 other.GetComponent<UnitWeakPoint>().WeatPointDamage(payload);
             }
         }
+        else if (other.CompareTag(Data_Strings.shieldTag))
+        {
+            if (!isExplode)
+            {
+                other.GetComponent<Shield>().TakeDamage(payload);
+            }
+        }
 
         if (bulletMesh != null)
         {

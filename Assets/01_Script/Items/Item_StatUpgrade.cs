@@ -10,11 +10,10 @@ public class Item_StatUpgrade : MonoBehaviour, IInteractable
     Data_UpgradeModels upgradeProp;
     Data_ItemTierColor itemTierColor;
 
-    [SerializeField] bool isDebug = false;
 
     StatUpgradesSO upgradeSO;
 
-    [SerializeField] int upStatID;
+    public int upStatID = 0;
     [SerializeField] float statValue;
 
     Item_ToolTip toolTip;
@@ -30,11 +29,7 @@ public class Item_StatUpgrade : MonoBehaviour, IInteractable
 
     void Start()
     {
-        if (!isDebug)
-        {
-            SetStatUpgradeID();
-        }
-
+        SetStatUpgradeID();
     }
 
     void SetComponent()
@@ -61,15 +56,19 @@ public class Item_StatUpgrade : MonoBehaviour, IInteractable
     {
         if (!upgradeData || !upgradeProp) SetComponent();
 
-        int id = upgradeData.GetRandomIdByRolledRarity();
+        if(upStatID == 0)
+        {
+            int id = upgradeData.GetRandomIdByRolledRarity();
+            upStatID = id;
+        }
 
-        upStatID = id;
-        upgradeSO = upgradeData.GetStatUp(id);
+        upgradeSO = upgradeData.GetStatUp(upStatID);
 
         upgradeProp.InstanceStatUpObj(ItemTr, upgradeSO.up_category, upgradeSO.up_tier);
 
         StatSystemIDSet();
     }
+
 
     void StatSystemIDSet()
     {

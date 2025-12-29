@@ -8,8 +8,10 @@ public class UnitStatus : MonoBehaviour
 
     public UnitParams unitParams{ get; private set; }
     public UnitParams unitParamsDefault{ get; private set; }
+    public UnitParams unitParamsAbility; //{ get; private set; }
 
     public event System.Action<int, int> OnHpChanged;
+    public event System.Action OnDamaged;
 
     public bool isUnitHit = false;
 
@@ -26,7 +28,7 @@ public class UnitStatus : MonoBehaviour
 
     public float immunePer { get; set; } = 1f;
 
-    [SerializeField] float[] armorRevisionByType = { 1f, 1f, 1f };
+    [SerializeField] float[] armorRevisionByType = { 1f, 1f, 1f, 1f };
 
     AudioSource soundPlayer;
     [SerializeField] AudioClip[] sounds_GetDamageByType;
@@ -44,6 +46,7 @@ public class UnitStatus : MonoBehaviour
     {
         unitParams = new UnitParams(unitDataSource);
         unitParamsDefault = new UnitParams(unitParams); // 백업용 복사
+        unitParamsAbility = new UnitParams();
         soundPlayer = GetComponent<AudioSource>();
         data_DNum = GameObject.FindGameObjectWithTag(Data_Strings.DataObjTag).GetComponent<Data_DamageNumbers>();
         tr = transform;
@@ -110,7 +113,7 @@ public class UnitStatus : MonoBehaviour
         raw = (raw + p.addFlat) * (p.mul <= 0f ? 1f : p.mul);
 
         // 반올림/클램프는 마지막에
-        int final = Mathf.Clamp(Mathf.RoundToInt(raw), 1, p.baseDamage);
+        int final = Mathf.Max(Mathf.RoundToInt(raw), 1);
 
         if (p.absorpRate > 0f)
         {
@@ -179,6 +182,7 @@ public class UnitStatus : MonoBehaviour
     {
         hpCur = Mathf.Clamp(hpCur - damage, 0, unitParams.u_hp);
         OnHpChanged?.Invoke(hpCur, unitParams.u_hp);
+        OnDamaged?.Invoke();
         isUnitHit = true;
 
         if (hpCur > 0) return false;
@@ -233,9 +237,9 @@ public class UnitStatus : MonoBehaviour
     {
         switch (unitParams.u_armorLevel)
         {
-            case 0: armorRevisionByType = new float[] { 1f, 0.75f, 0.5f }; break;
-            case 1: armorRevisionByType = new float[] { 0.7f, 1f, 0.75f }; break;
-            case 2: armorRevisionByType = new float[] { 0.5f, 0.8f, 0.9f }; break;
+            case 0: armorRevisionByType = new float[] { 1f, 0.75f, 0.5f, 1f }; break;
+            case 1: armorRevisionByType = new float[] { 0.7f, 1f, 0.75f, 1f }; break;
+            case 2: armorRevisionByType = new float[] { 0.5f, 0.8f, 0.9f, 1f }; break;
         }
 
         Control_Stage gameControl = GameObject.FindGameObjectWithTag("GameController").GetComponent<Control_Stage>();
@@ -264,13 +268,17 @@ public class UnitStatus : MonoBehaviour
         }
     }
 
-    void SetCurrentAtk()
+    public void SetCurrentAtk()
     {
-        atkCur = Mathf.Max(0, unitParams.u_atk);
-        damageCur = Mathf.Max(0.01f, unitParams.u_damage);
-        criRate = Mathf.Max(1f, unitParams.u_criRate);
-        criDamage = Mathf.Max(0f, unitParams.u_criDamage);
+        atkCur = Mathf.Max(0, unitParams.u_atk + unitParamsAbility.u_atk);
+        damageCur = Mathf.Max(0.01f, unitParams.u_damage + (unitParamsAbility.u_damage - 1f));
+        criRate = Mathf.Max(1f, unitParams.u_criRate + unitParamsAbility.u_criRate);
+        criDamage = Mathf.Max(0f, unitParams.u_criDamage + unitParamsAbility.u_criDamage);
+
+        immunePer = 1f + (unitParamsAbility.u_immunePer - 1f);
     }
+
+
 
     public void SetStatusByUpgrade(int _stat, float valuePlus, float valueMulti)
     {

@@ -8,7 +8,7 @@ public class PlayerUI : MonoBehaviour
 
     void Start()
     {
-        playerStatus = GameObject.FindGameObjectWithTag("Player").GetComponent<UnitStatus>();
+        playerStatus = GameObject.FindGameObjectWithTag(Data_Strings.playerTag).GetComponent<UnitStatus>();
         playerStatus.OnHpChanged += UpdateHpBar;
         UpdateHpBar(playerStatus.hpCur, playerStatus.hpCur);
     }

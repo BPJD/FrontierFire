@@ -14,6 +14,6 @@ public class Turning_Ball : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        tr.Rotate(Vector3.right * turnSpeed * Time.fixedDeltaTime);
+        tr.Rotate(Vector3.forward * turnSpeed * Time.fixedDeltaTime);
     }
 }

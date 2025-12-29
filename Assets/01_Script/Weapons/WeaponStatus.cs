@@ -20,7 +20,8 @@ public class WeaponStatus : MonoBehaviour
     [HideInInspector] public float bulletSpeed { get; private set; }
     [HideInInspector] public float bulletRange { get; private set; }
     [HideInInspector] public float reloadSpeed { get; private set; }
-    public float hpAbsorption;// { get; private set; }
+    public float weaponAccuracy { get; private set; }
+    public float hpAbsorption { get; private set; }
 
     public int ammoCur { get; set; }
     public int ammoMax { get; set; }
@@ -141,7 +142,9 @@ public class WeaponStatus : MonoBehaviour
 
         weaponSystem.magMax = w_params.w_magSize;
 
-        float _accError = Mathf.Lerp(4.75f, 0f, Mathf.Clamp01(w_params.w_accuracy * 0.01f));
+        weaponAccuracy = w_params.w_accuracy;
+
+        float _accError = Mathf.Lerp(4.75f, 0f, Mathf.Clamp01(weaponAccuracy * 0.01f));
         float rangeNormalized = Mathf.Clamp01(Mathf.InverseLerp(5f, 50f, bulletRange));
         float _rangeError = Mathf.Lerp(2.75f, 0f, rangeNormalized);
 

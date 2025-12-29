@@ -8,6 +8,7 @@ public class PlayerMove : MonoBehaviour
 
     Rigidbody playerRig;
     public bool isJumping { get; set; }
+    public bool externalMoveLock { get; private set; } = false;
 
     int jumpCount = 0;
 
@@ -17,11 +18,12 @@ public class PlayerMove : MonoBehaviour
     float moveSpeed_status = 1f;
     public float jumpPower = 5f;
     public int jumpCountMax = 2;
-    float moveDir = 0f;
+    public float moveDir { get; private set; } = 0f;
+    public float moveDir_y { get; private set; } = 0f;
     float movingCoolCur = 0f;
 
     bool isMovable = true;
-    bool isSprinting = false;
+    public bool isSprinting { get; private set; } = false;
     public bool isAiming = false;
     public bool isSprintable { private get; set; } = true;
     public bool isLookingRight = false;
@@ -60,6 +62,12 @@ public class PlayerMove : MonoBehaviour
         playerStat = GetComponent<UnitStatus>();
         SpeedSet();
     }
+    public void SetExternalMoveLock(bool v)
+    {
+        externalMoveLock = v;
+
+        // 입력에 의한 감속/가속도 같이 멈추고 싶으면 여기서 moveDir=0 같은 것도 가능
+    }
 
     public void SpeedSet()
     {
@@ -69,6 +77,8 @@ public class PlayerMove : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (externalMoveLock) return;
+
         // 지상/공중에 따라 사용할 수평 속도 선택
         float horizontalSpeed = isJumping
             ? airVelX                        // 공중: 점프 직전 속도를 그대로 사용(관성)
@@ -88,6 +98,7 @@ public class PlayerMove : MonoBehaviour
     public void MoveRequested(Vector2 input)
     {
         moveDir = input.x;
+        moveDir_y = input.y;
     }
 
     public void JumpRequested()
@@ -120,6 +131,13 @@ public class PlayerMove : MonoBehaviour
 
     void Update()
     {
+        if (externalMoveLock)
+        {
+            // 애니메이션만 돌진용으로 따로 처리할 거면 여기서 유지
+            return;
+        }
+
+
         // 0) 입력 데드존(너무 미세한 입력은 무시)
         const float inputDeadzone = 0.05f;
 

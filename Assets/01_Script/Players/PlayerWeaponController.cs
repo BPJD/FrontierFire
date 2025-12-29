@@ -72,6 +72,11 @@ public class PlayerWeaponController : MonoBehaviour
         
     }
 
+    public WeaponStatus GetWeaponStatCur()
+    {
+        return playersWeapons[weaponCur].GetComponent<WeaponStatus>();
+    }
+
 
     public AudioSource GetPlayerAudioSource()
     {
@@ -188,6 +193,7 @@ public class PlayerWeaponController : MonoBehaviour
             }
                 
         }
+
     }
 
 
