@@ -68,7 +68,7 @@ MeshRenderer:
   m_SmallMeshCulling: 1
   m_ForceMeshLod: -1
   m_MeshLodSelectionBias: 0
-  m_RenderingLayerMask: 5
+  m_RenderingLayerMask: 4
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 08cc88f197bb10b4ab9ddb9ba55563d3, type: 2}
@@ -93,6 +93,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!65 &7344933124559020537
 BoxCollider:
@@ -207,6 +208,7 @@ MonoBehaviour:
   instancePerBlock: 2
   spawnPerFrame: 25
   spawnRate: 100
+  instanceMax: 0
   raycastHeight: 40
   surfaceOffset: 0.02
   type: 0

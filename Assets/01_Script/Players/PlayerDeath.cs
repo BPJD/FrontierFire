@@ -7,6 +7,7 @@ public class PlayerDeath : MonoBehaviour
     [SerializeField] PlayerMove moveSystem;
     [SerializeField] PlayerLookMouse lookMouseSystem;
     [SerializeField] PlayerWeaponController weaponControllerSystem;
+    [SerializeField] PlayerInputController inputSystem;
     [SerializeField] Animator playerAni;
 
 
@@ -17,6 +18,7 @@ public class PlayerDeath : MonoBehaviour
         moveSystem.enabled = false;
         lookMouseSystem.enabled = false;
         weaponControllerSystem.enabled = false;
+        inputSystem.enabled = false;
 
     }
 

@@ -93,6 +93,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!65 &4254504469581933521
 BoxCollider:
@@ -141,6 +142,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   bulletMesh: {fileID: 0}
+  hitSound_terrains:
+  - {fileID: 8300000, guid: 05a3f38853bdabe4880659a7a5f16396, type: 3}
+  - {fileID: 8300000, guid: de5fb0f71e8b82d4c9a5f5e5a62a446a, type: 3}
+  - {fileID: 8300000, guid: c1ab571841c87a54aaaa43bd3af419d2, type: 3}
+  - {fileID: 8300000, guid: 560495c22e15a3a49909457e5a7995c8, type: 3}
   isMove: 1
 --- !u!54 &-6501601416559756310
 Rigidbody:

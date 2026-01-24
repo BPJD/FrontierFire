@@ -184,9 +184,6 @@ public class PlayerWeapon : MonoBehaviour
                 abilityController.PlayerWeaponShooted();
 
                 magCur--;
-
-
-                MagUISet();
             }
         }
         else
@@ -194,8 +191,6 @@ public class PlayerWeapon : MonoBehaviour
             if(weaponStat.ammoCur > 0)
             {
                 Reload();
-
-                MagUISet();
             }
             
         }
@@ -313,11 +308,11 @@ public class PlayerWeapon : MonoBehaviour
         {
             if (isDefaultWeapon)
             {
-                uiWeapon.textMesh.text = "999+" + '/' + magCur.ToString();
+                uiWeapon.textMesh.text = magCur.ToString() + '/' + "¡Ä";
             }
             else
             {
-                uiWeapon.textMesh.text = weaponStat.ammoCur.ToString() + '/' + magCur.ToString();
+                uiWeapon.textMesh.text = magCur.ToString() + '/' + weaponStat.ammoCur.ToString();
             }
             
         }

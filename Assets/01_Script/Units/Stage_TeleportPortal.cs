@@ -23,7 +23,10 @@ public class Stage_TeleportPortal : MonoBehaviour, IInteractable
     public bool TryInteract()
     {
         target.position = new Vector3(destination.position.x, destination.position.y, 0f);
-        soundPlayer.Play();
+        if(soundPlayer != null)
+        {
+            soundPlayer.Play();
+        }
         return true;
     }
 

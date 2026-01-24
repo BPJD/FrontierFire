@@ -82,6 +82,7 @@ MonoBehaviour:
   portalSoundType: 1
   spawnPointPlayEft: {fileID: 8484537217385332715, guid: 2b781313dfb59714cb28ab08b3803b6b, type: 3}
   spawnPointIdleEft: {fileID: 2793732936253714916, guid: b68e9f0c9e7911c47b399785857b7e5b, type: 3}
+  isMainStage: 1
 --- !u!114 &568489314041820979
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -183,6 +184,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!64 &8391063082078924836
 MeshCollider:
@@ -330,6 +332,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!65 &2323488471940788676
 BoxCollider:
@@ -444,6 +447,7 @@ MonoBehaviour:
   instancePerBlock: 2
   spawnPerFrame: 25
   spawnRate: 25
+  instanceMax: 0
   raycastHeight: 40
   surfaceOffset: 0.02
   type: 0
@@ -535,6 +539,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &7342842769555043163
 GameObject:
@@ -624,6 +629,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &7941041709770918415
 GameObject:
@@ -718,6 +724,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!65 &7716058433017621822
 BoxCollider:
@@ -832,6 +839,7 @@ MonoBehaviour:
   instancePerBlock: 2
   spawnPerFrame: 25
   spawnRate: 25
+  instanceMax: 0
   raycastHeight: 40
   surfaceOffset: 0.02
   type: 0

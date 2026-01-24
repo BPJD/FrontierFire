@@ -751,6 +751,10 @@ PrefabInstance:
       propertyPath: logAxes
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2655058662950241263, guid: 1216d507af0e2b645b06b997a120cfc6, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2923739397099536530, guid: 1216d507af0e2b645b06b997a120cfc6, type: 3}
       propertyPath: m_ClearFlags
       value: 4
@@ -937,7 +941,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4697878185735723393, guid: 1216d507af0e2b645b06b997a120cfc6, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5302356271581408286, guid: 1216d507af0e2b645b06b997a120cfc6, type: 3}
       propertyPath: m_fontColor.b

@@ -88,7 +88,7 @@ public class BackgroundGenerator : MonoBehaviour
                         float randX = Random.Range(-600f, 600f);
                         float randZ = Random.Range(endObjPosRangeMin, endObjPosRangeMax);
                         float randY = Random.Range(-5f, -15f);
-                        Vector3 pos = new Vector3(randX, randY, randZ);
+                        Vector3 pos = transform.position + new Vector3(randX, randY, randZ);
                         float randRotY = Random.Range(0f, 360f);
                         Instantiate(endObj, pos, Quaternion.Euler(Vector3.up * randRotY));
                     }

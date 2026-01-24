@@ -7,10 +7,19 @@ public class UI_Weapon : MonoBehaviour
     public TextMeshProUGUI textMesh;
     [SerializeField] Image[] weaponImgs = new Image[3];
     [SerializeField] Image[] weaponFrames = new Image[3];
+    [SerializeField] Sprite nullIcon;
     
     public void SetImageIcon(int slot, Sprite icon)
     {
-        weaponImgs[slot].sprite = icon;
+        if (icon != null)
+        {
+            weaponImgs[slot].sprite = icon;
+        }
+        else
+        {
+            weaponImgs[slot].sprite = nullIcon;
+        }
+
     }
 
     public void SetWeaponSelectedUI(int slot, bool isOn)

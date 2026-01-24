@@ -80,6 +80,11 @@ public class UnitStatus : MonoBehaviour
 
     public void UnitGetHeal(int _heal, bool isUIPrint)
     {
+        if(gameObject.CompareTag(Data_Strings.DeadUnitTag))
+        {
+            return;
+        }
+
         hpCur = Mathf.Clamp(hpCur + _heal, 0, unitParams.u_hp);
         OnHpChanged?.Invoke(hpCur, unitParams.u_hp);
 

@@ -65,6 +65,7 @@ MonoBehaviour:
   portalSoundType: 1
   spawnPointPlayEft: {fileID: 8484537217385332715, guid: 2b781313dfb59714cb28ab08b3803b6b, type: 3}
   spawnPointIdleEft: {fileID: 2793732936253714916, guid: b68e9f0c9e7911c47b399785857b7e5b, type: 3}
+  isMainStage: 1
 --- !u!114 &8259207788554724081
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -209,6 +210,7 @@ MonoBehaviour:
   instancePerBlock: 3
   spawnPerFrame: 25
   spawnRate: 75
+  instanceMax: 0
   raycastHeight: 40
   surfaceOffset: 0.02
   type: 0
@@ -349,6 +351,7 @@ MonoBehaviour:
   instancePerBlock: 2
   spawnPerFrame: 25
   spawnRate: 100
+  instanceMax: 0
   raycastHeight: 40
   surfaceOffset: 0.02
   type: 0
@@ -586,6 +589,7 @@ MonoBehaviour:
   instancePerBlock: 1
   spawnPerFrame: 25
   spawnRate: 20
+  instanceMax: 0
   raycastHeight: 40
   surfaceOffset: 0.02
   type: 0
@@ -1074,6 +1078,7 @@ MonoBehaviour:
   instancePerBlock: 1
   spawnPerFrame: 25
   spawnRate: 80
+  instanceMax: 0
   raycastHeight: 40
   surfaceOffset: 0.02
   type: 2

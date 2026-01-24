@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static UnityEngine.Rendering.PostProcessing.SubpixelMorphologicalAntialiasing;
 
 
 public class PlayerWeaponController : MonoBehaviour
@@ -92,6 +93,8 @@ public class PlayerWeaponController : MonoBehaviour
         }
         else
         {
+
+            /*
             if (playersWeapons[weaponCur] != null)
             {
                 playersWeapons[weaponCur].SetActive(false);
@@ -101,7 +104,10 @@ public class PlayerWeaponController : MonoBehaviour
             GetComponentInChildren<Animator>().SetTrigger("NoneDraw");
             GetComponentInChildren<PlayerAnimatorLook>().GunAnimationReady(false);
             weaponCur = weaponSlot;
+            */
         }
+
+
 
     }
 
@@ -330,5 +336,28 @@ public class PlayerWeaponController : MonoBehaviour
         }
     }
 
+    public void UIRefresh()
+    {
+        CheckWeaponUI();
+
+        for(int i = 0; i < playersWeapons.Length; i++)
+        {
+            if (playersWeapons[i] != null)
+            {
+                WeaponStatus weaponStat = playersWeapons[i].GetComponent<WeaponStatus>();
+
+                int weaponType = (int)weaponData.GetWeaponStatSO(playersWeaponIDs[i]).w_type;
+
+                Sprite _weaponIcon = dataUI.GetImageByWeaponType(weaponType, weaponStat.weaponIcon);
+
+                weaponUI.SetImageIcon(weaponCur, _weaponIcon);
+            }
+            else
+            {
+                weaponUI.SetImageIcon(i, null);
+            }
+        }
+
+    }
 
 }

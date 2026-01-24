@@ -11,7 +11,10 @@ public class Tutorial_StartZone : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         endZone.SetActive(true);
-        targetSystem.SpawnTargets();
+        if (!isTutorialStarted)
+        {
+            targetSystem.SpawnTargets();
+        }
         isTutorialStarted = true;
     }
 

@@ -21,6 +21,12 @@ public class Bullet : MonoBehaviour
 
     [SerializeField] GameObject bulletMesh;
 
+
+    [Header("ÂøÅº »ç¿îµå")]
+    //[SerializeField] AudioClip hitSound_unit;
+    [SerializeField] AudioClip[] hitSound_terrains;
+    //[SerializeField] AudioClip hitSound_shield;
+
     public bool isMove = true;
 
 
@@ -130,6 +136,14 @@ public class Bullet : MonoBehaviour
                 other.GetComponent<UnitStatus>().TakeDamage(payload);
             }
         }
+        else if(other.CompareTag(Data_Strings.terrainTag))
+        {
+            if (!isExplode)
+            {
+                int randIndex = Random.Range(0, hitSound_terrains.Length);
+                muzzleEft.gameObject.GetComponent<Bullet_MuzzlePlayer>().PlayMuzzleSound(hitSound_terrains[randIndex]);
+            }
+        }
         else if (other.CompareTag(Data_Strings.WeakPointTag))
         {
             if (!isExplode)
@@ -144,6 +158,8 @@ public class Bullet : MonoBehaviour
                 other.GetComponent<Shield>().TakeDamage(payload);
             }
         }
+
+
 
         if (bulletMesh != null)
         {

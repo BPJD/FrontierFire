@@ -77,7 +77,7 @@ public class GamePadInput : MonoBehaviour
         if (includeGamepad && Gamepad.current != null)
             CollectGamepad(now, Gamepad.current);
 
-        //LogDiff("[Held-Device]", lastDeviceDown, now);
+        LogDiff("[Held-Device]", lastDeviceDown, now);
         lastDeviceDown = now;
 
     }
@@ -193,7 +193,7 @@ public class GamePadInput : MonoBehaviour
             }
         }
 
-        //LogDiff("[Held-Action]", lastActionDown, now);
+        LogDiff("[Held-Action]", lastActionDown, now);
         lastActionDown = now;
     }
 

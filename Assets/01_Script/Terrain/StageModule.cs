@@ -36,6 +36,8 @@ public class StageModule : MonoBehaviour
     [SerializeField] GameObject spawnPointPlayEft;
     [SerializeField] GameObject spawnPointIdleEft;
 
+    [SerializeField] bool isMainStage = false;
+
     GameObject data;
 
     void Start()
@@ -63,13 +65,16 @@ public class StageModule : MonoBehaviour
                 portalList.Add(child.transform);
             }
         }
-        portalPoints = portalList.ToArray();
 
-        spawnPoints = GetComponentsInChildren<Stage_EnemySpawnPoint>();
+        if (!isMainStage)
+        {
+            portalPoints = portalList.ToArray();
 
-        StartCoroutine(GenerateEnemies());
+            spawnPoints = GetComponentsInChildren<Stage_EnemySpawnPoint>();
 
-
+            StartCoroutine(GenerateEnemies());
+        }
+        
     }
 
 

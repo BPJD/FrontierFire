@@ -17,6 +17,10 @@ public class PlayerInputController : MonoBehaviour
 
     [SerializeField] Transform[] trailorCamTr;
 
+    public GameObject playerModelObj;
+    public GameObject playerWeaponObj;
+
+
     public TerrainDownPlatform downPlatform { get; set; }
 
     bool aimingPressedPrev;
@@ -193,10 +197,10 @@ public class PlayerInputController : MonoBehaviour
             StartCoroutine(ReloadInvoke());
         }
 
-        int _rand = Random.Range(0, trailorCamTr.Length);
-        GameObject.Find("Camera_Trailor").transform.position = trailorCamTr[_rand].position;
-        GameObject.Find("Camera_Trailor").transform.rotation = trailorCamTr[_rand].rotation;
-        GameObject.Find("Camera_Trailor").transform.parent = trailorCamTr[_rand];
+        //int _rand = Random.Range(0, trailorCamTr.Length);
+        //GameObject.Find("Camera_Trailor").transform.position = trailorCamTr[_rand].position;
+        //GameObject.Find("Camera_Trailor").transform.rotation = trailorCamTr[_rand].rotation;
+        //GameObject.Find("Camera_Trailor").transform.parent = trailorCamTr[_rand];
     }
 
     void WeaponChanged(int weaponNum)
