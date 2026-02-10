@@ -3,9 +3,35 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
-
 public class PlayerInputController : MonoBehaviour
 {
+    // ─────────────────────────────────────────────
+    // Action names (InputActions 에셋의 Action 이름과 반드시 동일해야 함)
+    const string A_Interact = "Interact";
+    const string A_Aiming = "Aiming";
+    const string A_SniperAiming = "SniperAiming";
+    const string A_Move = "Move";
+    const string A_Jump = "Jump";
+    const string A_DownJump = "DownJump";
+    const string A_Sprint = "Sprint";
+    const string A_Attack = "Attack";
+    const string A_Reload = "Reload";
+
+    const string A_WeaponA = "WeaponA";
+    const string A_WeaponB = "WeaponB";
+    const string A_WeaponC = "WeaponC";
+    const string A_NextWeapon = "NextWeapon";
+    const string A_PrevWeapon = "PrevWeapon";
+
+    const string A_HideWeaponInfo = "HideWeaponInfo";
+    const string A_Dash = "Dash";
+
+    // (선택) 특정 액션맵만 쓰고 싶으면 지정. 비워두면 전체에서 검색.
+    // 네 스샷상 맵 이름이 "Player"로 보이니 기본값 "Player"로 둠.
+    [SerializeField] string actionMapName = "Player";
+
+    // ─────────────────────────────────────────────
+    // Refs
     GameObject module;
     PlayerInteract interacter;
     CameraMovingSystem camMoveSystem;
@@ -15,261 +41,369 @@ public class PlayerInputController : MonoBehaviour
     ShieldManager abilityShield;
     PlayerDashManager dashManager;
 
-    [SerializeField] Transform[] trailorCamTr;
-
-    public GameObject playerModelObj;
-    public GameObject playerWeaponObj;
-
-
     public TerrainDownPlatform downPlatform { get; set; }
 
-    bool aimingPressedPrev;
-    bool sniAimingPressedPrev;
-    bool sprintPressedPrev;
-    bool shootPressedPrev;
     int selectedWeapon = 0;
     public bool isInfoHide { get; private set; } = false;
     public static string infoHideData = "IsWeaponInfoHide";
 
     public bool isSprintToggle = true;
-    
 
+    // ─────────────────────────────────────────────
+    // Input
+    PlayerInput playerInput;
+    InputActionMap map;
 
+    InputAction actInteract, actAiming, actSniperAiming, actMove, actJump, actDownJump,
+                actSprint, actAttack, actReload, actWeaponA, actWeaponB, actWeaponC,
+                actNextWeapon, actPrevWeapon, actHideWeaponInfo, actDash;
 
-    private void Awake()
+    bool _bound = false;
+
+    // ─────────────────────────────────────────────
+
+    public GameObject playerModelObj;
+    public GameObject playerWeaponObj;
+
+    void Awake()
     {
+        playerInput = GetComponent<PlayerInput>();
         ControllerReset();
+        CacheActions(); // 여기서 액션 캐시
     }
 
     void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
+
+        // PlayerInput이 Awake 이후에 actions를 갱신하는 케이스 대비
+        if (playerInput == null) playerInput = GetComponent<PlayerInput>();
+        if (map == null) CacheActions();
+
+        BindActions(true);
     }
 
     void OnDisable()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
+        BindActions(false);
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         ControllerReset();
+
+        // 씬 전환/재생성 상황에서 actions/map이 바뀌는 케이스 대비
+        if (playerInput == null) playerInput = GetComponent<PlayerInput>();
+        CacheActions();
+
+        // 이미 바인딩된 상태로 씬이 바뀌면(드물지만) 안전하게 재바인딩
+        if (isActiveAndEnabled)
+        {
+            BindActions(false);
+            BindActions(true);
+        }
     }
 
     void ControllerReset()
     {
         module = GameObject.FindGameObjectWithTag("Module");
         interacter = GetComponentInChildren<PlayerInteract>();
-        camMoveSystem = module.GetComponentInChildren<CameraMovingSystem>();
+        camMoveSystem = module != null ? module.GetComponentInChildren<CameraMovingSystem>() : null;
         playerMove = GetComponent<PlayerMove>();
         playerWeaponCon = GetComponent<PlayerWeaponController>();
-        isInfoHide = ES3.Load<bool>(infoHideData);
         abilityShield = GetComponentInChildren<ShieldManager>();
         dashManager = GetComponentInChildren<PlayerDashManager>();
+
+        isInfoHide = ES3.KeyExists(infoHideData) ? ES3.Load<bool>(infoHideData) : false;
     }
 
-    public void OnInteract()
+    // ─────────────────────────────────────────────
+    // Cache
+    void CacheActions()
     {
-        interacter.Interacted();
+        map = null;
+
+        if (playerInput == null || playerInput.actions == null)
+        {
+            Debug.LogWarning("[PlayerInputController] PlayerInput/actions not ready.");
+            return;
+        }
+
+        // 1) 특정 맵 지정 시: 그 맵에서 찾기
+        if (!string.IsNullOrEmpty(actionMapName))
+            map = playerInput.actions.FindActionMap(actionMapName, throwIfNotFound: false);
+
+        // 2) 맵을 못 찾았으면: asset 전체에서 FindAction으로 찾기(백업)
+        if (map != null)
+        {
+            actInteract = map.FindAction(A_Interact, false);
+            actAiming = map.FindAction(A_Aiming, false);
+            actSniperAiming = map.FindAction(A_SniperAiming, false);
+            actMove = map.FindAction(A_Move, false);
+            actJump = map.FindAction(A_Jump, false);
+            actDownJump = map.FindAction(A_DownJump, false);
+            actSprint = map.FindAction(A_Sprint, false);
+            actAttack = map.FindAction(A_Attack, false);
+            actReload = map.FindAction(A_Reload, false);
+
+            actWeaponA = map.FindAction(A_WeaponA, false);
+            actWeaponB = map.FindAction(A_WeaponB, false);
+            actWeaponC = map.FindAction(A_WeaponC, false);
+            actNextWeapon = map.FindAction(A_NextWeapon, false);
+            actPrevWeapon = map.FindAction(A_PrevWeapon, false);
+
+            actHideWeaponInfo = map.FindAction(A_HideWeaponInfo, false);
+            actDash = map.FindAction(A_Dash, false);
+        }
+        else
+        {
+            // 맵 이름이 다르거나 비어있을 때 자동 검색
+            var actions = playerInput.actions;
+
+            actInteract = actions.FindAction(A_Interact, false);
+            actAiming = actions.FindAction(A_Aiming, false);
+            actSniperAiming = actions.FindAction(A_SniperAiming, false);
+            actMove = actions.FindAction(A_Move, false);
+            actJump = actions.FindAction(A_Jump, false);
+            actDownJump = actions.FindAction(A_DownJump, false);
+            actSprint = actions.FindAction(A_Sprint, false);
+            actAttack = actions.FindAction(A_Attack, false);
+            actReload = actions.FindAction(A_Reload, false);
+
+            actWeaponA = actions.FindAction(A_WeaponA, false);
+            actWeaponB = actions.FindAction(A_WeaponB, false);
+            actWeaponC = actions.FindAction(A_WeaponC, false);
+            actNextWeapon = actions.FindAction(A_NextWeapon, false);
+            actPrevWeapon = actions.FindAction(A_PrevWeapon, false);
+
+            actHideWeaponInfo = actions.FindAction(A_HideWeaponInfo, false);
+            actDash = actions.FindAction(A_Dash, false);
+        }
+
+        // (권장) 누락 액션 로그 - 초기에만 잡고 나중엔 꺼도 됨
+        WarnIfNull(actMove, A_Move);
+        WarnIfNull(actAttack, A_Attack);
+        WarnIfNull(actAiming, A_Aiming);
     }
 
-    public void OnAiming(InputValue value)
+    void WarnIfNull(InputAction a, string name)
     {
-        bool pressed = value.Get<float>() > 0.5f;
-
-        // GetButtonDown: false -> true
-        if (pressed && !aimingPressedPrev)
-        {
-            camMoveSystem.CamSpeedSet(true);
-            playerMove.isAiming = true;
-            abilityShield.ShieldActivate(true);
-        }
-
-        // GetButtonUp: true -> false   ← 여기만 수정
-        if (!pressed && aimingPressedPrev)
-        {
-            camMoveSystem.CamSpeedSet(false);
-            playerMove.isAiming = false;
-            abilityShield.ShieldActivate(false);
-        }
-
-        // GetButton (홀드 중)
-        // if (pressed) { ... }
-
-        if (weaponCur.laserScope != null)
-        {
-            weaponCur.ScopeControl(playerMove.isAiming);
-            //weaponCur.laserScope.GetComponent<LineRenderer>().SetPosition(1, Vector3.forward * weaponCur.GetBulletRange());
-        }
-
-        aimingPressedPrev = pressed; // ← 이 위치(함수 끝) 맞습니다.
+        if (a == null)
+            Debug.LogWarning($"[PlayerInputController] Action not found: {name} (check InputActions name / map)");
     }
 
-    public void OnSniperAiming(InputValue value)
+    // ─────────────────────────────────────────────
+    // Bind / Unbind
+    void BindActions(bool bind)
     {
-        bool pressed = value.Get<float>() > 0.5f;
+        if (_bound == bind) return;
+        _bound = bind;
 
-        //GetButtonDown
-        if (pressed && !sniAimingPressedPrev && camMoveSystem.isCamRangeUp)
+        // 액션들이 없으면(캐시 실패) 종료
+        if (playerInput == null || playerInput.actions == null) return;
+
+        // 각 액션 구독
+        // 단발(performed), 버튼 Down/Up(started/canceled), 값형(performed/canceled)
+        Link(actInteract, performed: OnInteract, bind: bind);
+
+        Link(actAiming, started: OnAimingDown, canceled: OnAimingUp, bind: bind);
+        Link(actSniperAiming, started: OnSniperAimingDown, canceled: OnSniperAimingUp, bind: bind);
+
+        Link(actMove, performed: OnMove, canceled: OnMove, bind: bind);
+
+        Link(actJump, performed: OnJump, bind: bind);
+        Link(actDownJump, performed: OnDownJump, bind: bind);
+
+        Link(actSprint, started: OnSprintDown, canceled: OnSprintUp, bind: bind);
+
+        Link(actAttack, started: OnAttackDown, canceled: OnAttackUp, bind: bind);
+
+        Link(actReload, performed: OnReload, bind: bind);
+
+        Link(actWeaponA, performed: OnWeaponA, bind: bind);
+        Link(actWeaponB, performed: OnWeaponB, bind: bind);
+        Link(actWeaponC, performed: OnWeaponC, bind: bind);
+        Link(actNextWeapon, performed: OnNextWeapon, bind: bind);
+        Link(actPrevWeapon, performed: OnPrevWeapon, bind: bind);
+
+        Link(actHideWeaponInfo, performed: OnHideWeaponInfo, bind: bind);
+        Link(actDash, performed: OnDash, bind: bind);
+
+        // Enable 처리:
+        // - PlayerInput이 액션맵 enable/disable을 관리하는 경우가 많아서,
+        //   여기서 개별 action.Enable()을 강제하지 않는 게 안전하다.
+        // - 만약 입력이 안 들어오면, 아래 EnableAllActions()를 켜면 됨.
+        //EnableAllActionsIfNeeded();
+    }
+
+    void Link(
+        InputAction a,
+        System.Action<InputAction.CallbackContext> performed = null,
+        System.Action<InputAction.CallbackContext> started = null,
+        System.Action<InputAction.CallbackContext> canceled = null,
+        bool bind = true)
+    {
+        if (a == null) return;
+
+        if (bind)
         {
+            if (performed != null) a.performed += performed;
+            if (started != null) a.started += started;
+            if (canceled != null) a.canceled += canceled;
+        }
+        else
+        {
+            if (performed != null) a.performed -= performed;
+            if (started != null) a.started -= started;
+            if (canceled != null) a.canceled -= canceled;
+        }
+    }
+
+    // 필요 시 사용 (입력이 0개 들어올 때만 켜서 원인 확인용)
+    void EnableAllActionsIfNeeded()
+    {
+        // actionMap이 있으면 map만 enable하는 게 정석
+        if (map != null && !map.enabled) map.Enable();
+        else if (playerInput != null && playerInput.currentActionMap != null && !playerInput.currentActionMap.enabled)
+            playerInput.currentActionMap.Enable();
+    }
+
+    // ─────────────────────────────────────────────
+    // Callbacks (기존 로직 유지)
+
+    void OnInteract(InputAction.CallbackContext ctx)
+    {
+        interacter?.Interacted();
+    }
+
+    void OnAimingDown(InputAction.CallbackContext ctx)
+    {
+        camMoveSystem?.CamSpeedSet(true);
+        if (playerMove != null) playerMove.isAiming = true;
+        abilityShield?.ShieldActivate(true);
+
+        if (weaponCur != null && weaponCur.laserScope != null)
+            weaponCur.ScopeControl(true);
+    }
+
+    void OnAimingUp(InputAction.CallbackContext ctx)
+    {
+        camMoveSystem?.CamSpeedSet(false);
+        if (playerMove != null) playerMove.isAiming = false;
+        abilityShield?.ShieldActivate(false);
+
+        if (weaponCur != null && weaponCur.laserScope != null)
+            weaponCur.ScopeControl(false);
+    }
+
+    void OnSniperAimingDown(InputAction.CallbackContext ctx)
+    {
+        if (camMoveSystem != null && camMoveSystem.isCamRangeUp)
             camMoveSystem.isSniAiming = true;
-        }
-
-        //GetButtonUp
-        if (!pressed && sniAimingPressedPrev && camMoveSystem.isSniAiming)
-        {
-            camMoveSystem.isSniAiming = false;
-        }
-
-        sniAimingPressedPrev = pressed;
     }
 
-    public void OnMove(InputValue value)
+    void OnSniperAimingUp(InputAction.CallbackContext ctx)
     {
-        Vector2 v = value.Get<Vector2>();
+        if (camMoveSystem != null)
+            camMoveSystem.isSniAiming = false;
+    }
+
+    void OnMove(InputAction.CallbackContext ctx)
+    {
+        if (playerMove == null) return;
+
+        Vector2 v = ctx.ReadValue<Vector2>();
         playerMove.MoveRequested(v);
 
-        // 이동 입력이 0이면 스프린트 종료
         if (isSprintToggle && v.sqrMagnitude <= 0.01f)
             playerMove.SprintEndRequested();
     }
 
-
-    public void OnJump()
+    void OnJump(InputAction.CallbackContext ctx)
     {
-        playerMove.JumpRequested();
+        playerMove?.JumpRequested();
     }
 
-    public void OnDownJump()
+    void OnDownJump(InputAction.CallbackContext ctx)
     {
-        if(downPlatform != null)
-        {
-            downPlatform.DownJumpRequested();
-        }
+        downPlatform?.DownJumpRequested();
     }
 
-    public void OnSprint(InputValue value)
+    void OnSprintDown(InputAction.CallbackContext ctx)
     {
-        bool pressed = value.Get<float>() > 0.5f;
-
-        //GetButtonDown
-        if (pressed && !sprintPressedPrev)
-        {
-            playerMove.SprintStartRequested();
-        }
-
-        //GetButtonUp
-        if (!pressed && sprintPressedPrev)
-        {
-            if (!isSprintToggle)
-            {
-                playerMove.SprintEndRequested();
-            }
-        }
-        sprintPressedPrev = pressed;
+        playerMove?.SprintStartRequested();
     }
 
-    public void OnAttack(InputValue value)
+    void OnSprintUp(InputAction.CallbackContext ctx)
     {
-        bool pressed = value.Get<float>() > 0.5f;
-
-        //GetButtonDown
-        if (pressed && !shootPressedPrev && weaponCur != null)
-        {
-            weaponCur.Input_Shoot(true);
-        }
-
-        //GetButtonUp
-        if (!pressed && shootPressedPrev && weaponCur != null)
-        {
-            weaponCur.Input_Shoot(false);
-        }
-
-        shootPressedPrev = pressed;
+        if (!isSprintToggle)
+            playerMove?.SprintEndRequested();
     }
 
-
-
-    public void OnReload()
+    void OnAttackDown(InputAction.CallbackContext ctx)
     {
+        weaponCur?.Input_Shoot(true);
+    }
+
+    void OnAttackUp(InputAction.CallbackContext ctx)
+    {
+        weaponCur?.Input_Shoot(false);
+    }
+
+    void OnReload(InputAction.CallbackContext ctx)
+    {
+        if (playerWeaponCon == null || interacter == null) return;
+
         if (playerWeaponCon.playersWeapons[selectedWeapon] != null && interacter.SelectedObj == null)
-        {
             StartCoroutine(ReloadInvoke());
-        }
-
-        //int _rand = Random.Range(0, trailorCamTr.Length);
-        //GameObject.Find("Camera_Trailor").transform.position = trailorCamTr[_rand].position;
-        //GameObject.Find("Camera_Trailor").transform.rotation = trailorCamTr[_rand].rotation;
-        //GameObject.Find("Camera_Trailor").transform.parent = trailorCamTr[_rand];
     }
 
-    void WeaponChanged(int weaponNum)
+    void OnWeaponA(InputAction.CallbackContext ctx) => ChangeWeapon(0);
+    void OnWeaponB(InputAction.CallbackContext ctx) => ChangeWeapon(1);
+    void OnWeaponC(InputAction.CallbackContext ctx) => ChangeWeapon(2);
+
+    void OnNextWeapon(InputAction.CallbackContext ctx)
     {
-        playerWeaponCon.WeaponChangeRequested(weaponNum);
+        int next = selectedWeapon + 1;
+        if (next > 2) next = 0;
+        ChangeWeapon(next);
     }
 
-    public void OnWeaponA()
+    void OnPrevWeapon(InputAction.CallbackContext ctx)
     {
-        selectedWeapon = 0;
-        WeaponChanged(selectedWeapon);
+        int prev = selectedWeapon - 1;
+        if (prev < 0) prev = 2;
+        ChangeWeapon(prev);
     }
 
-    public void OnWeaponB()
+    void ChangeWeapon(int idx)
     {
-        selectedWeapon = 1;
-        WeaponChanged(selectedWeapon);
+        selectedWeapon = idx;
+        playerWeaponCon?.WeaponChangeRequested(selectedWeapon);
     }
 
-    public void OnWeaponC()
-    {
-        selectedWeapon = 2;
-        WeaponChanged(selectedWeapon);
-    }
-
-    public void OnNextWeapon()
-    {
-        selectedWeapon++;
-
-        if(selectedWeapon > 2)
-        {
-            selectedWeapon = 0;
-        }
-
-        WeaponChanged(selectedWeapon);
-    }
-
-    public void OnPrevWeapon()
-    {
-        selectedWeapon--;
-
-        if (selectedWeapon < 0)
-        {
-            selectedWeapon = 2;
-        }
-        WeaponChanged(selectedWeapon);
-    }
-
-    public void Requested_WeaponReady(PlayerWeapon pWeapon) //PlayerWeapon에서 호출됨
-    {
-        weaponCur = pWeapon;
-    }
-
-    public void OnHideWeaponInfo()
+    void OnHideWeaponInfo(InputAction.CallbackContext ctx)
     {
         isInfoHide = !isInfoHide;
+        ES3.Save(infoHideData, isInfoHide);
         Debug.Log("Weapon Info Hide Toggled: " + isInfoHide);
+    }
 
-        ES3.Save<bool>(infoHideData, isInfoHide);
+    void OnDash(InputAction.CallbackContext ctx)
+    {
+        dashManager?.DashActive();
+    }
+
+    // ─────────────────────────────────────────────
+    public void Requested_WeaponReady(PlayerWeapon pWeapon)
+    {
+        weaponCur = pWeapon;
     }
 
     IEnumerator ReloadInvoke()
     {
         yield return new WaitForSeconds(0.05f);
-        weaponCur.Input_Reload();
-    }
-
-    public void OnDash()
-    {
-        dashManager.DashActive();
+        weaponCur?.Input_Reload();
     }
 }

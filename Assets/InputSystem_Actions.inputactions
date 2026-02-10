@@ -482,7 +482,18 @@
                     "path": "<Keyboard>/1",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "WeaponA",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "28b722a5-e70d-45d8-9039-e92940a4e36e",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
                     "action": "WeaponA",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -493,7 +504,18 @@
                     "path": "<Keyboard>/2",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "WeaponB",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "492040c8-ba24-46fe-b63c-a93bbe361958",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
                     "action": "WeaponB",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -504,7 +526,18 @@
                     "path": "<Keyboard>/3",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "WeaponC",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a93ec129-af7c-47d6-a3ca-031661733229",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
                     "action": "WeaponC",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -516,6 +549,17 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",
+                    "action": "NextWeapon",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "60baedbe-e4ef-438d-83dd-bade4b62af1f",
+                    "path": "<Keyboard>/4",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
                     "action": "NextWeapon",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -566,6 +610,17 @@
                 },
                 {
                     "name": "",
+                    "id": "bc03f831-ed5d-42d7-a4bd-1d95029d5757",
+                    "path": "<Keyboard>/backquote",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "PrevWeapon",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "b98ecf51-2b86-4994-a4f4-60429dbaa7a0",
                     "path": "<Gamepad>/leftStickPress",
                     "interactions": "",
@@ -592,7 +647,7 @@
                     "path": "<Keyboard>/h",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Keyboard&Mouse",
                     "action": "HideWeaponInfo",
                     "isComposite": false,
                     "isPartOfComposite": false
