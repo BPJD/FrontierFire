@@ -220,23 +220,26 @@ public class EnemyUnitAI_Controller : MonoBehaviour
     {
         while (stateCur == UnitState.Chase)
         {
-            RotateTowards(target.position);
-            aiWeaponAim.SetWeaponAimStat(true, target);
+            if(target != null)
+            {
+                RotateTowards(target.position);
+                aiWeaponAim.SetWeaponAimStat(true, target);
 
-            if (CheckPlayerInRange())
-            {
-                StateChange = UnitState.Attack;
-            }
-            else
-            {
-                chaseStackCur += 3;
-                if(chaseStackCur >= chaseStack)
+                if (CheckPlayerInRange())
                 {
-                    StateChange = UnitState.Return;
+                    StateChange = UnitState.Attack;
                 }
-            }
+                else
+                {
+                    chaseStackCur += 3;
+                    if (chaseStackCur >= chaseStack)
+                    {
+                        StateChange = UnitState.Return;
+                    }
+                }
 
-            yield return focusDelay;
+                yield return focusDelay;
+            }
         }
     }
 

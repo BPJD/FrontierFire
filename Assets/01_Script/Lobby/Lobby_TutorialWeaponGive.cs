@@ -6,18 +6,23 @@ public class Lobby_TutorialWeaponGive : MonoBehaviour
 
     [SerializeField] bool isWeaponGive = false;
 
+    [SerializeField] GameObject panelTutorial;
+
     private void OnTriggerEnter(Collider other)
     {
 
-        Debug.Log("Tutorial Weapon Give Triggered");
+        //Debug.Log("Tutorial Weapon Give Triggered");
         if (isWeaponGive)
         {
             lobbyController.PlayerWeaponEquip();
+            panelTutorial.SetActive(true);
         }
         else
         {
             lobbyController.PlayerWeaponUnEquip();
+            panelTutorial.SetActive(false);
         }
 
     }
+
 }

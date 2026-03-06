@@ -1,6 +1,6 @@
 using Michsky.UI.Heat;
-using UnityEditor.Search;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class MainUI_SettingGeneral : MonoBehaviour
 {
@@ -14,6 +14,23 @@ public class MainUI_SettingGeneral : MonoBehaviour
     int savedLanguageIndex = 0;
     public int selectedLanguageIndex = 0;
 
+    UI_InputDeviceDetector inputDetector;
+    [SerializeField] GameObject firstSelect;
+
+    private void OnEnable()
+    {
+        if (inputDetector == null)
+        {
+            inputDetector = GameObject.FindGameObjectWithTag("Module").GetComponent<UI_InputDeviceDetector>();
+        }
+
+        switch (inputDetector.currentInputType)
+        {
+            case UI_InputDeviceDetector.InputType.Gamepad:
+                EventSystem.current.SetSelectedGameObject(firstSelect);
+                break;
+        }
+    }
 
     public void SettingEnabled()
     {

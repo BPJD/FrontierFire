@@ -4826,6 +4826,7 @@ GameObject:
   - component: {fileID: 6653217220599784597}
   - component: {fileID: 6841094475104785729}
   - component: {fileID: 8775640080123622813}
+  - component: {fileID: 5700159577728712904}
   m_Layer: 25
   m_Name: PortalTeleport
   m_TagString: Portal
@@ -9726,6 +9727,43 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &5700159577728712904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1641540343107492139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4875170269b1cca4ca2293b24a9b71eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Item_ToolTip
+  title: Item Name
+  subTitle: Item Name
+  description: Item description...
+  titleColor: {r: 1, g: 1, b: 1, a: 1}
+  weaponStat:
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  player: {fileID: 0}
+  requireLineOfSight: 1
+  losMask:
+    serializedVersion: 2
+    m_Bits: 0
+  worldOffset: {x: 0, y: 3, z: 0}
+  tooltipType: 0
+  rootCanvas: {fileID: 0}
+  appearSpeed: 10
+  screenClamp: {x: -500, y: -500}
 --- !u!1 &2413356344639581360
 GameObject:
   m_ObjectHideFlags: 0

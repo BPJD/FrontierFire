@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class Item_ToolTip : MonoBehaviour
 {
     [Header("Tooltip Content")]
+    public Image toolTip_icon;
     public string title = "Item Name";
     public string subTitle = "Item Name";
     [TextArea] public string description = "Item description...";

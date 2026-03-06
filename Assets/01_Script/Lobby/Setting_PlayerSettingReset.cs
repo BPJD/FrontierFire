@@ -64,7 +64,7 @@ public class Setting_PlayerSettingReset : MonoBehaviour
         playCount++;
         ES3.Save(KEY_PLAY_COUNT, playCount);
 
-        Debug.Log(playCount + "th play.");
+        //Debug.Log(playCount + "th play.");
     }
 
     /// <summary>

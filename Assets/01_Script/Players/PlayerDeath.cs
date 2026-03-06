@@ -9,7 +9,7 @@ public class PlayerDeath : MonoBehaviour
     [SerializeField] PlayerWeaponController weaponControllerSystem;
     [SerializeField] PlayerInputController inputSystem;
     [SerializeField] Animator playerAni;
-
+    Direction_SceneChanger sceneChanger;
 
     private void OnEnable()
     {
@@ -18,21 +18,24 @@ public class PlayerDeath : MonoBehaviour
         moveSystem.enabled = false;
         lookMouseSystem.enabled = false;
         weaponControllerSystem.enabled = false;
-        inputSystem.enabled = false;
+        inputSystem.PlayerDead();
 
+        GameObject.FindGameObjectWithTag("Module").GetComponent<Direction_GameOver>().PlayerDead();
+        sceneChanger = GameObject.FindGameObjectWithTag("GameController").GetComponent<Direction_SceneChanger>();
+        sceneChanger.player = gameObject;
     }
 
     public void DeathAnimationPlay(int _hp, int _damage)
     {
-        if(_damage >= (int)_hp * 0.2f)
+        if(_damage >= (int)_hp * 0.3f)
         {
             playerAni.SetTrigger("Death_Explosive");
         }
-        else if(_damage >= (int)_hp * 0.1f)
+        else if(_damage >= (int)_hp * 0.15f)
         {
             playerAni.SetTrigger("Death_High");
         }
-        else if(_damage >= (int)_hp * 0.5f)
+        else if(_damage >= (int)_hp * 0.05f)
         {
             playerAni.SetTrigger("Death_Med");
         }
@@ -41,4 +44,5 @@ public class PlayerDeath : MonoBehaviour
             playerAni.SetTrigger("Death_Low");
         }
     }
+
 }

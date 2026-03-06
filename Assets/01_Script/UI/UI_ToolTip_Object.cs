@@ -66,9 +66,9 @@ public class UI_ToolTip_Object : MonoBehaviour
                 text_Desc.text = toolTip.description;
                 text_subName.text = toolTip.subTitle;
 
-                text_Name.color = toolTip.titleColor;
-                text_subName.color = toolTip.titleColor;
-                text_Name.faceColor = toolTip.titleColor;
+                //text_Name.color = toolTip.titleColor;
+                //text_subName.color = toolTip.titleColor;
+                //text_Name.faceColor = toolTip.titleColor;
                 break;
 
             case ObjectType.Weapon:

@@ -1,7 +1,8 @@
-using UnityEngine;
-using UnityEngine.UI;
 using Michsky.UI.Heat;
+using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class MainUi_SettingAudios : MonoBehaviour
 {
@@ -15,6 +16,9 @@ public class MainUi_SettingAudios : MonoBehaviour
 
     [SerializeField] Slider[] volumeSliders = new Slider[5];
     [SerializeField] SwitchManager[] muteSwitches = new SwitchManager[5];
+
+    UI_InputDeviceDetector inputDetector;
+    [SerializeField] GameObject firstSelect;
 
     [Header("AudioMixer")]
     [SerializeField] AudioMixer audioMixer;
@@ -32,6 +36,21 @@ public class MainUi_SettingAudios : MonoBehaviour
     };
 
     const float MUTE_DB = -80f;
+
+    private void OnEnable()
+    {
+        if (inputDetector == null)
+        {
+            inputDetector = GameObject.FindGameObjectWithTag("Module").GetComponent<UI_InputDeviceDetector>();
+        }
+
+        switch (inputDetector.currentInputType)
+        {
+            case UI_InputDeviceDetector.InputType.Gamepad:
+                EventSystem.current.SetSelectedGameObject(firstSelect);
+                break;
+        }
+    }
 
     public void SettingEnabled()
     {

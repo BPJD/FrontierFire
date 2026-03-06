@@ -25,9 +25,8 @@ public class PlayerInputController : MonoBehaviour
 
     const string A_HideWeaponInfo = "HideWeaponInfo";
     const string A_Dash = "Dash";
+    const string A_Menu = "Menu";
 
-    // (선택) 특정 액션맵만 쓰고 싶으면 지정. 비워두면 전체에서 검색.
-    // 네 스샷상 맵 이름이 "Player"로 보이니 기본값 "Player"로 둠.
     [SerializeField] string actionMapName = "Player";
 
     // ─────────────────────────────────────────────
@@ -40,6 +39,7 @@ public class PlayerInputController : MonoBehaviour
     PlayerWeaponController playerWeaponCon;
     ShieldManager abilityShield;
     PlayerDashManager dashManager;
+    UI_Paused uiPaused;
 
     public TerrainDownPlatform downPlatform { get; set; }
 
@@ -56,7 +56,7 @@ public class PlayerInputController : MonoBehaviour
 
     InputAction actInteract, actAiming, actSniperAiming, actMove, actJump, actDownJump,
                 actSprint, actAttack, actReload, actWeaponA, actWeaponB, actWeaponC,
-                actNextWeapon, actPrevWeapon, actHideWeaponInfo, actDash;
+                actNextWeapon, actPrevWeapon, actHideWeaponInfo, actDash, actMenu;
 
     bool _bound = false;
 
@@ -64,6 +64,8 @@ public class PlayerInputController : MonoBehaviour
 
     public GameObject playerModelObj;
     public GameObject playerWeaponObj;
+
+    bool isPlayerDead = false;
 
     void Awake()
     {
@@ -108,6 +110,7 @@ public class PlayerInputController : MonoBehaviour
     void ControllerReset()
     {
         module = GameObject.FindGameObjectWithTag("Module");
+        uiPaused = module != null ? module.GetComponentInChildren<UI_Paused>() : null;
         interacter = GetComponentInChildren<PlayerInteract>();
         camMoveSystem = module != null ? module.GetComponentInChildren<CameraMovingSystem>() : null;
         playerMove = GetComponent<PlayerMove>();
@@ -155,6 +158,7 @@ public class PlayerInputController : MonoBehaviour
 
             actHideWeaponInfo = map.FindAction(A_HideWeaponInfo, false);
             actDash = map.FindAction(A_Dash, false);
+            actMenu = map.FindAction(A_Menu, false);
         }
         else
         {
@@ -179,6 +183,7 @@ public class PlayerInputController : MonoBehaviour
 
             actHideWeaponInfo = actions.FindAction(A_HideWeaponInfo, false);
             actDash = actions.FindAction(A_Dash, false);
+            actMenu = actions.FindAction(A_Menu, false);
         }
 
         // (권장) 누락 액션 로그 - 초기에만 잡고 나중엔 꺼도 됨
@@ -229,6 +234,7 @@ public class PlayerInputController : MonoBehaviour
 
         Link(actHideWeaponInfo, performed: OnHideWeaponInfo, bind: bind);
         Link(actDash, performed: OnDash, bind: bind);
+        Link(actMenu, performed: OnMenu, bind: bind);
 
         // Enable 처리:
         // - PlayerInput이 액션맵 enable/disable을 관리하는 경우가 많아서,
@@ -395,10 +401,21 @@ public class PlayerInputController : MonoBehaviour
         dashManager?.DashActive();
     }
 
+    void OnMenu(InputAction.CallbackContext ctx)
+    {
+        uiPaused?.PauseUIActive();
+    }
+
     // ─────────────────────────────────────────────
     public void Requested_WeaponReady(PlayerWeapon pWeapon)
     {
         weaponCur = pWeapon;
+    }
+
+    public void PlayerDead()
+    {
+        playerInput.SwitchCurrentActionMap("UI");
+        // 사망 시 UI 액션맵으로 전환
     }
 
     IEnumerator ReloadInvoke()

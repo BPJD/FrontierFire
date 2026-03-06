@@ -1,6 +1,7 @@
 using Michsky.UI.Heat;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class MainUI_SettingVideos : MonoBehaviour
@@ -35,6 +36,10 @@ public class MainUI_SettingVideos : MonoBehaviour
     [SerializeField] TMP_InputField frameRateInputTxt;
     [SerializeField] TextMeshProUGUI unlimitTxt;
 
+
+    UI_InputDeviceDetector inputDetector;
+    [SerializeField] GameObject firstSelect;
+
     int selectedResolutionIndex = 0;
     int selectedFrameRateLimit = 60;
     int selectedQualityIndex = 0;
@@ -47,6 +52,21 @@ public class MainUI_SettingVideos : MonoBehaviour
     int savedScreenMode = 0;
     int savedQualityIndex = 0;
 
+
+    private void OnEnable()
+    {
+        if(inputDetector == null)
+        {
+            inputDetector = GameObject.FindGameObjectWithTag("Module").GetComponent<UI_InputDeviceDetector>();
+        }
+
+        switch (inputDetector.currentInputType)
+        {
+            case UI_InputDeviceDetector.InputType.Gamepad:
+                EventSystem.current.SetSelectedGameObject(firstSelect);
+                break;
+        }
+    }
 
     public void SettingEnabled()
     {

@@ -272,6 +272,11 @@ public class EnemyAttackSystem : MonoBehaviour
             line.AimSound();
             for (int i = 0; i < 10;)
             {
+                if(target == null)
+                {
+                    break;
+                }
+
                 Vector3 dir = (target.position + (Vector3.up * 1.25f) - fireTr.position).normalized;
                 if (CheckPlayerHit(fireTr.position, dir) != null)
                 {

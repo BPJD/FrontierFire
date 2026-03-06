@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class MainUI_SettingManager : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class MainUI_SettingManager : MonoBehaviour
     [SerializeField] MainUi_SettingAudios settingAudio;
     [SerializeField] MainUI_SettingKeyMapping[] settingKeyMappings;
     [SerializeField] MainUI_SettingGeneral settingGeneral;
+
+    [SerializeField] GameObject firstButton;
 
     private void Start()
     {
@@ -31,6 +34,8 @@ public class MainUI_SettingManager : MonoBehaviour
             settingKeyMappings[i].ForceRefreshLabel();
         }
         settingGeneral.SettingEnabled();
+
+        EventSystem.current.SetSelectedGameObject(firstButton);
     }
 
     public void Button_BackToMenuRequested()

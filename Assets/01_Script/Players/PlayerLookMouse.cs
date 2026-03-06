@@ -72,6 +72,34 @@ public class PlayerLookMouse : MonoBehaviour
     void OnSceneLoaded(Scene s, LoadSceneMode m) => TryBindCamera();
     void OnActiveSceneChanged(Scene oldS, Scene newS) => TryBindCamera();
 
+
+
+
+
+    // 일시정지로 인한 에임 차단
+
+    private bool _inputBlocked;
+
+    // 외부(PauseManager/UI)에서 호출
+    public void SetInputBlocked(bool blocked)
+    {
+        if (_inputBlocked == blocked) return;
+        _inputBlocked = blocked;
+
+        // 1) Update 차단은 _inputBlocked로 처리
+        // 2) 입력 이벤트 자체도 차단(선택: 둘 중 하나만 해도 되지만 둘 다가 가장 안전)
+        BindLookAction(!blocked);
+
+        // 3) 정지 순간 마지막 입력 잔류값 제거(스틱 유지/마우스 마지막 좌표 잔상 방지)
+        rightStick = Vector2.zero;
+        mouseScreenPos = Vector2.zero;
+    }
+
+    // 일시정지로 인한 에임 차단
+
+
+
+
     void TryBindCamera()
     {
         if (cam && cam.isActiveAndEnabled) return;
@@ -168,6 +196,7 @@ public class PlayerLookMouse : MonoBehaviour
 
     void Update()
     {
+        if (_inputBlocked) return;
         if (!cam) { TryBindCamera(); if (!cam) return; }
 
         if (useMouse)

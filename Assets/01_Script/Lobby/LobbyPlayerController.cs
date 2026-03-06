@@ -20,7 +20,9 @@ public class LobbyPlayerController : MonoBehaviour
 
     [SerializeField] Transform startPoint;
 
-    [SerializeField] GameObject inGameUI;
+    [SerializeField] GameObject[] inGameUI;
+
+    [SerializeField] GameObject canvas_Main;
 
     public bool isPlayerInLobby { get; set; } = false;
 
@@ -29,7 +31,7 @@ public class LobbyPlayerController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        inGameUI.SetActive(false);
+        InGameUIActive(false);
     }
 
     // Update is called once per frame
@@ -44,18 +46,46 @@ public class LobbyPlayerController : MonoBehaviour
                 playerWeapon = player.GetComponent<PlayerWeaponController>();
                 playerInputComp = player.GetComponent<PlayerInput>();
                 playerAnimator = player.GetComponentInChildren<Animator>();
-                PlayerInputEnableCheck();
+                ApplyLobbyState(isPlayerInLobby);
             }
         }
     }
 
-    void PlayerInputEnableCheck()
+    void InGameUIActive(bool isActive)
     {
-        playerInput.enabled = isPlayerInLobby;
-        playerInputComp.enabled = isPlayerInLobby;
-        playerInput.playerModelObj.SetActive(isPlayerInLobby);
-        playerInput.playerWeaponObj.SetActive(isPlayerInLobby);
-        playerAnimator.SetTrigger("NoneDraw");
+        for (int i = 0; i < inGameUI.Length; i++)
+        {
+            inGameUI[i].SetActive(isActive);
+        }
+    }
+
+    void ApplyLobbyState(bool inLobby)
+    {
+        // 1) 입력 컴포넌트는 끄지 말 것
+        if (playerInputComp != null)
+            playerInputComp.enabled = true;
+
+        if (playerInput != null)
+            playerInput.enabled = true;
+
+        // 2) 액션맵 전환 (여기서 UI/Player를 확정)
+        if (playerInputComp != null)
+        {
+            // 메인(=UI 화면)
+            if (!inLobby) playerInputComp.SwitchCurrentActionMap("UI");
+            // 로비(=플레이어 조작 구간이면 Player)
+            else playerInputComp.SwitchCurrentActionMap("Player");
+        }
+
+        // 3) 캐릭터 표시/무기 표시만 상태에 맞게
+        if (playerInput != null)
+        {
+            playerInput.playerModelObj.SetActive(inLobby);
+            playerInput.playerWeaponObj.SetActive(inLobby);
+        }
+
+        if (playerAnimator != null)
+            playerAnimator.SetTrigger("NoneDraw");
     }
 
 
@@ -63,6 +93,7 @@ public class LobbyPlayerController : MonoBehaviour
     {
         cam_Main.SetActive(false);
         cam_Player.SetActive(true);
+        canvas_Main.SetActive(false);
 
         StartCoroutine(PlayerInTheLobby());
 
@@ -72,6 +103,7 @@ public class LobbyPlayerController : MonoBehaviour
     {
         cam_Main.SetActive(true);
         cam_Player.SetActive(false);
+        canvas_Main.SetActive(true);
 
         StartCoroutine(PlayerOutTheLobby());
 
@@ -81,13 +113,15 @@ public class LobbyPlayerController : MonoBehaviour
     {
         PlayerWeaponUnEquip();
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSecondsRealtime(2f);
 
         isPlayerInLobby = true;
-        PlayerInputEnableCheck();
+        ApplyLobbyState(isPlayerInLobby);
 
         inLobbyIdleEft.Stop(true);
         inLobbyEft.Play(true);
+
+        //playerInputComp.SwitchCurrentActionMap("Player");
     }
 
 
@@ -95,12 +129,13 @@ public class LobbyPlayerController : MonoBehaviour
     {
         yield return null;
         isPlayerInLobby = false;
-        PlayerInputEnableCheck();
+        ApplyLobbyState(isPlayerInLobby);
 
         player.transform.position = startPoint.position;
 
         inLobbyIdleEft.Play(true);
-        
+
+        //playerInputComp.SwitchCurrentActionMap("UI");
     }
 
 
@@ -122,7 +157,7 @@ public class LobbyPlayerController : MonoBehaviour
         playerAnimator.SetTrigger("NoneDraw");
         isPlayerWeaponEquiped = false;
         playerWeapon.UIRefresh();
-        inGameUI.SetActive(false);
+        InGameUIActive(false);
     }
 
     public void PlayerWeaponEquip()
@@ -136,7 +171,7 @@ public class LobbyPlayerController : MonoBehaviour
         playerWeapon.GetWeapon(60000, 9999, 6, 0, null, 60);
 
         isPlayerWeaponEquiped = true;
-        inGameUI.SetActive(true);
+        InGameUIActive(true);
     }
 
 

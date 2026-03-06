@@ -17,6 +17,8 @@ public class GameSession : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         TryCachePlayer();  // ← 추가
+
+        Time.timeScale = 1f; // 게임 재시작 시 타임스케일 초기화
     }
 
     void OnEnable() => SceneManager.sceneLoaded += OnSceneLoaded;

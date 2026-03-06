@@ -38,6 +38,11 @@ public class CameraMovingSystem : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if(lookMouse == null)
+        {
+            return;
+        }
+
         Vector3 playerPos = lookMouse.playerTr.position + Vector3.up;
         if (playerMoveSystem.isAiming)
         {

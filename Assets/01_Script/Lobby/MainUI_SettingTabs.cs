@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class MainUI_SettingTabs : MonoBehaviour
@@ -12,6 +13,7 @@ public class MainUI_SettingTabs : MonoBehaviour
 
     [SerializeField] UITabIndicator tabIndicator;
 
+    [SerializeField] GameObject[] firstButtonsInTab;
 
 
     public void TabButtonClicked(int code)
@@ -22,6 +24,7 @@ public class MainUI_SettingTabs : MonoBehaviour
             {
                 tabPanels[i].SetActive(true);
                 tabIndicator.AnimateTo(tabButtons[i].GetComponent<RectTransform>());
+                EventSystem.current.SetSelectedGameObject(firstButtonsInTab[i]);
             }
             else
             {

@@ -13,4 +13,9 @@ public class GameSoundPlayer : MonoBehaviour
 
         soundPlayersByType[_soundType].PlayOneShot(clip);
     }
+
+    public AudioSource GetAudioSource(SoundType type)
+    {
+        return soundPlayersByType[(int)type];
+    }
 }

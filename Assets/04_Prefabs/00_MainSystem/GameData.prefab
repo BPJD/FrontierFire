@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 327075192566743020}
   - component: {fileID: 8948196741534254695}
   - component: {fileID: 1135267590636450884}
+  - component: {fileID: -6032585506736696374}
   m_Layer: 0
   m_Name: GameData
   m_TagString: Data
@@ -900,7 +901,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stageScenes:
-  - SampleScene 1
+  - Scene_Lobby
   - Scene_Stage00_Plain
   - Scene_Stage01_Ravine
   - Scene_Stage02_Cave
@@ -963,3 +964,38 @@ MonoBehaviour:
   A: {r: 1, g: 0, b: 1, a: 1}
   S: {r: 1, g: 1, b: 0, a: 1}
   SS: {r: 1, g: 0.21176471, b: 0, a: 1}
+--- !u!114 &-6032585506736696374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7852605363030451177}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4869d1991e9dff642bbd45ab198d0014, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DataKeyMapIcons
+  gamepad_A: {fileID: 21300000, guid: 43a34ba13f3e5954fb0425f3c8881d4f, type: 3}
+  gamepad_B: {fileID: 21300000, guid: f676630b4331f2841b20eb01539f9b50, type: 3}
+  gamepad_Y: {fileID: 21300000, guid: c8ea5c5dc5fabe14fb96884ae7885daf, type: 3}
+  gamepad_X: {fileID: 21300000, guid: f680ac90b92e6c94d9fc0dc4f787c1dd, type: 3}
+  gamepad_DpadUp: {fileID: 21300000, guid: e66dcb1b79ad56e4893235a93e41eccf, type: 3}
+  gamepad_DpadDown: {fileID: 21300000, guid: 06fe8b1b9ef75ab4a8f46ac4c00f2052, type: 3}
+  gamepad_DpadLeft: {fileID: 21300000, guid: fa310543dc518fe4fa69116f21d6f5d4, type: 3}
+  gamepad_DpadRight: {fileID: 21300000, guid: 1f1b606c24087614296523024803e384, type: 3}
+  gamepad_LeftBumper: {fileID: 21300000, guid: e1e2764daf9d42946ac6c3f496a8143b, type: 3}
+  gamepad_RightBumper: {fileID: 21300000, guid: 94a45320cd065dd499a7fa937e09bde7, type: 3}
+  gamepad_LeftTrigger: {fileID: 21300000, guid: 6a75a4d9224a1f9469f94f9b5dddbc4a, type: 3}
+  gamepad_RightTrigger: {fileID: 21300000, guid: 77c9e5554e1c19941a782cf268be30e6, type: 3}
+  gamepad_LeftStick: {fileID: 21300000, guid: e602b27893201fa45a4a672167c18af1, type: 3}
+  gamepad_RightStick: {fileID: 21300000, guid: cae7efc9d8ec1774cb5f7cb1eff49ae8, type: 3}
+  gamepad_Start: {fileID: 21300000, guid: 495b24d2428d0e043804f0dfe0aad7c6, type: 3}
+  gamepad_Select: {fileID: 21300000, guid: 55c99d9fa21977f4180eac203736793c, type: 3}
+  gamepad_L3: {fileID: 21300000, guid: aacb01082164d51498b1242f10a53f4a, type: 3}
+  gamepad_R3: {fileID: 21300000, guid: 09f3ae65968421143a93496d4e26c3e4, type: 3}
+  mouseLclick: {fileID: 21300000, guid: 0df60c699cc99c64c91643948eb1360e, type: 3}
+  mouseRclick: {fileID: 21300000, guid: c3a7690297d91b54e9cde9e64b171e71, type: 3}
+  mouseMclick: {fileID: 21300000, guid: e0687b3be7db73c499d9e3b9135521b2, type: 3}
+  firstSelect: {fileID: 0}
+  icon_Keyboard: {fileID: 0}
