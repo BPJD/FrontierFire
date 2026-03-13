@@ -6,7 +6,7 @@ public class WeaponParamsSO : ScriptableObject
     public string w_name;
     public string w_desc;
 
-    public enum WeaponTypes { Default, AutoRifle, BurstRifle, LightMG, SMG, ChargeRifle, Shotgun, LightSR, HeavyMG, Rocket, HeavySR, SpikeRifle }
+    public enum WeaponTypes { pDefault, AR, Burst, LMG, SMG, Charge, SG, LSR, HMG, Rocket, HSR, Spike }
     public enum Ammos { Default, Infantry, Armor }
     public enum AtkTypes { Normal, Piercing_Light, Piercing_Heavy, Fixed }
 

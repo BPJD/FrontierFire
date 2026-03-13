@@ -14,8 +14,6 @@ public class StatUpgradesSO : ScriptableObject
     public int up_stat;          // 0~11: UnitParams의 스탯 ID 기준
     public float up_value;       // 적용 수치 (정수든 소수든 float로 처리)
 
-    [Header("UI 설명")]
-    public string up_uiDesc;     // 예: 체력 100 증가
 
     [Header("모델링")]
     public int up_tier;          // 아이템 등급, D = 0 ~ SS = 5

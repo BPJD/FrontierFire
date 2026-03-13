@@ -68,7 +68,7 @@ public class WeaponParamsImporter : EditorWindow
                 so.w_type = (WeaponParamsSO.WeaponTypes)int.Parse(parts[3].Trim());
 
                 // 카메라 거리 증가 조건 적용
-                if (so.w_type == WeaponParamsSO.WeaponTypes.LightSR || so.w_type == WeaponParamsSO.WeaponTypes.HeavySR)
+                if (so.w_type == WeaponParamsSO.WeaponTypes.LSR || so.w_type == WeaponParamsSO.WeaponTypes.HSR)
                 {
                     so.isCamRangeUp = true;
                 }

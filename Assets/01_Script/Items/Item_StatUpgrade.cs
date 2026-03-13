@@ -1,5 +1,6 @@
 using UnityEngine;
 using static StatUpgradesSO;
+using static WeaponStatUpgradesSO;
 
 
 public class Item_StatUpgrade : MonoBehaviour, IInteractable
@@ -19,7 +20,7 @@ public class Item_StatUpgrade : MonoBehaviour, IInteractable
     Item_ToolTip toolTip;
     [SerializeField] Transform ItemTr;
     [SerializeField] AudioClip[] sounds_itemGet;
-
+    
 
     void Awake()
     {
@@ -35,14 +36,14 @@ public class Item_StatUpgrade : MonoBehaviour, IInteractable
     void SetComponent()
     {
         if (!player)
-            player = GameObject.FindGameObjectWithTag("Player");
+            player = GameObject.FindGameObjectWithTag(Data_Strings.playerTag);
 
         if (player && !playerStatUp)
             playerStatUp = player.GetComponent<UnitStatUpgrade>();
 
         if (!upgradeData || !upgradeProp)
         {
-            var dataObj = GameObject.FindGameObjectWithTag("Data");
+            var dataObj = GameObject.FindGameObjectWithTag(Data_Strings.DataObjTag);
             if (dataObj)
             {
                 upgradeData = dataObj.GetComponent<Data_StatUpgrades>();
@@ -80,20 +81,24 @@ public class Item_StatUpgrade : MonoBehaviour, IInteractable
 
         if (pack != null && pack.Count > 0)
         {
-            toolTip.title = pack[0].up_name;   // 같은 ID면 이름/설명 동일 가정
+            var first = pack[0];
+            toolTip.title = first.up_name;
+            toolTip.subTitle = itemTierColor.ReturnItemTier(first.up_tier, false);
+            toolTip.titleColor = itemTierColor.GetItemTierColor(first.up_tier, false);
+            toolTip.description = first.up_desc;
 
-            toolTip.subTitle = itemTierColor.ReturnItemTier(upgradeSO.up_tier, false);
-            toolTip.titleColor = itemTierColor.GetItemTierColor(upgradeSO.up_tier, false);
+            toolTip.weaponStat.Clear();
+            toolTip.weaponStatIds.Clear();
 
-            var sb = new System.Text.StringBuilder();
-            foreach (var so in pack)
-                if (!string.IsNullOrEmpty(so.up_uiDesc))
-                {
-                    sb.AppendLine(so.up_uiDesc);
-                }
-            toolTip.description = sb.ToString().TrimEnd();
-            
+            for (int i = 0; i < pack.Count; i++)
+            {
+                string statName = upgradeData.localize_statUp + upgradeData.loczlize_Stats[pack[i].up_stat];
+                string valueStr = ToolTipValue(pack[i].up_value, pack[i].up_type, pack[i].up_stat);
 
+                toolTip.weaponStat.Add(statName);
+                toolTip.weaponStat.Add(valueStr);
+                toolTip.weaponStatIds.Add(pack[i].up_stat);
+            }
 
             toolTip.UpdateToolTipUI();
         }
@@ -102,6 +107,49 @@ public class Item_StatUpgrade : MonoBehaviour, IInteractable
             // 폴백: 단일 SO 경로 (기존 그대로)
             // toolTip.title = upgradeSO.up_name; ...
         }
+    }
+
+    string ToolTipValue(float value, int type, int statID)
+    {
+        string _percentStr = "";
+        string _plusStr = "";
+        string _setStr = "";
+        if (IsToolTipDescPrintPercent(type, statID))
+        {
+            _percentStr = "%";
+        }
+
+        if(value > 0 && type != 2)
+        {
+            _plusStr = "+";
+        }
+
+        if (type == 2)
+        {
+            _setStr = ": ";
+        }
+
+        return _plusStr + _setStr + value + _percentStr;
+    }
+
+    bool IsToolTipDescPrintPercent(int type, int statID)
+    {
+        if (type == 1)
+        {
+            return true;
+        }
+        switch (statID)
+        {
+            case 3:
+            case 9:
+            case 10:
+            case 11:
+            case 12:
+            case 13:
+            case 14:
+                return true;
+        }
+        return false;
     }
 
     public bool TryInteract()

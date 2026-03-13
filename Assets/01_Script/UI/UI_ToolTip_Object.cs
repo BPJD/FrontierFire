@@ -13,7 +13,15 @@ public class UI_ToolTip_Object : MonoBehaviour
     [SerializeField] Image img_icon;
     [SerializeField] TextMeshProUGUI text_subName;
     [SerializeField] TextMeshProUGUI text_Desc;
-    [SerializeField] TextMeshProUGUI text_Name;
+    public TextMeshProUGUI text_Name;
+
+
+    [SerializeField] LocalizedObject localize_subName;
+    [SerializeField] LocalizedObject localize_desc;
+    [SerializeField] LocalizedObject localize_name;
+
+    [SerializeField] LocalizedObject localize_weaponType;
+    [SerializeField] LocalizedObject localize_weaponAmmo;
 
     [SerializeField] TextMeshProUGUI[] text_Stats = new TextMeshProUGUI[10];
     [SerializeField] TextMeshProUGUI[] text_CompareStats = new TextMeshProUGUI[10];
@@ -54,6 +62,12 @@ public class UI_ToolTip_Object : MonoBehaviour
     Coroutine compareCo;
 
 
+    [Header("EftInfo")]
+    [SerializeField] GameObject eftInfoObj;
+    [SerializeField] Transform eftInfoObjPar;
+
+
+
     public void SetText(Item_ToolTip toolTip)
     {
         itemToolTip = toolTip;
@@ -69,37 +83,107 @@ public class UI_ToolTip_Object : MonoBehaviour
                 //text_Name.color = toolTip.titleColor;
                 //text_subName.color = toolTip.titleColor;
                 //text_Name.faceColor = toolTip.titleColor;
+                UI_NormalToolTipTextSet _textSet = toolTip.GetComponent<UI_NormalToolTipTextSet>();
+                if(_textSet != null)
+                {
+                    toolTip.GetComponent<UI_NormalToolTipTextSet>().SetToolTipText(this);
+                }
                 break;
 
             case ObjectType.Weapon:
-                text_Name.text = toolTip.title;
-                text_subName.text = toolTip.subTitle;
-                text_Desc.text = toolTip.description;
+                //text_Name.text = toolTip.title;
+                //text_subName.text = toolTip.subTitle;
+                //text_Desc.text = toolTip.description;
+
+                localize_subName.localizationKey = toolTip.subTitle;
+                localize_name.localizationKey = toolTip.title;
+                localize_desc.localizationKey = toolTip.description;
 
                 text_Name.color = toolTip.titleColor;
                 text_subName.color = toolTip.titleColor;
 
-                for (int i = 0; i < text_Stats.Length && i < toolTip.weaponStat.Length; i++)
+                SetWeaponTypeString(toolTip.weaponStat[0]);
+                localize_weaponAmmo.localizationKey = toolTip.weaponStat[1];
+
+                for (int i = 2; i < text_Stats.Length; i++)
                 {
+                    if(i >= toolTip.weaponStat.Count)
+                    {
+                        toolTip.weaponStat.Add("");
+                    }
+
                     text_Stats[i].text = toolTip.weaponStat[i];
                 }
 
                 thisItemWeaponParams = toolTip.thisItemWeaponParams;
 
+
+                localize_name.UpdateItem();
+                localize_subName.UpdateItem();
+                localize_desc.UpdateItem();
+                localize_weaponAmmo.UpdateItem();
+                
+
                 StartCompareRoutine();
                 break;
 
             case ObjectType.Stat:
-                text_Name.text = toolTip.title;
+
+                localize_name.localizationKey = toolTip.title;
                 text_subName.text = toolTip.subTitle;
-                text_Desc.text = toolTip.description;
+                localize_desc.localizationKey = toolTip.description;
+
+                localize_name.UpdateItem();
+                localize_desc.UpdateItem();
+
+                if (eftInfoObjPar == null)
+                {
+                    return;
+                }
+
+                for (int i = eftInfoObjPar.childCount - 1; i >= 0; i--)
+                {
+                    Destroy(eftInfoObjPar.GetChild(i).gameObject);
+                }
+
+                for (int i = 0, statIndex = 0; i + 1 < toolTip.weaponStat.Count; i += 2, statIndex++)
+                {
+                    GameObject info = Instantiate(eftInfoObj, eftInfoObjPar);
+
+                    string statName = toolTip.weaponStat[i];
+                    string statValue = toolTip.weaponStat[i + 1];
+                    int statId = toolTip.weaponStatIds[statIndex];
+
+                    info.GetComponent<UI_UpgradeInfoItem>().SetUpgradeInfo(statName, statValue, statId);
+                }
 
                 text_Name.color = toolTip.titleColor;
                 text_subName.color = toolTip.titleColor;
                 break;
         }
 
+        
 
+
+
+        if (tr == null) tr = GetComponent<RectTransform>();
+        StartCoroutine(RefreshLayout(tr));
+
+
+    }
+
+    void SetWeaponTypeString(string type)
+    {
+        switch (type)
+        {
+            case "I":
+            case "II":
+                text_Stats[0].text = type;
+                break;
+            default:
+                localize_weaponType.localizationKey = type;
+                break;
+        }
     }
 
     public void ThisItemSelected(bool isSelected)
@@ -255,5 +339,13 @@ public class UI_ToolTip_Object : MonoBehaviour
             default:
                 return 0;
         }
+    }
+
+    private IEnumerator RefreshLayout(RectTransform rect)
+    {
+        yield return null; // 한 프레임 대기
+
+        Canvas.ForceUpdateCanvases();
+        LayoutRebuilder.ForceRebuildLayoutImmediate(rect);
     }
 }

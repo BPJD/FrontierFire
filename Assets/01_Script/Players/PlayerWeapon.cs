@@ -100,7 +100,7 @@ public class PlayerWeapon : MonoBehaviour
             behaviour.OnReloadComplete = OnReloadComplete;
         }
 
-        bulletCount = weaponStat.GetWeaponType() == WeaponParamsSO.WeaponTypes.Shotgun ? 8 : 1;
+        bulletCount = weaponStat.GetWeaponType() == WeaponParamsSO.WeaponTypes.SG ? 8 : 1;
         inputController.Requested_WeaponReady(this);
         quality = weaponStat.quality;
         abilityController = weaponController.gameObject.GetComponentInChildren<AbilityController>();

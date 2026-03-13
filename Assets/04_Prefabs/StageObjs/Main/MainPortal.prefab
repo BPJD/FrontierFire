@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 1160447724298037851}
   - component: {fileID: 436024431992612799}
   - component: {fileID: 7203679907321725347}
+  - component: {fileID: 3411614903124772547}
+  - component: {fileID: 431267447397240249}
   m_Layer: 25
   m_Name: MainPortal
   m_TagString: Portal
@@ -67,6 +69,58 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1796129e50b4e49479e44772a1296b2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3411614903124772547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6785059954874440915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4875170269b1cca4ca2293b24a9b71eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Item_ToolTip
+  toolTip_icon: {fileID: 0}
+  title: Item Name
+  subTitle: Item Name
+  description: Item description...
+  titleColor: {r: 1, g: 1, b: 1, a: 1}
+  weaponStat:
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  player: {fileID: 0}
+  requireLineOfSight: 1
+  losMask:
+    serializedVersion: 2
+    m_Bits: 0
+  worldOffset: {x: 0, y: 3, z: 0}
+  tooltipType: 0
+  rootCanvas: {fileID: 0}
+  appearSpeed: 10
+  screenClamp: {x: -500, y: -500}
+  normalToolTip_action: 6
+  normalToolTip_key: 1
+--- !u!114 &431267447397240249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6785059954874440915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3539cb094918994fbbb56405d5f1453, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UI_NormalToolTipTextSet
 --- !u!1001 &8631867555960977880
 PrefabInstance:
   m_ObjectHideFlags: 0

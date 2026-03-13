@@ -30,6 +30,8 @@ public class Item_Weapon : MonoBehaviour, IInteractable
 
     Item_ToolTip toolTip;
 
+    static string localize_wType = "wType_";
+
     void Start()
     {
         if (!isWeaponDropped)
@@ -132,12 +134,12 @@ public class Item_Weapon : MonoBehaviour, IInteractable
 
             // --- 2) 최종 스탯으로 툴팁 채우기 ---
             toolTip.title = _param.w_name;
-            toolTip.subTitle = _param.w_type.ToString();
+            toolTip.subTitle = localize_wType + _param.w_type.ToString();
             toolTip.titleColor = itemTierColorData.GetItemTierColor(quality, true);
             toolTip.description = _param.w_desc;
 
-            toolTip.weaponStat[0] = _param.w_atkType.ToString();
-            toolTip.weaponStat[1] = _param.w_usingAmmo.ToString();
+            toolTip.weaponStat[0] = AtkType(_param.w_atkType);
+            toolTip.weaponStat[1] = AmmoType(_param.w_usingAmmo);
             toolTip.weaponStat[2] = _param.w_atk.ToString("F0");
             toolTip.weaponStat[3] = _param.w_rpm.ToString("F0");
             toolTip.weaponStat[4] = _param.w_accuracy.ToString("F0");
@@ -153,16 +155,48 @@ public class Item_Weapon : MonoBehaviour, IInteractable
         }
     }
 
+    string AtkType(WeaponParamsSO.AtkTypes type)
+    {
+        switch (type)
+        {
+            case WeaponParamsSO.AtkTypes.Normal:
+                return "wPiercing_None";
+            case WeaponParamsSO.AtkTypes.Piercing_Light:
+                return "I";
+            case WeaponParamsSO.AtkTypes.Piercing_Heavy:
+                return "II";
+            case WeaponParamsSO.AtkTypes.Fixed:
+                return "wPiercing_Fixed";
+            default:
+                return "None";
+        }
+    }
+
+    string AmmoType(WeaponParamsSO.Ammos ammo)
+    {
+        switch (ammo)
+        {
+            case WeaponParamsSO.Ammos.Default:
+                return "wAmmo_Default";
+            case WeaponParamsSO.Ammos.Infantry:
+                return "wAmmo_Infantry";
+            case WeaponParamsSO.Ammos.Armor:
+                return "wAmmo_Armor";
+            default:
+                return "wPiercing_None";
+        }
+    }
+
 
     public bool TryInteract()
     {
         PlayerWeaponController weaponController = player.GetComponent<PlayerWeaponController>();
-        if(pWeaponData.GetWeaponStatSO(weaponID).w_type != WeaponParamsSO.WeaponTypes.Default && weaponController.weaponCur == 2 && weaponController.isSlotFull)
+        if(pWeaponData.GetWeaponStatSO(weaponID).w_type != WeaponParamsSO.WeaponTypes.pDefault && weaponController.weaponCur == 2 && weaponController.isSlotFull)
         {
             Debug.Log("보조무기만 착용 가능한 슬롯입니다.");
             return false;
         }
-        else if (pWeaponData.GetWeaponStatSO(weaponID).w_type == WeaponParamsSO.WeaponTypes.Default && weaponController.weaponCur != 2)
+        else if (pWeaponData.GetWeaponStatSO(weaponID).w_type == WeaponParamsSO.WeaponTypes.pDefault && weaponController.weaponCur != 2)
         {
             Debug.Log("보조무기 슬롯에만 착용 가능합니다.");
             return false;

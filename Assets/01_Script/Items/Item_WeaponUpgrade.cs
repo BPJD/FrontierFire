@@ -54,13 +54,13 @@ public class Item_WeaponUpgrade : MonoBehaviour, IInteractable
     void SetComponent()
     {
         if (!player)
-            player = GameObject.FindGameObjectWithTag("Player");
+            player = GameObject.FindGameObjectWithTag(Data_Strings.playerTag);
 
         weaponController = player.GetComponent<PlayerWeaponController>();
 
         if (!upgradeData || !upgradeModelData)
         {
-            var dataObj = GameObject.FindGameObjectWithTag("Data");
+            var dataObj = GameObject.FindGameObjectWithTag(Data_Strings.DataObjTag);
             if (dataObj)
             {
                 upgradeData = dataObj.GetComponent<Data_WeaponStatUpgrades>();

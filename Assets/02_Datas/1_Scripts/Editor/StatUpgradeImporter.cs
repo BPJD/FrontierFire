@@ -69,10 +69,10 @@ public class StatUpgradeImporter : EditorWindow
                 string line = raw.Trim();
                 string[] parts = ParseCsvLine(line);
 
-                // 기대 컬럼(9개): id, up_name, up_desc, up_type, up_stat, up_value, up_uiDesc, up_class, up_category
-                if (parts.Length < 9)
+                // 기대 컬럼(8개): id, up_name, up_desc, up_type, up_stat, up_value, up_class, up_category
+                if (parts.Length < 8)
                 {
-                    Debug.LogWarning($"[{i}] 줄 생략됨 - 필드 부족 ({parts.Length}/9): {line}");
+                    Debug.LogWarning($"[{i}] 줄 생략됨 - 필드 부족 ({parts.Length}/8): {line}");
                     continue;
                 }
 
@@ -83,14 +83,12 @@ public class StatUpgradeImporter : EditorWindow
                     string up_name = UnescapeCsv(parts[1]);
                     string up_desc = UnescapeCsv(parts[2]);
 
-                    int up_type = Mathf.Clamp(SafeParseInt(parts[3]), 0, 1);             // 0/1
+                    int up_type = Mathf.Clamp(SafeParseInt(parts[3]), 0, 2);             // 0~2
                     int up_stat = Mathf.Clamp(SafeParseInt(parts[4]), 0, 30);            // 0~30
-                    float up_value = SafeParseFloat(parts[5]);                            // InvariantCulture
+                    float up_value = SafeParseFloat(parts[5]);      
 
-                    string up_uiDesc = UnescapeCsv(parts[6]);
-
-                    int up_tier = Mathf.Clamp(SafeParseInt(parts[7]), 0, 5);            // D=0 ~ SS=5
-                    int up_category = Mathf.Clamp(SafeParseInt(parts[8]), 0, 5);         // 0~5
+                    int up_tier = Mathf.Clamp(SafeParseInt(parts[6]), 0, 5);            // D=0 ~ SS=5
+                    int up_category = Mathf.Clamp(SafeParseInt(parts[7]), 0, 5);         // 0~5
 
                     // ID별 순번 증가
                     if (!idCounters.TryGetValue(id, out int counter)) counter = 0;
@@ -105,7 +103,6 @@ public class StatUpgradeImporter : EditorWindow
                     so.up_type = up_type;
                     so.up_stat = up_stat;
                     so.up_value = up_value;
-                    so.up_uiDesc = up_uiDesc;
                     so.up_tier = up_tier;
                     so.up_category = up_category;
 

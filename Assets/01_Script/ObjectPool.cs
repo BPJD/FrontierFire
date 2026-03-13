@@ -106,7 +106,7 @@ public class ObjectPool : MonoBehaviour
         parentTr = poolParent ? poolParent.transform : null;
 
         // 샷건 데미지 계수 재설정
-        if (weaponStat != null && weaponStat.GetWeaponType() == WeaponParamsSO.WeaponTypes.Shotgun)
+        if (weaponStat != null && weaponStat.GetWeaponType() == WeaponParamsSO.WeaponTypes.SG)
         {
             damageRevisionShotGun = 0.125f;
             isShotGun = true;

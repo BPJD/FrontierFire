@@ -1,69 +1,54 @@
 using Michsky.UI.Heat;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class UI_NormalToolTipTextSet : MonoBehaviour
+public class UI_WeaponToolTipIconSet : MonoBehaviour
 {
-    public enum SettedAction { None, Interact, Teleport, NextStage, OpenBox, ItemGet, GameStart }
-    SettedAction action = SettedAction.None;
-
-    public enum SettedKey { None, Interact, HideWeapon }
     static string[] keyStrings = { "None", "Interact", "HideWeaponInfo" };
-    static string localizeKey = "ToolTipKey_";
 
-    SettedKey settedKey = SettedKey.Interact;
+    [SerializeField] UI_NormalToolTipTextSet.SettedKey settedKey = UI_NormalToolTipTextSet.SettedKey.Interact;
 
-    Item_ToolTip toolTip;
     string key;
-    int keyCode = 0;
 
     PlayerInput playerInput;
     UI_InputDeviceDetector inputDeviceDetector;
 
     DataKeyMapIcons data_keyIcons;
 
-    LocalizedObject localize;
+    [SerializeField] Image icon;
+    [SerializeField] TextMeshProUGUI keyText;
 
-    UI_ToolTip_Object tooltipObj;
 
-
-    public void SetToolTipText(UI_ToolTip_Object _tooltipObj)
+    void Start()
     {
-        tooltipObj = _tooltipObj;
-        toolTip = GetComponent<Item_ToolTip>();
-        settedKey = toolTip.normalToolTip_key;
-        action = toolTip.normalToolTip_action;
 
         playerInput = GameObject.FindGameObjectWithTag(Data_Strings.playerTag).GetComponent<PlayerInput>();
         inputDeviceDetector = GameObject.FindGameObjectWithTag("Module").GetComponent<UI_InputDeviceDetector>();
 
-        if (settedKey != SettedKey.None)
+        if (settedKey != UI_NormalToolTipTextSet.SettedKey.None)
         {
             data_keyIcons = GameObject.FindGameObjectWithTag(Data_Strings.DataObjTag)
                 .GetComponent<DataKeyMapIcons>();
 
-            keyCode = (int)settedKey;
-            key = GetBindingDisplay(playerInput, keyStrings[keyCode]);
-            _tooltipObj.text_Name.text = key;
+            key = GetBindingDisplay(playerInput, keyStrings[(int)settedKey]);
+            keyText.text = key;
 
-            if (action != SettedAction.None)
-                SetText(localizeKey + action.ToString());
-
-            Image _Icon = toolTip.toolTip_icon;
-            if (_Icon != null)
+            
+            if (icon != null)
             {
                 bool _isGamePad =
                     inputDeviceDetector.currentInputType == UI_InputDeviceDetector.InputType.Gamepad;
 
                 if (_isGamePad)
                 {
-                    _Icon.sprite = data_keyIcons.GetGamepadIcon(key);
-                    _Icon.enabled = true;
+                    icon.sprite = data_keyIcons.GetGamepadIcon(key);
+                    icon.enabled = true;
                 }
                 else
                 {
-                    _Icon.enabled = false;
+                    icon.enabled = false;
                 }
             }
 
@@ -100,14 +85,6 @@ public class UI_NormalToolTipTextSet : MonoBehaviour
         return action.GetBindingDisplayString();
     }
 
-
-    void SetText(string key)
-    {
-        localize = tooltipObj.GetComponent<LocalizedObject>();
-
-        localize.localizationKey = key;
-        localize.UpdateItem();
-    }
 }
 
 

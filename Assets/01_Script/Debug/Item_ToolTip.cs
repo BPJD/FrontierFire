@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro; // TextMeshPro 쓴다면
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class Item_ToolTip : MonoBehaviour
 {
@@ -12,7 +13,9 @@ public class Item_ToolTip : MonoBehaviour
     public Color titleColor = Color.white;
 
     [Header("Weapon ToolTip Content")]
-    public string[] weaponStat = new string[10];
+    public List<string> weaponStat = new List<string>();
+    public List<int> weaponStatIds = new List<int>();
+    //public string[] weaponStat = new string[10];
 
     [Header("Trigger / Visibility")]
     [SerializeField] Transform player;               // 없으면 Start에서 자동 탐색
@@ -26,6 +29,9 @@ public class Item_ToolTip : MonoBehaviour
     [SerializeField] Canvas rootCanvas;              // Screen Space Canvas
     [SerializeField] float appearSpeed = 10f;        // 페이드 속도
     [SerializeField] Vector2 screenClamp = new Vector2(8, 8); // 화면 경계 여백(px)
+    public UI_NormalToolTipTextSet.SettedAction normalToolTip_action;
+    public UI_NormalToolTipTextSet.SettedKey normalToolTip_key;
+
 
     Camera cam;
     RectTransform ui;        // 인스턴스
@@ -99,8 +105,8 @@ public class Item_ToolTip : MonoBehaviour
             toolTip_Object = ui.gameObject.GetComponent<UI_ToolTip_Object>();
             UpdateToolTipUI();
 
-            cg.alpha = 0f; // 시작은 숨김
 
+            cg.alpha = 0f; // 시작은 숨김
 
             isComponentSelected = true;
         }
@@ -216,6 +222,7 @@ public class Item_ToolTip : MonoBehaviour
         if (toolTip_Object != null)
         {
             toolTip_Object.SetText(this);
+
         }
         else if(!isComponentSelected)
         {

@@ -17,6 +17,13 @@ public class Data_StatUpgrades : MonoBehaviour
     private Dictionary<int, StatUpgradesSO> statUpDict;
 
 
+
+
+    public readonly string localize_statUp = "Stat_";
+    public readonly string[] loczlize_Stats =
+        { "hp", "atk", "def", "immune", "armorlv", "speed", "jump", "multijump", "acc", "crirate",
+        "cridmg", "dmg", "ammoget", "ammomax", "droprate", "heal", "healrate" };
+
     [SerializeField]
     RarityWeight[] defaultRarityWeights = new RarityWeight[]
     {

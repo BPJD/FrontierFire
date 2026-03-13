@@ -242,11 +242,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4875170269b1cca4ca2293b24a9b71eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  toolTip_icon: {fileID: 0}
   title: Item Name
   subTitle: Item Name
   description: Item description...
   titleColor: {r: 0, g: 0, b: 0, a: 1}
   weaponStat:
+  - 
   - 
   - 
   - 
@@ -267,6 +269,8 @@ MonoBehaviour:
   rootCanvas: {fileID: 0}
   appearSpeed: 10
   screenClamp: {x: -500, y: -500}
+  normalToolTip_action: 0
+  normalToolTip_key: 0
 --- !u!1 &3940606129626356569
 GameObject:
   m_ObjectHideFlags: 0
