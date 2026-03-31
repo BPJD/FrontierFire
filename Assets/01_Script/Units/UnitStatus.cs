@@ -78,11 +78,16 @@ public class UnitStatus : MonoBehaviour
     }
 
 
-    public void UnitGetHeal(int _heal, bool isUIPrint)
+    public void UnitGetHeal(int _heal, bool isUIPrint, bool isPercentValue = false)
     {
         if(gameObject.CompareTag(Data_Strings.DeadUnitTag))
         {
             return;
+        }
+
+        if(isPercentValue)
+        {
+            _heal = Mathf.RoundToInt(unitParams.u_hp * (_heal * 0.01f));
         }
 
         hpCur = Mathf.Clamp(hpCur + _heal, 0, unitParams.u_hp);

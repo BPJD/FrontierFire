@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 public class Setting_PlayerSettingReset : MonoBehaviour
 {
     [SerializeField] MainUI_SettingVideos settingVideo;
-    [SerializeField] MainUi_SettingAudios settingAudio;
+    [SerializeField] MainUI_SettingAudios settingAudio;
 
     // -----------------------
     // ES3 Files
@@ -83,7 +83,7 @@ public class Setting_PlayerSettingReset : MonoBehaviour
     {
         // 볼륨(0~100 기준이라고 가정)
         ES3.Save(KEY_VOL_MASTER, 70);
-        ES3.Save(KEY_VOL_BGM, 70);
+        ES3.Save(KEY_VOL_BGM, 40);
         ES3.Save(KEY_VOL_SFX, 70);
         ES3.Save(KEY_VOL_AMBIENT, 70);
         ES3.Save(KEY_VOL_UI, 70);

@@ -4,7 +4,7 @@ using UnityEngine.Audio;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class MainUi_SettingAudios : MonoBehaviour
+public class MainUI_SettingAudios : MonoBehaviour
 {
     MainUI_SettingManager settingManager;
 
@@ -58,7 +58,7 @@ public class MainUi_SettingAudios : MonoBehaviour
             settingManager = GetComponentInParent<MainUI_SettingManager>();
 
         savedVolumes[0] = ES3.Load("Setting_Volume_Master", 70);
-        savedVolumes[1] = ES3.Load("Setting_Volume_BGM", 70);
+        savedVolumes[1] = ES3.Load("Setting_Volume_BGM", 40);
         savedVolumes[2] = ES3.Load("Setting_Volume_SFX", 70);
         savedVolumes[3] = ES3.Load("Setting_Volume_Ambient", 70);
         savedVolumes[4] = ES3.Load("Setting_Volume_UI", 70);

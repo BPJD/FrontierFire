@@ -59,6 +59,8 @@ public class BossBomberNormalWeapon : MonoBehaviour
 
     IEnumerator GunShoot()
     {
+        yield return new WaitForSeconds(3f);
+
         while (bossStatus.isBossLive)
         {
             if (thisAI.normalAttackCount > thisAI.normalAttackCountCur && !thisAI.isPatternUsing && Vector3.Distance(transform.position, target.position) <= w_range)

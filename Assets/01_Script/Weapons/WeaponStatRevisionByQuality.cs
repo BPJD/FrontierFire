@@ -37,9 +37,9 @@ public class WeaponStatRevisionByQuality
 
     /// <summary>
     /// quality(0~100) ¡æ revision(0.4~1.25) ¸ÅÇÎ
-    /// 0   ¡æ 0.4
+    /// 0   ¡æ 0.6
     /// 60  ¡æ 1.0
-    /// 100 ¡æ 1.25
+    /// 100 ¡æ 1.2
     /// </summary>
     static float CalcRevisionByQuality(int quality)
     {
@@ -48,12 +48,12 @@ public class WeaponStatRevisionByQuality
         if (quality <= 60)
         {
             float t = quality / 60f; // 0~1
-            return Mathf.Lerp(0.4f, 1.0f, t);
+            return Mathf.Lerp(0.6f, 1.0f, t);
         }
         else
         {
             float t = (quality - 60f) / 40f; // 0~1
-            return Mathf.Lerp(1.0f, 1.25f, t);
+            return Mathf.Lerp(1.0f, 1.2f, t);
         }
     }
 }

@@ -1217,6 +1217,7 @@ GameObject:
   - component: {fileID: 2780040717573767507}
   - component: {fileID: -8622037473351516625}
   - component: {fileID: 5083723868367457007}
+  - component: {fileID: -5775294624479444039}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -1328,6 +1329,9 @@ MonoBehaviour:
   airAccel: 10
   airPenaltyNormal: 1
   airPenaltyCarried: 1.5
+  jumpSound_ground: {fileID: 8300000, guid: 2ef4694d8d8597a42b494cf649b7f402, type: 3}
+  jumpSound_air: {fileID: 8300000, guid: f91434e8d2147a84fb0291cebdff09a6, type: 3}
+  jumpSound_land: {fileID: 8300000, guid: e8e4d0ea566b15f4d8342c6528d7ba6b, type: 3}
 --- !u!114 &1381370749277979608
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1524,206 +1528,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22d7466e9c08d9e4996ffe09443360e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interact:
-    m_UseReference: 0
-    m_Action:
-      m_Name: Interact
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: 6ad7cf8b-bece-4d03-a7d7-b217f1ed327b
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings:
-      - m_Name: 
-        m_Id: 437582b4-e6f1-4a75-879f-cfe118689dc6
-        m_Path: 
-        m_Interactions: 
-        m_Processors: 
-        m_Groups: 
-        m_Action: Interact
-        m_Flags: 0
-      m_Flags: 0
-    m_Reference: {fileID: 0}
-  aiming:
-    m_UseReference: 0
-    m_Action:
-      m_Name: Aiming
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: facf24f5-beba-4646-96de-dd624c37a686
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: 0}
-  sniperAiming:
-    m_UseReference: 0
-    m_Action:
-      m_Name: Sniper Aiming
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: 7dc2f788-afd8-46b1-b6e0-33bd932b5885
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: 0}
-  move:
-    m_UseReference: 0
-    m_Action:
-      m_Name: Move
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: d31b7e56-e735-4ffc-b23c-544452bca7dc
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: 0}
-  jump:
-    m_UseReference: 0
-    m_Action:
-      m_Name: Jump
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: c5fbb705-69e0-44c2-91cd-e70a26aa0e80
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: 0}
-  downJump:
-    m_UseReference: 0
-    m_Action:
-      m_Name: Down Jump
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: 611b694b-6fc0-4848-a7d0-8645cf96bd97
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: 0}
-  sprint:
-    m_UseReference: 0
-    m_Action:
-      m_Name: Sprint
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: da486468-972c-478e-b8af-a787fb57ab17
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: 0}
-  attack:
-    m_UseReference: 0
-    m_Action:
-      m_Name: Attack
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: 6215cdba-0b3b-4d0f-b83d-84f49d10bff7
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: 0}
-  reload:
-    m_UseReference: 0
-    m_Action:
-      m_Name: Reload
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: c148ebbe-9c7f-4f54-96a3-5f3ac9a7c209
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: 0}
-  weaponA:
-    m_UseReference: 0
-    m_Action:
-      m_Name: Weapon A
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: e459b943-880c-49ca-bfae-4d9bc2aaea12
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: 0}
-  weaponB:
-    m_UseReference: 0
-    m_Action:
-      m_Name: Weapon B
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: 305bda7d-e4cc-479f-9ef7-626a07376b80
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: 0}
-  weaponC:
-    m_UseReference: 0
-    m_Action:
-      m_Name: Weapon C
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: 83e7933b-0d1c-475b-aa0a-a728c212e1da
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: 0}
-  nextWeapon:
-    m_UseReference: 0
-    m_Action:
-      m_Name: Next Weapon
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: 9ff8da32-aa40-4c56-b117-3c058babc244
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: 0}
-  prevWeapon:
-    m_UseReference: 0
-    m_Action:
-      m_Name: Prev Weapon
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: 02d7a835-08d9-454c-ad3a-744fb3e26928
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: 0}
-  hideWeaponInfo:
-    m_UseReference: 0
-    m_Action:
-      m_Name: Hide Weapon Info
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: 1b8370ac-1253-4f81-8782-eac55fc8dea2
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: 0}
-  dash:
-    m_UseReference: 0
-    m_Action:
-      m_Name: Dash
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: 65c8df7b-be6c-4702-a650-17f5ac270b4b
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: 0}
+  actionMapName: Player
   isSprintToggle: 1
   playerModelObj: {fileID: 3618415851350365957}
   playerWeaponObj: {fileID: 2956643341203964043}
@@ -1891,6 +1696,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29b100a710c33c64cbf026d7d4a2ba08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHeal
+  healFlag: {fileID: 591319862219358347, guid: 3966dfebda0424347b810f661c358664, type: 3}
+--- !u!81 &-5775294624479444039
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1825717185774971834}
+  m_Enabled: 1
 --- !u!1 &2021507610512779178
 GameObject:
   m_ObjectHideFlags: 0

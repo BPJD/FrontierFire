@@ -37,11 +37,11 @@ public class Item_AbilityUpgrade : MonoBehaviour, IInteractable
     void SetComponent()
     {
         if (!player)
-            player = GameObject.FindGameObjectWithTag("Player");
+            player = GameObject.FindGameObjectWithTag(Data_Strings.playerTag);
 
         if (!upgradeProp)
         {
-            var dataObj = GameObject.FindGameObjectWithTag("Data");
+            var dataObj = GameObject.FindGameObjectWithTag(Data_Strings.DataObjTag);
             if (dataObj)
                 upgradeProp = dataObj.GetComponent<Data_UpgradeModels>();
         }
@@ -78,7 +78,6 @@ public class Item_AbilityUpgrade : MonoBehaviour, IInteractable
         if (toolTip == null)
             return;
 
-        // CSV DB 준비 확인
         if (UpgradeTextDB.I == null || !UpgradeTextDB.I.IsReady)
         {
             Debug.LogWarning("[Item_AbilityUpgrade] UpgradeTextDB not ready");
@@ -87,24 +86,13 @@ public class Item_AbilityUpgrade : MonoBehaviour, IInteractable
 
         if (!UpgradeTextDB.I.TryGet(100 + upStatID, out var row))
         {
-            Debug.LogWarning($"[Item_AbilityUpgrade] No CSV row for ID={upStatID}");
+            Debug.LogWarning($"[Item_AbilityUpgrade] No CSV row for ID={100 + upStatID}");
             return;
         }
 
-        // ---- 여기부터 StatUpgrade와 동일한 책임 ----
-        toolTip.title = row.name;
-        toolTip.subTitle = row.name;
-
-        if (!string.IsNullOrEmpty(row.desc) && !string.IsNullOrEmpty(row.effect))
-        {
-            toolTip.description = $"{row.desc}\n{row.effect}";
-        }
-        else
-        {
-            toolTip.description = string.IsNullOrEmpty(row.desc)
-                ? row.effect
-                : row.desc;
-        }
+        toolTip.title = row.name ?? string.Empty;
+        toolTip.subTitle = row.desc ?? string.Empty;
+        toolTip.description = row.effect ?? string.Empty;
 
         toolTip.UpdateToolTipUI();
     }

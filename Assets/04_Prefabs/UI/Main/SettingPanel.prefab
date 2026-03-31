@@ -3815,6 +3815,7 @@ GameObject:
   - component: {fileID: 2242980663614203896}
   - component: {fileID: 5760785124439457671}
   - component: {fileID: 7202270797895877632}
+  - component: {fileID: 7580700070169756512}
   m_Layer: 5
   m_Name: ButtonCancel
   m_TagString: Untagged
@@ -3952,6 +3953,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 0
+--- !u!114 &7580700070169756512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 518311023272609724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efc2fc407cf287745b4df9913e70134e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Michsky.UI.Heat.LocalizedObject
+  localizationSettings: {fileID: 11400000, guid: 2cbd73cf0fc79bf4ab2e27e18b1ba7c8, type: 2}
+  textObj: {fileID: 0}
+  audioObj: {fileID: 0}
+  imageObj: {fileID: 0}
+  tableIndex: 0
+  localizationKey: Setting_ButtonNo
+  objectType: 0
+  updateMode: 0
+  rebuildLayoutOnUpdate: 0
+  forceAddToManager: 0
+  showOutputOnEditor: 1
+  onLanguageChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  isInitialized: 0
 --- !u!1 &532779159114491130
 GameObject:
   m_ObjectHideFlags: 0
@@ -4933,7 +4961,6 @@ GameObject:
   - component: {fileID: 5530983789181155885}
   - component: {fileID: 7548691497931756332}
   - component: {fileID: 7612926566023861291}
-  - component: {fileID: 1041415007020702015}
   - component: {fileID: 6007181120680457419}
   - component: {fileID: 2604628697801430096}
   m_Layer: 5
@@ -5003,36 +5030,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &1041415007020702015
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 709802078834760804}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.PlayerInput
-  m_Actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  m_NotificationBehavior: 0
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents: []
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
-  m_DefaultActionMap: UI
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
 --- !u!114 &6007181120680457419
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9712,6 +9709,7 @@ GameObject:
   - component: {fileID: 5683336344087992594}
   - component: {fileID: 371345615706669521}
   - component: {fileID: 959750116541667604}
+  - component: {fileID: 1030150857347112523}
   m_Layer: 5
   m_Name: ButtonSave
   m_TagString: Untagged
@@ -9849,6 +9847,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 0
+--- !u!114 &1030150857347112523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1498089680287742897}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efc2fc407cf287745b4df9913e70134e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Michsky.UI.Heat.LocalizedObject
+  localizationSettings: {fileID: 11400000, guid: 2cbd73cf0fc79bf4ab2e27e18b1ba7c8, type: 2}
+  textObj: {fileID: 0}
+  audioObj: {fileID: 0}
+  imageObj: {fileID: 0}
+  tableIndex: 0
+  localizationKey: Setting_ButtonYes
+  objectType: 0
+  updateMode: 0
+  rebuildLayoutOnUpdate: 0
+  forceAddToManager: 0
+  showOutputOnEditor: 1
+  onLanguageChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  isInitialized: 0
 --- !u!1 &1537532650552933890
 GameObject:
   m_ObjectHideFlags: 0
@@ -11881,7 +11906,7 @@ MonoBehaviour:
   audioObj: {fileID: 0}
   imageObj: {fileID: 0}
   tableIndex: 0
-  localizationKey: 
+  localizationKey: Setting_ConfirmTitle
   objectType: 0
   updateMode: 0
   rebuildLayoutOnUpdate: 0
@@ -21166,7 +21191,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 60.5, y: -17.5}
+  m_AnchoredPosition: {x: 0, y: -17.5}
   m_SizeDelta: {x: 0, y: 35}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!225 &5437152341092118744
@@ -27714,7 +27739,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 791056839438963785}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.62539685
+  m_Size: 0.57301587
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -36997,10 +37022,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 7590506020294497051}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 60.5, y: -17.5}
-  m_SizeDelta: {x: 85, y: 35}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6644470778876354961
 CanvasRenderer:
@@ -47815,7 +47840,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 60.5, y: -17.5}
-  m_SizeDelta: {x: 85, y: 35}
+  m_SizeDelta: {x: 0, y: 35}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4012728592911327201
 CanvasRenderer:
@@ -48587,7 +48612,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 60.5, y: -17.5}
+  m_AnchoredPosition: {x: 0, y: -17.5}
   m_SizeDelta: {x: 0, y: 35}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!225 &7173553530969411476
@@ -48817,7 +48842,7 @@ MonoBehaviour:
   audioObj: {fileID: 0}
   imageObj: {fileID: 0}
   tableIndex: 0
-  localizationKey: 
+  localizationKey: Setting_ConfirmDesc
   objectType: 0
   updateMode: 0
   rebuildLayoutOnUpdate: 0
@@ -49461,10 +49486,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 6180121246894055688}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 48.33, y: -25}
-  m_SizeDelta: {x: 85, y: 50}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3614750323709134294
 CanvasRenderer:
@@ -50358,7 +50383,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 60.5, y: -17.5}
-  m_SizeDelta: {x: 0, y: 35}
+  m_SizeDelta: {x: 121, y: 35}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!225 &2468694823768916777
 CanvasGroup:
@@ -53883,7 +53908,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 60.5, y: -17.5}
+  m_AnchoredPosition: {x: 18, y: -17.5}
   m_SizeDelta: {x: 85, y: 35}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3305705391557410118

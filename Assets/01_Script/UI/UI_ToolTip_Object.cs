@@ -6,7 +6,7 @@ using System.Collections;
 
 public class UI_ToolTip_Object : MonoBehaviour
 {
-    public enum ObjectType { Normal, Weapon, Stat };
+    public enum ObjectType { Normal, Weapon, StatUp, WeaponUp, Ability };
 
     public ObjectType type = ObjectType.Normal;
 
@@ -127,7 +127,7 @@ public class UI_ToolTip_Object : MonoBehaviour
                 StartCompareRoutine();
                 break;
 
-            case ObjectType.Stat:
+            case ObjectType.StatUp:
 
                 localize_name.localizationKey = toolTip.title;
                 text_subName.text = toolTip.subTitle;
@@ -137,16 +137,18 @@ public class UI_ToolTip_Object : MonoBehaviour
                 localize_desc.UpdateItem();
 
                 if (eftInfoObjPar == null)
-                {
                     return;
-                }
 
                 for (int i = eftInfoObjPar.childCount - 1; i >= 0; i--)
                 {
                     Destroy(eftInfoObjPar.GetChild(i).gameObject);
                 }
 
-                for (int i = 0, statIndex = 0; i + 1 < toolTip.weaponStat.Count; i += 2, statIndex++)
+                Debug.Log($"weaponStat.Count={toolTip.weaponStat.Count}, weaponStatIds.Count={toolTip.weaponStatIds.Count}");
+
+                for (int i = 0, statIndex = 0;
+                     i + 1 < toolTip.weaponStat.Count && statIndex < toolTip.weaponStatIds.Count;
+                     i += 2, statIndex++)
                 {
                     GameObject info = Instantiate(eftInfoObj, eftInfoObjPar);
 
@@ -160,6 +162,20 @@ public class UI_ToolTip_Object : MonoBehaviour
                 text_Name.color = toolTip.titleColor;
                 text_subName.color = toolTip.titleColor;
                 break;
+
+            case ObjectType.Ability:
+
+                localize_name.localizationKey = toolTip.title;
+                localize_subName.localizationKey = toolTip.subTitle;
+                localize_desc.localizationKey = toolTip.description;
+
+                localize_name.UpdateItem();
+                localize_desc.UpdateItem();
+                localize_subName.UpdateItem();
+
+                break;
+
+
         }
 
         

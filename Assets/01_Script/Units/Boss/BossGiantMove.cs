@@ -31,7 +31,7 @@ public class BossGiantMove : MonoBehaviour
     float directionVel = 0f;
 
 
-    private void Start()
+    private void OnEnable()
     {
         tr = transform;
         unitStat = GetComponent<UnitStatus>();

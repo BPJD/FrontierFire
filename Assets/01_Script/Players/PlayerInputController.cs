@@ -43,11 +43,12 @@ public class PlayerInputController : MonoBehaviour
 
     public TerrainDownPlatform downPlatform { get; set; }
 
-    int selectedWeapon = 0;
+    int selectedWeapon = 2;
     public bool isInfoHide { get; private set; } = false;
     public static string infoHideData = "IsWeaponInfoHide";
 
     public bool isSprintToggle = true;
+    public bool IsInputLocked { get; private set; } = false;
 
     // 式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式
     // Input
@@ -280,6 +281,7 @@ public class PlayerInputController : MonoBehaviour
 
     void OnInteract(InputAction.CallbackContext ctx)
     {
+        if (IsInputLocked) return;
         interacter?.Interacted();
     }
 
@@ -319,6 +321,12 @@ public class PlayerInputController : MonoBehaviour
     {
         if (playerMove == null) return;
 
+        if (IsInputLocked)
+        {
+            playerMove.MoveRequested(Vector2.zero);
+            return;
+        }
+
         Vector2 v = ctx.ReadValue<Vector2>();
         playerMove.MoveRequested(v);
 
@@ -328,6 +336,7 @@ public class PlayerInputController : MonoBehaviour
 
     void OnJump(InputAction.CallbackContext ctx)
     {
+        if (IsInputLocked) return;
         playerMove?.JumpRequested();
     }
 
@@ -349,11 +358,13 @@ public class PlayerInputController : MonoBehaviour
 
     void OnAttackDown(InputAction.CallbackContext ctx)
     {
+        if (IsInputLocked) return;
         weaponCur?.Input_Shoot(true);
     }
 
     void OnAttackUp(InputAction.CallbackContext ctx)
     {
+        if (IsInputLocked) return;
         weaponCur?.Input_Shoot(false);
     }
 
@@ -362,7 +373,10 @@ public class PlayerInputController : MonoBehaviour
         if (playerWeaponCon == null || interacter == null) return;
 
         if (playerWeaponCon.playersWeapons[selectedWeapon] != null && interacter.SelectedObj == null)
+        {
             StartCoroutine(ReloadInvoke());
+        }
+            
     }
 
     void OnWeaponA(InputAction.CallbackContext ctx) => ChangeWeapon(0);
@@ -403,6 +417,7 @@ public class PlayerInputController : MonoBehaviour
 
     void OnMenu(InputAction.CallbackContext ctx)
     {
+        if (IsInputLocked) return;
         uiPaused?.PauseUIActive();
     }
 
@@ -422,5 +437,37 @@ public class PlayerInputController : MonoBehaviour
     {
         yield return new WaitForSeconds(0.05f);
         weaponCur?.Input_Reload();
+    }
+
+
+    public void SetInputLock(bool locked)
+    {
+        IsInputLocked = locked;
+
+        if (locked)
+        {
+            ForceStopAllPlayerActions();
+        }
+    }
+
+    void ForceStopAllPlayerActions()
+    {
+        if (playerMove != null)
+        {
+            playerMove.MoveRequested(Vector2.zero);
+            playerMove.SprintEndRequested();
+            playerMove.isAiming = false;
+        }
+
+        camMoveSystem?.CamSpeedSet(false);
+        abilityShield?.ShieldActivate(false);
+
+        if (camMoveSystem != null)
+            camMoveSystem.isSniAiming = false;
+
+        weaponCur?.Input_Shoot(false);
+
+        if (weaponCur != null && weaponCur.laserScope != null)
+            weaponCur.ScopeControl(false);
     }
 }

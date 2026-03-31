@@ -100,27 +100,70 @@ public class Item_WeaponUpgrade : MonoBehaviour, IInteractable
         if (toolTip == null || upgradeData == null || upgradeSO == null) return;
 
         var pack = upgradeData.GetAllUpgrades(upStatID);
+        if (pack == null || pack.Count == 0) return;
 
-        // 대표 기준(이미 upgradeSO가 대표)
-        toolTip.title = upgradeSO.up_name;
-        toolTip.subTitle = itemTierColor.ReturnItemTier(upgradeSO.up_tier, false);
-        toolTip.titleColor = itemTierColor.GetItemTierColor(upgradeSO.up_tier, false);
+        var first = pack[0];
+        toolTip.title = first.up_name;
+        toolTip.subTitle = itemTierColor.ReturnItemTier(first.up_tier, false);
+        toolTip.titleColor = itemTierColor.GetItemTierColor(first.up_tier, false);
+        toolTip.description = first.up_desc;
 
-        if (pack == null || pack.Count == 0)
+        toolTip.weaponStat.Clear();
+        toolTip.weaponStatIds.Clear();
+
+        for (int i = 0; i < pack.Count; i++)
         {
-            toolTip.description = upgradeSO.up_uiDesc;
-            toolTip.UpdateToolTipUI();
-            return;
+            string statName = upgradeData.localize_statUp + upgradeData.loczlize_Stats[pack[i].up_stat];
+            string valueStr = ToolTipValue(pack[i].up_value, pack[i].up_type, pack[i].up_stat);
+
+            toolTip.weaponStat.Add(statName);
+            toolTip.weaponStat.Add(valueStr);
+            toolTip.weaponStatIds.Add(pack[i].up_stat);
         }
 
-        var sb = new StringBuilder();
-        foreach (var so in pack)
-        {
-            if (!string.IsNullOrEmpty(so.up_uiDesc))
-                sb.AppendLine(so.up_uiDesc);
-        }
-        toolTip.description = sb.ToString().TrimEnd();
         toolTip.UpdateToolTipUI();
+    }
+
+    string ToolTipValue(float value, int type, int statID)
+    {
+        string _percentStr = "";
+        string _plusStr = "";
+        string _setStr = "";
+        if (IsToolTipDescPrintPercent(type, statID))
+        {
+            _percentStr = "%";
+
+            if(type == 1)
+            {
+                value = Mathf.Floor(value * 100f);
+            }
+        }
+
+        if (value > 0 && type != 2)
+        {
+            _plusStr = "+";
+        }
+
+        if (type == 2)
+        {
+            _setStr = ": ";
+        }
+
+        return _plusStr + _setStr + value + _percentStr;
+    }
+
+    bool IsToolTipDescPrintPercent(int type, int statID)
+    {
+        if (type == 1)
+        {
+            return true;
+        }
+        switch (statID)
+        {
+            case 13:
+                return true;
+        }
+        return false;
     }
 
     public bool TryInteract()

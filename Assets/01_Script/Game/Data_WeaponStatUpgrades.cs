@@ -38,6 +38,13 @@ public class Data_WeaponStatUpgrades : MonoBehaviour
     private Dictionary<WeaponItemTier, HashSet<int>> rarityBuckets;
     private bool bucketsBuilt = false;
 
+
+    public readonly string localize_statUp = "Weapon_";
+    public readonly string[] loczlize_Stats =
+        { "atk", "rpm", "mag", "reload", "quality", "acc", "proj", "ammomax", "type",
+        "range", "dmg", "exprad", "pointer", "absorb" };
+
+
     void Awake()
     {
         BuildDict();

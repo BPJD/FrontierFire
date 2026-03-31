@@ -17,6 +17,7 @@ public class BossControlSystem : MonoBehaviour
             stageModule.isBossStage = true;
         }
         
+
     }
 
     public void BossDead()

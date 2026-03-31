@@ -26,7 +26,7 @@ public class Control_Stage : MonoBehaviour
     {
         if (stageData == null)
         {
-            GameObject dataObj = GameObject.FindGameObjectWithTag("Data");
+            GameObject dataObj = GameObject.FindGameObjectWithTag(Data_Strings.DataObjTag);
             stageData = dataObj.GetComponent<Data_Stages>();
         }
     }

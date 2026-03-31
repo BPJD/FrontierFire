@@ -177,6 +177,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4875170269b1cca4ca2293b24a9b71eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  toolTip_icon: {fileID: 0}
   title: Item Name
   subTitle: Item Name
   description: Item description...
@@ -190,16 +191,19 @@ MonoBehaviour:
   - 
   - 
   - 
+  weaponStatIds: 
   player: {fileID: 0}
   requireLineOfSight: 1
   losMask:
     serializedVersion: 2
     m_Bits: 0
   worldOffset: {x: 0, y: 1.5, z: 0}
-  tooltipType: 2
+  tooltipType: 3
   rootCanvas: {fileID: 0}
   appearSpeed: 10
   screenClamp: {x: -500, y: -500}
+  normalToolTip_action: 0
+  normalToolTip_key: 0
 --- !u!1 &2295534976068823528
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,6 +8,7 @@ public class PlayerMove : MonoBehaviour
 
     Rigidbody playerRig;
     public bool isJumping { get; set; }
+    public bool isGrounded { get; private set; } = true;
     public bool externalMoveLock { get; private set; } = false;
 
     int jumpCount = 0;
@@ -50,6 +51,11 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] float airPenaltyCarried = 0.75f; // 스프린트 관성 시 공중 패널티(착지 전까지 유지)
     bool wasSprintingBeforeAir = false;               // 공중 진입 직전 스프린트 여부
 
+    AudioSource playerAudio;
+    [SerializeField] AudioClip jumpSound_ground;
+    [SerializeField] AudioClip jumpSound_air;
+    [SerializeField] AudioClip jumpSound_land;
+
 
     float velX = 0f; // 실제 적용할 수평 속도( m/s )
     float airVelX = 0f;   // 공중 수평 관성 속도 (m/s)
@@ -60,6 +66,7 @@ public class PlayerMove : MonoBehaviour
         playerRig = GetComponent<Rigidbody>();
         aniCon = GetComponentInChildren<Animator>();
         playerStat = GetComponent<UnitStatus>();
+        playerAudio = GetComponent<AudioSource>();
         SpeedSet();
     }
     public void SetExternalMoveLock(bool v)
@@ -103,10 +110,25 @@ public class PlayerMove : MonoBehaviour
 
     public void JumpRequested()
     {
-        if (!isJumping || jumpCount < jumpCountMax)
+        if (externalMoveLock) return;
+
+        // 지상 점프
+        if (isGrounded)
         {
+            jumpCount = 1;
             playerJump();
+
+            playerAudio.PlayOneShot(jumpSound_ground);
+            return;
+        }
+
+        // 공중 추가 점프
+        if (jumpCount < jumpCountMax)
+        {
             jumpCount++;
+            playerJump();
+
+            playerAudio.PlayOneShot(jumpSound_air);
         }
     }
 
@@ -174,17 +196,18 @@ public class PlayerMove : MonoBehaviour
 
     void playerJump()
     {
-        // 공중 진입 직전 스프린트 상태 기록 (입력 데드존 동일 적용)
+        // 공중 진입 직전 스프린트 상태 기록
         bool sprintActiveNow = isSprinting && isSprintable && !isJumping && Mathf.Abs(moveDir) > 0.05f;
         wasSprintingBeforeAir = sprintActiveNow;
 
+        isGrounded = false;
         isJumping = true;
         aniCon.SetBool("IsAir", true);
 
-        // 점프 직전 지상 수평속도를 공중 속도로 고정 (관성 보존)
+        // 점프 직전 속도를 공중 속도로 넘김
         airVelX = speedCur * playerStat.moveSpeed;
 
-        float _jumpPower = Mathf.Clamp(playerStat.jumpPower, 8f, playerStat.jumpPower);
+        float _jumpPower = Mathf.Max(playerStat.jumpPower, 8f);
 
         playerRig.linearVelocity = new Vector3(
             playerRig.linearVelocity.x,
@@ -198,40 +221,50 @@ public class PlayerMove : MonoBehaviour
 
     public void GroundCheck()
     {
-        // 상태 전환은 호출부가 보증한다고 보고 그대로 유지
+        // 이미 지상 상태면 중복 처리 방지
+        if (isGrounded) return;
+
+        // 상승 중에는 착지 처리 금지
+        if (playerRig.linearVelocity.y > 0.1f) return;
+
+        isGrounded = true;
         isJumping = false;
         jumpCount = 0;
 
-        float vy = playerRig.linearVelocity.y;
-        //if (vy <= 0f) // 필요시 -0.1f 등으로 조절
-            aniCon.SetBool("IsAir", false);
+        aniCon.SetBool("IsAir", false);
 
-        // 기존 속도 동기화 로직 유지
         float denom = Mathf.Max(playerStat.moveSpeed, 0.0001f);
         speedCur = Mathf.Clamp(airVelX / denom, -1f, 1f);
         airVelX = 0f;
 
-        if (playerCol && groundMaterial) playerCol.material = groundMaterial;
+        if (playerCol && groundMaterial)
+            playerCol.material = groundMaterial;
 
         wasSprintingBeforeAir = false;
+
+        playerAudio.PlayOneShot(jumpSound_land);
     }
 
 
     public void PlayerFalling()
     {
-        // 지상 → 낙하 전환 시에도 스프린트 관성 인정
+        // 이미 공중 상태면 중복 처리 안 함
+        if (!isGrounded) return;
+
         bool sprintActiveNow = isSprinting && isSprintable && !isJumping && Mathf.Abs(moveDir) > 0.05f;
         wasSprintingBeforeAir = sprintActiveNow;
 
-        if (!isJumping) { jumpCount++; }
+        isGrounded = false;
         isJumping = true;
         aniCon.SetBool("IsAir", true);
 
-        // 지상 속도를 공중 관성으로 넘겨 끊김 방지
+        // 낙하는 점프 사용 횟수를 증가시키지 않음
         airVelX = speedCur * playerStat.moveSpeed;
 
-        if (playerCol && airMaterial) playerCol.material = airMaterial;
-        Debug.Log("Falling");
+        if (playerCol && airMaterial)
+            playerCol.material = airMaterial;
+
+        //Debug.Log("Falling");
     }
 
 

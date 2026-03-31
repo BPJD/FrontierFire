@@ -38,16 +38,26 @@ public class StageModule : MonoBehaviour
 
     [SerializeField] bool isMainStage = false;
 
+    [SerializeField] AudioClip stageBgm;
+    Direction_BGMPlay bgmPlayer;
+
     GameObject data;
 
     void Start()
     {
-        data = GameObject.FindGameObjectWithTag("Data");
+        data = GameObject.FindGameObjectWithTag(Data_Strings.DataObjTag);
         portalData = data.GetComponent<DataPortals>();
         enemyData = data.GetComponent<Data_Enemies>();
         rewardData = data.GetComponent<Data_RewardObjs>();
-        playerUnit = GameObject.FindGameObjectWithTag("Player");
+        playerUnit = GameObject.FindGameObjectWithTag(Data_Strings.playerTag);
         soundPlayer = GameObject.FindGameObjectWithTag("Sound").GetComponent<GameSoundPlayer>();
+        bgmPlayer = soundPlayer.gameObject.GetComponent<Direction_BGMPlay>();
+
+        if (stageBgm != null)
+        {
+            bgmPlayer.PlayBGM(stageBgm, 3f);
+        }
+
         clipData = soundPlayer.gameObject.GetComponent<Data_AudioClips>();
         broadcastManager = GetComponent<EnemyAIBroadcastManager>();
 
@@ -179,12 +189,30 @@ public class StageModule : MonoBehaviour
 
             playerUnit.GetComponent<PlayerStageOut>().returnPos = playerUnit.transform.position;
         }
+
+        bgmPlayer.FadeCurrentVolume(1f, 1f);
     }
 
     public void BossStageClear()
     {
-        PortalGenerate();
-        DropRewards();
+        StartCoroutine(BossClear());
+    }
+
+    IEnumerator BossClear()
+    {
+        yield return new WaitForSeconds(1.5f);
+        Control_Stage _stageCon = GameObject.FindGameObjectWithTag("GameController").GetComponent<Control_Stage>();
+        Data_Scenes _sceneData = data.GetComponent<Data_Scenes>();
+        if (_stageCon.worldCur == _sceneData.stageScenes.Length - 1)
+        {
+            GameObject _module = GameObject.FindGameObjectWithTag("Module");
+            _module.GetComponent<Direction_GameOver>().GameWin();
+        }
+        else
+        {
+            PortalGenerate();
+            DropRewards();
+        }
     }
 
     void PortalGenerate()
@@ -196,17 +224,19 @@ public class StageModule : MonoBehaviour
             _clip = clipData.GetPortalSoundClipByPortalType(2);
             Instantiate(portalData.portalObjs[2], portalPoints[0].position, Quaternion.identity, transform);
             soundPlayer.GameSoundPlayByType(_clip, portalSoundType);
+            bgmPlayer.StopBGM(2f);
         }
         else
         {
             soundPlayer.GameSoundPlayByType(_clip, portalSoundType);
             if (isBossStage)
             {
+
                 Instantiate(portalData.stageClearPortalObj, portalPoints[0].position, Quaternion.identity, transform);
             }
             else
             {
-
+                bgmPlayer.FadeCurrentVolume(0.5f, 2f);
                 for (int i = 0; i < portalPoints.Length; i++)
                 {
                     int _rand = Random.Range(0, 2);
@@ -226,6 +256,8 @@ public class StageModule : MonoBehaviour
         {
             Instantiate(rewardObjs[i], playerUnit.transform.position, Quaternion.identity);
         }
+
+        playerUnit.GetComponent<PlayerHeal>().HealFlag();
     }
 
 
@@ -245,7 +277,7 @@ public class StageModule : MonoBehaviour
     {
         if(rewardData == null)
         {
-            data = GameObject.FindGameObjectWithTag("Data");
+            data = GameObject.FindGameObjectWithTag(Data_Strings.DataObjTag);
             rewardData = data.GetComponent<Data_RewardObjs>();
         }
 

@@ -138,7 +138,7 @@ public class Bullet : MonoBehaviour
         }
         else if(other.CompareTag(Data_Strings.terrainTag))
         {
-            if (!isExplode || hitSound_terrains.Length != 0)
+            if (!isExplode && hitSound_terrains.Length != 0)
             {
                 int randIndex = Random.Range(0, hitSound_terrains.Length);
                 muzzleEft.gameObject.GetComponent<Bullet_MuzzlePlayer>().PlayMuzzleSound(hitSound_terrains[randIndex]);

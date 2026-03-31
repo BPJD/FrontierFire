@@ -47,6 +47,7 @@ public class BossGiantAttackControl : MonoBehaviour
 
     IEnumerator PatternRoll()
     {
+        yield return new WaitForSeconds(2f);
         while (bossState.isBossLive)
         {
             // ★ 스턴 상태면 패턴 로직 완전 정지

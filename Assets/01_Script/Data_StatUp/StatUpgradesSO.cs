@@ -10,7 +10,7 @@ public class StatUpgradesSO : ScriptableObject
     public string up_desc;       // 예: 체력을 강화한다.
 
     [Header("강화 설정")]
-    public int up_type;          // 0 = 합연산, 1 = 곱연산
+    public int up_type;          // 0 = 합연산, 1 = 곱연산, 2 = 절대값 설정
     public int up_stat;          // 0~11: UnitParams의 스탯 ID 기준
     public float up_value;       // 적용 수치 (정수든 소수든 float로 처리)
 

@@ -16,8 +16,6 @@ public class WeaponStatUpgradesSO : ScriptableObject
     public int up_tier;          // 아이템의 등급
     public int up_model;          // 아이템의 모델링
 
-    [Header("UI 설명")]
-    public string up_uiDesc;     // 예: 체력 100 증가
 
     public enum UpgradeType
     {

@@ -6,6 +6,8 @@ public class PlayerHeal : MonoBehaviour
 
     float healCooldownCur = 0;
 
+    [SerializeField] GameObject healFlag;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -24,6 +26,11 @@ public class PlayerHeal : MonoBehaviour
             unitStat.UnitGetHeal(unitStat.hpRegen, false);
             healCooldownCur = unitStat.hpRegenSpeed;
         }
+    }
+
+    public void HealFlag()
+    {
+        Instantiate(healFlag, transform.position, Quaternion.identity);
     }
 
 

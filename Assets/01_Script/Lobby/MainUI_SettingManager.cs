@@ -12,7 +12,7 @@ public class MainUI_SettingManager : MonoBehaviour
 
 
     [SerializeField] MainUI_SettingVideos settingVideo;
-    [SerializeField] MainUi_SettingAudios settingAudio;
+    [SerializeField] MainUI_SettingAudios settingAudio;
     [SerializeField] MainUI_SettingKeyMapping[] settingKeyMappings;
     [SerializeField] MainUI_SettingGeneral settingGeneral;
 

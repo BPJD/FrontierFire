@@ -59,7 +59,7 @@ public class WeaponStatUpParamsImporter : EditorWindow
 
             string[] parts = ParseCsvLine(line);
 
-            // 기대 컬럼: 7개 (id, up_name, up_desc, up_type, up_stat, up_value, up_uiDesc)
+            // 기대 컬럼: 7개 (id, up_name, up_desc, up_type, up_stat, up_value, up_tier, up_model)
             if (parts.Length < 7)
             {
                 Debug.LogWarning($"[{i}] 줄 생략됨 - 필드 부족 ({parts.Length})개");
@@ -72,11 +72,12 @@ public class WeaponStatUpParamsImporter : EditorWindow
                 int.TryParse(parts[0].Trim(), out id);
 
                 string up_name = parts[1];
+
                 string up_desc = parts[2];
 
-                int up_type = 0;  // 0:Add, 1:Multiply
+                int up_type = 0;  // 0:Add, 1:Multiply, 2:Set
                 int.TryParse(parts[3].Trim(), out up_type);
-                up_type = Mathf.Clamp(up_type, 0, 1);
+                up_type = Mathf.Clamp(up_type, 0, 2);
 
                 int up_stat = 0;  // CSV상의 stat 인덱스
                 int.TryParse(parts[4].Trim(), out up_stat);
@@ -85,13 +86,11 @@ public class WeaponStatUpParamsImporter : EditorWindow
                 float up_value = 0f;
                 float.TryParse(parts[5].Trim(), NumberStyles.Float, CultureInfo.InvariantCulture, out up_value);
 
-                string up_uiDesc = parts[6];
-
                 int up_tier = 0; //아이템 등급
-                int.TryParse(parts[7].Trim(), out up_tier);
+                int.TryParse(parts[6].Trim(), out up_tier);
 
                 int up_model = 0; //아이템 모델링
-                int.TryParse(parts[8].Trim(), out up_model);
+                int.TryParse(parts[7].Trim(), out up_model);
 
                 // 같은 ID라도 모든 행을 SO로 생성 (덮어쓰기 방지: 순번 부여)
                 if (!idCounters.TryGetValue(id, out int counter)) counter = 0;
@@ -108,7 +107,6 @@ public class WeaponStatUpParamsImporter : EditorWindow
                 so.up_type = up_type;
                 so.up_stat = up_stat;
                 so.up_value = up_value;
-                so.up_uiDesc = up_uiDesc;
                 so.up_tier = up_tier;
                 so.up_model = up_model;
 

@@ -227,8 +227,8 @@ MonoBehaviour:
   propAmmoCur: 1
   weaponPickCount: 0
   quality: 60
-  qualityMax: 65
-  qualityMin: 55
+  qualityMax: 75
+  qualityMin: 45
   isWeaponDropped: 0
 --- !u!114 &5696789864940267929
 MonoBehaviour:
@@ -259,6 +259,7 @@ MonoBehaviour:
   - 
   - 
   - 
+  weaponStatIds: 
   player: {fileID: 0}
   requireLineOfSight: 1
   losMask:

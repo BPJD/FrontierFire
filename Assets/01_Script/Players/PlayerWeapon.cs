@@ -316,6 +316,10 @@ public class PlayerWeapon : MonoBehaviour
             }
             
         }
+        else
+        {
+            uiWeapon = GameObject.Find("UI").GetComponent<UI_Weapon>();
+        }
     }
 
     public int GetAmmoCur()

@@ -49,6 +49,7 @@ public class BossBomberLookPlayer : MonoBehaviour
 
 
 
+
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag(Data_Strings.playerTag).transform;
@@ -61,6 +62,12 @@ public class BossBomberLookPlayer : MonoBehaviour
 
         aniCon = GetComponentInChildren<Animator>();
 
+        StartBattle();
+    }
+
+
+    public void StartBattle()
+    {
         StartCoroutine(PatternMove());
     }
 
@@ -77,6 +84,8 @@ public class BossBomberLookPlayer : MonoBehaviour
 
     IEnumerator PatternMove()
     {
+
+
         while (bossStatus.isBossLive)
         {
             float moveDelay = 0.5f;

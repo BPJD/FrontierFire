@@ -41,6 +41,8 @@ public class BossGiantAttackSystem : MonoBehaviour
 
     [SerializeField] Transform leftFoot, rightHand;
 
+    Direction_Camera direction_Camera;
+
 
     void Start()
     {
@@ -51,6 +53,7 @@ public class BossGiantAttackSystem : MonoBehaviour
         target = GameObject.FindGameObjectWithTag(Data_Strings.playerTag).transform;
         tr = transform;
         targetBox = GetComponentInChildren<BossGiant_TargetBox>();
+        direction_Camera = GameObject.FindGameObjectWithTag("GameController").GetComponent<Direction_Camera>();
     }
 
 
@@ -80,11 +83,13 @@ public class BossGiantAttackSystem : MonoBehaviour
     {
         StartCoroutine(EnemyGenerate());
         ShockExplode(DamagePayLoad(stompDamageRevision), leftFoot.position);
+        direction_Camera.Direction_Shake(0.5f, 0.3f);
     }
 
     public void DripStonePattern()
     {
         StartCoroutine(DripStoneFire());
+        direction_Camera.Direction_Shake(1f, 0.8f);
     }
 
     public void SwingPattern()

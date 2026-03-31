@@ -16,6 +16,7 @@ public class Direction_BGMPlay : MonoBehaviour
 
     private int currentIndex = 0;
     private Coroutine fadeCo;
+    private Coroutine volumeFadeCo;
 
     private void Awake()
     {
@@ -94,6 +95,48 @@ public class Direction_BGMPlay : MonoBehaviour
         }
 
         fadeCo = StartCoroutine(FadeRoutine(current, null, fadeDuration, currentIndex));
+    }
+
+    // 현재 재생 중인 음악의 볼륨을 targetVolume까지 페이드
+    public void FadeCurrentVolume(float targetVolume, float duration = -1f)
+    {
+        AudioSource current = musicSources[currentIndex];
+        if (!current.isPlaying) return;
+
+        if (duration < 0f)
+            duration = defaultFadeDuration;
+
+        targetVolume = Mathf.Clamp01(targetVolume);
+
+        if (volumeFadeCo != null)
+            StopCoroutine(volumeFadeCo);
+
+        if (duration <= 0f)
+        {
+            current.volume = targetVolume;
+            return;
+        }
+
+        volumeFadeCo = StartCoroutine(FadeVolumeRoutine(current, targetVolume, duration));
+    }
+
+    private IEnumerator FadeVolumeRoutine(AudioSource source, float targetVolume, float duration)
+    {
+        float elapsed = 0f;
+        float startVolume = source.volume;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.unscaledDeltaTime;
+            float t = Mathf.Clamp01(elapsed / duration);
+            float eased = fadeCurve.Evaluate(t);
+
+            source.volume = Mathf.LerpUnclamped(startVolume, targetVolume, eased);
+            yield return null;
+        }
+
+        source.volume = targetVolume;
+        volumeFadeCo = null;
     }
 
     private IEnumerator FadeRoutine(AudioSource from, AudioSource to, float duration, int nextIndex)

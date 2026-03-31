@@ -298,11 +298,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stage_42000
       objectReference: {fileID: 0}
+    - target: {fileID: 5311342537183942623, guid: 066eacbbd9bf7824cb2d02f72b3ee7a8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 17.029
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 066eacbbd9bf7824cb2d02f72b3ee7a8, type: 3}
+--- !u!198 &106542534 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 7503738434126604015, guid: 066eacbbd9bf7824cb2d02f72b3ee7a8, type: 3}
+  m_PrefabInstance: {fileID: 106542533}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &106542535 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 6925967415285434817, guid: 066eacbbd9bf7824cb2d02f72b3ee7a8, type: 3}
+  m_PrefabInstance: {fileID: 106542533}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &395092615
 GameObject:
   m_ObjectHideFlags: 0
@@ -565,10 +579,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1097462742231753398, guid: 1216d507af0e2b645b06b997a120cfc6, type: 3}
+      propertyPath: m_text
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 2142156256613143471, guid: 1216d507af0e2b645b06b997a120cfc6, type: 3}
       propertyPath: m_Name
       value: StageModule
       objectReference: {fileID: 0}
+    - target: {fileID: 2807348769104294369, guid: 1216d507af0e2b645b06b997a120cfc6, type: 3}
+      propertyPath: idleEffect
+      value: 
+      objectReference: {fileID: 106542535}
+    - target: {fileID: 2807348769104294369, guid: 1216d507af0e2b645b06b997a120cfc6, type: 3}
+      propertyPath: startEffect
+      value: 
+      objectReference: {fileID: 106542534}
     - target: {fileID: 3559919258940884242, guid: 1216d507af0e2b645b06b997a120cfc6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -629,9 +655,13 @@ PrefabInstance:
       propertyPath: m_RenderingLayerMask
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5302356271581408286, guid: 1216d507af0e2b645b06b997a120cfc6, type: 3}
+      propertyPath: m_text
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 5698047157538549086, guid: 1216d507af0e2b645b06b997a120cfc6, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 20.33
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5832014041199409297, guid: 1216d507af0e2b645b06b997a120cfc6, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -647,7 +677,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6511062042215048696, guid: 1216d507af0e2b645b06b997a120cfc6, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 20.33
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6878123161035671503, guid: 1216d507af0e2b645b06b997a120cfc6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -683,7 +713,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7608299427576140329, guid: 1216d507af0e2b645b06b997a120cfc6, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -896,10 +926,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc6f35577ef842d458a7a2dabfed9a90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UnityEngine.Recorder.Examples.ScreenShot
-  ScreenShotDatas:
-  - name: 8K
-    width: 7680
-    height: 4320
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
