@@ -27,7 +27,7 @@ public class Data_Enemies : MonoBehaviour
 
         if (enemyPrefabDict.TryGetValue(20000, out GameObject errorPrefab))
         {
-            Debug.Log("없는 유닛코드요");
+            //Debug.Log("없는 유닛코드요");
             return errorPrefab;
         }
             
@@ -37,7 +37,8 @@ public class Data_Enemies : MonoBehaviour
 
     public GameObject GetEliteEffect(Transform unitTr)
     {
-        return Instantiate(eliteEffect, Vector3.up, Quaternion.identity, unitTr);
+        GameObject _eliteEft = Instantiate(eliteEffect, unitTr.position + Vector3.up, Quaternion.identity, unitTr);
+        return _eliteEft;
     }
 }
 

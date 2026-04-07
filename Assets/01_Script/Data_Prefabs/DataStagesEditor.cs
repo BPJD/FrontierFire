@@ -35,13 +35,13 @@ public class DataStagesEditor : Editor
             string[] parts = name.Split('_');
             if (parts.Length < 2)
             {
-                Debug.LogWarning($"스테이지 ID 추출 실패: {name}");
+                //Debug.LogWarning($"스테이지 ID 추출 실패: {name}");
                 continue;
             }
 
             if (!int.TryParse(parts[1], out int stageId))
             {
-                Debug.LogWarning($"스테이지 ID 파싱 실패: {name}");
+                //Debug.LogWarning($"스테이지 ID 파싱 실패: {name}");
                 continue;
             }
 
@@ -81,7 +81,7 @@ public class DataStagesEditor : Editor
             ?.SetValue(data, newList);
 
         EditorUtility.SetDirty(data);
-        Debug.Log($"Stage 프리팹 자동 채우기 완료 (추가된 개수: {newList.Count}개)");
+        //Debug.Log($"Stage 프리팹 자동 채우기 완료 (추가된 개수: {newList.Count}개)");
     }
 }
 #endif

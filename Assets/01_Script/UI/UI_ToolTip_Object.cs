@@ -66,6 +66,8 @@ public class UI_ToolTip_Object : MonoBehaviour
     [SerializeField] GameObject eftInfoObj;
     [SerializeField] Transform eftInfoObjPar;
 
+    public bool isThisSelected { get; private set; } = false;
+
 
 
     public void SetText(Item_ToolTip toolTip)
@@ -206,6 +208,8 @@ public class UI_ToolTip_Object : MonoBehaviour
     {
         if (!isActiveAndEnabled)
             return;
+
+        isThisSelected = isSelected;
 
         if (tr == null) tr = GetComponent<RectTransform>();
         if (fadeAlphaWithScale)

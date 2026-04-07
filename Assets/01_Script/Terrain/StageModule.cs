@@ -6,7 +6,7 @@ public class StageModule : MonoBehaviour
 {
     DataPortals portalData;
     Transform[] portalPoints;
-    int remainEnemies = 0;
+    [SerializeField] int remainEnemies = 0;
     Data_RewardObjs rewardData;
 
     Data_Enemies enemyData;
@@ -252,10 +252,14 @@ public class StageModule : MonoBehaviour
 
     void DropRewards()
     {
-        for (int i = 0; i < rewardObjs.Count; i++)
+        if(rewardObjs.Count == 1)
         {
-            Instantiate(rewardObjs[i], playerUnit.transform.position, Quaternion.identity);
+            for (int i = 0; i < rewardObjs.Count; i++)
+            {
+                Instantiate(rewardObjs[i], playerUnit.transform.position, Quaternion.identity);
+            }
         }
+        
 
         playerUnit.GetComponent<PlayerHeal>().HealFlag();
     }

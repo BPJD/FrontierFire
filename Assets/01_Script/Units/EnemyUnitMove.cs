@@ -46,7 +46,7 @@ public class EnemyUnitMove : MonoBehaviour
         
     }
 
-    public void MoveStatusSet(bool _isStopped, float _moveSpeed)
+    public void MoveStatusSet(bool _isStopped, float _moveSpeed, bool isPatrol = false)
     {
         if (!isNotMove)
         {
@@ -55,6 +55,10 @@ public class EnemyUnitMove : MonoBehaviour
             if (_moveSpeed >= 0.9f)
             {
                 speedCur = 1.5f;
+            }
+            else if (isPatrol)
+            {
+                speedCur = 0.5f;
             }
             else
             {

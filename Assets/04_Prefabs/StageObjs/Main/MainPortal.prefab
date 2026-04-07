@@ -69,6 +69,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1796129e50b4e49479e44772a1296b2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  firstSceneName: Scene_Stage00_Plain
 --- !u!114 &3411614903124772547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -97,6 +98,7 @@ MonoBehaviour:
   - 
   - 
   - 
+  weaponStatIds: 
   player: {fileID: 0}
   requireLineOfSight: 1
   losMask:

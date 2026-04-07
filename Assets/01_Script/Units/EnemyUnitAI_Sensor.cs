@@ -7,6 +7,7 @@ public class EnemyUnitAI_Sensor : MonoBehaviour
     //플레이어 탐지에 대한 스크립트
     EnemyUnitAI_Controller aiCon;
     TurretAttackSystem turretCon;
+    [SerializeField] bool isAttackFirst = true; //적이 플레이어를 먼저 공격할지, 플레이어가 먼저 공격할지
 
     bool isTurret = false;
 
@@ -15,6 +16,7 @@ public class EnemyUnitAI_Sensor : MonoBehaviour
     {
         aiCon = GetComponentInParent<EnemyUnitAI_Controller>();
         sensor = GetComponent<SphereCollider>();
+
 
         if (aiCon != null) //인간형 적 유닛
         {
@@ -26,10 +28,17 @@ public class EnemyUnitAI_Sensor : MonoBehaviour
             turretCon = GetComponentInParent<TurretAttackSystem>();
             sensor.radius = turretCon.sightRange;
         }
+
+        if (!isAttackFirst)
+        {
+            sensor.enabled = false;
+            sensor.radius = 0f;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log(gameObject + ", " + other.gameObject);
         SetPlayerApproach(true);
     }
     private void OnTriggerExit(Collider other)

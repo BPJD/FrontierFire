@@ -65,13 +65,13 @@ public class Direction_SceneChanger : MonoBehaviour
 
         if(isPlayerReset)
         {
-            Debug.Log(player + " Player Destroyed");
+            //Debug.Log(player + " Player Destroyed");
 
             Destroy(player);
         }
         yield return new WaitForSecondsRealtime(0.5f); // ¾À ÀüÈ¯ Àü Àá±ñ ´ë±â
 
-        Debug.Log("Scene Changed to " + sceneName);
+        //Debug.Log("Scene Changed to " + sceneName);
         SceneManager.LoadScene(sceneName);
     }
 }

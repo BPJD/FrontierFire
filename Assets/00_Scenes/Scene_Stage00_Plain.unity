@@ -1642,6 +1642,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -11.983554
       objectReference: {fileID: 0}
+    - target: {fileID: 3726155337722925010, guid: 1216d507af0e2b645b06b997a120cfc6, type: 3}
+      propertyPath: useStreamingAssetsInBuild
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3823721692003683817, guid: 1216d507af0e2b645b06b997a120cfc6, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1822,6 +1826,10 @@ PrefabInstance:
       propertyPath: tabRightAction
       value: 
       objectReference: {fileID: 1781397127}
+    - target: {fileID: 4398693526239576094, guid: 1216d507af0e2b645b06b997a120cfc6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4417072547134297499, guid: 1216d507af0e2b645b06b997a120cfc6, type: 3}
       propertyPath: m_Name
       value: 3_Ambient
@@ -3027,9 +3035,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
-    - {fileID: 2268874345574549096, guid: 1216d507af0e2b645b06b997a120cfc6, type: 3}
-    - {fileID: 7019308654258047454, guid: 1216d507af0e2b645b06b997a120cfc6, type: 3}
-    - {fileID: 5695229944098054006, guid: 1216d507af0e2b645b06b997a120cfc6, type: 3}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
     m_RemovedGameObjects:
     - {fileID: 0}
     - {fileID: 7431634944996989642, guid: 1216d507af0e2b645b06b997a120cfc6, type: 3}

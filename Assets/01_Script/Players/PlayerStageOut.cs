@@ -15,6 +15,7 @@ public class PlayerStageOut : MonoBehaviour
     {
         if(tr.position.y < -20f)
         {
+            returnPos.z = 0f;
             tr.position = returnPos;
         }
     }

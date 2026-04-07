@@ -44,7 +44,7 @@ public class ItemToolTip_CsvBinder : MonoBehaviour
 
         if (!UpgradeTextDB.I.TryGet(upgradeId, out var row))
         {
-            Debug.LogWarning($"[ItemToolTip_CsvBinder] No row for ID={upgradeId} ({name})");
+            //Debug.LogWarning($"[ItemToolTip_CsvBinder] No row for ID={upgradeId} ({name})");
             return;
         }
 

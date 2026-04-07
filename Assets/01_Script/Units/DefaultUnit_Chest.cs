@@ -7,7 +7,7 @@ public class DefaultUnit_Chest : MonoBehaviour, IInteractable
 
     [SerializeField] GameObject dropObj;
 
-    bool isOpened = false;
+    public bool isOpened { get; private set; } = false;
 
     public bool TryInteract()
     {

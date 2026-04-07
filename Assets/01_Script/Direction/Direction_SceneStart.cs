@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -93,6 +94,8 @@ public class Direction_SceneStart : MonoBehaviour
             playerInputController.playerModelObj.SetActive(true);
             playerInputController.playerWeaponObj.SetActive(true);
         }
+
+        player.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, 0f);
 
         isPlaying = false;
     }

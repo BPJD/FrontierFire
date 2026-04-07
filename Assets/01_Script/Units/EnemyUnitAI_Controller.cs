@@ -123,7 +123,7 @@ public class EnemyUnitAI_Controller : MonoBehaviour
 
                         case UnitState.Patrol:
                             moveAniSpd = 0.75f;
-                            unitMove.MoveStatusSet(false, moveAniSpd);
+                            unitMove.MoveStatusSet(false, moveAniSpd, true);
                             break;
 
                         case UnitState.Chase:

@@ -120,81 +120,104 @@ public class Item_ToolTip : MonoBehaviour
 
     void LateUpdate()
     {
-        if (!created || !player || !cam) return;
+        if (!created || !player || !cam || interacter == null) return;
 
-        bool isSelected = interacter /*&& interacter.SelectedObj == gameObject*/;
+        Vector3 worldPos = transform.position + worldOffset;
 
-        // 선택된 경우에만 가시성 조건을 계산
-        if (isSelected/* || tooltipType != UI_ToolTip_Object.ObjectType.Weapon*/)
+        // 1) 거리 체크
+        float sqrDist = (player.position - worldPos).sqrMagnitude;
+        bool closeEnough = sqrDist <= interacter.uiShowDistance * interacter.uiShowDistance;
+
+        // 2) 카메라 전면 체크
+        Vector3 camToTarget = worldPos - cam.transform.position;
+        bool inFront = Vector3.Dot(cam.transform.forward, camToTarget) > 0f;
+
+        // 3) LOS 체크
+        bool hasLOS = true;
+        if (requireLineOfSight && inFront && closeEnough)
         {
-            Vector3 worldPos = transform.position + worldOffset;
-
-            // 1) 거리 체크 (sqrt 피하기)
-            float sqrDist = (player.position - worldPos).sqrMagnitude;
-            bool closeEnough = sqrDist <= interacter.uiShowDistance * interacter.uiShowDistance;
-
-            // 2) 카메라 전면 체크
-            Vector3 camToTarget = worldPos - cam.transform.position;
-            bool inFront = Vector3.Dot(cam.transform.forward, camToTarget) > 0f;
-
-            // 3) 시야 가림(LOS) 체크
-            bool hasLOS = true;
-            if (requireLineOfSight && inFront && closeEnough)
+            if (Physics.Raycast(
+                cam.transform.position,
+                camToTarget.normalized,
+                out RaycastHit hit,
+                camToTarget.magnitude,
+                losMask))
             {
-                if (Physics.Raycast(cam.transform.position, camToTarget.normalized,
-                                    out RaycastHit hit, Mathf.Sqrt(sqrDist), losMask))
+                if (hit.transform != transform && !hit.transform.IsChildOf(transform))
+                    hasLOS = false;
+            }
+        }
+
+        visibleTarget = closeEnough && inFront && hasLOS;
+
+        // 실제 선택 여부는 항상 별도로 계산
+        bool isActuallySelected = interacter.SelectedObj == gameObject;
+
+        // 안 보이면 선택 상태 자체를 끊어준다
+        if (!visibleTarget)
+        {
+            if (isActuallySelected)
+            {
+                interacter.SelectedObj = null;
+                isActuallySelected = false;
+            }
+
+            if (toolTip_Object != null && isSelectedColor)
+            {
+                toolTip_Object.ThisItemSelected(false);
+            }
+
+            isSelectedColor = false;
+        }
+        else
+        {
+            // 보일 때만 위치 갱신
+            Vector3 screenPos = cam.WorldToScreenPoint(worldPos);
+
+            Vector2 clamped = new Vector2(
+                Mathf.Clamp(screenPos.x, screenClamp.x, Screen.width - screenClamp.x),
+                Mathf.Clamp(screenPos.y, screenClamp.y, Screen.height - screenClamp.y)
+            );
+
+            ui.position = clamped;
+
+            // 보이는 상태에서 선택 강조 갱신
+            if (toolTip_Object != null)
+            {
+                if (isActuallySelected)
                 {
-                    if (hit.transform != transform && !hit.transform.IsChildOf(transform))
-                        hasLOS = false;
+                    if (!isSelectedColor)
+                    {
+                        toolTip_Object.ThisItemSelected(true);
+                        ui.SetAsLastSibling();
+                        isSelectedColor = true;
+                    }
+                }
+                else
+                {
+                    if (isSelectedColor)
+                    {
+                        toolTip_Object.ThisItemSelected(false);
+                        isSelectedColor = false;
+                    }
                 }
             }
-
-            visibleTarget = closeEnough && inFront && hasLOS;
-
-            // 위치는 "보여줄 때만" 갱신 (페이드아웃 시엔 마지막 위치를 유지)
-            if (visibleTarget)
-            {
-                Vector3 worldPosForScreen = transform.position + worldOffset;
-                Vector3 screenPos = cam.WorldToScreenPoint(worldPosForScreen);
-
-                Vector2 clamped = new Vector2(
-                    Mathf.Clamp(screenPos.x, screenClamp.x, Screen.width - screenClamp.x),
-                    Mathf.Clamp(screenPos.y, screenClamp.y, Screen.height - screenClamp.y)
-                );
-                ui.position = clamped;
-
-                CheckItemToolTipSelected();
-                
-            }
-
-        }
-        else
-        {
-            // 선택 해제 시에는 목표 가시성을 false로 만들어 페이드아웃
-            visibleTarget = false;
         }
 
-
-        // 공통: 페이드 인/아웃
-        float targetAlpha;
-
-        if (isSelectedColor)
+        // 알파는 visibleTarget 우선
+        float targetAlpha = 0f;
+        if (visibleTarget)
         {
-            targetAlpha = 1f;
-        }
-        else
-        {
-            targetAlpha = visibleTarget ? deselectedAlpha : 0f;
+            targetAlpha = isSelectedColor ? 1f : deselectedAlpha;
         }
 
         cg.alpha = Mathf.MoveTowards(cg.alpha, targetAlpha, appearSpeed * Time.deltaTime);
 
-        // alpha가 아주 작아졌을 때만 비활성화 (즉시 끄지 않음)
         bool shouldShow = cg.alpha > 0.01f;
         if (ui.gameObject.activeSelf != shouldShow)
             ui.gameObject.SetActive(shouldShow);
-
     }
+
 
     void OnDestroy()
     {

@@ -20,11 +20,12 @@ public static class UnitSOAutoConnector
             var unitSO = AssetDatabase.LoadAssetAtPath<UnitParamsSO>(unitPath);
             var aiSO = AssetDatabase.LoadAssetAtPath<UnitAIParamsSO>(aiPath);
 
-            if (unitSO == null)
-                Debug.LogWarning($"Unit SO 없음: {unitPath}");
+            
+            //if (unitSO == null)
+            //    Debug.LogWarning($"Unit SO 없음: {unitPath}");
 
-            if (aiSO == null)
-                Debug.LogWarning($"AI SO 없음: {aiPath}");
+            //if (aiSO == null)
+            //    Debug.LogWarning($"AI SO 없음: {aiPath}");
 
             // UnitStatus 할당
             var unitStatus = obj.GetComponent<UnitStatus>();
@@ -60,7 +61,7 @@ public static class UnitSOAutoConnector
                 }
             }
 
-            Debug.Log($"{obj.name} - SO 연결 완료 (ID: {id})");
+            //Debug.Log($"{obj.name} - SO 연결 완료 (ID: {id})");
         }
     }
 }

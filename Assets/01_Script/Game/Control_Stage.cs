@@ -10,6 +10,8 @@ public class Control_Stage : MonoBehaviour
 
     [SerializeField] private int world;       // 현재 지역
 
+    [SerializeField] GameObject customBossStage; // 보스 스테이지 프리팹
+
 
     public int difficulty { get; private set; }
     public int worldCur { get; private set; }
@@ -73,8 +75,17 @@ public class Control_Stage : MonoBehaviour
 
     public void BossStagePlay()
     {
-        stageCur++;
-        Instantiate(stageData.bossStages[world - 1], stagePosition * stageCur, Quaternion.identity);
+        if(worldCur != 0)
+        {
+            stageCur++;
+            Instantiate(stageData.bossStages[world - 1], stagePosition * stageCur, Quaternion.identity);
+        }
+        else
+        {
+            stageCur++;
+            Instantiate(customBossStage, stagePosition * stageCur, Quaternion.identity);
+        }
+
     }
 
     /// <summary>

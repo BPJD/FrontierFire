@@ -61,6 +61,7 @@ public class CameraMovingSystem : MonoBehaviour
         {
             // 2. 평소에는 기존 플레이어/조준 로직 수행
             Vector3 playerPos = lookMouse.playerTr.position + Vector3.up;
+            playerPos.z = 0f; // Z축 고정
 
             if (playerMoveSystem.isAiming)
             {

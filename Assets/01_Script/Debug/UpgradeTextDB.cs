@@ -62,8 +62,8 @@ public class UpgradeTextDB : MonoBehaviour
 
         if (!File.Exists(editorPath))
         {
-            Debug.LogError($"[UpgradeTextDB] CSV not found (Editor): {editorPath}\n" +
-                           $"경로 확인: {editorAssetsFolder}/{csvFileName}");
+            //Debug.LogError($"[UpgradeTextDB] CSV not found (Editor): {editorPath}\n" +
+            //               $"경로 확인: {editorAssetsFolder}/{csvFileName}");
             yield break;
         }
 
@@ -110,7 +110,7 @@ public class UpgradeTextDB : MonoBehaviour
 
         if (string.IsNullOrWhiteSpace(text))
         {
-            Debug.LogError("[UpgradeTextDB] CSV is empty.");
+            //Debug.LogError("[UpgradeTextDB] CSV is empty.");
             yield break;
         }
 
@@ -140,7 +140,7 @@ public class UpgradeTextDB : MonoBehaviour
             _map[id] = row;
         }
 
-        Debug.Log($"[UpgradeTextDB] Loaded: {_map.Count} rows");
+        //Debug.Log($"[UpgradeTextDB] Loaded: {_map.Count} rows");
     }
 
     static string SafeStr(string[] r, int idx)

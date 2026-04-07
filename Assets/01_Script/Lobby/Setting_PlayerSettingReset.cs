@@ -16,7 +16,7 @@ public class Setting_PlayerSettingReset : MonoBehaviour
     // ES3 Keys (General)
     // -----------------------
     private const string KEY_FIRST_RUN_DONE = "Player_FirstRunDone";
-    private const string KEY_PLAY_COUNT = "Player_PlayCount";
+    public const string KEY_PLAY_COUNT = "Player_PlayCount";
 
     // -----------------------
     // ES3 Keys (Audio)

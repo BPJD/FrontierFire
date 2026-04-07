@@ -91,12 +91,23 @@ public class LobbyPlayerController : MonoBehaviour
 
     public void ButtonClick_Play()
     {
-        cam_Main.SetActive(false);
-        cam_Player.SetActive(true);
-        canvas_Main.SetActive(false);
+        int _playCount = ES3.Load<int>(Setting_PlayerSettingReset.KEY_PLAY_COUNT, 1);
+        if (_playCount == 1)
+        {
+            GameObject _changer = GameObject.FindGameObjectWithTag("GameController");
+            if (_changer != null)
+            {
+                _changer.GetComponent<Direction_SceneChanger>().ChangeScene("Scene_LobbyTutorial");
+            }
+        }
+        else
+        {
+            cam_Main.SetActive(false);
+            cam_Player.SetActive(true);
+            canvas_Main.SetActive(false);
 
-        StartCoroutine(PlayerInTheLobby());
-
+            StartCoroutine(PlayerInTheLobby());
+        }
     }
 
     public void ButtonClick_ToMain()

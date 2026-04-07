@@ -57,7 +57,7 @@ public class GameStopper : MonoBehaviour
             }
         }
 
-        Debug.Log(sb.ToString());
+        //Debug.Log(sb.ToString());
     }
 
 }

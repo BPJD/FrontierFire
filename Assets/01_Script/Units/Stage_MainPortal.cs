@@ -1,17 +1,16 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Stage_MainPortal : MonoBehaviour, IInteractable
 {
+    [SerializeField] string firstSceneName;
 
     public bool TryInteract()
     {
-        string firstStage = GameObject.FindGameObjectWithTag("Data").GetComponent<Data_Scenes>().stageScenes[1];
 
         GameObject _changer = GameObject.FindGameObjectWithTag("GameController");
         if(_changer != null)
         {
-            _changer.GetComponent<Direction_SceneChanger>().ChangeScene(firstStage);
+            _changer.GetComponent<Direction_SceneChanger>().ChangeScene(firstSceneName);
         }
 
         return true;

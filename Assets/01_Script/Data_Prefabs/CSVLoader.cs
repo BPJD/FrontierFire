@@ -34,11 +34,11 @@ public class CSVLoader : MonoBehaviour
         // 시작하자마자 로드 (원하면 호출 방식 바꿔도 됨)
         upgrades = await LoadFromStreamingAssetsAsync(fileName);
 
-        Debug.Log($"[UpgradeCsvLoader] Loaded rows: {upgrades.Count}");
+        //Debug.Log($"[UpgradeCsvLoader] Loaded rows: {upgrades.Count}");
         if (upgrades.Count > 0)
         {
             var u = upgrades[0];
-            Debug.Log($"First: id={u.id}, name={u.name}, desc={u.desc}, effect={u.effect}");
+            //Debug.Log($"First: id={u.id}, name={u.name}, desc={u.desc}, effect={u.effect}");
         }
     }
 
@@ -49,7 +49,7 @@ public class CSVLoader : MonoBehaviour
         string text = await ReadAllTextAsync(path);
         if (string.IsNullOrEmpty(text))
         {
-            Debug.LogError($"[UpgradeCsvLoader] CSV is empty or missing: {path}");
+            //Debug.LogError($"[UpgradeCsvLoader] CSV is empty or missing: {path}");
             return new List<UpgradeRow>();
         }
 
@@ -85,7 +85,7 @@ public class CSVLoader : MonoBehaviour
             // 최소 4열(ID/이름/설명/효과) 필요
             if (r.Length < 4)
             {
-                Debug.LogWarning($"[UpgradeCsvLoader] Row {i} has too few columns: {r.Length}");
+                //Debug.LogWarning($"[UpgradeCsvLoader] Row {i} has too few columns: {r.Length}");
                 continue;
             }
 
@@ -146,7 +146,7 @@ public class CSVLoader : MonoBehaviour
         }
         catch (Exception e)
         {
-            Debug.LogError($"[UpgradeCsvLoader] Read failed: {path}\n{e}");
+            //Debug.LogError($"[UpgradeCsvLoader] Read failed: {path}\n{e}");
             return "";
         }
     }

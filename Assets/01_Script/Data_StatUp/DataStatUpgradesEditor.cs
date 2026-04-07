@@ -46,13 +46,13 @@ public class DataStatUpgradesEditor : Editor
             string[] byName = AssetDatabase.FindAssets($"{NamePrefix} t:ScriptableObject", searchFolders);
             if (byName.Length > 0)
             {
-                Debug.LogWarning($"[AutoFill] 't:StatUpgradesSO'로는 0개. 파일명 '{NamePrefix}'로 {byName.Length}개 후보 발견. " +
-                                 $"하지만 타입이 'StatUpgradesSO'가 아니면 로드에 실패합니다(스크립트 누락 가능).");
+                //Debug.LogWarning($"[AutoFill] 't:StatUpgradesSO'로는 0개. 파일명 '{NamePrefix}'로 {byName.Length}개 후보 발견. " +
+                //                 $"하지만 타입이 'StatUpgradesSO'가 아니면 로드에 실패합니다(스크립트 누락 가능).");
                 guids = byName;
             }
             else
             {
-                Debug.LogWarning($"[AutoFill] 검색 결과가 없습니다. 폴더를 확인하세요: {string.Join(", ", searchFolders)}");
+                //Debug.LogWarning($"[AutoFill] 검색 결과가 없습니다. 폴더를 확인하세요: {string.Join(", ", searchFolders)}");
             }
         }
 
@@ -70,7 +70,7 @@ public class DataStatUpgradesEditor : Editor
                 failLoad++;
                 // 파일명은 보이게 로그
                 string fileName = Path.GetFileNameWithoutExtension(path);
-                Debug.LogWarning($"[AutoFill] 로드 실패(StatUpgradesSO 아님/스크립트 누락?): {fileName} | {path}");
+                //Debug.LogWarning($"[AutoFill] 로드 실패(StatUpgradesSO 아님/스크립트 누락?): {fileName} | {path}");
                 continue;
             }
 
@@ -83,14 +83,14 @@ public class DataStatUpgradesEditor : Editor
             int chosenId = (so.id > 0) ? so.id : idFromName;
             if (chosenId <= 0)
             {
-                Debug.LogWarning($"[AutoFill] ID 판단 실패: {fname} | SO.id={so.id} | {path}");
+                //Debug.LogWarning($"[AutoFill] ID 판단 실패: {fname} | SO.id={so.id} | {path}");
                 continue;
             }
 
             // 파일명-ID와 SO.id가 다르면 동기화/경고
             if (idFromName > 0 && so.id > 0 && so.id != idFromName)
             {
-                Debug.LogWarning($"[AutoFill] SO.id({so.id}) ≠ 파일명 ID({idFromName}) : {fname}");
+                //Debug.LogWarning($"[AutoFill] SO.id({so.id}) ≠ 파일명 ID({idFromName}) : {fname}");
                 if (SyncSoIdWithFilename)
                 {
                     Undo.RecordObject(so, "Sync SO id with filename");
@@ -132,11 +132,11 @@ public class DataStatUpgradesEditor : Editor
             fi.SetValue(data, newList);
             EditorUtility.SetDirty(data);
             AssetDatabase.SaveAssets();
-            Debug.Log($"[AutoFill] 완료: {newList.Count}개 / 로드 실패 {failLoad}개 | 검색 폴더: {string.Join(", ", searchFolders)}");
+            //Debug.Log($"[AutoFill] 완료: {newList.Count}개 / 로드 실패 {failLoad}개 | 검색 폴더: {string.Join(", ", searchFolders)}");
         }
         else
         {
-            Debug.LogError("statUpEntries 필드를 찾을 수 없습니다. Data_StatUpgrades 구조를 확인하세요.");
+            //Debug.LogError("statUpEntries 필드를 찾을 수 없습니다. Data_StatUpgrades 구조를 확인하세요.");
         }
     }
 

@@ -42,7 +42,7 @@ public class DataWeaponStatUpEditor : Editor
             int chosenId = so.id > 0 ? so.id : idFromName;
             if (chosenId <= 0)
             {
-                Debug.LogWarning($"[AutoFill] ID를 판단할 수 없습니다: {fileName} | SO.id={so.id} | {path}");
+                //Debug.LogWarning($"[AutoFill] ID를 판단할 수 없습니다: {fileName} | SO.id={so.id} | {path}");
                 continue;
             }
 
@@ -64,11 +64,11 @@ public class DataWeaponStatUpEditor : Editor
             fi.SetValue(data, newList);
             EditorUtility.SetDirty(data);
             AssetDatabase.SaveAssets();
-            Debug.Log($"[AutoFill] 무기 강화 SO 자동 채우기 완료 (총 {newList.Count}개) | 검색: {string.Join(", ", searchFolders)}");
+            //Debug.Log($"[AutoFill] 무기 강화 SO 자동 채우기 완료 (총 {newList.Count}개) | 검색: {string.Join(", ", searchFolders)}");
         }
         else
         {
-            Debug.LogError("upgradeEntries 필드를 찾을 수 없습니다.");
+            //Debug.LogError("upgradeEntries 필드를 찾을 수 없습니다.");
         }
     }
 

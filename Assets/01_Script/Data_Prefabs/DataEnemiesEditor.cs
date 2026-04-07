@@ -34,7 +34,7 @@ public class DataEnemiesEditor : Editor
 
             if (split.Length == 0 || !int.TryParse(split[0], out int id))
             {
-                Debug.LogWarning($"ID 추출 실패: {name}");
+                //Debug.LogWarning($"ID 추출 실패: {name}");
                 continue;
             }
 
@@ -54,7 +54,7 @@ public class DataEnemiesEditor : Editor
             ?.SetValue(data, newList);
 
         EditorUtility.SetDirty(data);
-        Debug.Log($"Enemy 프리팹 자동 채우기 완료 ({newList.Count}개)");
+        //Debug.Log($"Enemy 프리팹 자동 채우기 완료 ({newList.Count}개)");
     }
 }
 #endif

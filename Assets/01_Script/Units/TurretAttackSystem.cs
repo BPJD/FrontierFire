@@ -50,7 +50,7 @@ public class TurretAttackSystem : MonoBehaviour
     [SerializeField] private float rotationSpeed = 90f; // 초당 회전 속도 (deg/sec)
     Coroutine rotateRoutine;
 
-    public bool isPlayerInRange { get; set; }
+    public bool isPlayerInRange { get; set; } = false;
 
 
     private void Awake()
@@ -141,7 +141,7 @@ public class TurretAttackSystem : MonoBehaviour
     {
         if(target == null)
         {
-            target = GameObject.FindGameObjectWithTag("Player").transform;
+            target = GameObject.FindGameObjectWithTag(Data_Strings.playerTag).transform;
         }
 
         DroneMoveSystem _drone = GetComponent<DroneMoveSystem>();

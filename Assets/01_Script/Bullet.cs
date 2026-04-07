@@ -103,7 +103,7 @@ public class Bullet : MonoBehaviour
                 attackerStat: shooterUnitStat
             );
 
-            BulletExplode(isExplode, payload);
+            BulletExplode(isExplode, payload, _colPos);
             BulletDisable();
         }
 
@@ -112,7 +112,10 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        muzzleEft.Play(true);
+        if(muzzleEft != null)
+        {
+            muzzleEft.Play(true);
+        }
 
         Vector3 _colPos = tr.position - (tr.forward * 0.3f);
 
@@ -127,8 +130,6 @@ public class Bullet : MonoBehaviour
             attackerStat: shooterUnitStat
         );
 
-
-
         if (other.CompareTag(Data_Strings.UnitTag) || other.CompareTag(Data_Strings.playerTag))
         {
             if (!isExplode)
@@ -136,7 +137,7 @@ public class Bullet : MonoBehaviour
                 other.GetComponent<UnitStatus>().TakeDamage(payload);
             }
         }
-        else if(other.CompareTag(Data_Strings.terrainTag))
+        else if (other.CompareTag(Data_Strings.terrainTag))
         {
             if (!isExplode && hitSound_terrains.Length != 0)
             {
@@ -159,19 +160,16 @@ public class Bullet : MonoBehaviour
             }
         }
 
-
-
         if (bulletMesh != null)
         {
             bulletMesh.SetActive(false);
         }
-        BulletExplode(isExplode, payload);
+
+        BulletExplode(isExplode, payload, _colPos);
 
         bulletCol.enabled = false;
         isCollided = true;
         bulletEft.gameObject.SetActive(false);
-
-        
     }
 
     void BulletDisable()
@@ -190,7 +188,7 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    public void SetBulletStatus(int _damage, float _range, float _speed, WeaponParamsSO.AtkTypes _type, bool isCri, float explodeRad, float absorption, UnitStatus shooterStat)
+    public void SetBulletStatus(int _damage = 0, float _range = 1000f, float _speed = 20f, WeaponParamsSO.AtkTypes _type = WeaponParamsSO.AtkTypes.Normal, bool isCri = false, float explodeRad = 0f, float absorption = 0f, UnitStatus shooterStat = null)
     {
         isCritical = isCri;
         bulletDamage = _damage;
@@ -216,64 +214,62 @@ public class Bullet : MonoBehaviour
 
     }
 
-    void BulletExplode(bool _isExplode, DamagePayload payload)
+    void BulletExplode(bool _isExplode, DamagePayload payload, Vector3 explosionPos)
     {
-        if (_isExplode)
+        if (!_isExplode)
+            return;
+
+        // 폭발 이펙트 생성
+        if (hitEft != null)
         {
+            GameObject eft = Instantiate(hitEft, explosionPos, Quaternion.identity);
+            eft.transform.localScale = Vector3.one * explodeRadius;
+        }
 
-            // 폭발 이펙트 생성
-            if (hitEft != null)
+        // 범위 내에 있는 대상 탐색
+        Collider[] hitColliders = Physics.OverlapSphere(explosionPos, explodeRadius, damageableLayers);
+        float sqrExplosionRadius = explodeRadius * explodeRadius;
+
+        foreach (Collider hit in hitColliders)
+        {
+            if (hit == null)
+                continue;
+
+            // 콜라이더 실제 표면 기준점 사용
+            Vector3 targetPoint = hit.ClosestPoint(explosionPos);
+            Vector3 offset = targetPoint - explosionPos;
+            float sqrDistance = offset.sqrMagnitude;
+
+            if (sqrDistance > sqrExplosionRadius)
+                continue;
+
+            float distance = Mathf.Sqrt(sqrDistance);
+            if (distance <= 0.001f)
+                distance = 0.001f;
+
+            Vector3 direction = offset.normalized;
+
+            // 장애물에 가려졌는지 확인
+            if (Physics.Raycast(explosionPos, direction, distance, obstacleLayers))
+                continue;
+
+            // WeakPoint 우선 판정
+            UnitWeakPoint unitWeakHit = hit.GetComponent<UnitWeakPoint>();
+            UnitStatus unit = hit.GetComponent<UnitStatus>();
+
+            var newPayload = payload;
+            newPayload.hitPoint = targetPoint;
+
+            if (unitWeakHit != null)
             {
-                GameObject eft = Instantiate(hitEft, tr.position, Quaternion.identity);
-                eft.transform.localScale = Vector3.one * explodeRadius;
+                newPayload.isWeakPoint = true;
+                unitWeakHit.WeatPointDamage(newPayload);
             }
-
-            // 범위 내에 있는 대상 탐색
-            Collider[] hitColliders = Physics.OverlapSphere(tr.position, explodeRadius, damageableLayers);
-            float sqrExplosionRadius = explodeRadius * explodeRadius;
-
-            foreach (Collider hit in hitColliders)
+            else if (unit != null)
             {
-                Transform target = hit.transform;
-
-                Vector3 offset = (target.position + Vector3.up) - tr.position;
-                float sqrDistance = offset.sqrMagnitude;
-
-                if (sqrDistance <= sqrExplosionRadius)
-                {
-                    float approxDistance = Mathf.Sqrt(sqrDistance);
-                    Vector3 direction = offset.normalized;
-
-                    // Debug용 라인 표시 (Ray와 동일 경로)
-                    Debug.DrawLine(tr.position, tr.position + direction * approxDistance, Color.red, 1f); // 1초간 표시
-
-                    if (!Physics.Raycast(tr.position, direction, approxDistance, obstacleLayers))
-                    {
-                        UnitStatus unit = hit.GetComponent<UnitStatus>();
-                        UnitWeakPoint unitWeakHit = hit.GetComponent<UnitWeakPoint>();
-
-                        if (unit != null)
-                        {
-                            var newPayload = payload;
-                            newPayload.hitPoint = target.position + Vector3.up;
-
-                            unit.TakeDamage(newPayload);
-                        }
-                        else if (unitWeakHit != null)
-                        {
-                            var newPayload = payload;
-                            newPayload.hitPoint = target.position + Vector3.up;
-
-                            unitWeakHit.WeatPointDamage(newPayload);
-                        }
-                    }
-                    else
-                    {
-                        
-                    }
-                }
+                newPayload.isWeakPoint = false;
+                unit.TakeDamage(newPayload);
             }
-
         }
     }
 
