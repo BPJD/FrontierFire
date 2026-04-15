@@ -24,13 +24,15 @@ public class Direction_SceneStart : MonoBehaviour
 
     private bool isPlaying = false;
 
+    [SerializeField] float fadeDuration = 1.5f;
+
     private void Start()
     {
         if (!isSkip)
         {
             idleEffect.Play(true);
-            StartCoroutine(FadeIn(fadeCanvas, 1.5f));
         }
+        StartCoroutine(FadeIn(fadeCanvas, fadeDuration));
     }
 
     private void Update()

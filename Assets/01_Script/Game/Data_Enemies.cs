@@ -37,8 +37,10 @@ public class Data_Enemies : MonoBehaviour
 
     public GameObject GetEliteEffect(Transform unitTr)
     {
-        GameObject _eliteEft = Instantiate(eliteEffect, unitTr.position + Vector3.up, Quaternion.identity, unitTr);
-        return _eliteEft;
+        //GameObject _eliteEft = Instantiate(eliteEffect, unitTr.position + Vector3.up, Quaternion.identity, unitTr);
+        //return _eliteEft;
+
+        return null;
     }
 }
 

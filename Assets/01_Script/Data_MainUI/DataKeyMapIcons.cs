@@ -79,6 +79,9 @@ public class DataKeyMapIcons : MonoBehaviour
         if (key.Contains("dpad/left")) return gamepad_DpadLeft;
         if (key.Contains("dpad/right")) return gamepad_DpadRight;
 
+        if (key == "leftStick" || key.StartsWith("leftStick/")) return gamepad_LeftStick;
+        if (key == "rightStick" || key.StartsWith("rightStick/")) return gamepad_RightStick;
+
         return key switch
         {
             // ------------------
@@ -106,6 +109,9 @@ public class DataKeyMapIcons : MonoBehaviour
             "press" => mouseLclick,
             "rightButton" => mouseRclick,
             "middleButton" => mouseMclick,
+
+            "Press LMB" => mouseLclick,
+            "Press RMB" => mouseRclick,
 
             _ => null,
         };

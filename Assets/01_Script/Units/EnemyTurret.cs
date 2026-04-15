@@ -19,6 +19,7 @@ public class EnemyTurret : MonoBehaviour
 
     [SerializeField] ParticleSystem deathExplosion;
 
+    [SerializeField] bool isCustomDropStat = false;
 
     [Range(0f, 2f)]
     [SerializeField] float deathAnimationPower = 1f;
@@ -31,7 +32,10 @@ public class EnemyTurret : MonoBehaviour
 
     private void Start()
     {
-        itemDropRate = GetComponent<TurretAttackSystem>().unitAIDataSource.ai_dropRate;
+        if(!isCustomDropStat)
+        {
+            itemDropRate = GetComponent<TurretAttackSystem>().unitAIDataSource.ai_dropRate;
+        }
 
         if (isGravityReverse)
         {
@@ -154,7 +158,7 @@ public class EnemyTurret : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(isDead && isDrone && collision.gameObject.CompareTag(Data_Strings.terrainTag) || collision.gameObject.CompareTag("Untagged"))
+        if(isDead && isDrone && (collision.gameObject.CompareTag(Data_Strings.terrainTag) || collision.gameObject.CompareTag("Untagged")))
         {
             DeathExplode();
         }
@@ -169,6 +173,10 @@ public class EnemyTurret : MonoBehaviour
             if (isDrone)
             {
                 GetComponent<MeshRenderer>().enabled = false;
+                if(turretRb == null)
+                {
+                    turretRb = GetComponent<Rigidbody>();
+                }
                 turretRb.constraints = RigidbodyConstraints.FreezeAll;
             }
             else

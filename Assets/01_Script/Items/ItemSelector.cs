@@ -15,6 +15,9 @@ public class ItemSelector : MonoBehaviour
     private void Start()
     {
         tr = transform;
+        Vector3 pos = tr.position;
+        pos.z = 0f;
+        tr.position = pos;
         ItemDrop();
     }
 

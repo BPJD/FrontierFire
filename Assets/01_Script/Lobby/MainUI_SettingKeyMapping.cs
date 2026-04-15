@@ -28,6 +28,8 @@ public class MainUI_SettingKeyMapping : MonoBehaviour
     private bool waiting;
     private MainUI_KeyMapLoader keyMapLoader;
 
+
+
     private void Awake()
     {
         keyMapLoader = MainUI_KeyMapLoader.GetOrFind();

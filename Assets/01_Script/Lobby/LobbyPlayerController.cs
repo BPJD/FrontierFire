@@ -32,6 +32,13 @@ public class LobbyPlayerController : MonoBehaviour
     void Start()
     {
         InGameUIActive(false);
+
+        if(ES3.Load<bool>("isStartInLobby", false))
+        {
+            ES3.Save<bool>("isStartInLobby", false);
+            ButtonClick_Play();
+        }
+
     }
 
     // Update is called once per frame

@@ -33,13 +33,15 @@ public class Tutorial_StepWeaponSwap : MonoBehaviour
     {
         if(playerWeapon != null)
         {
-
+            
             if(playerWeapon.weaponCur != beforeWeapon && tutorial.tutorialStepTarget == stepTarget)
             {
                 tutorial.TutorialStepSuccess(stepTarget);
                 wall.SetActive(false);
                 this.enabled = false;
             }
+
+            beforeWeapon = playerWeapon.weaponCur;
         }
         else
         {

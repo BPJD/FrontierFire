@@ -1,6 +1,7 @@
-using UnityEngine;
-using System.Collections;
 using Combat;
+using System.Collections;
+using UnityEngine;
+using static Michsky.UI.Heat.GradientFilter;
 
 public class Direction_Tutorial_MissileShoot : MonoBehaviour
 {
@@ -22,24 +23,33 @@ public class Direction_Tutorial_MissileShoot : MonoBehaviour
     void ShootMissile(Transform target)
     {
         Vector3 _fireTr = target.position + (Vector3.up * 30f);
+        _fireTr.z = 0f;
 
         GameObject bullet = Instantiate(missilePrefab, _fireTr, Quaternion.identity);
-        bullet.GetComponent<Bullet>().SetBulletStatus(5000, 25000f, 40f);
+
+        Bullet bulletComp = bullet.GetComponent<Bullet>();
+        if (bulletComp != null)
+        {
+            bulletComp.SetBulletStatus(5000, 25000f, 40f);
+        }
+
         Transform bulletTr = bullet.transform;
+        bulletTr.position = new Vector3(_fireTr.x, _fireTr.y, 0f);
 
-        // 방향 설정
-        //Vector3 direction = (playerPointer.targetPos - bulletTr.position).normalized;
-        Vector3 direction = (target.position - _fireTr).normalized;
-        Quaternion baseRotation = Quaternion.LookRotation(direction);
+        Vector3 targetPos = target.position;
+        targetPos.z = 0f;
 
-        // X축 회전 수정
-        float _angleError = Random.Range(-1f, 1f);
-        Vector3 eulerAngles = baseRotation.eulerAngles;
-        eulerAngles.x += Random.Range(-_angleError, _angleError); // X축에 _accuracy 값 추가
-        bulletTr.rotation = Quaternion.Euler(eulerAngles);
+        Vector3 direction = (targetPos - bulletTr.position).normalized;
 
+        if (direction != Vector3.zero)
+        {
+            Quaternion baseRotation = Quaternion.LookRotation(direction);
 
+            float angleError = Random.Range(-2.5f, 2.5f);
+            Quaternion spreadRotation = Quaternion.Euler(new Vector3(0f, angleError, 0f));
 
+            bulletTr.rotation = baseRotation * spreadRotation;
+        }
     }
 
     IEnumerator Missile()

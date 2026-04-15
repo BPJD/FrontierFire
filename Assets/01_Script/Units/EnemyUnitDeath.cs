@@ -19,12 +19,19 @@ public class EnemyUnitDeath : MonoBehaviour
     [Range(0f, 100f)]
     [SerializeField] float itemDropRate = 5f;
 
+    [SerializeField] bool isCustomDropStat = false;
+
     private void Start()
     {
         unitAniCon = GetComponent<Animator>();
 
         controller = GetComponent<EnemyUnitAI_Controller>();
         move = GetComponent<EnemyUnitMove>();
+
+        if (!isCustomDropStat)
+        {
+            itemDropRate = GetComponent<EnemyAttackSystem>().unitAIDataSource.ai_dropRate;
+        }
     }
 
     public void DeathAnimationPlay(int _hp, int _damage)

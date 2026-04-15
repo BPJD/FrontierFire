@@ -72,8 +72,10 @@ public class UnitStatus : MonoBehaviour
     {
         if(unitParams.u_type == UnitParamsSO.UnitTypes.Elite)
         {
+            /*
             GameObject effectPrefab = data_DNum.gameObject.GetComponent<Data_Enemies>().GetEliteEffect(tr);
             unitEffect = effectPrefab.GetComponent<ParticleSystem>();
+            */
         }
     }
 

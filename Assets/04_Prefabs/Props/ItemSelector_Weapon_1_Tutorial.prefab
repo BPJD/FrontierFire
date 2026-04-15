@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8020015185142247192}
   - component: {fileID: 3122894106370775747}
+  - component: {fileID: 1143775086593985229}
   m_Layer: 0
   m_Name: ItemSelector_Weapon_1_Tutorial
   m_TagString: Untagged
@@ -47,3 +48,16 @@ MonoBehaviour:
   dropItemsList:
   - {fileID: 3166634264001106469, guid: 2e35a8a15394fb5478e49cb4bdaecb56, type: 3}
   itemCount: 1
+--- !u!114 &1143775086593985229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7966252011262253309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e407150e3ac6a8144afa59c5f0300a31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Tutorial_StepItemGet
+  stepTarget: 5
