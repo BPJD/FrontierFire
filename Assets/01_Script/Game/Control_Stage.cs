@@ -21,7 +21,8 @@ public class Control_Stage : MonoBehaviour
     private void Awake()
     {
         worldCur = world;
-        difficulty = gameLevel;
+
+        difficulty = ES3.Load<int>(Data_Strings.gameDifficultyKey, 1);
     }
 
     void Start()

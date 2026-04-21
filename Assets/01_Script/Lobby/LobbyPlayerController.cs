@@ -28,9 +28,16 @@ public class LobbyPlayerController : MonoBehaviour
 
     bool isPlayerWeaponEquiped = false;
 
+    UI_SoundPlayer uiSoundPlayer;
+
+    [SerializeField] AudioClip startClip;
+    [SerializeField] AudioSource sfxPlayer;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        uiSoundPlayer = GetComponent<UI_SoundPlayer>();
+
         InGameUIActive(false);
 
         if(ES3.Load<bool>("isStartInLobby", false))
@@ -38,7 +45,6 @@ public class LobbyPlayerController : MonoBehaviour
             ES3.Save<bool>("isStartInLobby", false);
             ButtonClick_Play();
         }
-
     }
 
     // Update is called once per frame
@@ -104,7 +110,7 @@ public class LobbyPlayerController : MonoBehaviour
             GameObject _changer = GameObject.FindGameObjectWithTag("GameController");
             if (_changer != null)
             {
-                _changer.GetComponent<Direction_SceneChanger>().ChangeScene("Scene_LobbyTutorial");
+                _changer.GetComponent<Direction_SceneChanger>().ChangeScene("Scene_LobbyTutorial", true);
             }
         }
         else
@@ -115,6 +121,11 @@ public class LobbyPlayerController : MonoBehaviour
 
             StartCoroutine(PlayerInTheLobby());
         }
+
+        if(uiSoundPlayer != null)
+        {
+            uiSoundPlayer.PlayUIClickSound();
+        }    
     }
 
     public void ButtonClick_ToMain()
@@ -124,6 +135,11 @@ public class LobbyPlayerController : MonoBehaviour
         canvas_Main.SetActive(true);
 
         StartCoroutine(PlayerOutTheLobby());
+
+        if (uiSoundPlayer != null)
+        {
+            uiSoundPlayer.PlayUIClickSound();
+        }
 
     }
 
@@ -135,9 +151,15 @@ public class LobbyPlayerController : MonoBehaviour
 
         isPlayerInLobby = true;
         ApplyLobbyState(isPlayerInLobby);
+        playerInput.SetInputLock(false);
 
         inLobbyIdleEft.Stop(true);
         inLobbyEft.Play(true);
+
+        if (sfxPlayer != null)
+        {
+            sfxPlayer.PlayOneShot(startClip);
+        }
 
         //playerInputComp.SwitchCurrentActionMap("Player");
     }
@@ -148,6 +170,7 @@ public class LobbyPlayerController : MonoBehaviour
         yield return null;
         isPlayerInLobby = false;
         ApplyLobbyState(isPlayerInLobby);
+        playerInput.SetInputLock(true);
 
         player.transform.position = startPoint.position;
 
@@ -191,6 +214,7 @@ public class LobbyPlayerController : MonoBehaviour
         isPlayerWeaponEquiped = true;
         InGameUIActive(true);
     }
+
 
 
 

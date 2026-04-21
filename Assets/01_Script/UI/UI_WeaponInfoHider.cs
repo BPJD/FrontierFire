@@ -31,7 +31,7 @@ public class UI_WeaponInfoHider : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag(Data_Strings.playerTag);
         playerInputController = player.GetComponent<PlayerInputController>();
-        isHidden = ES3.Load<bool>(PlayerInputController.infoHideData);
+        isHidden = ES3.Load<bool>(PlayerInputController.infoHideData, false);
         weaponInfo.SetActive(!isHidden);
     }
 

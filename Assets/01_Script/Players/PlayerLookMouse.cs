@@ -69,7 +69,16 @@ public class PlayerLookMouse : MonoBehaviour
         BindLookAction(false);
     }
 
-    void OnSceneLoaded(Scene s, LoadSceneMode m) => TryBindCamera();
+    void OnSceneLoaded(Scene s, LoadSceneMode m)
+    {
+        TryBindCamera();
+
+        if (s.name == "Scene_Loading")
+            return;
+
+        SetInputBlocked(false);
+    }
+
     void OnActiveSceneChanged(Scene oldS, Scene newS) => TryBindCamera();
 
 

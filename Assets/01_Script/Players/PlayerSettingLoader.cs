@@ -7,7 +7,6 @@ public class PlayerSettingLoader : MonoBehaviour
     [Header("Optional")]
     [SerializeField] private AudioMixer audioMixer;
     [SerializeField] private LocalizationManager localizationBridge;
-    // 직접 LocalizationManager를 참조하기 어렵다면 브리지용 래퍼를 하나 둬도 됨
 
     [Header("Audio Mixer Params")]
     [SerializeField]
@@ -21,6 +20,7 @@ public class PlayerSettingLoader : MonoBehaviour
     };
 
     private const float MUTE_DB = -80f;
+    private const string KEY_LANGUAGE = "Setting_Language";
 
     private readonly string[] languageCodes =
     {
@@ -28,7 +28,7 @@ public class PlayerSettingLoader : MonoBehaviour
         "ko-KR", "pl-PL", "pt-BR", "ru-RU", "tr-TR", "zh-CN"
     };
 
-    private void Awake()
+    private void Start()
     {
         ApplyVideoSettings();
         ApplyAudioSettings();
@@ -69,20 +69,20 @@ public class PlayerSettingLoader : MonoBehaviour
 
         int[] volumes =
         {
-            ES3.Load("Setting_Volume_Master", 70),
-            ES3.Load("Setting_Volume_BGM", 70),
-            ES3.Load("Setting_Volume_SFX", 70),
-            ES3.Load("Setting_Volume_Ambient", 70),
-            ES3.Load("Setting_Volume_UI", 70)
+            ES3.Load<int>("Setting_Volume_Master", 70),
+            ES3.Load<int>("Setting_Volume_BGM", 70),
+            ES3.Load<int>("Setting_Volume_SFX", 70),
+            ES3.Load<int>("Setting_Volume_Ambient", 70),
+            ES3.Load<int>("Setting_Volume_UI", 70)
         };
 
         bool[] mutes =
         {
-            ES3.Load("Setting_isMute_Master", false),
-            ES3.Load("Setting_isMute_BGM", false),
-            ES3.Load("Setting_isMute_SFX", false),
-            ES3.Load("Setting_isMute_Ambient", false),
-            ES3.Load("Setting_isMute_UI", false)
+            ES3.Load<bool>("Setting_isMute_Master", false),
+            ES3.Load<bool>("Setting_isMute_BGM", false),
+            ES3.Load<bool>("Setting_isMute_SFX", false),
+            ES3.Load<bool>("Setting_isMute_Ambient", false),
+            ES3.Load<bool>("Setting_isMute_UI", false)
         };
 
         for (int i = 0; i < volumeParamNames.Length; i++)
@@ -94,13 +94,27 @@ public class PlayerSettingLoader : MonoBehaviour
 
     private void ApplyLanguageSettings()
     {
-        int languageIndex = ES3.Load<int>("Setting_Language", 5); // ko-KR 기본값 예시
-        languageIndex = Mathf.Clamp(languageIndex, 0, languageCodes.Length - 1);
+        string languageCode = ES3.Load<string>(KEY_LANGUAGE, defaultValue: "en-US");
+        int languageIndex = GetLanguageIndex(languageCode);
 
         if (localizationBridge != null)
         {
             localizationBridge.SetLanguage(languageCodes[languageIndex]);
         }
+    }
+
+    private int GetLanguageIndex(string languageCode)
+    {
+        if (string.IsNullOrEmpty(languageCode))
+            return 1; // en-US
+
+        for (int i = 0; i < languageCodes.Length; i++)
+        {
+            if (languageCodes[i] == languageCode)
+                return i;
+        }
+
+        return 1; // en-US
     }
 
     private float VolumeToDb(int volume, bool isMute)

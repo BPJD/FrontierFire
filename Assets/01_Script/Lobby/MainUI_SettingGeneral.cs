@@ -8,7 +8,7 @@ public class MainUI_SettingGeneral : MonoBehaviour
     MainUI_SettingManager settingManager;
     [SerializeField] Localize_FontManager fontManager;
 
-    string[] languageCodes = { "de-DE", "en-US", "es-ES", "fr-FR", "ja-JP", "ko-KR", "pl-PL", "pt-BR", "ru-RU", "tr-TR", "zh-CN" };
+    public static readonly string[] languageCodes = { "de-DE", "en-US", "es-ES", "fr-FR", "ja-JP", "ko-KR", "pl-PL", "pt-BR", "ru-RU", "tr-TR", "zh-CN" };
     [SerializeField] private LocalizationManager locManager;
 
     [SerializeField] HorizontalSelector languageSelector;
@@ -18,12 +18,16 @@ public class MainUI_SettingGeneral : MonoBehaviour
     UI_InputDeviceDetector inputDetector;
     [SerializeField] GameObject firstSelect;
 
+    UI_SoundPlayer uiSoundPlayer;
+
     private void OnEnable()
     {
         if (inputDetector == null)
             inputDetector = GameObject.FindGameObjectWithTag("Module").GetComponent<UI_InputDeviceDetector>();
 
         SettingEnabled();
+
+        uiSoundPlayer = GetComponentInParent<UI_SoundPlayer>();
 
         if (inputDetector.currentInputType == UI_InputDeviceDetector.InputType.Gamepad)
             EventSystem.current.SetSelectedGameObject(firstSelect);
@@ -34,13 +38,12 @@ public class MainUI_SettingGeneral : MonoBehaviour
         if (settingManager == null)
             settingManager = GetComponentInParent<MainUI_SettingManager>();
 
-        savedLanguageIndex = ES3.Load<int>("Setting_Language", 1); // 예: 기본값 en-US
+        string savedLanguageCode = ES3.Load<string>("Setting_Language", defaultValue: "en-US");
+        savedLanguageIndex = GetLanguageIndex(savedLanguageCode);
         selectedLanguageIndex = savedLanguageIndex;
 
-        // 실제 언어 적용
         locManager.SetLanguage(languageCodes[selectedLanguageIndex]);
 
-        // Selector 표시 동기화
         languageSelector.index = selectedLanguageIndex;
         languageSelector.defaultIndex = selectedLanguageIndex;
         languageSelector.UpdateUI();
@@ -54,17 +57,24 @@ public class MainUI_SettingGeneral : MonoBehaviour
     {
         selectedLanguageIndex = languageSelector.index;
 
-        locManager.SetLanguage(languageCodes[selectedLanguageIndex]);
-        LocalizationManager.SetLanguageWithoutNotify(languageCodes[selectedLanguageIndex]);
-        ES3.Save("Setting_Language", selectedLanguageIndex);
+        string selectedLanguageCode = languageCodes[selectedLanguageIndex];
+
+        locManager.SetLanguage(selectedLanguageCode);
+        LocalizationManager.SetLanguageWithoutNotify(selectedLanguageCode);
+        ES3.Save("Setting_Language", selectedLanguageCode);
 
         languageSelector.defaultIndex = selectedLanguageIndex;
         languageSelector.UpdateUI();
 
         if (fontManager != null)
-            fontManager.UpdateFontForLanguage(languageCodes[selectedLanguageIndex]);
+            fontManager.UpdateFontForLanguage(selectedLanguageCode);
 
         StartCoroutine(ResetToolTipUI());
+
+        if(uiSoundPlayer != null)
+        {
+            uiSoundPlayer.PlayUIClickSound();
+        }
     }
 
     IEnumerator ResetToolTipUI()
@@ -76,6 +86,41 @@ public class MainUI_SettingGeneral : MonoBehaviour
             yield return null; // Wait for one frame
             _canvas.SetActive(true);
         }
+    }
+
+    private int GetLanguageIndex(string languageCode)
+    {
+        for (int i = 0; i < languageCodes.Length; i++)
+        {
+            if (languageCodes[i] == languageCode)
+                return i;
+        }
+
+        return 1; // en-US
+    }
+
+    public void ApplyLanguageByCode(string languageCode)
+    {
+        int index = GetLanguageIndex(languageCode);
+
+        selectedLanguageIndex = index;
+        savedLanguageIndex = index;
+
+        locManager.SetLanguage(languageCode);
+        LocalizationManager.SetLanguageWithoutNotify(languageCode);
+
+        languageSelector.index = index;
+        languageSelector.defaultIndex = index;
+        languageSelector.UpdateUI();
+
+        if (fontManager != null)
+            fontManager.UpdateFontForLanguage(languageCode);
+
+        if (isActiveAndEnabled)
+        {
+            StartCoroutine(ResetToolTipUI());
+        }
+        
     }
 
 

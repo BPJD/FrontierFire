@@ -1,7 +1,8 @@
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
-public class Ability_CounterBuff : MonoBehaviour
+public class Ability_CounterBuff : MonoBehaviour, IAbilityUpgradable
 {
     UnitStatus playerStat;
     PlayerWeaponController weaponController;
@@ -78,5 +79,11 @@ public class Ability_CounterBuff : MonoBehaviour
 
         }
 
+    }
+
+    public void UpgradeAbility()
+    {
+        buffDuration += 1f;
+        buffGetRate += 0.1f;
     }
 }

@@ -1,16 +1,19 @@
+using Michsky.UI.Heat;
+using System.Globalization;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class Setting_PlayerSettingReset : MonoBehaviour
 {
-    [SerializeField] MainUI_SettingVideos settingVideo;
-    [SerializeField] MainUI_SettingAudios settingAudio;
+    [Header("Setting UI References")]
+    [SerializeField] private MainUI_SettingVideos settingVideo;
+    [SerializeField] private MainUI_SettingAudios settingAudio;
+    [SerializeField] private MainUI_SettingGeneral settingGeneral;
 
-    // -----------------------
-    // ES3 Files
-    // -----------------------
-    //private const string FILE_SETTINGS = "settings.es3"; // 오디오/비디오/일반
-    private const string FILE_KEYMAP = "keymap.es3";   // 조작(키맵)
+    [Header("Optional Runtime Reference")]
+    [SerializeField] private PlayerInput currentPlayerInput;
+
+    private UI_SoundPlayer soundPlayer;
 
     // -----------------------
     // ES3 Keys (General)
@@ -44,14 +47,18 @@ public class Setting_PlayerSettingReset : MonoBehaviour
     private const string KEY_QUALITY_INDEX = "Setting_QualityIndex";
 
     // -----------------------
-    // ES3 Keys (Keymap)
+    // ES3 Keys (General)
     // -----------------------
-    private const string KEY_INPUT_OVERRIDES_JSON = "input.bindingOverridesJson";
+    private const string KEY_LANGUAGE = "Setting_Language";
+
+    private enum KeyboardLayoutPreset
+    {
+        QWERTY,
+        AZERTY
+    }
 
     private void Awake()
     {
-        // 1) PlayCount는 "통계" 용도로만 증가시키고,
-        // 2) 실제 초기화는 FirstRunDone 플래그로 1회만 수행하는 구조가 안전함.
         bool firstRunDone = ES3.Load(KEY_FIRST_RUN_DONE, false);
 
         if (!firstRunDone)
@@ -64,31 +71,32 @@ public class Setting_PlayerSettingReset : MonoBehaviour
         playCount++;
         ES3.Save(KEY_PLAY_COUNT, playCount);
 
-        //Debug.Log(playCount + "th play.");
+        soundPlayer = GetComponent<UI_SoundPlayer>();
+
+        if (currentPlayerInput == null)
+            currentPlayerInput = FindFirstObjectByType<PlayerInput>();
     }
 
     /// <summary>
-    /// 플레이어 설정 초기화(오디오/비디오/조작)
-    /// - 오디오/비디오: settings.es3에 저장
-    /// - 조작(키맵): keymap.es3에서 override 삭제 + 런타임 적용 제거(가능하면)
+    /// 플레이어 설정 초기화(오디오/비디오/일반/조작)
+    /// 저장값만 초기화한다. 실제 런타임 반영은 ResetAndApply()에서 처리한다.
     /// </summary>
     public void ResetPlayerSettings()
     {
         ResetAudioDefaults();
         ResetVideoDefaults();
+        ResetGeneralDefaults();
         ResetControlDefaults();
     }
 
     private static void ResetAudioDefaults()
     {
-        // 볼륨(0~100 기준이라고 가정)
         ES3.Save(KEY_VOL_MASTER, 70);
         ES3.Save(KEY_VOL_BGM, 40);
         ES3.Save(KEY_VOL_SFX, 70);
         ES3.Save(KEY_VOL_AMBIENT, 70);
         ES3.Save(KEY_VOL_UI, 70);
 
-        // 뮤트
         ES3.Save(KEY_MUTE_MASTER, false);
         ES3.Save(KEY_MUTE_BGM, false);
         ES3.Save(KEY_MUTE_SFX, false);
@@ -98,85 +106,257 @@ public class Setting_PlayerSettingReset : MonoBehaviour
 
     private static void ResetVideoDefaults()
     {
-        // 네 기존 기본값 유지
         ES3.Save(KEY_RESOLUTION_INDEX, 5);
         ES3.Save(KEY_FPS_LIMIT, 60);
         ES3.Save(KEY_IS_FPS_LIMIT, false);
         ES3.Save(KEY_VSYNC, false);
-        ES3.Save(KEY_SCREEN_MODE, 1);   // (int)1 유지
+        ES3.Save(KEY_SCREEN_MODE, 1);
         ES3.Save(KEY_QUALITY_INDEX, 2);
+    }
+
+    private static void ResetGeneralDefaults()
+    {
+        string detectedLanguage = DetectSystemLanguageCode();
+        string mappedLanguage = MapToSupportedLanguage(detectedLanguage);
+
+        ES3.Save(KEY_LANGUAGE, mappedLanguage);
     }
 
     private static void ResetControlDefaults()
     {
-        // 1) 저장된 키맵 override 삭제 (다음 실행/로드 시 기본키)
-        ES3.DeleteKey(KEY_INPUT_OVERRIDES_JSON, FILE_KEYMAP);
-
-        // 2) 런타임에 KeyMapLoader가 존재하면 즉시 기본키로 되돌림
-        //    (메뉴 씬에서 실행되는 경우라면 Loader가 있을 확률이 높음)
         var loader = MainUI_KeyMapLoader.GetOrFind();
-        if (loader != null && loader.Actions != null)
+        if (loader == null || loader.Actions == null)
+            return;
+
+        loader.ResetToDefault();
+
+        var moveAction = loader.Actions.FindAction("Move", throwIfNotFound: false);
+        if (moveAction == null)
         {
-            loader.Actions.RemoveAllBindingOverrides();
-            // loader 쪽 파일명이 keymap.es3인지 확인 필요:
-            // - 아래가 가장 깔끔: MainUI_KeyMapLoader가 FILE_KEYMAP/KEY_INPUT_OVERRIDES_JSON를 쓰도록 통일
-            // - 현재 Loader가 settings.es3를 쓰고 있다면, Loader도 FILE_KEYMAP로 바꿔주는 게 맞음.
-            // 여기서는 "저장키 삭제 + 런타임 override 제거"까지만 보장.
+            Debug.LogWarning("[SettingsReset] Move action not found.");
+            loader.Save();
+            return;
         }
 
-        Debug.Log("[SettingsReset] Control(Keymap) reset complete.");
+        KeyboardLayoutPreset preset = DetectKeyboardLayoutPreset();
+
+        switch (preset)
+        {
+            case KeyboardLayoutPreset.AZERTY:
+                ApplyMoveComposite(moveAction,
+                    "<Keyboard>/z",
+                    "<Keyboard>/s",
+                    "<Keyboard>/q",
+                    "<Keyboard>/d");
+                break;
+
+            case KeyboardLayoutPreset.QWERTY:
+            default:
+                ApplyMoveComposite(moveAction,
+                    "<Keyboard>/w",
+                    "<Keyboard>/s",
+                    "<Keyboard>/a",
+                    "<Keyboard>/d");
+                break;
+        }
+
+        loader.Save();
+    }
+
+    private static KeyboardLayoutPreset DetectKeyboardLayoutPreset()
+    {
+        Keyboard keyboard = Keyboard.current;
+        if (keyboard == null)
+            return KeyboardLayoutPreset.QWERTY;
+
+        string a = keyboard.aKey.displayName?.ToUpperInvariant();
+        string w = keyboard.wKey.displayName?.ToUpperInvariant();
+
+        if (a == "Q" && w == "Z")
+            return KeyboardLayoutPreset.AZERTY;
+
+        return KeyboardLayoutPreset.QWERTY;
+    }
+
+    private static void ApplyMoveComposite(InputAction action, string up, string down, string left, string right)
+    {
+        int upIndex = FindCompositePartBindingIndex(action, "up");
+        int downIndex = FindCompositePartBindingIndex(action, "down");
+        int leftIndex = FindCompositePartBindingIndex(action, "left");
+        int rightIndex = FindCompositePartBindingIndex(action, "right");
+
+        // 기존 override 제거 (핵심)
+        action.RemoveBindingOverride(upIndex);
+        action.RemoveBindingOverride(downIndex);
+        action.RemoveBindingOverride(leftIndex);
+        action.RemoveBindingOverride(rightIndex);
+
+        // 다시 적용
+        if (upIndex >= 0)
+            action.ApplyBindingOverride(upIndex, up);
+
+        if (downIndex >= 0)
+            action.ApplyBindingOverride(downIndex, down);
+
+        if (leftIndex >= 0)
+            action.ApplyBindingOverride(leftIndex, left);
+
+        if (rightIndex >= 0)
+            action.ApplyBindingOverride(rightIndex, right);
+    }
+
+    private static int FindCompositePartBindingIndex(InputAction action, string partName)
+    {
+        for (int i = 0; i < action.bindings.Count; i++)
+        {
+            var binding = action.bindings[i];
+
+            if (binding.isPartOfComposite &&
+                string.Equals(binding.name, partName, System.StringComparison.OrdinalIgnoreCase))
+            {
+                return i;
+            }
+        }
+
+        return -1;
     }
 
     // --------------------------------------------
-    // (선택) UI에서 '설정 초기화' 버튼을 눌렀을 때 쓰는 API
+    // UI 버튼용
     // --------------------------------------------
 
+    /// <summary>
+    /// 저장값만 초기화한다. 즉시 반영은 하지 않는다.
+    /// </summary>
     public void ForceResetAllNow()
     {
         ResetPlayerSettings();
-        // 초기화는 여러 번 해도 무방하지만, first-run 플래그는 유지해도 됨.
-        // 필요하면 여기서 KEY_FIRST_RUN_DONE을 false로 바꾸는 기능도 추가 가능.
+
+        if (soundPlayer != null)
+            soundPlayer.PlayUIClickSound();
     }
 
+    /// <summary>
+    /// 저장값 초기화 + 런타임 적용 + UI 갱신
+    /// 설정 초기화 버튼은 이 함수를 연결하는 것을 추천.
+    /// </summary>
     public void ResetAndApply()
     {
-        ResetPlayerSettings();   // 1) ES3 값 초기화
-
-        // 2) 런타임 시스템에 적용
+        ResetPlayerSettings();
         ApplyRuntimeSettings();
-
-        // 3) UI 갱신
         RefreshSettingUI();
+
+        if (soundPlayer != null)
+            soundPlayer.PlayUIClickSound();
     }
 
     private void ApplyRuntimeSettings()
     {
-        // 오디오/비디오 적용은 네 프로젝트에 이미 있는 SettingManager 쪽 메서드가 있으면 그걸 호출하는 게 정답.
-        // 예시:
-        // FindFirstObjectByType<AudioSettingApplier>()?.ApplyFromES3();
-        // FindFirstObjectByType<VideoSettingApplier>()?.ApplyFromES3();
-
-        // 키맵은 여기서 확실히 처리 가능
         var loader = MainUI_KeyMapLoader.GetOrFind();
         if (loader != null)
         {
-            loader.Actions.RemoveAllBindingOverrides(); // 런타임 즉시 기본값
-                                                        // 저장키도 이미 삭제했으니, 필요하면 Save()는 안 해도 됨(기본값 상태가 유지되니까)
+            if (currentPlayerInput == null)
+                currentPlayerInput = FindFirstObjectByType<PlayerInput>();
+
+            if (currentPlayerInput != null)
+            {
+                loader.ApplyToPlayerInput(currentPlayerInput, true);
+            }
         }
+
+        string lang = ES3.Load<string>(KEY_LANGUAGE, defaultValue: "en-US");
+
+        if (settingGeneral != null)
+            settingGeneral.ApplyLanguageByCode(lang);
     }
 
     private void RefreshSettingUI()
     {
-        // 설정 UI 전체를 관리하는 매니저가 있다면 거기서 한 번에 리프레시하는 게 좋다.
-        // 예시:
-        // FindFirstObjectByType<MainUI_SettingManager>()?.RefreshAll();
-
-        // 키맵 UI(각 버튼) 갱신은 “리바인드 아이템들”을 찾아서 Refresh 호출
         foreach (var item in FindObjectsByType<MainUI_SettingKeyMapping>(FindObjectsSortMode.None))
+        {
             item.ForceRefreshLabel();
+        }
 
+        if (settingVideo != null)
+            settingVideo.SettingEnabled();
 
-        settingVideo.SettingEnabled();
-        settingAudio.SettingEnabled();
+        if (settingAudio != null)
+            settingAudio.SettingEnabled();
+
+        if (settingGeneral != null)
+            settingGeneral.SettingEnabled();
+    }
+
+    private static string DetectSystemLanguageCode()
+    {
+        try
+        {
+            string cultureName = CultureInfo.CurrentCulture.Name;
+            if (!string.IsNullOrEmpty(cultureName))
+                return cultureName;
+        }
+        catch
+        {
+        }
+
+        return ConvertSystemLanguage(Application.systemLanguage);
+    }
+
+    private static string MapToSupportedLanguage(string systemLang)
+    {
+        if (string.IsNullOrEmpty(systemLang))
+            return "en-US";
+
+        for (int i = 0; i < MainUI_SettingGeneral.languageCodes.Length; i++)
+        {
+            if (string.Equals(MainUI_SettingGeneral.languageCodes[i], systemLang, System.StringComparison.OrdinalIgnoreCase))
+                return MainUI_SettingGeneral.languageCodes[i];
+        }
+
+        string shortCode = systemLang;
+        int dashIndex = systemLang.IndexOf('-');
+        if (dashIndex >= 0)
+            shortCode = systemLang.Substring(0, dashIndex);
+
+        for (int i = 0; i < MainUI_SettingGeneral.languageCodes.Length; i++)
+        {
+            if (MainUI_SettingGeneral.languageCodes[i].StartsWith(shortCode + "-", System.StringComparison.OrdinalIgnoreCase))
+                return MainUI_SettingGeneral.languageCodes[i];
+        }
+
+        switch (Application.systemLanguage)
+        {
+            case SystemLanguage.German: return "de-DE";
+            case SystemLanguage.English: return "en-US";
+            case SystemLanguage.Spanish: return "es-ES";
+            case SystemLanguage.French: return "fr-FR";
+            case SystemLanguage.Japanese: return "ja-JP";
+            case SystemLanguage.Korean: return "ko-KR";
+            case SystemLanguage.Polish: return "pl-PL";
+            case SystemLanguage.Portuguese: return "pt-BR";
+            case SystemLanguage.Russian: return "ru-RU";
+            case SystemLanguage.Turkish: return "tr-TR";
+            case SystemLanguage.ChineseSimplified: return "zh-CN";
+            default: return "en-US";
+        }
+    }
+
+    private static string ConvertSystemLanguage(SystemLanguage lang)
+    {
+        switch (lang)
+        {
+            case SystemLanguage.Korean: return "ko-KR";
+            case SystemLanguage.English: return "en-US";
+            case SystemLanguage.Japanese: return "ja-JP";
+            case SystemLanguage.ChineseSimplified: return "zh-CN";
+            case SystemLanguage.German: return "de-DE";
+            case SystemLanguage.Spanish: return "es-ES";
+            case SystemLanguage.French: return "fr-FR";
+            case SystemLanguage.Russian: return "ru-RU";
+            case SystemLanguage.Turkish: return "tr-TR";
+            case SystemLanguage.Polish: return "pl-PL";
+            case SystemLanguage.Portuguese: return "pt-BR";
+            default: return "en-US";
+        }
     }
 }

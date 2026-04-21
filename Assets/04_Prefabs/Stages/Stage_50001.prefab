@@ -15498,6 +15498,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edb0e9a1ddc55784e943bc325bf518b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  remainEnemies: 0
   startPoint: {fileID: 4609995220940950489}
   rewardObjs:
   - {fileID: 7966252011262253309, guid: 3028dadae1a61a64389d303aa7d34289, type: 3}
@@ -47259,7 +47260,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5746770499330494699, guid: f237310b54a77894bb08067ebd50e0ce, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2651047791969631079}
   m_SourcePrefab: {fileID: 100100000, guid: f237310b54a77894bb08067ebd50e0ce, type: 3}
 --- !u!65 &3294404205754133110 stripped
 BoxCollider:
@@ -47271,6 +47275,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5350187884777727815, guid: f237310b54a77894bb08067ebd50e0ce, type: 3}
   m_PrefabInstance: {fileID: 1380093519384486558}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &6694516098361127541 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5746770499330494699, guid: f237310b54a77894bb08067ebd50e0ce, type: 3}
+  m_PrefabInstance: {fileID: 1380093519384486558}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2651047791969631079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6694516098361127541}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bb09b99cf8e988498e090a5ff06c7ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BossCoreCrystalAttack
+  crystalBulletObj: {fileID: 1461831010382640442, guid: 4f0764fee6d8dc543b58e11dc9ad902e, type: 3}
+  crystalDamagePayload:
+    baseDamage: 0
+    ammo: 0
+    atkType: 0
+    isCritical: 0
+    isWeakPoint: 0
+    isBlocked: 0
+    hitPoint: {x: 0, y: 0, z: 0}
+    absorpRate: 0
+    attackerStat: {fileID: 0}
+    addFlat: 0
+    mul: 0
+  crystalDamageMultiplier: 1.5
 --- !u!1001 &1439085201070245426
 PrefabInstance:
   m_ObjectHideFlags: 0

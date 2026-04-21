@@ -700,7 +700,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 335.98752, y: -25}
+  m_AnchoredPosition: {x: 258.32208, y: -25}
   m_SizeDelta: {x: 0, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2310328667187761010
@@ -761,7 +761,19 @@ MonoBehaviour:
         m_CallState: 2
   onHover:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8430121850279130916}
+        m_TargetAssemblyTypeName: MainUI_SettingKeyMapping, Assembly-CSharp
+        m_MethodName: PlayHoverSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onLeave:
     m_PersistentCalls:
       m_Calls: []
@@ -2272,6 +2284,7 @@ MonoBehaviour:
   keyIconImage: {fileID: 7664476706621092135}
   hideTextWhenIconFound: 0
   bindingIndex: 0
+  rebindTargetType: 0
 --- !u!114 &1735508699929705481
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2754,7 +2767,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 129.13751, y: -25}
+  m_AnchoredPosition: {x: 96.97206, y: -25}
   m_SizeDelta: {x: 230, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1119067674052973988

@@ -5,6 +5,8 @@ public class BossCoreDealPhase : MonoBehaviour
 {
     public UnitStatus bossStat;
     BossCoreAttackControl attackControl;
+    BossCoreCrystalAttack crystalAttack;
+
     [SerializeField] BossCorePhaseEnd endPhase;
 
     [SerializeField] ParticleSystem shieldEft;
@@ -27,6 +29,7 @@ public class BossCoreDealPhase : MonoBehaviour
         mesh = GetComponent<MeshRenderer>();
         col = GetComponent<BoxCollider>();
         tr = transform;
+        crystalAttack = GetComponent<BossCoreCrystalAttack>();
     }
 
     // Update is called once per frame
@@ -38,6 +41,7 @@ public class BossCoreDealPhase : MonoBehaviour
     public void NeutralUnitDead()
     {
         crystalBreakEft.Play(true);
+        crystalAttack.CrystalAttackReady(false);
 
 
         StartCoroutine(DealPhase());
@@ -55,7 +59,7 @@ public class BossCoreDealPhase : MonoBehaviour
                 shieldEft.Stop(true);
                 shieldBreakEft.Play(true);
                 attackControl.isAttackReady = true;
-                bossStat.immunePer = 1f;
+                bossStat.immunePer = 1.5f;
             }
             else
             {
@@ -63,6 +67,7 @@ public class BossCoreDealPhase : MonoBehaviour
                 gameObject.tag = "Unit";
                 shieldEft.Play(true);
                 attackControl.isAttackReady = false;
+                crystalAttack.CrystalAttackReady(true);
                 bossStat.immunePer = 0.05f;
                 endPhase.EndPhaseShot();
             }
@@ -74,7 +79,7 @@ public class BossCoreDealPhase : MonoBehaviour
     {
         DealPhaseOn(true);
 
-        yield return new WaitForSeconds(15f);
+        yield return new WaitForSeconds(20f);
 
         DealPhaseOn(false);
     }

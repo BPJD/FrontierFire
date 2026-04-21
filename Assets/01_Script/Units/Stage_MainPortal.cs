@@ -10,7 +10,7 @@ public class Stage_MainPortal : MonoBehaviour, IInteractable
         GameObject _changer = GameObject.FindGameObjectWithTag("GameController");
         if(_changer != null)
         {
-            _changer.GetComponent<Direction_SceneChanger>().ChangeScene(firstSceneName);
+            _changer.GetComponent<Direction_SceneChanger>().ChangeScene(firstSceneName, true);
         }
 
         return true;

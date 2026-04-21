@@ -145,6 +145,7 @@ MonoBehaviour:
   rb: {fileID: 0}
   moveSystem: {fileID: 0}
   atkCollider: {fileID: 1073587031320984593}
+  capsule: {fileID: 0}
   dashSpeed: 18
   dashDuration: 0.18
   skin: 0.02
@@ -213,7 +214,9 @@ MonoBehaviour:
   - {fileID: 4157845679317972913}
   - {fileID: 3431091557891466578}
   dashLevel: 0
-  dashCoolDown: 3
+  dashCoolDown: 2
+  dashisCooldowning: {fileID: 8300000, guid: b7aad92f008f7dc45a86692e0997b71a, type: 3}
+  dashisReady: {fileID: 8300000, guid: 67bc31e3d91caa44bba3c30e4876b28a, type: 3}
 --- !u!82 &8107779294266589754
 AudioSource:
   m_ObjectHideFlags: 0
@@ -360,6 +363,7 @@ MonoBehaviour:
   rb: {fileID: 0}
   moveSystem: {fileID: 0}
   atkCollider: {fileID: 7789451698458606158}
+  capsule: {fileID: 0}
   dashSpeed: 12
   dashDuration: 0.12
   skin: 0.02

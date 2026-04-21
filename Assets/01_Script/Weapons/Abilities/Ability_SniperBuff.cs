@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Ability_SniperBuff : MonoBehaviour
+public class Ability_SniperBuff : MonoBehaviour, IAbilityUpgradable
 {
     PlayerMove playerMove;
     UnitStatus playerStat;
@@ -51,5 +51,10 @@ public class Ability_SniperBuff : MonoBehaviour
         playerStat.unitParamsAbility.u_criRate -= criRateRevision;
         playerStat.SetCurrentAtk();
         weaponController.GetWeaponStatCur().ApplyStatusInSystem();
+    }
+
+    public void UpgradeAbility()
+    {
+        criRateRevision += 10f;
     }
 }

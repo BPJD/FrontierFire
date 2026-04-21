@@ -1,6 +1,7 @@
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
-public class Ability_Hovering : MonoBehaviour
+public class Ability_Hovering : MonoBehaviour, IAbilityUpgradable
 {
     PlayerMove playerMove;
     Rigidbody rb;
@@ -11,6 +12,10 @@ public class Ability_Hovering : MonoBehaviour
     [SerializeField] float hoveringDamp = 1f;
 
 
+    [SerializeField] float hoverDuration = 5f;
+    [SerializeField] AnimationCurve hoverDampCurve;
+
+    float hoverTimer = 0f;
 
 
     void Start()
@@ -23,36 +28,58 @@ public class Ability_Hovering : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (playerMove != null)
+        if (playerMove == null || rb == null)
+            return;
+
+        if (!playerMove.isJumping)
         {
-            if (playerMove.moveDir_y >= 0.3f && playerMove.isJumping)
+            hoverTimer = 0f;
+        }
+
+        if (playerMove.moveDir_y >= 0.3f && playerMove.isJumping)
+        {
+            if (rb.linearVelocity.y <= -0.5f)
             {
-                if (rb.linearVelocity.y <= -0.5f)
-                {
-                    HoverActive();
-                }
-            }
-            else
-            {
-                HoverDeActive();
+                HoverActive();
+
+                // 시간 증가
+                hoverTimer += Time.fixedDeltaTime;
+
+                float t = Mathf.Clamp01(hoverTimer / hoverDuration);
+
+                // 커브 평가
+                float curveValue = hoverDampCurve.Evaluate(t);
+
+                // damping 적용
+                rb.linearDamping = hoveringDamp * curveValue;
+
+                return;
             }
         }
+
+        HoverDeActive();
     }
 
     void HoverActive()
     {
-        if (isHoverActive && rb == null) return;
+        if (isHoverActive) return;
 
         isHoverActive = true;
-        rb.linearDamping = hoveringDamp;
+        hoverTimer = 0f; // 시작 시 초기화
     }
 
     void HoverDeActive()
     {
-        if (!isHoverActive && rb == null) return;
+        if (!isHoverActive) return;
 
         isHoverActive = false;
         rb.linearDamping = defaultDamp;
+    }
+
+
+    public void UpgradeAbility()
+    {
+        hoverDuration += 2f;
     }
 
 

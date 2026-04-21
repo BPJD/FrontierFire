@@ -214,6 +214,7 @@ public class Bullet : MonoBehaviour
 
     }
 
+    /*
     void BulletExplode(bool _isExplode, DamagePayload payload, Vector3 explosionPos)
     {
         if (!_isExplode)
@@ -258,6 +259,78 @@ public class Bullet : MonoBehaviour
             UnitStatus unit = hit.GetComponent<UnitStatus>();
 
             var newPayload = payload;
+            newPayload.hitPoint = targetPoint;
+
+            if (unitWeakHit != null)
+            {
+                newPayload.isWeakPoint = true;
+                unitWeakHit.WeatPointDamage(newPayload);
+            }
+            else if (unit != null)
+            {
+                newPayload.isWeakPoint = false;
+                unit.TakeDamage(newPayload);
+            }
+        }
+    }
+    */
+
+    void BulletExplode(bool _isExplode, DamagePayload payload, Vector3 explosionPos)
+    {
+        if (!_isExplode)
+            return;
+
+        // 폭발 이펙트 생성
+        if (hitEft != null)
+        {
+            GameObject eft = Instantiate(hitEft, explosionPos, Quaternion.identity);
+            eft.transform.localScale = Vector3.one * explodeRadius;
+        }
+
+        // 범위 내에 있는 대상 탐색
+        Collider[] hitColliders = Physics.OverlapSphere(explosionPos, explodeRadius, damageableLayers);
+        float sqrExplosionRadius = explodeRadius * explodeRadius;
+
+        foreach (Collider hit in hitColliders)
+        {
+            if (hit == null)
+                continue;
+
+            // 콜라이더 실제 표면 기준점 사용
+            Vector3 targetPoint = hit.ClosestPoint(explosionPos);
+            Vector3 offset = targetPoint - explosionPos;
+            float sqrDistance = offset.sqrMagnitude;
+
+            if (sqrDistance > sqrExplosionRadius)
+                continue;
+
+            float distance = Mathf.Sqrt(sqrDistance);
+            Vector3 direction = distance > 0.0001f ? offset / distance : Vector3.up;
+
+            // 장애물에 가려졌는지 확인
+            if (distance > 0.001f && Physics.Raycast(explosionPos, direction, distance, obstacleLayers))
+                continue;
+
+            // ------------------------------
+            // 거리 기반 폭발 피해량 계산
+            // 중심 = 1.25배
+            // 외곽 = 0배에 가까움
+            // ------------------------------
+            float normalizedDistance = Mathf.Clamp01(distance / explodeRadius); // 0 = 중심, 1 = 외곽
+            float damageMultiplier = Mathf.Lerp(1.25f, 0f, normalizedDistance);
+
+            int finalExplodeDamage = Mathf.RoundToInt(payload.baseDamage * damageMultiplier);
+
+            // 피해량이 0 이하가 되면 스킵
+            if (finalExplodeDamage <= 0)
+                continue;
+
+            // WeakPoint 우선 판정
+            UnitWeakPoint unitWeakHit = hit.GetComponent<UnitWeakPoint>();
+            UnitStatus unit = hit.GetComponent<UnitStatus>();
+
+            var newPayload = payload;
+            newPayload.baseDamage = finalExplodeDamage;
             newPayload.hitPoint = targetPoint;
 
             if (unitWeakHit != null)

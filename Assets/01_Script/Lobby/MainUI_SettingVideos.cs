@@ -40,6 +40,8 @@ public class MainUI_SettingVideos : MonoBehaviour
     UI_InputDeviceDetector inputDetector;
     [SerializeField] GameObject firstSelect;
 
+    [SerializeField] UI_SoundPlayer uiSoundPlayer;
+
     int selectedResolutionIndex = 0;
     int selectedFrameRateLimit = 60;
     int selectedQualityIndex = 0;
@@ -106,6 +108,11 @@ public class MainUI_SettingVideos : MonoBehaviour
     {
         selectedResolutionIndex = resolutionSelector.index;
         RecalculateChanged();
+
+        if (uiSoundPlayer != null)
+        {
+            uiSoundPlayer.PlayUIClickSound();
+        }
     }
 
     public void Slider_FrameRateChanged()
@@ -121,11 +128,19 @@ public class MainUI_SettingVideos : MonoBehaviour
     {
         selectedDisplayMode = (DisplayMode)displayModeSelector.index;
         RecalculateChanged();
+        if(uiSoundPlayer != null)
+        {
+            uiSoundPlayer.PlayUIClickSound();
+        }
     }
     public void SwitchVSyncToggleClicked(bool isOn)
     {
         selectedIsVSync = isOn;
         RecalculateChanged();
+        if (uiSoundPlayer != null)
+        {
+            uiSoundPlayer.PlayUIClickSound();
+        }
     }
 
 
@@ -133,6 +148,10 @@ public class MainUI_SettingVideos : MonoBehaviour
     {
         selectedQualityIndex = qualitySelector.index;
         RecalculateChanged();
+        if (uiSoundPlayer != null)
+        {
+            uiSoundPlayer.PlayUIClickSound();
+        }
     }
 
     public void FrameLimitSwitchClicked(bool isOn)
@@ -141,6 +160,10 @@ public class MainUI_SettingVideos : MonoBehaviour
         frameRateSliderObj.SetActive(isOn);
 
         RecalculateChanged();
+        if (uiSoundPlayer != null)
+        {
+            uiSoundPlayer.PlayUIClickSound();
+        }
     }
 
 

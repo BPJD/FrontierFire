@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class PlayerDashManager : MonoBehaviour
 {
@@ -9,20 +10,34 @@ public class PlayerDashManager : MonoBehaviour
     [SerializeField] PlayerMove_Dash[] dashSkills;
     [SerializeField] int dashLevel = 0;
 
-    [SerializeField] float dashCoolDown = 3f;
+    [SerializeField] float dashCoolDown = 2f;
     float cooldownCur = 3f;
     bool isDashUsable = true;
 
-    static float cooldownTick = 0.1f;
+    static float cooldownTick = 0.02f;
     WaitForSeconds cooldown = new WaitForSeconds(cooldownTick);
+
+    Image dashCooldownIcon;
+
+    AudioSource audioSource;
+    [SerializeField] AudioClip dashisCooldowning;
+    [SerializeField] AudioClip dashisReady;
+
 
     private void Start()
     {
         playerLook = GetComponentInParent<PlayerLookMouse>();
+        audioSource = GetComponent<AudioSource>();
         tr = transform;
+
+        if(dashCooldownIcon == null)
+        {
+            GetDashIcon();
+        }
 
         SetSkill();
     }
+
 
     public void DashLevelUp()
     {
@@ -31,17 +46,37 @@ public class PlayerDashManager : MonoBehaviour
         SetSkill();
     }
 
-    public void DashActive()
+    public void DashActive(Vector3 inputDirWorld)
     {
-        if (isDashUsable)
+        if (!isDashUsable)
         {
-            if(playerLook == null)
+            if (audioSource != null && dashisCooldowning != null)
             {
-                playerLook = GetComponentInParent<PlayerLookMouse>();
+                audioSource.PlayOneShot(dashisCooldowning);
             }
-            dashSkills[dashLevel].TryDash(playerLook.targetPos - tr.position);
-            StartCoroutine(CoolDown());
+            return;
         }
+            
+
+        if (dashCooldownIcon == null)
+        {
+            GetDashIcon();
+        }
+
+        inputDirWorld.z = 0f;
+
+        if (inputDirWorld.sqrMagnitude < 0.0001f)
+        {
+            if (playerLook == null)
+                playerLook = GetComponentInParent<PlayerLookMouse>();
+
+            inputDirWorld = playerLook.targetPos - tr.position;
+            inputDirWorld.z = 0f;
+        }
+
+        dashSkills[dashLevel].TryDash(inputDirWorld);
+
+        StartCoroutine(CoolDown());
     }
 
     void SetSkill()
@@ -55,14 +90,48 @@ public class PlayerDashManager : MonoBehaviour
     IEnumerator CoolDown()
     {
         isDashUsable = false;
-        while(cooldownCur >= 0f)
+
+        if (dashCooldownIcon != null)
+        {
+            dashCooldownIcon.gameObject.SetActive(true);
+            dashCooldownIcon.fillAmount = 0f;
+        }
+
+        while (cooldownCur >= 0f)
         {
             cooldownCur -= cooldownTick;
+
+            if (dashCooldownIcon != null)
+            {
+                dashCooldownIcon.fillAmount = 1f - (cooldownCur / dashCoolDown);
+            }
+
             yield return cooldown;
         }
+
         cooldownCur = dashCoolDown;
+
+        if (dashCooldownIcon != null)
+        {
+            dashCooldownIcon.gameObject.SetActive(false);
+        }
+
         isDashUsable = true;
+
+        if (audioSource != null && dashisReady != null)
+        {
+            audioSource.PlayOneShot(dashisReady);
+        }
     }
 
+    void GetDashIcon()
+    {
+        dashCooldownIcon = GameObject.FindGameObjectWithTag(Data_Strings.DataObjTag).GetComponent<Data_UI>().GetPlayerDashCooltime();
+    }
+
+    public void ResetDashCooldown()
+    {
+        dashCoolDown = -1f;
+    }
 
 }

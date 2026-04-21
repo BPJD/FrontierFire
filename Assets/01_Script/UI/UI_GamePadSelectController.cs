@@ -38,7 +38,7 @@ public class UI_GamePadSelectController : MonoBehaviour
 
                 EventSystem.current.SetSelectedGameObject(firstButtonPool[i]);
 
-                Debug.Log($"포커스된 캔버스: {focusedObjCur.name}, 선택된 버튼: {firstButtonPool[i].name}");
+                //Debug.Log($"포커스된 캔버스: {focusedObjCur.name}, 선택된 버튼: {firstButtonPool[i].name}");
                 break;
             }
         }

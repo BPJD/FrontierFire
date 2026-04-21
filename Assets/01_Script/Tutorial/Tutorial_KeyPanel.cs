@@ -14,6 +14,8 @@ public class Tutorial_KeyPanel : MonoBehaviour
 
     public enum Tutorial_SettedKey
     {
+        Up,
+        Down,
         Left,
         Right,
         Jump,
@@ -93,6 +95,12 @@ public class Tutorial_KeyPanel : MonoBehaviour
     {
         switch (tutorialKey)
         {
+            case Tutorial_SettedKey.Up:
+                return GetCompositePartDisplay(playerInput, "Move", "up");
+
+            case Tutorial_SettedKey.Down:
+                return GetCompositePartDisplay(playerInput, "Move", "down");
+
             case Tutorial_SettedKey.Left:
                 return GetCompositePartDisplay(playerInput, "Move", "left");
 

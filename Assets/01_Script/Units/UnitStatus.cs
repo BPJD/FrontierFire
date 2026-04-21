@@ -56,9 +56,9 @@ public class UnitStatus : MonoBehaviour
         hpRegen = unitParams.u_hpRegen;
         hpRegenSpeed = unitParams.u_hpRegenSpeed;
 
+        damageCur = 1f;
         SetRevision();
         SetCurrentAtk();
-        damageCur = 1f;
 
         SetEffect();
     }
@@ -255,28 +255,34 @@ public class UnitStatus : MonoBehaviour
         }
 
         Control_Stage gameControl = GameObject.FindGameObjectWithTag("GameController").GetComponent<Control_Stage>();
-
+        
         if(unitParams.u_type != UnitParamsSO.UnitTypes.Player)
         {
             StatRevisionByLevel(gameControl.worldCur - 1, gameControl.difficulty);
         }
+
+        if(unitParams.u_type == UnitParamsSO.UnitTypes.Player)
+        {
+            unitParams.u_immunePer += Data_Strings.playerImmuneRevisionByDifficultyBase[gameControl.difficulty];
+        }
+
     }
 
-    void StatRevisionByLevel(int stageLev, int difficulty)
+    void StatRevisionByLevel(int stageLev, int difficulty) //스테이지와 난이도에 따른 스탯 보정
     {
-        float hpRev = Mathf.Max(1f, (stageLev * 1.3f) + (difficulty * 1.2f));
-        float atkRev = Mathf.Max(1f, (stageLev * 1.15f) + (difficulty * 1.1f));
+        float hpRev = (stageLev * 0.5f) + Data_Strings.hpRevisionByDifficultyBase[difficulty];
+        float atkRev = (stageLev * 0.2f) + Data_Strings.damageIncreaseByDifficultyBase[difficulty];
 
         hpCur *= (int)hpRev;
         SetCurrentAtk();
-        atkCur *= (int)atkRev;
+        damageCur *= (int)atkRev;
     }
 
     void SetMoveSpeed()
     {
         if(unitParams.u_type == UnitParamsSO.UnitTypes.Player)
         {
-            GetComponent<PlayerMove>().SpeedSet();
+            GetComponent<PlayerMove>().SpeedSet(moveSpeed);
         }
     }
 

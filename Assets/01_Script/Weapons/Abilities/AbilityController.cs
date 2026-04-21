@@ -13,6 +13,8 @@ public class AbilityController : MonoBehaviour
 
     [SerializeField] Transform ballParentTr;
     [SerializeField] GameObject[] abilityObjs;
+    private GameObject[] abilityInstances;
+
     [SerializeField] int[] abilityStacks;
 
     Transform tr;
@@ -24,6 +26,7 @@ public class AbilityController : MonoBehaviour
     {
         tr = transform;
         abilityStacks = new int[abilityObjs.Length];
+        abilityInstances = new GameObject[abilityObjs.Length];
     }
 
     public void PlayerWeaponChanged()
@@ -92,61 +95,67 @@ public class AbilityController : MonoBehaviour
 
     public void PlayerGetItem(int id)
     {
-        abilityStacks[id] += 1;
-
         switch (id)
         {
             case 0:
+                abilityStacks[id]++;
+
                 GameObject _drone = Instantiate(abilityObjs[id], tr);
 
                 droneAtkSystems.Add(_drone.GetComponentInChildren<ObjectPool_PlayerDrone>());
                 droneMoveSystems.Add(_drone.GetComponent<Ability_AttackDroneMove>());
                 break;
+
             case 1:
+                abilityStacks[id]++;
                 PlayerGetTurningBall();
                 break;
-            case 2:
-                Instantiate(abilityObjs[id], tr);
-                break;
+
             case 3:
+                abilityStacks[id]++;
                 shieldManager.ShieldUpgrade();
                 break;
-            case 4:
-                Instantiate(abilityObjs[id], tr);
-                break;
+
             case 5:
+                abilityStacks[id]++;
                 dashManager.DashLevelUp();
                 break;
-            case 6:
-                Instantiate(abilityObjs[id], tr);
-                break;
-            case 7:
-                Instantiate(abilityObjs[id], tr);
-                break;
-            case 8:
-                Instantiate(abilityObjs[id], tr);
-                break;
-            case 9:
-                Instantiate(abilityObjs[id], tr);
-                break;
-            case 10:
-                Instantiate(abilityObjs[id], tr);
-                break;
-            default:
-                break;
 
+            default:
+                CheckItemInAbilityAndUpgrade(id);
+                break;
         }
     }
 
     void CheckItemInAbilityAndUpgrade(int id)
     {
+        // 아직 능력이 없으면 생성
+        if (abilityInstances[id] == null)
+        {
+            GameObject abilityObj = Instantiate(abilityObjs[id], tr);
+            abilityInstances[id] = abilityObj;
+            abilityStacks[id] = 1;
+            return;
+        }
 
+        // 이미 있으면 업그레이드
+        IAbilityUpgradable upgradable = abilityInstances[id].GetComponent<IAbilityUpgradable>();
+
+        if (upgradable != null)
+        {
+            upgradable.UpgradeAbility();
+            abilityStacks[id]++;
+        }
+        else
+        {
+            //Debug.LogWarning($"Ability ID {id} 오브젝트에 IAbilityUpgradable 구현이 없음");
+        }
     }
 
 
 
-    
 
 
-    
+
+
 }

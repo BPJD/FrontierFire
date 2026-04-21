@@ -18,10 +18,14 @@ public class MainUI_SettingManager : MonoBehaviour
 
     [SerializeField] GameObject firstButton;
 
+    UI_SoundPlayer uiSoundPlayer;
+
     private void Start()
     {
         settingGeneral.SettingEnabled();
+        uiSoundPlayer = GetComponentInChildren<UI_SoundPlayer>();
     }
+
     public void Button_SettingOpen()
     {
         mainPanel.SetActive(false);
@@ -36,25 +40,44 @@ public class MainUI_SettingManager : MonoBehaviour
         settingGeneral.SettingEnabled();
 
         EventSystem.current.SetSelectedGameObject(firstButton);
+
+        if (uiSoundPlayer != null)
+        {
+            uiSoundPlayer.PlayUIClickSound();
+        }
     }
 
     public void Button_BackToMenuRequested()
     {
+
         if (isSettingChanged)
         {
             saveConfirmPanel.SetActive(true);
+            if (uiSoundPlayer != null)
+            {
+                uiSoundPlayer.PlayUINotiOn();
+            }
         }
         else
         {
             mainPanel.SetActive(true);
             settingPanel.SetActive(false);
+            if (uiSoundPlayer != null)
+            {
+                uiSoundPlayer.PlayUIClickSound();
+            }
         }
     }
 
     public void Button_SettingConfirmClicked()
     {
+        if (uiSoundPlayer != null)
+        {
+            uiSoundPlayer.PlayUIClickSound();
+        }
         SaveOptions();
     }
+
     public void Button_SettingConfirmClose(bool isSave)
     {
         saveConfirmPanel.SetActive(false);
@@ -62,11 +85,19 @@ public class MainUI_SettingManager : MonoBehaviour
         if (isSave)
         {
             SaveOptions();
+            if (uiSoundPlayer != null)
+            {
+                uiSoundPlayer.PlayUIConfirm();
+            }
         }
         else
         {
             mainPanel.SetActive(true);
             settingPanel.SetActive(false);
+            if (uiSoundPlayer != null)
+            {
+                uiSoundPlayer.PlayUINotiOff();
+            }
         }
     }
 

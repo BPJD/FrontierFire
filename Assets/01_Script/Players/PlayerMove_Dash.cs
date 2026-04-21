@@ -55,8 +55,10 @@ public class PlayerMove_Dash : MonoBehaviour
     {
         if (IsDashing) return;
 
+        inputDirWorld.z = 0f;
+
         if (inputDirWorld.sqrMagnitude < 0.0001f)
-            inputDirWorld = transform.forward;
+            inputDirWorld = transform.forward; // 또는 마지막 이동 방향
 
         dashDir = inputDirWorld.normalized;
 
@@ -98,7 +100,7 @@ public class PlayerMove_Dash : MonoBehaviour
         // 한 틱에 1~2번 정도 “충돌-슬라이드”를 처리하면 코너에서 안정적
         float remaining = totalStep;
 
-        // 안전장치: 너무 많은 루프 방지
+        // 안전장치: 너무 많은 루프 방지w
         const int maxIters = 2;
 
         for (int iter = 0; iter < maxIters && remaining > 0.0001f; iter++)

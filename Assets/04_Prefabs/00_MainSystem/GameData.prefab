@@ -797,6 +797,13 @@ MonoBehaviour:
   - {fileID: -1834382266, guid: 92a4fe653152e9244b4849b9dba1c92b, type: 3}
   - {fileID: 937215883, guid: 92a4fe653152e9244b4849b9dba1c92b, type: 3}
   - {fileID: 1296039536, guid: 92a4fe653152e9244b4849b9dba1c92b, type: 3}
+  playerDashCooldown: {fileID: 0}
+  soundBtnHover: {fileID: 8300000, guid: 42967699083dbe241a2db73cf28e3592, type: 3}
+  soundBtnPressed: {fileID: 8300000, guid: a7ab874891b93584dba375cf0d87ad1c, type: 3}
+  soundBtnConfirm: {fileID: 8300000, guid: 8204e2a887c2b6a4bad65b61c5d0490a, type: 3}
+  soundBtnDenied: {fileID: 8300000, guid: 4bf123061593d9c4783a38941517a6b4, type: 3}
+  soundBtnNotiOn: {fileID: 8300000, guid: 7876207a856df19469143aaaa03af569, type: 3}
+  soundBtnNotiOff: {fileID: 8300000, guid: d574499f675394e4fbb87ea9dac3a62c, type: 3}
 --- !u!114 &6503949739641429305
 MonoBehaviour:
   m_ObjectHideFlags: 0

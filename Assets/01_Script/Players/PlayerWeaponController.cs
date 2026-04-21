@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using static UnityEngine.Rendering.PostProcessing.SubpixelMorphologicalAntialiasing;
 
 
 public class PlayerWeaponController : MonoBehaviour
@@ -44,23 +43,45 @@ public class PlayerWeaponController : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        // 씬이 바뀌면
-        weaponUI = GameObject.FindGameObjectWithTag("UI").GetComponent<UI_Weapon>();
+        // 로딩 씬에서는 처리하지 않음
+        if (scene.name == "Scene_Loading")
+            return;
+
+        GameObject uiObj = GameObject.FindGameObjectWithTag("UI");
+        GameObject dataObj = GameObject.FindGameObjectWithTag("Data");
+
+        // 필요한 오브젝트가 없으면 중단
+        if (uiObj == null || dataObj == null)
+            return;
+
+        weaponUI = uiObj.GetComponent<UI_Weapon>();
         playerMove = GetComponent<PlayerMove>();
 
-        weaponData = GameObject.FindGameObjectWithTag("Data").GetComponent<PlayerWeaponData>();
-        dataUI = weaponData.gameObject.GetComponent<Data_UI>();
+        weaponData = dataObj.GetComponent<PlayerWeaponData>();
+        dataUI = dataObj.GetComponent<Data_UI>();
+
+        // 필요한 컴포넌트가 없으면 중단
+        if (weaponUI == null || weaponData == null || dataUI == null || playerMove == null)
+            return;
 
         CheckWeaponUI();
         WeaponChangeRequested(2);
 
         for (int i = 0; i < playersWeapons.Length; i++)
         {
-            if(playersWeapons[i] != null)
+            if (playersWeapons[i] != null)
             {
                 int weaponID = playersWeaponIDs[i];
                 WeaponStatus weaponStat = playersWeapons[i].GetComponent<WeaponStatus>();
-                int weaponType = (int)weaponData.GetWeaponStatSO(weaponID).w_type;
+
+                if (weaponStat == null)
+                    continue;
+
+                var weaponSO = weaponData.GetWeaponStatSO(weaponID);
+                if (weaponSO == null)
+                    continue;
+
+                int weaponType = (int)weaponSO.w_type;
                 Sprite _weaponIcon = dataUI.GetImageByWeaponType(weaponType, weaponStat.weaponIcon);
 
                 weaponUI.SetImageIcon(i, _weaponIcon);
@@ -70,8 +91,9 @@ public class PlayerWeaponController : MonoBehaviour
                 continue;
             }
         }
-        
     }
+
+
 
     public WeaponStatus GetWeaponStatCur()
     {

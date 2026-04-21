@@ -20,6 +20,8 @@ public class UI_WeaponToolTipIconSet : MonoBehaviour
     [SerializeField] Image icon;
     [SerializeField] TextMeshProUGUI keyText;
 
+    [SerializeField] string customKeyString = "";
+
 
     void Start()
     {

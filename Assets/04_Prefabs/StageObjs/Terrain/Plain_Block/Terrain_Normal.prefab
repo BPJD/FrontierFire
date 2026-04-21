@@ -94,6 +94,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!65 &1813343388090302356
 BoxCollider:
@@ -224,7 +225,12 @@ MonoBehaviour:
   spawnRate: 100
   instanceMax: 0
   raycastHeight: 40
-  surfaceOffset: 0.02
+  useFrontSideOnly: 0
+  useBackSideInstead: 0
+  frontZOffset: 0
+  surfaceOffsetPos: {x: 0, y: 0.02, z: 0}
+  groundOffsetPos: {x: 0, y: -0.5, z: 0}
+  cliffOffsetPos: {x: 0, y: -0.3, z: 0}
   type: 0
 --- !u!114 &6298436990911368727
 MonoBehaviour:
@@ -248,5 +254,10 @@ MonoBehaviour:
   spawnRate: 3
   instanceMax: 5
   raycastHeight: 40
-  surfaceOffset: 0.02
+  useFrontSideOnly: 1
+  useBackSideInstead: 0
+  frontZOffset: 0
+  surfaceOffsetPos: {x: 0, y: 0.02, z: 0}
+  groundOffsetPos: {x: 0, y: -0.5, z: 0}
+  cliffOffsetPos: {x: 0, y: -0.3, z: 0}
   type: 0

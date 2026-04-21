@@ -11,39 +11,47 @@ public class MainUI_SettingKeyMapping : MonoBehaviour
 
     [Header("Target")]
     [SerializeField] private string actionName = "Jump";
-    [SerializeField] private string targetGroup = "Keyboard&Mouse"; // 또는 "Gamepad"
+    [SerializeField] private string targetGroup = "Keyboard&Mouse";
 
     [Header("Rebind")]
     [SerializeField] private float pressThreshold = 0.5f;
     [SerializeField] private bool allowMouse = true;
 
     [Header("Icon / Text")]
-    [SerializeField] private DataKeyMapIcons keyMapIcons; // Gamepad/Mouse 아이콘 DB(없으면 텍스트만)
+    [SerializeField] private DataKeyMapIcons keyMapIcons;
     [SerializeField] private Image keyIconImage;
     [SerializeField] private bool hideTextWhenIconFound = true;
 
-    // Debug/inspect
     [SerializeField] private int bindingIndex = -1;
 
     private bool waiting;
     private MainUI_KeyMapLoader keyMapLoader;
+    private UI_SoundPlayer uiSoundPlayer;
 
+    public enum RebindTargetType
+    {
+        NormalButton,
+        MoveGamepadStick,
+        MoveUp,
+        MoveDown,
+        MoveLeft,
+        MoveRight
+    }
 
+    [SerializeField] private RebindTargetType rebindTargetType = RebindTargetType.NormalButton;
 
     private void Awake()
     {
         keyMapLoader = MainUI_KeyMapLoader.GetOrFind();
         if (keyMapLoader == null)
-        {
-            Debug.LogError("[KeyMap] KeyMapLoader not found.");
             enabled = false;
-        }
     }
 
     private void OnEnable()
     {
         ResolveBindingIndex();
         RefreshLabel();
+        uiSoundPlayer = GetComponentInParent<UI_SoundPlayer>();
     }
 
     private void OnDisable()
@@ -54,20 +62,22 @@ public class MainUI_SettingKeyMapping : MonoBehaviour
 
     public void KeyMappingButtonClicked()
     {
-        if (!enabled || waiting) return;
+        if (!enabled || waiting)
+            return;
 
         ResolveBindingIndex();
+
         if (bindingIndex < 0)
-        {
-            Debug.LogError($"[KeyMap] Cannot rebind. action={actionName}, group={targetGroup} binding not found.");
             return;
-        }
 
         waiting = true;
         SetVisual("...", null);
 
         InputSystem.onEvent -= OnInputEvent;
         InputSystem.onEvent += OnInputEvent;
+
+        if (uiSoundPlayer != null)
+            uiSoundPlayer.PlayUIClickSound();
     }
 
     private void OnInputEvent(InputEventPtr eventPtr, InputDevice device)
@@ -75,7 +85,6 @@ public class MainUI_SettingKeyMapping : MonoBehaviour
         if (!waiting) return;
         if (!eventPtr.IsA<StateEvent>() && !eventPtr.IsA<DeltaStateEvent>()) return;
 
-        // Cancel: ESC / Gamepad Start
         if (IsCancel(eventPtr, device))
         {
             CancelRebind();
@@ -85,30 +94,22 @@ public class MainUI_SettingKeyMapping : MonoBehaviour
         if (!allowMouse && device is Mouse)
             return;
 
-        foreach (var control in device.allControls)
+        switch (rebindTargetType)
         {
-            if (device is Keyboard && Keyboard.current != null && control == Keyboard.current.anyKey)
-                continue;
+            case RebindTargetType.MoveGamepadStick:
+                TryRebindGamepadStick(eventPtr, device);
+                break;
 
-            if (control is not ButtonControl button)
-                continue;
+            case RebindTargetType.MoveUp:
+            case RebindTargetType.MoveDown:
+            case RebindTargetType.MoveLeft:
+            case RebindTargetType.MoveRight:
+                TryRebindKeyboardButton(eventPtr, device);
+                break;
 
-            if (IsDisallowedControl(control))
-                continue;
-
-            if (!button.ReadValueFromEvent(eventPtr, out float value) || value <= pressThreshold)
-                continue;
-
-            string newPath = ToControlPath(device, control);
-
-            if (ApplyBindingOverride(newPath))
-                keyMapLoader.Save();
-
-            RefreshLabel();
-
-            waiting = false;
-            InputSystem.onEvent -= OnInputEvent;
-            return;
+            default:
+                TryRebindNormalButton(eventPtr, device);
+                break;
         }
     }
 
@@ -131,7 +132,102 @@ public class MainUI_SettingKeyMapping : MonoBehaviour
         return false;
     }
 
-    // Gamepad 스틱 "기울임(방향 버튼)" 제외. L3/R3(press)는 허용.
+    private void TryRebindNormalButton(InputEventPtr eventPtr, InputDevice device)
+    {
+        foreach (var control in device.allControls)
+        {
+            if (device is Keyboard keyboard && control == keyboard.anyKey)
+                continue;
+
+            if (control is not ButtonControl button)
+                continue;
+
+            if (IsDisallowedControl(control))
+                continue;
+
+            if (!button.ReadValueFromEvent(eventPtr, out float value) || value <= pressThreshold)
+                continue;
+
+            string newPath = ToControlPath(device, control);
+
+            if (ApplyBindingOverride(newPath))
+                keyMapLoader.Save();
+
+            FinishRebind();
+            return;
+        }
+    }
+
+    private void TryRebindGamepadStick(InputEventPtr eventPtr, InputDevice device)
+    {
+        if (device is not Gamepad gamepad)
+            return;
+
+        var stick = gamepad.leftStick;
+        if (stick == null)
+            return;
+
+        if (!stick.ReadValueFromEvent(eventPtr, out Vector2 value))
+            return;
+
+        if (value.magnitude < 0.5f)
+            return;
+
+        string newPath = "<Gamepad>/leftStick";
+
+        if (ApplyBindingOverride(newPath))
+            keyMapLoader.Save();
+
+        FinishRebind();
+    }
+
+    private void TryRebindKeyboardButton(InputEventPtr eventPtr, InputDevice device)
+    {
+        if (device is not Keyboard keyboard)
+            return;
+
+        foreach (var control in device.allControls)
+        {
+            if (control == keyboard.anyKey)
+                continue;
+
+            if (control is not ButtonControl button)
+                continue;
+
+            if (!button.ReadValueFromEvent(eventPtr, out float value) || value <= pressThreshold)
+                continue;
+
+            string newPath = ToControlPath(device, control);
+
+            if (ApplyBindingOverride(newPath))
+                keyMapLoader.Save();
+
+            FinishRebind();
+            return;
+        }
+    }
+
+    private void FinishRebind()
+    {
+        RefreshLabel();
+        waiting = false;
+        InputSystem.onEvent -= OnInputEvent;
+
+        var loader = MainUI_KeyMapLoader.GetOrFind();
+        var playerInput = FindFirstObjectByType<PlayerInput>();
+        var inputController = FindFirstObjectByType<PlayerInputController>();
+
+        if (loader != null && playerInput != null)
+            loader.ApplyToPlayerInput(playerInput, true);
+
+        if (inputController != null)
+        {
+            inputController.RefreshActionBindings();
+            inputController.SetInputLock(false);
+        }
+    }
+
+
     private bool IsDisallowedControl(InputControl control)
     {
         if (control?.device is not Gamepad)
@@ -149,50 +245,108 @@ public class MainUI_SettingKeyMapping : MonoBehaviour
         waiting = false;
         InputSystem.onEvent -= OnInputEvent;
         RefreshLabel();
+
+        if (uiSoundPlayer != null)
+            uiSoundPlayer.PlayUIDenied();
     }
 
-    public void ForceRefreshLabel() => RefreshLabel();
+    public void ForceRefreshLabel()
+    {
+        RefreshLabel();
+    }
 
     private void ResolveBindingIndex()
     {
         var actions = keyMapLoader?.Actions;
-        if (actions == null) { bindingIndex = -1; return; }
+        if (actions == null)
+        {
+            bindingIndex = -1;
+            return;
+        }
 
         var act = actions.FindAction(actionName, throwIfNotFound: false);
-        if (act == null) { bindingIndex = -1; return; }
+        if (act == null)
+        {
+            bindingIndex = -1;
+            return;
+        }
 
-        bindingIndex = BindingIndexUtil.FindFirstBindingIndexByGroup(act, targetGroup);
+        switch (rebindTargetType)
+        {
+            case RebindTargetType.NormalButton:
+                bindingIndex = BindingIndexUtil.FindFirstBindingIndexByGroup(act, targetGroup);
+                break;
+
+            case RebindTargetType.MoveGamepadStick:
+                bindingIndex = BindingIndexUtilEx.FindBindingIndexByExactPath(act, "Gamepad", "<Gamepad>/leftStick");
+                break;
+
+            case RebindTargetType.MoveUp:
+                bindingIndex = BindingIndexUtilEx.FindCompositePartIndex(act, "Keyboard&Mouse", "up");
+                break;
+
+            case RebindTargetType.MoveDown:
+                bindingIndex = BindingIndexUtilEx.FindCompositePartIndex(act, "Keyboard&Mouse", "down");
+                break;
+
+            case RebindTargetType.MoveLeft:
+                bindingIndex = BindingIndexUtilEx.FindCompositePartIndex(act, "Keyboard&Mouse", "left");
+                break;
+
+            case RebindTargetType.MoveRight:
+                bindingIndex = BindingIndexUtilEx.FindCompositePartIndex(act, "Keyboard&Mouse", "right");
+                break;
+        }
     }
 
     private bool ApplyBindingOverride(string newPath)
     {
-        var actions = keyMapLoader.Actions;
-        var act = actions.FindAction(actionName, throwIfNotFound: false);
-        if (act == null) return false;
+        var actions = keyMapLoader?.Actions;
+        if (actions == null)
+            return false;
 
-        if (bindingIndex < 0 || bindingIndex >= act.bindings.Count) return false;
+        var act = actions.FindAction(actionName, throwIfNotFound: false);
+        if (act == null)
+            return false;
+
+        if (bindingIndex < 0 || bindingIndex >= act.bindings.Count)
+            return false;
 
         act.ApplyBindingOverride(bindingIndex, newPath);
+
+        if (uiSoundPlayer != null)
+            uiSoundPlayer.PlayUIConfirm();
+
         return true;
     }
 
     private void RefreshLabel()
     {
         var actions = keyMapLoader?.Actions;
-        if (actions == null) return;
+        if (actions == null)
+            return;
 
         var act = actions.FindAction(actionName, throwIfNotFound: false);
-        if (act == null) return;
+        if (act == null)
+            return;
 
-        if (bindingIndex < 0) ResolveBindingIndex();
-        if (bindingIndex < 0) { SetVisual("None", null); return; }
+        if (bindingIndex < 0)
+            ResolveBindingIndex();
+
+        if (bindingIndex < 0)
+        {
+            SetVisual("None", null);
+            return;
+        }
 
         string effective = act.bindings[bindingIndex].effectivePath;
-        if (string.IsNullOrEmpty(effective)) { SetVisual("None", null); return; }
+        if (string.IsNullOrEmpty(effective))
+        {
+            SetVisual("None", null);
+            return;
+        }
 
         string normalized = NormalizePath(effective);
-
-        // 항상 안정적으로 텍스트 축약
         string text = Abbrev(normalized);
 
         SetVisual(text, normalized);
@@ -200,18 +354,15 @@ public class MainUI_SettingKeyMapping : MonoBehaviour
 
     private void SetVisual(string text, string normalizedPath)
     {
-        // 1) 텍스트
         keyMappingButton.buttonText = text;
         keyMappingButton.UpdateUI();
 
-        // 2) 아이콘 초기화
         if (keyIconImage != null)
         {
             keyIconImage.enabled = false;
             keyIconImage.sprite = null;
         }
 
-        // 3) 아이콘(있으면 표시)
         if (keyMapIcons == null || keyIconImage == null) return;
         if (string.IsNullOrEmpty(normalizedPath)) return;
 
@@ -228,19 +379,37 @@ public class MainUI_SettingKeyMapping : MonoBehaviour
         }
     }
 
-    // -------------------------
-    // Path utils
-    // -------------------------
     private static string ToControlPath(InputDevice device, InputControl control)
     {
-        // control.path는 보통 "/rightShoulder" 같이 오므로 "<Layout>/..."로 보정
+        if (control == null)
+            return string.Empty;
+
         string p = control.path;
-        if (p.StartsWith("<")) return p;
+        if (string.IsNullOrEmpty(p))
+            return string.Empty;
 
+        // 이미 완전한 경로면 그대로 사용
+        if (p.StartsWith("<"))
+            return p;
+
+        string layout = device != null ? device.layout : control.device.layout;
+
+        // "/Keyboard/w" 같은 케이스 처리
         if (p.StartsWith("/"))
-            return $"<{device.layout}>{p}";
+        {
+            string prefix = "/" + layout + "/";
 
-        return $"<{device.layout}>/{p}";
+            if (p.StartsWith(prefix, System.StringComparison.OrdinalIgnoreCase))
+            {
+                string controlPart = p.Substring(prefix.Length);
+                return $"<{layout}>/{controlPart}";
+            }
+
+            return $"<{layout}>{p}";
+        }
+
+        // "w" 같은 순수 control 이름만 들어온 경우
+        return $"<{layout}>/{p}";
     }
 
     private static string NormalizePath(string path)
@@ -248,11 +417,9 @@ public class MainUI_SettingKeyMapping : MonoBehaviour
         if (string.IsNullOrEmpty(path)) return path;
         if (path.StartsWith("<")) return path;
 
-        // "/leftButton" 같은 케이스 → Mouse 기본
         if (path.StartsWith("/"))
             return $"<Mouse>{path}";
 
-        // "Keyboard/a", "Mouse/press", "XInputControllerWindows1/rightShoulder" → "<Keyboard>/a" 형태로
         int slash = path.IndexOf('/');
         if (slash > 0)
         {
@@ -271,36 +438,27 @@ public class MainUI_SettingKeyMapping : MonoBehaviour
         return s.Substring(0, i + 1);
     }
 
-    // -------------------------
-    // Text abbrev
-    // -------------------------
     private static string Abbrev(string normalizedPathOrKey)
     {
         if (string.IsNullOrEmpty(normalizedPathOrKey))
             return "None";
 
-        // "<Device>/x" -> "x"
         string key = normalizedPathOrKey;
         int end = key.IndexOf(">/", System.StringComparison.Ordinal);
         if (end >= 0)
             key = key.Substring(end + 2);
 
-        // dpad/up 유지, 그 외는 마지막 토큰만
         if (key.Contains("/") && !key.StartsWith("dpad/"))
             key = key.Split('/')[^1];
 
-        // Pointer press(또는 Mouse/press 류) -> LMB
         if (key == "press") return "LMB";
 
-        // Mouse
         if (key == "leftButton") return "LMB";
         if (key == "rightButton") return "RMB";
         if (key == "middleButton") return "MMB";
 
-        // Gamepad / Keyboard common
         return key switch
         {
-            // Gamepad
             "buttonSouth" => "A",
             "buttonEast" => "B",
             "buttonWest" => "X",
@@ -317,8 +475,8 @@ public class MainUI_SettingKeyMapping : MonoBehaviour
             "dpad/down" => "D↓",
             "dpad/left" => "D←",
             "dpad/right" => "D→",
-
-            // Keyboard
+            "leftStick" => "L-Stick",
+            "rightStick" => "R-Stick",
             "escape" => "Esc",
             "space" => "Space",
             "enter" => "Enter",
@@ -335,8 +493,13 @@ public class MainUI_SettingKeyMapping : MonoBehaviour
             "downArrow" => "↓",
             "leftArrow" => "←",
             "rightArrow" => "→",
-
             _ => key.Length == 1 ? key.ToUpperInvariant() : key
         };
+    }
+
+    public void PlayHoverSound()
+    {
+        if (uiSoundPlayer != null)
+            uiSoundPlayer.PlayUIHoverSound();
     }
 }

@@ -17,6 +17,7 @@ public class PlayerMove : MonoBehaviour
 
     public float frictionFactor = 0.9f; // 감속 계수 (1에 가까울수록 느림)
     float moveSpeed_status = 1f;
+    public float moveSpeed_anim { get; private set; } = 0.5f;
     public float jumpPower = 5f;
     public int jumpCountMax = 2;
     public float moveDir { get; private set; } = 0f;
@@ -67,7 +68,7 @@ public class PlayerMove : MonoBehaviour
         aniCon = GetComponentInChildren<Animator>();
         playerStat = GetComponent<UnitStatus>();
         playerAudio = GetComponent<AudioSource>();
-        SpeedSet();
+        SpeedSet(playerStat.moveSpeed);
     }
     public void SetExternalMoveLock(bool v)
     {
@@ -76,10 +77,27 @@ public class PlayerMove : MonoBehaviour
         // 입력에 의한 감속/가속도 같이 멈추고 싶으면 여기서 moveDir=0 같은 것도 가능
     }
 
-    public void SpeedSet()
+    public void SpeedSet(float speed)
     {
         // jumpCountMax만 UnitParams 기반으로 세팅
-        jumpCountMax = playerStat.unitParams.u_multijumpCount;
+        jumpCountMax = playerStat.unitParams.u_multijumpCount + 1;
+
+        float _animSpeed;
+
+        if (speed <= 5f)
+        {
+            float t = Mathf.InverseLerp(2.5f, 5f, speed);
+            _animSpeed = Mathf.Lerp(0.25f, 0.5f, t);
+        }
+        else
+        {
+            float t = Mathf.InverseLerp(5f, 8f, speed);
+            _animSpeed = Mathf.Lerp(0.5f, 1f, t);
+        }
+
+        // Clamp (혹시라도 외부 값 들어올 대비)
+        moveSpeed_anim = Mathf.Clamp(_animSpeed, 0.25f, 1f);
+
     }
 
     private void FixedUpdate()
@@ -150,7 +168,7 @@ public class PlayerMove : MonoBehaviour
 
 
 
-
+    /*
     void Update()
     {
         if (externalMoveLock)
@@ -191,6 +209,59 @@ public class PlayerMove : MonoBehaviour
         aniCon.SetFloat("Speed", sprintActive ? _moveAniDir : _moveAniDir * 0.5f);
 
         if (movingCoolCur > 0f) movingCoolCur -= Time.deltaTime;
+    }
+    */
+
+    void Update()
+    {
+        if (externalMoveLock)
+        {
+            return;
+        }
+
+        // 0) 입력 데드존
+        const float inputDeadzone = 0.05f;
+
+        // 1) 이동 배율 계산 (Sprint 제거 → 항상 기본값)
+        float baseStatus = 1f;
+
+        float airPenalty = isJumping
+            ? airPenaltyNormal
+            : 1f;
+
+        moveSpeed_status = baseStatus * airPenalty;
+
+        // 2) 가속 / 감속
+        speedCur = Mathf.MoveTowards(speedCur, (moveDir * moveSpeed_status), 3f * Time.deltaTime);
+
+        // 3) 공중 이동
+        if (isJumping)
+        {
+            float targetAir = moveDir * playerStat.moveSpeed * moveSpeed_status;
+            airVelX = Mathf.MoveTowards(airVelX, targetAir, airAccel * Time.deltaTime);
+        }
+
+        // 4) 애니메이션
+        float animVel = isJumping
+            ? airVelX / Mathf.Max(playerStat.moveSpeed, 0.0001f)
+            : speedCur;
+
+        float _moveAniDir = isLookingRight ? animVel : -animVel;
+
+        // 현재 실제 이동 속도 추출
+        float currentSpeed = isJumping
+            ? Mathf.Abs(airVelX)
+            : Mathf.Abs(speedCur);
+
+        // 방향 반영
+        float finalSpeed = Mathf.Clamp(_moveAniDir * moveSpeed_anim, -1f, 1f);
+
+        // 적용
+        aniCon.SetFloat("Speed", finalSpeed);
+
+        // 5) 기타
+        if (movingCoolCur > 0f)
+            movingCoolCur -= Time.deltaTime;
     }
 
 
@@ -254,6 +325,8 @@ public class PlayerMove : MonoBehaviour
         bool sprintActiveNow = isSprinting && isSprintable && !isJumping && Mathf.Abs(moveDir) > 0.05f;
         wasSprintingBeforeAir = sprintActiveNow;
 
+        jumpCount++;
+
         isGrounded = false;
         isJumping = true;
         aniCon.SetBool("IsAir", true);
@@ -266,6 +339,7 @@ public class PlayerMove : MonoBehaviour
 
         //Debug.Log("Falling");
     }
+
 
 
 }

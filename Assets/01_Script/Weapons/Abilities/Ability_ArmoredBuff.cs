@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Ability_ArmoredBuff : MonoBehaviour
+public class Ability_ArmoredBuff : MonoBehaviour, IAbilityUpgradable
 {
     PlayerMove playerMove;
     UnitStatus unitStat;
@@ -49,6 +49,12 @@ public class Ability_ArmoredBuff : MonoBehaviour
         isBuffActivated = false;
         unitStat.unitParamsAbility.u_immunePer -= recieveDamageRevision;
         unitStat.SetCurrentAtk();
+    }
+
+
+    public void UpgradeAbility()
+    {
+        recieveDamageRevision -= 0.08f;
     }
 
 }

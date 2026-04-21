@@ -49,6 +49,7 @@ public class PlayerInputController : MonoBehaviour
 
     public bool isSprintToggle = true;
     public bool IsInputLocked { get; private set; } = false;
+    Vector2 moveInputCached = Vector2.zero;
 
     // ─────────────────────────────────────────────
     // Input
@@ -129,16 +130,11 @@ public class PlayerInputController : MonoBehaviour
         map = null;
 
         if (playerInput == null || playerInput.actions == null)
-        {
-            Debug.LogWarning("[PlayerInputController] PlayerInput/actions not ready.");
             return;
-        }
 
-        // 1) 특정 맵 지정 시: 그 맵에서 찾기
         if (!string.IsNullOrEmpty(actionMapName))
             map = playerInput.actions.FindActionMap(actionMapName, throwIfNotFound: false);
 
-        // 2) 맵을 못 찾았으면: asset 전체에서 FindAction으로 찾기(백업)
         if (map != null)
         {
             actInteract = map.FindAction(A_Interact, false);
@@ -163,7 +159,6 @@ public class PlayerInputController : MonoBehaviour
         }
         else
         {
-            // 맵 이름이 다르거나 비어있을 때 자동 검색
             var actions = playerInput.actions;
 
             actInteract = actions.FindAction(A_Interact, false);
@@ -186,11 +181,6 @@ public class PlayerInputController : MonoBehaviour
             actDash = actions.FindAction(A_Dash, false);
             actMenu = actions.FindAction(A_Menu, false);
         }
-
-        // (권장) 누락 액션 로그 - 초기에만 잡고 나중엔 꺼도 됨
-        WarnIfNull(actMove, A_Move);
-        WarnIfNull(actAttack, A_Attack);
-        WarnIfNull(actAiming, A_Aiming);
     }
 
     void WarnIfNull(InputAction a, string name)
@@ -323,11 +313,14 @@ public class PlayerInputController : MonoBehaviour
 
         if (IsInputLocked)
         {
+            moveInputCached = Vector2.zero;
             playerMove.MoveRequested(Vector2.zero);
             return;
         }
 
         Vector2 v = ctx.ReadValue<Vector2>();
+
+        moveInputCached = v;
         playerMove.MoveRequested(v);
 
         if (isSprintToggle && v.sqrMagnitude <= 0.01f)
@@ -407,12 +400,18 @@ public class PlayerInputController : MonoBehaviour
     {
         isInfoHide = !isInfoHide;
         ES3.Save(infoHideData, isInfoHide);
-        Debug.Log("Weapon Info Hide Toggled: " + isInfoHide);
     }
 
     void OnDash(InputAction.CallbackContext ctx)
     {
-        dashManager?.DashActive();
+        if (IsInputLocked) return;
+
+        Vector3 dashDir = new Vector3(moveInputCached.x, moveInputCached.y, 0f);
+
+        // 상하 없는 횡스크롤 회피라면 이렇게:
+        // Vector3 dashDir = new Vector3(moveInputCached.x, 0f, 0f);
+
+        dashManager?.DashActive(dashDir);
     }
 
     void OnMenu(InputAction.CallbackContext ctx)
@@ -469,5 +468,18 @@ public class PlayerInputController : MonoBehaviour
 
         if (weaponCur != null && weaponCur.laserScope != null)
             weaponCur.ScopeControl(false);
+    }
+
+    public void RefreshActionBindings()
+    {
+        if (playerInput == null)
+            playerInput = GetComponent<PlayerInput>();
+
+        BindActions(false);
+        CacheActions();
+        BindActions(true);
+
+        if (playerInput != null)
+            playerInput.SwitchCurrentActionMap(actionMapName);
     }
 }

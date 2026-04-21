@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Ability_AirRaidBuff : MonoBehaviour
+public class Ability_AirRaidBuff : MonoBehaviour, IAbilityUpgradable
 {
     PlayerMove playerMove;
     UnitStatus unitStat;
@@ -57,4 +57,10 @@ public class Ability_AirRaidBuff : MonoBehaviour
         weaponController.GetWeaponStatCur().ApplyStatusInSystem();
     }
 
+
+    public void UpgradeAbility()
+    {
+        damageRevision += 0.1f;
+        recieveDamageRevision -= 0.1f;
+    }
 }

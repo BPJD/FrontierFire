@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Ability_DamageCareBuff : MonoBehaviour
+public class Ability_DamageCareBuff : MonoBehaviour, IAbilityUpgradable
 {
     UnitStatus playerStat;
     [SerializeField] GameObject healItem;
@@ -31,6 +31,12 @@ public class Ability_DamageCareBuff : MonoBehaviour
             hitCount = 0;
         }
 
+    }
+
+
+    public void UpgradeAbility()
+    {
+        requireCount -= 1;
     }
 
 }

@@ -67,7 +67,7 @@ public class Item_ToolTip : MonoBehaviour
     {
         if (!player)
         {
-            var p = GameObject.FindGameObjectWithTag("Player");
+            var p = GameObject.FindGameObjectWithTag(Data_Strings.playerTag);
             if (p) player = p.transform;
         }
         cam = Camera.main;

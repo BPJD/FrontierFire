@@ -13,6 +13,8 @@ public class BossCoreMobSpawner : MonoBehaviour
     Transform stageConTr;
     EnemyAIBroadcastManager aiManager;
 
+    UnitStatus[] spawnedMobStats;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -21,6 +23,7 @@ public class BossCoreMobSpawner : MonoBehaviour
         aiManager = stageCon.gameObject.GetComponent<EnemyAIBroadcastManager>();
 
         spawnedMobsCur = new GameObject[mobSpawnPoints.Length];
+        spawnedMobStats = new UnitStatus[mobSpawnPoints.Length];
 
         SpawnMobs();
     }
@@ -29,12 +32,12 @@ public class BossCoreMobSpawner : MonoBehaviour
     {
         for (int i = 0; i < mobSpawnPoints.Length; i++)
         {
+
             if (spawnedMobsCur[i] != null)
             {
-                if(spawnedMobsCur[i].GetComponent<EnemyUnitAI_Controller>().state != EnemyUnitAI_Controller.UnitState.Dead)
-                {
-                    isSpawned[i] = true;
-                }
+                spawnedMobStats[i] = spawnedMobsCur[i].GetComponent<UnitStatus>();
+
+                isSpawned[i] = spawnedMobStats[i].hpCur > 0 ? true : false;
             }
 
             if (!isSpawned[i])

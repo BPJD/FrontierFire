@@ -318,7 +318,11 @@ public class PlayerWeapon : MonoBehaviour
         }
         else
         {
-            uiWeapon = GameObject.Find("UI").GetComponent<UI_Weapon>();
+            GameObject _ui = GameObject.Find("UI");
+            if(_ui != null)
+            {
+                uiWeapon = _ui.GetComponent<UI_Weapon>();
+            }
         }
     }
 

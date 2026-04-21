@@ -23,6 +23,8 @@ public class MainUI_SettingAudios : MonoBehaviour
     [Header("AudioMixer")]
     [SerializeField] AudioMixer audioMixer;
 
+    UI_SoundPlayer uiSoundPlayer;
+
     // AudioMixer에서 Expose 해둔 파라미터 이름들 (필수)
     // 예) Master_Volume, BGM_Volume, SFX_Volume, Ambient_Volume, UI_Volume
     [SerializeField]
@@ -50,6 +52,8 @@ public class MainUI_SettingAudios : MonoBehaviour
                 EventSystem.current.SetSelectedGameObject(firstSelect);
                 break;
         }
+
+        uiSoundPlayer = GetComponentInParent<UI_SoundPlayer>();
     }
 
     public void SettingEnabled()
@@ -100,6 +104,8 @@ public class MainUI_SettingAudios : MonoBehaviour
 
         ApplyToMixer(code, selectedVolumes[code], selectedisMute[code]);
         RecalculateChanged();
+
+        uiSoundPlayer.PlayUIClickSound();
     }
 
     void ApplyToMixerAllSelected()
