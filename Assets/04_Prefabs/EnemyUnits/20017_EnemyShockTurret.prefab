@@ -14,7 +14,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2
   m_IsActive: 1
 --- !u!4 &3135805316588392711
 Transform:
@@ -54,7 +54,7 @@ GameObject:
   m_TagString: Unit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2
   m_IsActive: 1
 --- !u!4 &5123245330556221597
 Transform:
@@ -130,6 +130,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!65 &8788618070423745320
 BoxCollider:
@@ -240,6 +241,7 @@ MonoBehaviour:
   itemDropRate: 5
   turretTr: {fileID: 1743056338981871304}
   deathExplosion: {fileID: 8672686199166009975, guid: 46c6c5faa734a624d9b7f80fc358babe, type: 3}
+  isCustomDropStat: 0
   deathAnimationPower: 1
   isDrone: 0
   isGravityReverse: 0
@@ -396,7 +398,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2
   m_IsActive: 1
 --- !u!4 &3346417724058578591
 Transform:
@@ -446,6 +448,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b090af9079c04d4fad2c568d155d1cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyUnitAI_Sensor
+  isAttackFirst: 1
+  isRangeCustom: 0
 --- !u!1 &5037479966942615529
 GameObject:
   m_ObjectHideFlags: 0
@@ -460,7 +464,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2
   m_IsActive: 1
 --- !u!4 &4325186066035539452
 Transform:
@@ -495,7 +499,7 @@ GameObject:
   m_TagString: WeakPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2
   m_IsActive: 1
 --- !u!4 &1743056338981871304
 Transform:
@@ -568,6 +572,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!65 &1709333936397582610
 BoxCollider:
@@ -696,6 +701,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 604845055083794816, guid: fbb4b09e630250e42b8c9a10a520a36f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 727449954010717752, guid: fbb4b09e630250e42b8c9a10a520a36f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2626321884549497786, guid: fbb4b09e630250e42b8c9a10a520a36f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4366327813436448579, guid: fbb4b09e630250e42b8c9a10a520a36f, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
@@ -703,6 +720,38 @@ PrefabInstance:
     - target: {fileID: 4739827584000670086, guid: fbb4b09e630250e42b8c9a10a520a36f, type: 3}
       propertyPath: m_Name
       value: UnitHPBarCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 4739827584000670086, guid: fbb4b09e630250e42b8c9a10a520a36f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5627695323436064588, guid: fbb4b09e630250e42b8c9a10a520a36f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5676796550766765242, guid: fbb4b09e630250e42b8c9a10a520a36f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6027260720362666686, guid: fbb4b09e630250e42b8c9a10a520a36f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6443547869723082619, guid: fbb4b09e630250e42b8c9a10a520a36f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6988262500729642138, guid: fbb4b09e630250e42b8c9a10a520a36f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7307104170571282043, guid: fbb4b09e630250e42b8c9a10a520a36f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7578446990562214167, guid: fbb4b09e630250e42b8c9a10a520a36f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

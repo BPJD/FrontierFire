@@ -1,6 +1,5 @@
 using UnityEngine;
-using static StatUpgradesSO;
-using static WeaponStatUpgradesSO;
+using System.Collections;
 
 
 public class Item_StatUpgrade : MonoBehaviour, IInteractable
@@ -73,15 +72,18 @@ public class Item_StatUpgrade : MonoBehaviour, IInteractable
 
     void StatSystemIDSet()
     {
-        // upStatID는 이제 "업그레이드 ID" 그대로 사용
         var pack = upgradeData.GetAllStatUps(upStatID);
-        toolTip = GetComponent<Item_ToolTip>();
-        if (toolTip == null) return;
 
+        if (toolTip == null)
+            toolTip = GetComponent<Item_ToolTip>();
+
+        if (toolTip == null)
+            return;
 
         if (pack != null && pack.Count > 0)
         {
             var first = pack[0];
+
             toolTip.title = first.up_name;
             toolTip.subTitle = itemTierColor.ReturnItemTier(first.up_tier, false);
             toolTip.titleColor = itemTierColor.GetItemTierColor(first.up_tier, false);
@@ -100,13 +102,25 @@ public class Item_StatUpgrade : MonoBehaviour, IInteractable
                 toolTip.weaponStatIds.Add(pack[i].up_stat);
             }
 
+            RefreshToolTip();
+        }
+    }
+
+    void RefreshToolTip()
+    {
+        if (toolTip == null)
+            return;
+
+        toolTip.UpdateToolTipUI();
+        StartCoroutine(RefreshToolTipNextFrame());
+    }
+
+    IEnumerator RefreshToolTipNextFrame()
+    {
+        yield return null;
+
+        if (toolTip != null)
             toolTip.UpdateToolTipUI();
-        }
-        else
-        {
-            // 폴백: 단일 SO 경로 (기존 그대로)
-            // toolTip.title = upgradeSO.up_name; ...
-        }
     }
 
     string ToolTipValue(float value, int type, int statID)

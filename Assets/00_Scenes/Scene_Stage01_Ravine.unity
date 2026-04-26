@@ -154,7 +154,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize2D: {x: 10, y: 10}
   m_Shadows:
-    m_Type: 2
+    m_Type: 1
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -381,7 +381,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize2D: {x: 10, y: 10}
   m_Shadows:
-    m_Type: 2
+    m_Type: 0
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -508,7 +508,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize2D: {x: 10, y: 10}
   m_Shadows:
-    m_Type: 2
+    m_Type: 0
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -635,7 +635,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize2D: {x: 10, y: 10}
   m_Shadows:
-    m_Type: 2
+    m_Type: 0
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -922,6 +922,26 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8185712749322676156, guid: 1216d507af0e2b645b06b997a120cfc6, type: 3}
+      propertyPath: stagePrefabEntries.Array.size
+      value: 41
+      objectReference: {fileID: 0}
+    - target: {fileID: 8185712749322676156, guid: 1216d507af0e2b645b06b997a120cfc6, type: 3}
+      propertyPath: stagePrefabEntries.Array.data[39].stageId
+      value: 44001
+      objectReference: {fileID: 0}
+    - target: {fileID: 8185712749322676156, guid: 1216d507af0e2b645b06b997a120cfc6, type: 3}
+      propertyPath: stagePrefabEntries.Array.data[40].stageId
+      value: 44002
+      objectReference: {fileID: 0}
+    - target: {fileID: 8185712749322676156, guid: 1216d507af0e2b645b06b997a120cfc6, type: 3}
+      propertyPath: stagePrefabEntries.Array.data[39].stagePrefab
+      value: 
+      objectReference: {fileID: 727522763135767379, guid: 445311cc9a2c0c94ea5d4f991e83beab, type: 3}
+    - target: {fileID: 8185712749322676156, guid: 1216d507af0e2b645b06b997a120cfc6, type: 3}
+      propertyPath: stagePrefabEntries.Array.data[40].stagePrefab
+      value: 
+      objectReference: {fileID: 5249721831877398494, guid: 3b1ab46b9da7f03479bc874b24fabf97, type: 3}
     - target: {fileID: 8315287330153072250, guid: 1216d507af0e2b645b06b997a120cfc6, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1021,7 +1041,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize2D: {x: 10, y: 10}
   m_Shadows:
-    m_Type: 2
+    m_Type: 0
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1

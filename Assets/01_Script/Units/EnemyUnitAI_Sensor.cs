@@ -45,7 +45,7 @@ public class EnemyUnitAI_Sensor : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(gameObject + ", " + other.gameObject);
+        //Debug.Log(gameObject + ", " + other.gameObject);
         SetPlayerApproach(true);
     }
     private void OnTriggerExit(Collider other)

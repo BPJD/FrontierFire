@@ -9,8 +9,11 @@ public class PlayerUI : MonoBehaviour
     void Start()
     {
         playerStatus = GameObject.FindGameObjectWithTag(Data_Strings.playerTag).GetComponent<UnitStatus>();
-        playerStatus.OnHpChanged += UpdateHpBar;
-        UpdateHpBar(playerStatus.hpCur, playerStatus.hpCur);
+        if(playerStatus != null)
+        {
+            playerStatus.OnHpChanged += UpdateHpBar;
+            UpdateHpBar(playerStatus.hpCur, playerStatus.hpCur);
+        }
     }
 
     void UpdateHpBar(int currentHp, int maxHp)
@@ -25,6 +28,9 @@ public class PlayerUI : MonoBehaviour
 
     void OnDestroy()
     {
-        playerStatus.OnHpChanged -= UpdateHpBar;
+        if(playerStatus != null)
+        {
+            playerStatus.OnHpChanged -= UpdateHpBar;
+        }
     }
 }

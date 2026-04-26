@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class MainUI_SettingAudios : MonoBehaviour
 {
-    MainUI_SettingManager settingManager;
+    [SerializeField] MainUI_SettingManager settingManager;
 
     int[] selectedVolumes = { 70, 70, 70, 70, 70 };
     int[] savedVolumes = { 70, 70, 70, 70, 70 };
@@ -23,7 +23,7 @@ public class MainUI_SettingAudios : MonoBehaviour
     [Header("AudioMixer")]
     [SerializeField] AudioMixer audioMixer;
 
-    UI_SoundPlayer uiSoundPlayer;
+    [SerializeField] UI_SoundPlayer uiSoundPlayer;
 
     // AudioMixer에서 Expose 해둔 파라미터 이름들 (필수)
     // 예) Master_Volume, BGM_Volume, SFX_Volume, Ambient_Volume, UI_Volume
@@ -53,7 +53,13 @@ public class MainUI_SettingAudios : MonoBehaviour
                 break;
         }
 
-        uiSoundPlayer = GetComponentInParent<UI_SoundPlayer>();
+        if (uiSoundPlayer == null)
+        {
+            uiSoundPlayer = GetComponentInParent<UI_SoundPlayer>();
+        }
+
+
+        SettingEnabled();
     }
 
     public void SettingEnabled()
@@ -105,7 +111,11 @@ public class MainUI_SettingAudios : MonoBehaviour
         ApplyToMixer(code, selectedVolumes[code], selectedisMute[code]);
         RecalculateChanged();
 
-        uiSoundPlayer.PlayUIClickSound();
+        if(uiSoundPlayer != null)
+        {
+            uiSoundPlayer.PlayUIClickSound();
+        }
+            
     }
 
     void ApplyToMixerAllSelected()

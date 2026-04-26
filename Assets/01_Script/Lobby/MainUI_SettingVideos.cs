@@ -3,13 +3,14 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using System.Collections;
 
 public class MainUI_SettingVideos : MonoBehaviour
 {
     [SerializeField] int[] resolutionWidth = { 1280, 1366, 1536, 1600, 1440, 1920, 2560 };
     [SerializeField] int[] resolutionHeight = { 720, 768, 864, 900, 900, 1080, 1440 };
 
-    MainUI_SettingManager settingManager;
+    [SerializeField] MainUI_SettingManager settingManager;
 
     enum DisplayMode
     {
@@ -57,17 +58,26 @@ public class MainUI_SettingVideos : MonoBehaviour
 
     private void OnEnable()
     {
-        if(inputDetector == null)
+
+        if (inputDetector == null)
         {
-            inputDetector = GameObject.FindGameObjectWithTag("Module").GetComponent<UI_InputDeviceDetector>();
+            inputDetector = GameObject.FindGameObjectWithTag("Module")
+                .GetComponent<UI_InputDeviceDetector>();
         }
 
-        switch (inputDetector.currentInputType)
+        if (inputDetector != null &&
+            inputDetector.currentInputType == UI_InputDeviceDetector.InputType.Gamepad)
         {
-            case UI_InputDeviceDetector.InputType.Gamepad:
-                EventSystem.current.SetSelectedGameObject(firstSelect);
-                break;
+            EventSystem.current.SetSelectedGameObject(firstSelect);
         }
+
+        StartCoroutine(SettingEnabledDelayed());
+    }
+
+    private IEnumerator SettingEnabledDelayed()
+    {
+        yield return null;
+        SettingEnabled();
     }
 
     public void SettingEnabled()
@@ -84,12 +94,12 @@ public class MainUI_SettingVideos : MonoBehaviour
         savedScreenMode = ES3.Load<int>("Setting_ScreenMode", 1);
         savedQualityIndex = ES3.Load<int>("Setting_QualityIndex", 2);
 
-        resolutionSelector.index = savedResolutionIndex;
-        selectedResolutionIndex = savedResolutionIndex;
+        resolutionSelector.index = Mathf.Clamp(savedResolutionIndex, 0, resolutionWidth.Length - 1);
+        selectedResolutionIndex = Mathf.Clamp(savedResolutionIndex, 0, resolutionWidth.Length - 1);
 
-        qualitySelector.index = savedQualityIndex;
-        selectedQualityIndex = savedQualityIndex;
-
+        qualitySelector.index = Mathf.Clamp(savedQualityIndex, 0, QualitySettings.names.Length - 1);
+        selectedQualityIndex = Mathf.Clamp(savedQualityIndex, 0, QualitySettings.names.Length - 1);
+        
         frameRateSlider.value = savedFrameRateLimit;
         selectedFrameRateLimit = savedFrameRateLimit;
         selectedIsFrameRateLimitSet = savedIsFrameRateLimitSet;
@@ -98,8 +108,11 @@ public class MainUI_SettingVideos : MonoBehaviour
         frameRateLimitSwitch.isOn = savedIsFrameRateLimitSet;
         frameRateSliderObj.SetActive(selectedIsFrameRateLimitSet);
 
+        displayModeSelector.index = Mathf.Clamp(savedScreenMode, 0, 2);
+        selectedDisplayMode = (DisplayMode)Mathf.Clamp(savedScreenMode, 0, 2);
+
+
         selectedIsVSync = savedVSync;
-        selectedDisplayMode = (DisplayMode)savedScreenMode;
 
         UpdateUI();
     }
@@ -250,6 +263,7 @@ public class MainUI_SettingVideos : MonoBehaviour
 
     void UpdateUI()
     {
+
         resolutionSelector.UpdateUI();
         displayModeSelector.UpdateUI();
         qualitySelector.UpdateUI();

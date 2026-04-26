@@ -88,6 +88,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &8552974335056808824
 GameObject:
@@ -200,6 +201,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   bulletMesh: {fileID: 5412871224141158621}
+  hitSound_terrains: []
   isMove: 0
 --- !u!1001 &4356980825878108865
 PrefabInstance:

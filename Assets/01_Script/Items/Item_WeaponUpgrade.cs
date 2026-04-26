@@ -1,5 +1,5 @@
-using System.Text;
 using UnityEngine;
+using System.Collections;
 using static WeaponStatUpgradesSO;
 
 public class Item_WeaponUpgrade : MonoBehaviour, IInteractable
@@ -97,12 +97,17 @@ public class Item_WeaponUpgrade : MonoBehaviour, IInteractable
     void StatSystemIDSet()
     {
         toolTip = GetComponent<Item_ToolTip>();
-        if (toolTip == null || upgradeData == null || upgradeSO == null) return;
+
+        if (toolTip == null || upgradeData == null || upgradeSO == null)
+            return;
 
         var pack = upgradeData.GetAllUpgrades(upStatID);
-        if (pack == null || pack.Count == 0) return;
+
+        if (pack == null || pack.Count == 0)
+            return;
 
         var first = pack[0];
+
         toolTip.title = first.up_name;
         toolTip.subTitle = itemTierColor.ReturnItemTier(first.up_tier, false);
         toolTip.titleColor = itemTierColor.GetItemTierColor(first.up_tier, false);
@@ -121,7 +126,24 @@ public class Item_WeaponUpgrade : MonoBehaviour, IInteractable
             toolTip.weaponStatIds.Add(pack[i].up_stat);
         }
 
+        RefreshToolTip();
+    }
+
+    void RefreshToolTip()
+    {
+        if (toolTip == null)
+            return;
+
         toolTip.UpdateToolTipUI();
+        StartCoroutine(RefreshToolTipNextFrame());
+    }
+
+    IEnumerator RefreshToolTipNextFrame()
+    {
+        yield return null;
+
+        if (toolTip != null)
+            toolTip.UpdateToolTipUI();
     }
 
     string ToolTipValue(float value, int type, int statID)

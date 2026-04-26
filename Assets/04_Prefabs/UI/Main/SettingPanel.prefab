@@ -2099,6 +2099,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 077ea1218292a17429a9e31536dec97c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainUi_SettingAudios
+  settingManager: {fileID: 0}
   selectedisMute: 0000000000
   volumeSliders:
   - {fileID: 5036460223371478470}
@@ -2114,6 +2115,7 @@ MonoBehaviour:
   - {fileID: 375651874659782309}
   firstSelect: {fileID: 0}
   audioMixer: {fileID: 24100000, guid: fd2e95e311c5b5e4da32b572f6628427, type: 2}
+  uiSoundPlayer: {fileID: 7209005096292510434}
   volumeParamNames:
   - Vol_Master
   - Vol_Music
@@ -29113,7 +29115,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 791056839438963785}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.584127
+  m_Size: 0.57301587
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -45982,6 +45984,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MainUI_SettingVideos
   resolutionWidth: 00050000560500000006000040060000a005000080070000000a0000
   resolutionHeight: d00200000003000060030000840300008403000038040000a0050000
+  settingManager: {fileID: 0}
   resolutionSelector: {fileID: 5437653571159695240}
   displayModeSelector: {fileID: 8578395843755140984}
   qualitySelector: {fileID: 8394443017313167236}
@@ -52313,6 +52316,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae5751e88d75923469b0cf8dc1da39df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainUI_SettingGeneral
+  settingManager: {fileID: 0}
   fontManager: {fileID: 7796300743025476453}
   locManager: {fileID: 4547749094977579119}
   languageSelector: {fileID: 5591676213502899523}

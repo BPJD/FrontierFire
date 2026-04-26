@@ -6,12 +6,14 @@ public class Direction_SceneChanger : MonoBehaviour
 {
     [SerializeField] private AnimationCurve fadeCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
 
-    [SerializeField] private float fadeDuration = 2f;
+    private float fadeDuration = 2f;
     [SerializeField] private float fadeTarget = 1f;
 
     [SerializeField] private CanvasGroup canvasGroup;
 
     [SerializeField] private string loadingSceneName = "Scene_Loading";
+
+    Direction_BGMPlay bgmPlayer;
 
     public GameObject player { private get; set; }
 
@@ -33,11 +35,19 @@ public class Direction_SceneChanger : MonoBehaviour
 
     public void ChangeScene(string sceneName, bool isReset)
     {
-        if(player!= null)
+        if(player != null)
         {
             player.GetComponentInChildren<PlayerDashManager>().ResetDashCooldown();
         }
+
+
         StartCoroutine(FadeRoutine(fadeDuration, fadeTarget, sceneName, isReset));
+        bgmPlayer = GameObject.FindGameObjectWithTag("Sound").GetComponent<Direction_BGMPlay>();
+
+        if(bgmPlayer != null)
+        {
+            bgmPlayer.StopBGM(fadeDuration);
+        }
     }
 
     private IEnumerator FadeRoutine(float duration, float target, string sceneName, bool isPlayerReset)

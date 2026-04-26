@@ -1415,6 +1415,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitDataSource: {fileID: 11400000, guid: 03f123c644be71a4ab2447e3a9da6b94, type: 2}
+  unitParamsDifficulty:
+    u_name: 
+    u_type: 0
+    u_hp: 0
+    u_atk: 0
+    u_def: 0
+    u_immunePer: 1
+    u_hpRegen: 0
+    u_hpRegenSpeed: 1
+    u_armorLevel: 0
+    u_moveSpeed: 0
+    u_jumpPower: 0
+    u_multijumpCount: 0
+    u_shotAccuracy: 0
+    u_criRate: 0
+    u_criDamage: 0
+    u_damage: 1
   unitParamsAbility:
     u_name: 
     u_type: 0
@@ -6156,6 +6173,58 @@ PrefabInstance:
       propertyPath: m_Name
       value: 05_PlayerDashManager
       objectReference: {fileID: 0}
+    - target: {fileID: 3341514267111333380, guid: 34e86b646979ae64b893ba51fe6e79e6, type: 3}
+      propertyPath: InheritVelocityModule.m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3341514267111333380, guid: 34e86b646979ae64b893ba51fe6e79e6, type: 3}
+      propertyPath: InheritVelocityModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3341514267111333380, guid: 34e86b646979ae64b893ba51fe6e79e6, type: 3}
+      propertyPath: InheritVelocityModule.m_Curve.scalar
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3341514267111333380, guid: 34e86b646979ae64b893ba51fe6e79e6, type: 3}
+      propertyPath: InheritVelocityModule.m_Curve.minScalar
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3341514267111333380, guid: 34e86b646979ae64b893ba51fe6e79e6, type: 3}
+      propertyPath: ClampVelocityModule.multiplyDragByParticleVelocity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3341514267111333380, guid: 34e86b646979ae64b893ba51fe6e79e6, type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[0].inSlope
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3341514267111333380, guid: 34e86b646979ae64b893ba51fe6e79e6, type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[1].inSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3341514267111333380, guid: 34e86b646979ae64b893ba51fe6e79e6, type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[0].inWeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3341514267111333380, guid: 34e86b646979ae64b893ba51fe6e79e6, type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[0].outSlope
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3341514267111333380, guid: 34e86b646979ae64b893ba51fe6e79e6, type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[1].inWeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3341514267111333380, guid: 34e86b646979ae64b893ba51fe6e79e6, type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[1].outSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3341514267111333380, guid: 34e86b646979ae64b893ba51fe6e79e6, type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[0].outWeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3341514267111333380, guid: 34e86b646979ae64b893ba51fe6e79e6, type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[1].outWeight
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3431091557891466578, guid: 34e86b646979ae64b893ba51fe6e79e6, type: 3}
       propertyPath: rb
       value: 
@@ -6164,6 +6233,38 @@ PrefabInstance:
       propertyPath: moveSystem
       value: 
       objectReference: {fileID: 4782904416618273401}
+    - target: {fileID: 4103340834498084994, guid: 34e86b646979ae64b893ba51fe6e79e6, type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[0].inSlope
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4103340834498084994, guid: 34e86b646979ae64b893ba51fe6e79e6, type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[1].inSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4103340834498084994, guid: 34e86b646979ae64b893ba51fe6e79e6, type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[0].inWeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4103340834498084994, guid: 34e86b646979ae64b893ba51fe6e79e6, type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[0].outSlope
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4103340834498084994, guid: 34e86b646979ae64b893ba51fe6e79e6, type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[1].inWeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4103340834498084994, guid: 34e86b646979ae64b893ba51fe6e79e6, type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[1].outSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4103340834498084994, guid: 34e86b646979ae64b893ba51fe6e79e6, type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[0].outWeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4103340834498084994, guid: 34e86b646979ae64b893ba51fe6e79e6, type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[1].outWeight
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4157845679317972913, guid: 34e86b646979ae64b893ba51fe6e79e6, type: 3}
       propertyPath: rb
       value: 
@@ -6211,6 +6312,14 @@ PrefabInstance:
     - target: {fileID: 4310344955182742681, guid: 34e86b646979ae64b893ba51fe6e79e6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7508663359933550169, guid: 34e86b646979ae64b893ba51fe6e79e6, type: 3}
+      propertyPath: moveWithTransform
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9122796071051563231, guid: 34e86b646979ae64b893ba51fe6e79e6, type: 3}
+      propertyPath: moveWithTransform
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

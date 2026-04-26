@@ -167,13 +167,16 @@ public class UI_ToolTip_Object : MonoBehaviour
 
             case ObjectType.Ability:
 
-                localize_name.localizationKey = toolTip.title;
-                localize_subName.localizationKey = toolTip.subTitle;
-                localize_desc.localizationKey = toolTip.description;
+                if (localize_name != null)
+                    localize_name.localizationKey = toolTip.title;
 
-                localize_name.UpdateItem();
-                localize_desc.UpdateItem();
-                localize_subName.UpdateItem();
+                if (localize_subName != null)
+                    localize_subName.localizationKey = toolTip.subTitle;
+
+                if (localize_desc != null)
+                    localize_desc.localizationKey = toolTip.description;
+
+                RefreshAbilityLocalizedText();
 
                 break;
 
@@ -367,5 +370,42 @@ public class UI_ToolTip_Object : MonoBehaviour
 
         Canvas.ForceUpdateCanvases();
         LayoutRebuilder.ForceRebuildLayoutImmediate(rect);
+    }
+
+    void RefreshAbilityLocalizedText()
+    {
+        if (localize_name != null)
+            localize_name.UpdateItem();
+
+        if (localize_subName != null)
+            localize_subName.UpdateItem();
+
+        if (localize_desc != null)
+            localize_desc.UpdateItem();
+
+        StartCoroutine(RefreshAbilityLocalizedTextDelayed());
+    }
+
+    IEnumerator RefreshAbilityLocalizedTextDelayed()
+    {
+        yield return null;
+        yield return null;
+
+        if (localize_name != null)
+            localize_name.UpdateItem();
+
+        if (localize_subName != null)
+            localize_subName.UpdateItem();
+
+        if (localize_desc != null)
+            localize_desc.UpdateItem();
+
+        if (tr == null)
+            tr = GetComponent<RectTransform>();
+
+        Canvas.ForceUpdateCanvases();
+
+        if (tr != null)
+            LayoutRebuilder.ForceRebuildLayoutImmediate(tr);
     }
 }

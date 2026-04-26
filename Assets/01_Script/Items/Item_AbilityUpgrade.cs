@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class Item_AbilityUpgrade : MonoBehaviour, IInteractable
 {
@@ -95,6 +96,16 @@ public class Item_AbilityUpgrade : MonoBehaviour, IInteractable
         toolTip.description = row.effect ?? string.Empty;
 
         toolTip.UpdateToolTipUI();
+
+        StartCoroutine(RefreshToolTipNextFrame());
+    }
+
+    IEnumerator RefreshToolTipNextFrame()
+    {
+        yield return null;
+
+        if (toolTip != null)
+            toolTip.UpdateToolTipUI();
     }
 
     // =====================================================

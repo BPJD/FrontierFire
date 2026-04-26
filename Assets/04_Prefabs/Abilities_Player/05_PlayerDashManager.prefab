@@ -424,6 +424,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ability_BladeTrail
       objectReference: {fileID: 0}
+    - target: {fileID: 6166831241343786895, guid: f5b15c311f5767246b0f0bfe62118a8e, type: 3}
+      propertyPath: ClampVelocityModule.dampen
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 6923599829424397270, guid: f5b15c311f5767246b0f0bfe62118a8e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

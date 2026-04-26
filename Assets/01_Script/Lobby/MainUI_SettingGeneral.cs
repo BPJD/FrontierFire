@@ -5,7 +5,7 @@ using System.Collections;
 
 public class MainUI_SettingGeneral : MonoBehaviour
 {
-    MainUI_SettingManager settingManager;
+    [SerializeField] MainUI_SettingManager settingManager;
     [SerializeField] Localize_FontManager fontManager;
 
     public static readonly string[] languageCodes = { "de-DE", "en-US", "es-ES", "fr-FR", "ja-JP", "ko-KR", "pl-PL", "pt-BR", "ru-RU", "tr-TR", "zh-CN" };
@@ -25,12 +25,13 @@ public class MainUI_SettingGeneral : MonoBehaviour
         if (inputDetector == null)
             inputDetector = GameObject.FindGameObjectWithTag("Module").GetComponent<UI_InputDeviceDetector>();
 
-        SettingEnabled();
-
         uiSoundPlayer = GetComponentInParent<UI_SoundPlayer>();
 
         if (inputDetector.currentInputType == UI_InputDeviceDetector.InputType.Gamepad)
             EventSystem.current.SetSelectedGameObject(firstSelect);
+
+
+        SettingEnabled();
     }
 
     public void SettingEnabled()

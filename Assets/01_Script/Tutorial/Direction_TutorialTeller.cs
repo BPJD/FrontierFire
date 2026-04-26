@@ -80,6 +80,7 @@ public class Direction_TutorialTeller : MonoBehaviour
 
                 if(isTutorialEnd)
                 {
+                    ES3.Save<int>(Setting_PlayerSettingReset.KEY_TUTORIAL_CLEAR, 1);
                     sceneChanger.ToMainMenu();
                     ES3.Save<bool>("isStartInLobby", true);
                     yield return new WaitForSeconds(50f);

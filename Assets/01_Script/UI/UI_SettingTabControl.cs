@@ -32,8 +32,6 @@ public class UI_SettingTabControl : MonoBehaviour
     private float _nextAllowedTime;
     private Coroutine _forceSelectCo;
 
-    UI_SoundPlayer uiSoundPlayer;
-
     void Awake()
     {
         if (!playerInput)
@@ -44,8 +42,6 @@ public class UI_SettingTabControl : MonoBehaviour
 
     void OnEnable()
     {
-        uiSoundPlayer = GetComponent<UI_SoundPlayer>();
-
         CacheActions();
         Bind(true);
 
@@ -178,11 +174,6 @@ public class UI_SettingTabControl : MonoBehaviour
 
     void SelectNow(int index, bool invoke)
     {
-        if(uiSoundPlayer != null)
-        {
-            uiSoundPlayer.PlayUIClickSound();
-        }
-
         var target = GetSelectable(index);
         if (!target) return;
 

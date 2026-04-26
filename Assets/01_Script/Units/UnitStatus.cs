@@ -8,6 +8,7 @@ public class UnitStatus : MonoBehaviour
 
     public UnitParams unitParams{ get; private set; }
     public UnitParams unitParamsDefault{ get; private set; }
+    [SerializeField] UnitParams unitParamsDifficulty;
     public UnitParams unitParamsAbility; //{ get; private set; }
 
     public event System.Action<int, int> OnHpChanged;
@@ -47,6 +48,12 @@ public class UnitStatus : MonoBehaviour
         unitParams = new UnitParams(unitDataSource);
         unitParamsDefault = new UnitParams(unitParams); // 백업용 복사
         unitParamsAbility = new UnitParams();
+        unitParamsDifficulty = new UnitParams();
+
+        unitParamsDifficulty.u_immunePer = 0f;
+        unitParamsDifficulty.u_damage = 0f;
+        unitParamsDifficulty.u_hpRegenSpeed = 0f;
+
         soundPlayer = GetComponent<AudioSource>();
         data_DNum = GameObject.FindGameObjectWithTag(Data_Strings.DataObjTag).GetComponent<Data_DamageNumbers>();
         tr = transform;
@@ -261,21 +268,25 @@ public class UnitStatus : MonoBehaviour
             StatRevisionByLevel(gameControl.worldCur - 1, gameControl.difficulty);
         }
 
-        if(unitParams.u_type == UnitParamsSO.UnitTypes.Player)
+
+        if (unitParams.u_type == UnitParamsSO.UnitTypes.Player)
         {
-            unitParams.u_immunePer += Data_Strings.playerImmuneRevisionByDifficultyBase[gameControl.difficulty];
+            unitParamsDifficulty.u_immunePer = Data_Strings.playerImmuneRevisionByDifficultyBase[gameControl.difficulty];
+            immunePer = 1f + (unitParamsAbility.u_immunePer - 1f) + unitParamsDifficulty.u_immunePer;
         }
 
     }
 
-    void StatRevisionByLevel(int stageLev, int difficulty) //스테이지와 난이도에 따른 스탯 보정
+    void StatRevisionByLevel(int stageLev, int difficulty)
     {
-        float hpRev = (stageLev * 0.5f) + Data_Strings.hpRevisionByDifficultyBase[difficulty];
-        float atkRev = (stageLev * 0.2f) + Data_Strings.damageIncreaseByDifficultyBase[difficulty];
+        float hpMul = 1f + (stageLev * 0.5f) + Data_Strings.hpRevisionByDifficultyBase[difficulty];
+        unitParams.u_hp = Mathf.RoundToInt(unitParamsDefault.u_hp * hpMul);
+        hpCur = unitParams.u_hp;
 
-        hpCur *= (int)hpRev;
+        float damageAdd = (stageLev * 0.3f) + Data_Strings.damageIncreaseByDifficultyBase[difficulty];
+        unitParamsDifficulty.u_damage = damageAdd;
+
         SetCurrentAtk();
-        damageCur *= (int)atkRev;
     }
 
     void SetMoveSpeed()
@@ -288,12 +299,12 @@ public class UnitStatus : MonoBehaviour
 
     public void SetCurrentAtk()
     {
-        atkCur = Mathf.Max(0, unitParams.u_atk + unitParamsAbility.u_atk);
-        damageCur = Mathf.Max(0.01f, unitParams.u_damage + (unitParamsAbility.u_damage - 1f));
+        atkCur = Mathf.Max(0, unitParams.u_atk + unitParamsAbility.u_atk + unitParamsDifficulty.u_atk);
+        damageCur = Mathf.Max(0.01f, unitParams.u_damage + (unitParamsAbility.u_damage - 1f) + unitParamsDifficulty.u_damage);
         criRate = Mathf.Max(1f, unitParams.u_criRate + unitParamsAbility.u_criRate);
         criDamage = Mathf.Max(0f, unitParams.u_criDamage + unitParamsAbility.u_criDamage);
 
-        immunePer = 1f + (unitParamsAbility.u_immunePer - 1f);
+        immunePer = 1f + (unitParamsAbility.u_immunePer - 1f) + unitParamsDifficulty.u_immunePer;
     }
 
 
@@ -385,5 +396,22 @@ public class UnitStatus : MonoBehaviour
         hpCur = unitParams.u_hp;
         SetRevision();
     }
+
+    public void RefreshStageDifficultyStats(bool resetHp)
+    {
+        unitParamsDifficulty = new UnitParams();
+
+        unitParamsDifficulty.u_immunePer = 0f;
+        unitParamsDifficulty.u_damage = 0f;
+        unitParamsDifficulty.u_hpRegenSpeed = 0f;
+
+        SetRevision();
+        SetCurrentAtk();
+
+        hpCur = resetHp ? unitParams.u_hp : Mathf.Clamp(hpCur, 0, unitParams.u_hp);
+
+        OnHpChanged?.Invoke(hpCur, unitParams.u_hp);
+    }
+
 
 }

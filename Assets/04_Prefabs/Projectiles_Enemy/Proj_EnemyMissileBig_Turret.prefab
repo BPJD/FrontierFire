@@ -93,6 +93,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &3036629232754816816
 MonoBehaviour:
@@ -120,6 +121,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   bulletMesh: {fileID: 0}
+  hitSound_terrains: []
   isMove: 1
 --- !u!65 &3378084800454751649
 BoxCollider:
@@ -181,6 +183,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BulletMuzzleFire
       objectReference: {fileID: 0}
+    - target: {fileID: 3702431751416815281, guid: 8fdad4932ecdfe440bac7436baaa13b9, type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7803351021174392915, guid: 8fdad4932ecdfe440bac7436baaa13b9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -219,6 +225,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7803351021174392915, guid: 8fdad4932ecdfe440bac7436baaa13b9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7993191100461192170, guid: 8fdad4932ecdfe440bac7436baaa13b9, type: 3}
+      propertyPath: m_ReceiveShadows
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -303,6 +313,22 @@ PrefabInstance:
     - target: {fileID: 8135673123753662129, guid: c867078c7dd4d164ea6a37b6c942d130, type: 3}
       propertyPath: m_ConstrainProportionsScale
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8135673123773103231, guid: c867078c7dd4d164ea6a37b6c942d130, type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8135673123773103303, guid: c867078c7dd4d164ea6a37b6c942d130, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8135673123773103303, guid: c867078c7dd4d164ea6a37b6c942d130, type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8135673123773162069, guid: c867078c7dd4d164ea6a37b6c942d130, type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

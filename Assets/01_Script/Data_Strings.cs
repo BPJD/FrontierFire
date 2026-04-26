@@ -10,8 +10,14 @@ public static class Data_Strings
     public const string soundTag = "Sound";
 
     public const string gameDifficultyKey = "GameDifficulty";
-    public static float[] hpRevisionByDifficultyBase = { -0.25f, 0f, 0.2f, 0.4f }; // 난이도에 따른 HP 회복량 증가 비율 기본값 (예: 0.1f는 10% 증가)
+    public static float[] hpRevisionByDifficultyBase = { -0.25f, 0f, 0.2f, 0.4f }; // 난이도에 따른 HP 증가 비율 기본값 (예: 0.1f는 10% 증가)
     public static float[] damageIncreaseByDifficultyBase = { 0f, 0f, 0.1f, 0.2f }; // 난이도에 따른 데미지 증가 비율 기본값 (예: 0.2f는 20% 증가)
-    public static float[] playerImmuneRevisionByDifficultyBase = { -0.25f, 0f, 0.05f, 0.3f }; // 난이도에 따른 피해량 감소 비율 기본값 (예: 0.1f는 10% 감소)
+    public static float[] playerImmuneRevisionByDifficultyBase =
+    {
+    -0.25f, // Easy
+     0f,   // Normal
+     0.05f,// Hard
+     0.3f  // Hard+
+};
 
 }

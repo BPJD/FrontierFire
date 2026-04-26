@@ -252,14 +252,25 @@ public class StageModule : MonoBehaviour
 
     void DropRewards()
     {
-        if(rewardObjs.Count == 1)
+        if (rewardObjs == null || rewardObjs.Count <= 0)
         {
-            for (int i = 0; i < rewardObjs.Count; i++)
-            {
-                Instantiate(rewardObjs[i], playerUnit.transform.position, Quaternion.identity);
-            }
+            Debug.LogWarning("[StageModule] DropRewards failed. rewardObjs is empty.");
+            playerUnit.GetComponent<PlayerHeal>().HealFlag();
+            return;
         }
-        
+
+        for (int i = 0; i < rewardObjs.Count; i++)
+        {
+            if (rewardObjs[i] == null)
+            {
+                Debug.LogWarning($"[StageModule] rewardObjs[{i}] is null.");
+                continue;
+            }
+
+            Instantiate(rewardObjs[i], playerUnit.transform.position, Quaternion.identity);
+        }
+
+        rewardObjs.Clear();
 
         playerUnit.GetComponent<PlayerHeal>().HealFlag();
     }

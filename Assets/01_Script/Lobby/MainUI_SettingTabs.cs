@@ -15,6 +15,8 @@ public class MainUI_SettingTabs : MonoBehaviour
 
     [SerializeField] GameObject[] firstButtonsInTab;
 
+    [SerializeField] UI_SoundPlayer uiSoundPlayer;
+
 
     public void TabButtonClicked(int code)
     {
@@ -22,6 +24,11 @@ public class MainUI_SettingTabs : MonoBehaviour
         {
             if (i == code)
             {
+                if(uiSoundPlayer != null)
+                {
+                    uiSoundPlayer.PlayUIClickSound();
+                }
+                    
                 tabPanels[i].SetActive(true);
                 tabIndicator.AnimateTo(tabButtons[i].GetComponent<RectTransform>());
                 EventSystem.current.SetSelectedGameObject(firstButtonsInTab[i]);

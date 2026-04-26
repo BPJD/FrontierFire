@@ -55,72 +55,69 @@ public class Item_ToolTip : MonoBehaviour
 
     void Start()
     {
-        if (!isComponentSelected)
-        {
-            ComponentSelect();
-        }
-
-
+        EnsureCreated();
+        UpdateToolTipUI();
     }
 
     void ComponentSelect()
     {
+        if (isComponentSelected)
+            return;
+
         if (!player)
         {
             var p = GameObject.FindGameObjectWithTag(Data_Strings.playerTag);
             if (p) player = p.transform;
         }
+
         cam = Camera.main;
-        interacter = player.gameObject.GetComponentInChildren<PlayerInteract>();
+
+        if (player != null)
+            interacter = player.gameObject.GetComponentInChildren<PlayerInteract>();
 
         if (rootCanvas == null)
         {
-            rootCanvas = GameObject.FindGameObjectWithTag("ItemUICanvas").GetComponent<Canvas>();
+            var canvasObj = GameObject.FindGameObjectWithTag("ItemUICanvas");
+            if (canvasObj != null)
+                rootCanvas = canvasObj.GetComponent<Canvas>();
         }
 
-        tooltipPrefab = rootCanvas.GetComponent<DataToolTips>().GetToolTipData(tooltipType);
+        if (rootCanvas == null)
+            return;
 
-        // UI 인스턴스 만들기
-        if (tooltipPrefab && rootCanvas)
-        {
-            ui = Instantiate(tooltipPrefab, rootCanvas.transform);
-            created = true;
+        var dataToolTips = rootCanvas.GetComponent<DataToolTips>();
+        if (dataToolTips == null)
+            return;
 
-            cg = ui.GetComponent<CanvasGroup>();
-            if (!cg) cg = ui.gameObject.AddComponent<CanvasGroup>();
+        tooltipPrefab = dataToolTips.GetToolTipData(tooltipType);
 
-            /*
-            // 텍스트 바인딩
-            titleTMP = ui.GetComponentInChildren<TMP_Text>(); // 첫 TMP_Text를 제목으로 쓰고…
-            // 만약 제목/설명 따로라면 GetComponentsInChildren로 잡아서 배열[0]/[1] 등으로 매핑
-            // 여기서는 간단히 두 개를 찾아봄
-            var tmps = ui.GetComponentsInChildren<TMP_Text>();
-            if (tmps.Length >= 2) { titleTMP = tmps[0]; descTMP = tmps[1]; }
-            else if (tmps.Length == 1) { titleTMP = tmps[0]; }
+        if (tooltipPrefab == null)
+            return;
 
-            if (titleTMP) titleTMP.text = title;
-            if (descTMP) descTMP.text = description;
-            */
+        ui = Instantiate(tooltipPrefab, rootCanvas.transform);
+        created = true;
 
-            toolTip_Object = ui.gameObject.GetComponent<UI_ToolTip_Object>();
-            UpdateToolTipUI();
+        cg = ui.GetComponent<CanvasGroup>();
+        if (!cg)
+            cg = ui.gameObject.AddComponent<CanvasGroup>();
 
+        toolTip_Object = ui.gameObject.GetComponent<UI_ToolTip_Object>();
 
-            cg.alpha = 0f; // 시작은 숨김
+        cg.alpha = 0f;
+        cg.blocksRaycasts = false;
+        cg.interactable = false;
+        ui.gameObject.SetActive(true);
 
-            isComponentSelected = true;
-        }
-        else
-        {
-            //Debug.LogWarning($"[ProximityTooltip] Prefab/Canvas 미지정: {name}");
-        }
+        isComponentSelected = true;
+
     }
 
 
 
     void LateUpdate()
     {
-        if (!created || !player || !cam || interacter == null) return;
+        if (!created || !player || !cam || interacter == null || ui == null || cg == null)
+            return;
 
         Vector3 worldPos = transform.position + worldOffset;
 
@@ -134,6 +131,7 @@ public class Item_ToolTip : MonoBehaviour
 
         // 3) LOS 체크
         bool hasLOS = true;
+
         if (requireLineOfSight && inFront && closeEnough)
         {
             if (Physics.Raycast(
@@ -148,12 +146,17 @@ public class Item_ToolTip : MonoBehaviour
             }
         }
 
+        bool prevVisibleTarget = visibleTarget;
         visibleTarget = closeEnough && inFront && hasLOS;
 
-        // 실제 선택 여부는 항상 별도로 계산
+        // UI 오브젝트는 비활성화하지 않고 항상 활성 유지
+        if (!ui.gameObject.activeSelf)
+            ui.gameObject.SetActive(true);
+
+        // 실제 선택 여부
         bool isActuallySelected = interacter.SelectedObj == gameObject;
 
-        // 안 보이면 선택 상태 자체를 끊어준다
+        // 안 보이면 선택 상태 해제
         if (!visibleTarget)
         {
             if (isActuallySelected)
@@ -163,15 +166,17 @@ public class Item_ToolTip : MonoBehaviour
             }
 
             if (toolTip_Object != null && isSelectedColor)
-            {
                 toolTip_Object.ThisItemSelected(false);
-            }
 
             isSelectedColor = false;
         }
         else
         {
-            // 보일 때만 위치 갱신
+            // 보이기 시작하는 순간 툴팁 텍스트 강제 갱신
+            if (!prevVisibleTarget)
+                UpdateToolTipUI();
+
+            // 위치 갱신
             Vector3 screenPos = cam.WorldToScreenPoint(worldPos);
 
             Vector2 clamped = new Vector2(
@@ -181,7 +186,7 @@ public class Item_ToolTip : MonoBehaviour
 
             ui.position = clamped;
 
-            // 보이는 상태에서 선택 강조 갱신
+            // 선택 강조 갱신
             if (toolTip_Object != null)
             {
                 if (isActuallySelected)
@@ -191,6 +196,9 @@ public class Item_ToolTip : MonoBehaviour
                         toolTip_Object.ThisItemSelected(true);
                         ui.SetAsLastSibling();
                         isSelectedColor = true;
+
+                        // 선택 상태가 되는 순간에도 한 번 더 갱신
+                        UpdateToolTipUI();
                     }
                 }
                 else
@@ -204,18 +212,21 @@ public class Item_ToolTip : MonoBehaviour
             }
         }
 
-        // 알파는 visibleTarget 우선
+        // 알파만 조절
         float targetAlpha = 0f;
+
         if (visibleTarget)
-        {
             targetAlpha = isSelectedColor ? 1f : deselectedAlpha;
-        }
 
-        cg.alpha = Mathf.MoveTowards(cg.alpha, targetAlpha, appearSpeed * Time.deltaTime);
+        cg.alpha = Mathf.MoveTowards(
+            cg.alpha,
+            targetAlpha,
+            appearSpeed * Time.deltaTime
+        );
 
-        bool shouldShow = cg.alpha > 0.01f;
-        if (ui.gameObject.activeSelf != shouldShow)
-            ui.gameObject.SetActive(shouldShow);
+        // 클릭/레이캐스트 방지
+        cg.blocksRaycasts = false;
+        cg.interactable = false;
     }
 
 
@@ -242,15 +253,18 @@ public class Item_ToolTip : MonoBehaviour
 
     public void UpdateToolTipUI()
     {
-        if (toolTip_Object != null)
-        {
-            toolTip_Object.SetText(this);
+        EnsureCreated();
 
-        }
-        else if(!isComponentSelected)
-        {
+        if (toolTip_Object == null)
+            return;
+
+        toolTip_Object.SetText(this);
+    }
+
+    private void EnsureCreated()
+    {
+        if (!isComponentSelected || toolTip_Object == null || ui == null)
             ComponentSelect();
-        }
     }
 
     public void CheckItemToolTipSelected()

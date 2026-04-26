@@ -134,6 +134,7 @@ MonoBehaviour:
   - {fileID: 1383613036756237129}
   - {fileID: 2661428017567173089}
   - {fileID: 1274601946449195578}
+  uiSoundPlayer: {fileID: 3391782545335256945}
 --- !u!114 &8617626594526806983
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -591,6 +592,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -25
       objectReference: {fileID: 0}
+    - target: {fileID: 526261124832996961, guid: 619ec15c3da95f4408a0fd54b5dede63, type: 3}
+      propertyPath: settingManager
+      value: 
+      objectReference: {fileID: 8617626594526806983}
     - target: {fileID: 608009347127930940, guid: 619ec15c3da95f4408a0fd54b5dede63, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -1631,6 +1636,10 @@ PrefabInstance:
       propertyPath: colorType
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2136900677091570091, guid: 619ec15c3da95f4408a0fd54b5dede63, type: 3}
+      propertyPath: settingManager
+      value: 
+      objectReference: {fileID: 8617626594526806983}
     - target: {fileID: 2150267373911565301, guid: 619ec15c3da95f4408a0fd54b5dede63, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -4383,6 +4392,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -25
       objectReference: {fileID: 0}
+    - target: {fileID: 6193983102275030099, guid: 619ec15c3da95f4408a0fd54b5dede63, type: 3}
+      propertyPath: m_Size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6196875911092099002, guid: 619ec15c3da95f4408a0fd54b5dede63, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -4745,11 +4758,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7007737054413670279, guid: 619ec15c3da95f4408a0fd54b5dede63, type: 3}
       propertyPath: m_Size
-      value: 0.7775095
+      value: 0.7537424
       objectReference: {fileID: 0}
     - target: {fileID: 7007737054413670279, guid: 619ec15c3da95f4408a0fd54b5dede63, type: 3}
       propertyPath: m_Value
-      value: 1
+      value: 1.0000004
       objectReference: {fileID: 0}
     - target: {fileID: 7049925948062694529, guid: 619ec15c3da95f4408a0fd54b5dede63, type: 3}
       propertyPath: m_AnchorMax.y
@@ -5483,6 +5496,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8140731621144801389, guid: 619ec15c3da95f4408a0fd54b5dede63, type: 3}
+      propertyPath: settingManager
+      value: 
+      objectReference: {fileID: 8617626594526806983}
     - target: {fileID: 8171116700179404119, guid: 619ec15c3da95f4408a0fd54b5dede63, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -6344,6 +6361,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7330039071775927446, guid: 619ec15c3da95f4408a0fd54b5dede63, type: 3}
   m_PrefabInstance: {fileID: 5411514419889499539}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3391782545335256945 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7209005096292510434, guid: 619ec15c3da95f4408a0fd54b5dede63, type: 3}
+  m_PrefabInstance: {fileID: 5411514419889499539}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4809904374399463927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90ffbc1581fe57c48849de616b85694a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UI_SoundPlayer
 --- !u!114 &4214292731257583812 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8171116700179404119, guid: 619ec15c3da95f4408a0fd54b5dede63, type: 3}

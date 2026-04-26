@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using Michsky.UI.Heat;
 
 public class Game_DifficultyStat : MonoBehaviour
 {
@@ -7,6 +8,8 @@ public class Game_DifficultyStat : MonoBehaviour
     [SerializeField] int difficultyLevel = 1;   // 0: Easy, 1: Normal, 2: Hard, 3: Hard+
 
     [SerializeField] Color minus, normal, plus;
+
+    [SerializeField] LocalizedObject enemyHPLocalized, enemyDamageLocalized, playerImmuneLocalized;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

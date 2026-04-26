@@ -2,95 +2,143 @@ using UnityEngine;
 
 public class Control_Stage : MonoBehaviour
 {
-    [SerializeField] private Data_Stages stageData; // Data_Stages 참조
+    [SerializeField] private Data_Stages stageData;
     [SerializeField] private int stageCur = 0;
-    [SerializeField] private int gameLevel = 1; // 현재 레벨 (난이도)
-    [SerializeField] int requireForBoss = 8;
-    
+    [SerializeField] private int gameLevel = 1;
+    [SerializeField] private int requireForBoss = 8;
 
-    [SerializeField] private int world;       // 현재 지역
+    [SerializeField] private int world;
 
-    [SerializeField] GameObject customBossStage; // 보스 스테이지 프리팹
+    [SerializeField] private GameObject customBossStage;
 
+    private int playingStageID = -1;
 
     public int difficulty { get; private set; }
     public int worldCur { get; private set; }
 
-    private Vector3 stagePosition = new Vector3(200f, 0f, 0f);
+    private readonly Vector3 stagePosition = new Vector3(200f, 0f, 0f);
+
+    private UnitStatus playerStat;
 
     private void Awake()
     {
         worldCur = world;
 
         difficulty = ES3.Load<int>(Data_Strings.gameDifficultyKey, 1);
+        gameLevel = difficulty;
+
+        GameObject playerObj = GameObject.FindGameObjectWithTag(Data_Strings.playerTag);
+        if (playerObj != null)
+        {
+            playerStat = playerObj.GetComponent<UnitStatus>();
+
+            if (playerStat != null)
+                playerStat.RefreshStageDifficultyStats(true);
+        }
     }
 
-    void Start()
+    private void Start()
     {
         if (stageData == null)
         {
             GameObject dataObj = GameObject.FindGameObjectWithTag(Data_Strings.DataObjTag);
-            stageData = dataObj.GetComponent<Data_Stages>();
+
+            if (dataObj != null)
+                stageData = dataObj.GetComponent<Data_Stages>();
         }
     }
 
     /// <summary>
-    /// 스테이지를 플레이합니다. (0: 일반, 1: 정예, 2: 보스)
+    /// 스테이지를 플레이합니다. typeCode: 0 = 일반, 1 = 정예, 2 = 보스
     /// </summary>
     public void StagePlay(int typeCode, Stage_NextStagePortal.RewardType rewardType)
     {
+        if (stageData == null)
+            return;
+
         StageType stageType = GetStageTypeFromInt(typeCode);
-        int stageID = stageData.GetRandomStageIDInWorld(worldCur, stageType);
+        int stageID = GetRandomStageIDAvoidPrevious(worldCur, stageType);
 
         if (stageID == -1)
-        {
-            //Debug.LogWarning("[Control_Stage] 유효한 스테이지 ID를 찾지 못했습니다.");
             return;
-        }
 
         GameObject stageObj = stageData.GetStagePrefab(stageID);
 
         if (stageObj == null)
-        {
-            //Debug.LogWarning($"[Control_Stage] 스테이지 프리팹을 찾을 수 없습니다. ID: {stageID}");
             return;
-        }
 
         stageCur++;
-        GameObject stage = Instantiate(stageObj, stagePosition * stageCur, Quaternion.identity);
 
-        StageModule _module = stage.GetComponent<StageModule>();
+        GameObject stage = Instantiate(
+            stageObj,
+            stagePosition * stageCur,
+            Quaternion.identity
+        );
 
-        
+        StageModule module = stage.GetComponent<StageModule>();
+
+        playingStageID = stageID;
+
+        if (module == null)
+            return;
 
         if (stageCur == requireForBoss - 1)
         {
-            _module.NextisBoss();
+            module.NextisBoss();
         }
-        else
-        {
-            _module.RewardObjSet(rewardType, stageType);
-        }
-        //Debug.Log($"[Control_Stage] Stage {stageID} 생성 완료");
+        module.RewardObjSet(rewardType, stageType);
     }
 
     public void BossStagePlay()
     {
-        if(worldCur != 0)
+        stageCur++;
+
+        if (worldCur != 0)
         {
-            stageCur++;
-            Instantiate(stageData.bossStages[world - 1], stagePosition * stageCur, Quaternion.identity);
+            Instantiate(
+                stageData.bossStages[worldCur - 1],
+                stagePosition * stageCur,
+                Quaternion.identity
+            );
         }
         else
         {
-            stageCur++;
-            Instantiate(customBossStage, stagePosition * stageCur, Quaternion.identity);
+            Instantiate(
+                customBossStage,
+                stagePosition * stageCur,
+                Quaternion.identity
+            );
+        }
+    }
+
+    private int GetRandomStageIDAvoidPrevious(int world, StageType stageType)
+    {
+        int selectedID = stageData.GetRandomStageIDInWorld(world, stageType);
+
+        if (selectedID == -1)
+            return -1;
+
+        if (playingStageID < 0)
+            return selectedID;
+
+        const int retryCount = 10;
+
+        for (int i = 0; i < retryCount; i++)
+        {
+            if (selectedID != playingStageID)
+                return selectedID;
+
+            selectedID = stageData.GetRandomStageIDInWorld(world, stageType);
+
+            if (selectedID == -1)
+                return -1;
         }
 
+        return selectedID;
     }
 
     /// <summary>
-    /// 외부 int → StageType 변환
+    /// 외부 int 값을 StageType으로 변환합니다.
     /// </summary>
     private StageType GetStageTypeFromInt(int type)
     {
@@ -101,6 +149,4 @@ public class Control_Stage : MonoBehaviour
             _ => StageType.Normal,
         };
     }
-
-
 }

@@ -4,18 +4,29 @@ using System.Collections;
 
 public class CameraMovingSystem : MonoBehaviour
 {
-    Transform tr;
+    private Transform tr;
+
     public PlayerLookMouse lookMouse;
 
-    [SerializeField] CinemachinePositionComposer positionComposer;
+    [SerializeField] private CinemachinePositionComposer positionComposer;
 
     public bool isCamRangeUp { get; private set; } = false;
     public bool isSniAiming = false;
-    [SerializeField] PlayerMove playerMoveSystem;
+
+    [SerializeField] private PlayerMove playerMoveSystem;
+
+    [Header("Stage Camera Move")]
+    [SerializeField] private float stageMoveSmoothTime = 0.45f;
+    [SerializeField] private float stageMoveEndDistance = 0.05f;
+    [SerializeField] private bool useUnscaledTimeForStageMove = false;
+
+    private bool isStageCameraMoving = false;
+    private Vector3 stageMoveVelocity = Vector3.zero;
 
     [Header("Boss Direction")]
     [SerializeField] private bool isBossDirectionPlaying = false;
     private Transform bossTarget;
+    private Vector3 bossDirectionOffset = Vector3.zero;
 
     [Header("Camera Shake")]
     [SerializeField] private bool useUnscaledTimeForShake = false;
@@ -23,9 +34,7 @@ public class CameraMovingSystem : MonoBehaviour
     private Coroutine shakeCoroutine;
     private Vector3 shakeOffset = Vector3.zero;
 
-    float _range = 5f;
-
-    Vector3 bossDirectionOffset = Vector3.zero;
+    private float _range = 5f;
 
     public float cameraRange
     {
@@ -33,60 +42,114 @@ public class CameraMovingSystem : MonoBehaviour
         set { _range = value; }
     }
 
-    void Start()
+    private void Awake()
     {
-        tr = GetComponent<Transform>();
+        tr = transform;
+    }
 
+    private void Start()
+    {
         if (lookMouse == null || playerMoveSystem == null)
         {
             GameObject player = GameObject.FindGameObjectWithTag(Data_Strings.playerTag);
-            lookMouse = player.GetComponent<PlayerLookMouse>();
-            playerMoveSystem = player.GetComponent<PlayerMove>();
+
+            if (player != null)
+            {
+                if (lookMouse == null)
+                    lookMouse = player.GetComponent<PlayerLookMouse>();
+
+                if (playerMoveSystem == null)
+                    playerMoveSystem = player.GetComponent<PlayerMove>();
+            }
         }
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         if (lookMouse == null)
             return;
 
-        Vector3 targetPos;
+        Vector3 targetPos = GetTargetPosition();
+        Vector3 finalTargetPos = targetPos + shakeOffset;
 
-        // 1. 보스 연출 중이면 보스 위치를 따라감
-        if (isBossDirectionPlaying)
+        if (isStageCameraMoving)
         {
-            targetPos = GetBossCameraPosition();
+            MoveCameraTargetSmoothly(finalTargetPos);
         }
         else
         {
-            // 2. 평소에는 기존 플레이어/조준 로직 수행
-            Vector3 playerPos = lookMouse.playerTr.position + Vector3.up;
-            playerPos.z = 0f; // Z축 고정
+            tr.position = finalTargetPos;
+        }
+    }
 
-            if (playerMoveSystem.isAiming)
-            {
-                float camRangeRevision = 1f;
-                if (isSniAiming && isCamRangeUp)
-                {
-                    camRangeRevision = 3f;
-                }
+    private Vector3 GetTargetPosition()
+    {
+        if (isBossDirectionPlaying)
+            return GetBossCameraPosition();
 
-                Vector3 direction = (lookMouse.targetPos - playerPos).normalized;
-                float actualDistance = Vector3.Distance(playerPos, lookMouse.targetPos);
-                float distanceToMove = Mathf.Min(cameraRange * camRangeRevision, actualDistance);
+        Vector3 playerPos = lookMouse.playerTr.position + Vector3.up;
+        playerPos.z = 0f;
 
-                targetPos = playerPos + (direction * distanceToMove);
+        if (playerMoveSystem != null && playerMoveSystem.isAiming)
+        {
+            float camRangeRevision = 1f;
 
-                Debug.DrawLine(playerPos, targetPos, lookMouse.isAimClose ? Color.red : Color.green);
-            }
-            else
-            {
-                targetPos = playerPos;
-            }
+            if (isSniAiming && isCamRangeUp)
+                camRangeRevision = 3f;
+
+            Vector3 direction = (lookMouse.targetPos - playerPos).normalized;
+            float actualDistance = Vector3.Distance(playerPos, lookMouse.targetPos);
+            float distanceToMove = Mathf.Min(cameraRange * camRangeRevision, actualDistance);
+
+            Vector3 targetPos = playerPos + direction * distanceToMove;
+            targetPos.z = 0f;
+
+            Debug.DrawLine(playerPos, targetPos, lookMouse.isAimClose ? Color.red : Color.green);
+
+            return targetPos;
         }
 
-        // 최종 위치에 흔들림 오프셋 추가
-        tr.position = targetPos + shakeOffset;
+        return playerPos;
+    }
+
+    private void MoveCameraTargetSmoothly(Vector3 finalTargetPos)
+    {
+        float deltaTime = useUnscaledTimeForStageMove
+            ? Time.fixedUnscaledDeltaTime
+            : Time.fixedDeltaTime;
+
+        tr.position = Vector3.SmoothDamp(
+            tr.position,
+            finalTargetPos,
+            ref stageMoveVelocity,
+            stageMoveSmoothTime,
+            Mathf.Infinity,
+            deltaTime
+        );
+
+        if ((tr.position - finalTargetPos).sqrMagnitude <= stageMoveEndDistance * stageMoveEndDistance)
+        {
+            tr.position = finalTargetPos;
+            stageMoveVelocity = Vector3.zero;
+            isStageCameraMoving = false;
+        }
+    }
+
+    public void StartStageCameraMove()
+    {
+        isStageCameraMoving = true;
+        stageMoveVelocity = Vector3.zero;
+    }
+
+    public void StopStageCameraMove(bool snapToTarget = false)
+    {
+        isStageCameraMoving = false;
+        stageMoveVelocity = Vector3.zero;
+
+        if (snapToTarget && lookMouse != null)
+        {
+            tr.position = GetTargetPosition() + shakeOffset;
+        }
     }
 
     private Vector3 GetBossCameraPosition()
@@ -94,12 +157,12 @@ public class CameraMovingSystem : MonoBehaviour
         if (bossTarget == null)
             return tr.position;
 
-        return bossTarget.position + bossDirectionOffset;
+        Vector3 targetPos = bossTarget.position + bossDirectionOffset;
+        targetPos.z = 0f;
+
+        return targetPos;
     }
 
-    /// <summary>
-    /// 보스 연출 시작
-    /// </summary>
     public void StartBossDirection(Transform bossTr, Vector3 offset)
     {
         if (bossTr == null)
@@ -110,9 +173,6 @@ public class CameraMovingSystem : MonoBehaviour
         bossDirectionOffset = offset;
     }
 
-    /// <summary>
-    /// 보스 연출 종료
-    /// </summary>
     public void EndBossDirection()
     {
         isBossDirectionPlaying = false;
@@ -127,23 +187,23 @@ public class CameraMovingSystem : MonoBehaviour
 
     public void CamSpeedSet(bool _isAimKeyDown)
     {
-        Vector3 speed = _isAimKeyDown ? new Vector3(2f, 1f, 0f) : new Vector3(1f, 0.5f, 0f);
-        positionComposer.Damping = speed;
+        if (positionComposer != null)
+        {
+            Vector3 speed = _isAimKeyDown
+                ? new Vector3(2f, 1f, 0f)
+                : new Vector3(1f, 0.5f, 0f);
 
-        playerMoveSystem.isSprintable = !_isAimKeyDown;
+            positionComposer.Damping = speed;
+        }
+
+        if (playerMoveSystem != null)
+            playerMoveSystem.isSprintable = !_isAimKeyDown;
     }
 
-    /// <summary>
-    /// 화면 흔들림 시작
-    /// strength: 흔들림 강도
-    /// duration: 지속 시간
-    /// </summary>
     public void PlayCameraShake(float strength, float duration)
     {
         if (shakeCoroutine != null)
-        {
             StopCoroutine(shakeCoroutine);
-        }
 
         shakeCoroutine = StartCoroutine(CameraShakeRoutine(strength, duration));
     }
@@ -156,10 +216,12 @@ public class CameraMovingSystem : MonoBehaviour
 
         while (elapsed < duration)
         {
-            float delta = useUnscaledTimeForShake ? Time.unscaledDeltaTime : Time.deltaTime;
+            float delta = useUnscaledTimeForShake
+                ? Time.unscaledDeltaTime
+                : Time.deltaTime;
+
             elapsed += delta;
 
-            // 시간이 지날수록 약하게 줄어드는 감쇠
             float t = 1f - Mathf.Clamp01(elapsed / duration);
             float currentStrength = strength * t;
 
@@ -175,9 +237,6 @@ public class CameraMovingSystem : MonoBehaviour
         shakeCoroutine = null;
     }
 
-    /// <summary>
-    /// 흔들림 강제 종료
-    /// </summary>
     public void StopCameraShake()
     {
         if (shakeCoroutine != null)

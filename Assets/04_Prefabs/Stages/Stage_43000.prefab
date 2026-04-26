@@ -76,6 +76,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edb0e9a1ddc55784e943bc325bf518b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  remainEnemies: 0
   startPoint: {fileID: 3700522780757299366}
   rewardObjs: []
   isBossStage: 0
@@ -414,12 +415,19 @@ MonoBehaviour:
   - {fileID: 3884516063138986657, guid: 4cf11b638f4c2984dabaf6a26b8b4f6f, type: 3}
   - {fileID: 3538274379456189382, guid: de07d3d9fa6c2544bbaf8f0b48001445, type: 3}
   isRotate: 1
+  isUnitProp: 0
   instancePerBlock: 2
   spawnPerFrame: 25
   spawnRate: 25
   instanceMax: 0
+  isGenerateOnHighQuality: 0
   raycastHeight: 40
-  surfaceOffset: 0.02
+  useFrontSideOnly: 1
+  useBackSideInstead: 0
+  frontZOffset: 0
+  surfaceOffsetPos: {x: 0, y: 0.02, z: 0}
+  groundOffsetPos: {x: 0, y: -0.5, z: 0}
+  cliffOffsetPos: {x: 0, y: -0.3, z: 0}
   type: 0
 --- !u!1 &7185836404029405834
 GameObject:
@@ -806,12 +814,19 @@ MonoBehaviour:
   - {fileID: 3884516063138986657, guid: 4cf11b638f4c2984dabaf6a26b8b4f6f, type: 3}
   - {fileID: 3538274379456189382, guid: de07d3d9fa6c2544bbaf8f0b48001445, type: 3}
   isRotate: 1
+  isUnitProp: 0
   instancePerBlock: 2
   spawnPerFrame: 25
   spawnRate: 25
   instanceMax: 0
+  isGenerateOnHighQuality: 0
   raycastHeight: 40
-  surfaceOffset: 0.02
+  useFrontSideOnly: 1
+  useBackSideInstead: 0
+  frontZOffset: 0
+  surfaceOffsetPos: {x: 0, y: 0.02, z: 0}
+  groundOffsetPos: {x: 0, y: -0.5, z: 0}
+  cliffOffsetPos: {x: 0, y: -0.3, z: 0}
   type: 0
 --- !u!1001 &224443264787253904
 PrefabInstance:
@@ -2441,6 +2456,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8802403621934449153}
     m_Modifications:
+    - target: {fileID: 366350296091763742, guid: 5cc7480e29158ef4b82cb672c3263a25, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6343150869346155467, guid: 5cc7480e29158ef4b82cb672c3263a25, type: 3}
       propertyPath: m_LocalPosition.x
       value: -7.8776855

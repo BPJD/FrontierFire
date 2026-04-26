@@ -66,6 +66,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edb0e9a1ddc55784e943bc325bf518b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  remainEnemies: 0
   startPoint: {fileID: 4597272719823838651}
   rewardObjs: []
   isBossStage: 0
@@ -5325,6 +5326,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitDataSource: {fileID: 11400000, guid: 5dbaba19b87c4c64792149eb875a299d, type: 2}
+  unitParamsDifficulty:
+    u_name: 
+    u_type: 0
+    u_hp: 0
+    u_atk: 0
+    u_def: 0
+    u_immunePer: 1
+    u_hpRegen: 0
+    u_hpRegenSpeed: 1
+    u_armorLevel: 0
+    u_moveSpeed: 0
+    u_jumpPower: 0
+    u_multijumpCount: 0
+    u_shotAccuracy: 0
+    u_criRate: 0
+    u_criDamage: 0
+    u_damage: 1
   unitParamsAbility:
     u_name: 
     u_type: 0
@@ -25283,6 +25301,10 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 62
       objectReference: {fileID: 0}
+    - target: {fileID: 3916082292440670894, guid: 6a3a98dc73ad1214dbe4e8fa1883b56f, type: 3}
+      propertyPath: isGeneratable
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7489626760085656743, guid: 6a3a98dc73ad1214dbe4e8fa1883b56f, type: 3}
       propertyPath: m_LocalScale.x
       value: 49.999977
@@ -28812,6 +28834,10 @@ PrefabInstance:
     - target: {fileID: 1469692876135945205, guid: 6a3a98dc73ad1214dbe4e8fa1883b56f, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 62
+      objectReference: {fileID: 0}
+    - target: {fileID: 3916082292440670894, guid: 6a3a98dc73ad1214dbe4e8fa1883b56f, type: 3}
+      propertyPath: isGeneratable
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7489626760085656743, guid: 6a3a98dc73ad1214dbe4e8fa1883b56f, type: 3}
       propertyPath: m_LocalScale.x

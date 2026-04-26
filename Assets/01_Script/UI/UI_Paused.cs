@@ -29,6 +29,7 @@ public class UI_Paused : MonoBehaviour
     {
         inputDetector = GetComponentInParent<UI_InputDeviceDetector>();
         uiSoundPlayer = GetComponent<UI_SoundPlayer>();
+        CheckPlayerComponent();
     }
 
     void CheckPlayerComponent()

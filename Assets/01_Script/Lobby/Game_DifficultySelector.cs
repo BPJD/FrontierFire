@@ -1,6 +1,7 @@
+using Michsky.UI.Heat;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using System.Collections;
 
 public class Game_DifficultySelector : MonoBehaviour
 {
@@ -29,6 +30,8 @@ public class Game_DifficultySelector : MonoBehaviour
 
     [SerializeField] RectTransform[] difficultyPanelTrs;
     [SerializeField] CanvasGroup[] difficultyGroups;
+
+    LocalizedObject[] localizedObjects;
 
     private void Start()
     {
@@ -85,7 +88,14 @@ public class Game_DifficultySelector : MonoBehaviour
         isPortalSelected = playerInteract.SelectedObj == portal;
 
         if (difficultySelectPanel != null)
+        {
             difficultySelectPanel.alpha = isPortalSelected ? 1f : 0f;
+
+            difficultySelectPanel.gameObject.SetActive(isPortalSelected);
+        }
+
+
+            
 
         if (!isPortalSelected)
         {
@@ -199,4 +209,5 @@ public class Game_DifficultySelector : MonoBehaviour
             difficultyPanelTrs[i].localScale = targetScale[i];
         }
     }
+
 }

@@ -9,6 +9,7 @@ public class Terrain_ObjectGenerator : MonoBehaviour
     [SerializeField] Transform objParent;
     [SerializeField] GameObject[] prefabs;
     [SerializeField] bool isRotate = true;
+    [SerializeField] bool isUnitProp = false; // 유닛 프롭 여부 (유닛 프롭은 품질에 따른 생성 개수 보정이 다름)
 
     [Header("Distribution")]
     [SerializeField] int instancePerBlock = 1;   // 스트라이프당 생성 개수
@@ -16,6 +17,11 @@ public class Terrain_ObjectGenerator : MonoBehaviour
     [SerializeField] float spawnRate = 100f;
     [SerializeField] int instanceMax = 0;        // 최대 생성 개수 (0이면 무제한)
     int instanceCount = 0;
+    float[] rateRevisionByQuality = { -0.4f, -0.2f, 0f, 0.2f, 0.5f }; // Very Low, Low, Medium, High, VeryHigh
+    float[] frameRevisionByQuality = { 1.3f, 1.15f, 1f, 0.6f, 0.2f }; // Very Low, Low, Medium, High, VeryHigh
+    int[] countRevisionByQuality = { -1, 0, 1, 3, 6 }; // Very Low, Low, Medium, High, VeryHigh
+    [SerializeField] bool isGenerateOnHighQuality = false;
+    [SerializeField] bool isIgnoreQuality = false;
 
     [Header("Raycast")]
     [SerializeField] float raycastHeight = 40f;
@@ -36,6 +42,7 @@ public class Terrain_ObjectGenerator : MonoBehaviour
     int stripeCount;
     float halfX, halfZ;
     Coroutine spawnRoutine;
+    int qualityLevel;
 
     public enum TerrainType { Surface, Cliff, Ground };
     public TerrainType type = TerrainType.Surface;
@@ -44,6 +51,18 @@ public class Terrain_ObjectGenerator : MonoBehaviour
     {
         if (!isGeneratable)
             return;
+
+        qualityLevel = QualitySettings.GetQualityLevel();
+
+        if (isGenerateOnHighQuality && qualityLevel <= 2)
+        {
+            return;
+        }
+
+        if (!isUnitProp && !isIgnoreQuality)
+        {
+            RevisionByQuality(qualityLevel);
+        }
 
         tr = transform;
 
@@ -66,6 +85,15 @@ public class Terrain_ObjectGenerator : MonoBehaviour
 
         spawnRoutine = StartCoroutine(SpawnRoutine());
     }
+
+    void RevisionByQuality(int quality)
+    {
+        instanceCount = Mathf.Max(0, instanceCount + countRevisionByQuality[quality]);
+        spawnRate = Mathf.Clamp(spawnRate + (rateRevisionByQuality[quality] * spawnRate), 0f, 100f);
+        frameRevisionByQuality[quality] = Mathf.Max(frameRevisionByQuality[quality], 0.1f);
+    }
+
+
 
     IEnumerator SpawnRoutine()
     {

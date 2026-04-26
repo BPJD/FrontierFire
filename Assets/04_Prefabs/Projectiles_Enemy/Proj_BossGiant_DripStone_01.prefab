@@ -112,6 +112,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   bulletMesh: {fileID: 2463127980571956138}
+  hitSound_terrains: []
   isMove: 0
 --- !u!114 &-6760836585274888648
 MonoBehaviour:
@@ -213,6 +214,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1001 &934795868879515419
 PrefabInstance:

@@ -44,12 +44,9 @@ public class Item_Weapon : MonoBehaviour, IInteractable
             {
                 WeaponDropItem(weaponID);
             }
-
         }
 
-
     }
-
 
     void SetComponent()
     {
@@ -84,7 +81,6 @@ public class Item_Weapon : MonoBehaviour, IInteractable
         prop.SetActive(true);
 
         toolTip = GetComponent<Item_ToolTip>();
-
 
         if (toolTip != null)
         {
@@ -129,8 +125,9 @@ public class Item_Weapon : MonoBehaviour, IInteractable
 
                 // 누적된 add/mult를 이용해 최종 스탯 계산
                 _param = WeaponUpgradeUtil.BuildParamsWithUpgrades(baseParam, add, mult);
-                itemWeaponParams = _param;
             }
+
+            itemWeaponParams = _param;
 
             // --- 2) 최종 스탯으로 툴팁 채우기 ---
             toolTip.title = _param.w_name;
@@ -138,6 +135,7 @@ public class Item_Weapon : MonoBehaviour, IInteractable
             toolTip.titleColor = itemTierColorData.GetItemTierColor(quality, true);
             toolTip.description = _param.w_desc;
 
+            EnsureWeaponStatSize(10);
             toolTip.weaponStat[0] = AtkType(_param.w_atkType);
             toolTip.weaponStat[1] = AmmoType(_param.w_usingAmmo);
             toolTip.weaponStat[2] = _param.w_atk.ToString("F0");
@@ -150,9 +148,25 @@ public class Item_Weapon : MonoBehaviour, IInteractable
             toolTip.weaponStat[9] = _param.w_dps.ToString();
 
             toolTip.thisItemWeaponParams = _param;
-            toolTip.UpdateToolTipUI();
-
+            RefreshToolTip();
         }
+    }
+
+    void RefreshToolTip()
+    {
+        if (toolTip == null)
+            return;
+
+        toolTip.UpdateToolTipUI();
+        StartCoroutine(RefreshToolTipNextFrame());
+    }
+
+    IEnumerator RefreshToolTipNextFrame()
+    {
+        yield return null;
+
+        if (toolTip != null)
+            toolTip.UpdateToolTipUI();
     }
 
     string AtkType(WeaponParamsSO.AtkTypes type)
@@ -227,11 +241,10 @@ public class Item_Weapon : MonoBehaviour, IInteractable
         propMagCur = mag;
         weaponPickCount = pickCount;
 
-        toolTip = GetComponent<Item_ToolTip>();
-        if (toolTip != null)
-        {
-            toolTip.UpdateToolTipUI();
-        }
+        if (toolTip == null)
+            toolTip = GetComponent<Item_ToolTip>();
+
+        RefreshToolTip();
     }
 
     public void UpgradeSet(List<int> ids, int _quality)
@@ -240,6 +253,14 @@ public class Item_Weapon : MonoBehaviour, IInteractable
         upgradesCur = (ids != null) ? new List<int>(ids) : new List<int>();
     }
 
+    void EnsureWeaponStatSize(int size)
+    {
+        if (toolTip == null)
+            return;
+
+        while (toolTip.weaponStat.Count < size)
+            toolTip.weaponStat.Add(string.Empty);
+    }
 
 
 

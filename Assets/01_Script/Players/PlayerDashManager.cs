@@ -6,13 +6,16 @@ public class PlayerDashManager : MonoBehaviour
 {
     Transform tr;
     PlayerLookMouse playerLook;
-    
+    PlayerMove playerMove;
+
     [SerializeField] PlayerMove_Dash[] dashSkills;
     [SerializeField] int dashLevel = 0;
 
     [SerializeField] float dashCoolDown = 2f;
     float cooldownCur = 3f;
     bool isDashUsable = true;
+
+
 
     static float cooldownTick = 0.02f;
     WaitForSeconds cooldown = new WaitForSeconds(cooldownTick);
@@ -26,16 +29,22 @@ public class PlayerDashManager : MonoBehaviour
 
     private void Start()
     {
-        playerLook = GetComponentInParent<PlayerLookMouse>();
-        audioSource = GetComponent<AudioSource>();
-        tr = transform;
+        SetComponents();
 
-        if(dashCooldownIcon == null)
+        if (dashCooldownIcon == null)
         {
             GetDashIcon();
         }
 
         SetSkill();
+    }
+
+    void SetComponents()
+    {
+        playerLook = GetComponentInParent<PlayerLookMouse>();
+        playerMove = GetComponentInParent<PlayerMove>();
+        audioSource = GetComponent<AudioSource>();
+        tr = transform;
     }
 
 
@@ -56,7 +65,11 @@ public class PlayerDashManager : MonoBehaviour
             }
             return;
         }
-            
+
+        if (playerMove.isAiming)
+        {
+            return;
+        }
 
         if (dashCooldownIcon == null)
         {

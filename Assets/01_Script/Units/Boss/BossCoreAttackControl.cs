@@ -32,7 +32,7 @@ public class BossCoreAttackControl : MonoBehaviour
     {
         cooldownCur -= Time.deltaTime;
 
-        if (isAttackReady && cooldownCur < 0f)
+        if (bossStat.hpCur > 0 && isAttackReady && cooldownCur < 0f)
         {
             SpawnAndMoveBullets();
             cooldownCur = attackCoolDown;
